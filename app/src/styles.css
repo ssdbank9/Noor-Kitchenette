@@ -354,3 +354,39 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
   margin: 0; padding: 8px 12px; border-radius: 12px; background: var(--rust-tint); color: var(--rust-text);
   font-size: 14px; font-weight: 800;
 }
+
+/* ============ Pantry actions (F56) ============ */
+.pantry-tools { display: flex; gap: 10px; align-items: center; position: sticky; top: 0; z-index: 5; background: var(--ground); padding: 4px 0; }
+.pantry-search { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border: 2px solid var(--border); border-radius: var(--radius-button); background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; }
+.pantry-search:focus { outline: 3px solid var(--lilac); outline-offset: 1px; }
+.pantry-lowchip { min-height: 48px; padding: 0 18px; border-radius: 999px; border: 2px solid var(--rust); background: transparent; color: var(--rust-text); font-weight: 800; }
+.pantry-lowchip[aria-pressed="true"] { background: var(--rust); color: #fff; }
+button.pantry-item { width: 100%; min-height: 48px; text-align: left; color: var(--ink); font: inherit; font-weight: 700; }
+.psheet { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: center; }
+.psheet__backdrop { position: absolute; inset: 0; border: 0; background: rgba(43, 26, 31, 0.5); }
+.psheet__panel { position: relative; width: 100%; max-width: 480px; max-height: 92dvh; overflow-y: auto; background: var(--ground); border-radius: 24px 24px 0 0; padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 16px; }
+.psheet__head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.psheet__name { margin: 0; font-family: var(--font-display); font-size: 28px; font-weight: 800; line-height: 1.1; }
+.psheet__now { margin: 4px 0 0; color: var(--muted); font-weight: 700; }
+.psheet__close { min-height: 44px; padding: 0 14px; border: 2px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--ink); font-weight: 800; }
+.psheet__actions { display: flex; flex-direction: column; gap: 10px; }
+.psheet__action { min-height: 56px; border: 0; border-radius: var(--radius-button); background: var(--rust); color: #fff; font-family: var(--font-display); font-size: 20px; font-weight: 800; }
+.psheet__action--checked { background: var(--cyan); }
+.psheet__action--used { background: var(--lilac); }
+.psheet__action--finished { background: var(--rust-tint); color: var(--rust-text); }
+.psheet__action--threw { background: var(--warm-pink); color: var(--ink); }
+.psheet__entry { display: flex; flex-direction: column; gap: 14px; }
+.psheet__prompt { margin: 0; font-weight: 800; font-size: 17px; }
+.psheet__stepper { display: grid; grid-template-columns: 64px 1fr 64px; gap: 10px; align-items: end; }
+.psheet__stepper > button { min-height: 64px; border: 0; border-radius: var(--radius-button); background: var(--lilac); color: #fff; font-size: 32px; font-weight: 800; }
+.psheet__exact { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 800; color: var(--muted); }
+.psheet__exact input { min-height: 64px; width: 100%; text-align: center; font-family: var(--font-display); font-size: 32px; font-weight: 800; border: 2px solid var(--border); border-radius: var(--radius-button); background: var(--surface); color: var(--ink); }
+.psheet__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.psheet__chip { min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--lilac-tint); color: var(--lilac); font-weight: 800; }
+.psheet__field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 800; color: var(--muted); }
+.psheet__field select, .psheet__field input { min-height: 48px; padding: 0 12px; border: 2px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; }
+.psheet__error { margin: 0; color: var(--rust-text); font-weight: 800; }
+.psheet__confirm { display: flex; gap: 10px; flex-wrap: wrap; }
+.psheet__confirm .button-primary { flex: 1 1 140px; min-height: 52px; }
+.psheet__confirm .button-primary:disabled { opacity: 0.45; }
+.psheet__confirm .button-outline { padding: 0 16px; }
