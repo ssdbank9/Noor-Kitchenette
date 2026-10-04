@@ -1,0 +1,16 @@
+{
+  "note": "Each mood maps to foodpanda cuisine ids (from the listing's own cuisine list, Islamabad, 2026-10-04) and an optional pattern matched against the restaurant name and cuisines. Edit freely; ids are rechecked by --list-cuisines.",
+  "moods": [
+    { "mood": "Pasta", "cuisines": [103] },
+    { "mood": "Pizza", "cuisines": [73] },
+    { "mood": "BBQ", "cuisines": [246] },
+    { "mood": "Karahi", "cuisines": [251] },
+    { "mood": "Handi", "cuisines": [251] },
+    { "mood": "Chinese", "cuisines": [74] },
+    { "mood": "Korean wings", "cuisines": [86, 87, 241], "match": "korean|wing" },
+    { "mood": "Burgers", "cuisines": [85] },
+    { "mood": "Donuts", "cuisines": [77, 84], "match": "donut|doughnut" },
+    { "mood": "Croissants", "cuisines": [77], "match": "croissant|bakery|bake|patisserie|boulangerie" },
+    { "mood": "Desserts", "cuisines": [84] }
+  ]
+}
