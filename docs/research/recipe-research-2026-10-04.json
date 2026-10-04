@@ -1,0 +1,1967 @@
+{
+  "date": "2026-10-04",
+  "feature": "F78",
+  "method": [
+    "Researched by four Claude agents on 2026-10-04. View and like counts were read from each YouTube watch page; star ratings and rating counts from each recipe page's embedded rating data.",
+    "Reddit blocks direct access, so Reddit feedback comes from search snippets or third-party archives (PullPush, Arctic Shift); scores may be out of date, and most threads are general or Indian rather than Pakistani.",
+    "YouTube comments: the top 15 to 40 comments per main video were read; total comment counts were not collected.",
+    "Food Fusion pages show no star ratings or servings. Masala TV pages all show the same 5.0 from 235, which looks like a placeholder and was treated as unreliable.",
+    "R006c was redone for split red masoor, because Noor's recipe (300 g masoor daal, curry leaves, lemon, 40 min) is the split red lentil; the current Food Fusion links use whole black masoor.",
+    "External links and numbers change over time; recheck before relying on them."
+  ],
+  "dishes": [
+    {
+      "id": "R001",
+      "dish": "Chicken Biryani (Extreme)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/extreme-chicken-biryani/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=40VJanswaAQ",
+        "video_status": "OK, playable",
+        "video_title": "Extreme Chicken Biryani Recipe By Food Fusion",
+        "video_views": "1,657,146 (watch page, 2026-10-04); published 2020-03-27"
+      },
+      "written": [
+        {
+          "title": "Pakistani Chicken Biryani Recipe (The BEST!)",
+          "url": "https://www.teaforturmeric.com/chicken-biryani/",
+          "site": "Tea for Turmeric",
+          "rating": "4.93",
+          "rating_count": 264,
+          "notes": "Pakistani home-style biryani with lots of tips. Most ratings of any biryani page found. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Pakistani Chicken Biryani SIMPLIFIED!",
+          "url": "https://www.flourandspiceblog.com/authentic-pakistani-chicken-biryani-simplified/",
+          "site": "Flour & Spice",
+          "rating": "5",
+          "rating_count": 12,
+          "notes": "Karachi-style masala biryani made without spice packets. Few ratings. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Pakistani-Style Chicken Biryani",
+          "url": "https://www.177milkstreet.com/recipes/pakistani-chicken-biryani",
+          "site": "Milk Street",
+          "rating": "4.68",
+          "rating_count": 19,
+          "notes": "International adaptation, less traditional. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Restaurant Style Biryani Recipe By Food Fusion (Eid Special)",
+          "url": "https://www.youtube.com/watch?v=uFa6urPkK4c",
+          "channel": "Food Fusion",
+          "views": "8,563,847",
+          "published": "about 7 years ago (YouTube search page)",
+          "comment_feedback": "Many first-timers say it worked and is now their go-to. One non-Pakistani viewer said a Pakistani friend found it tasted like home. No complaints in the comments read. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Famous Karachi Biryani Authentic Style (1kg Recipe)",
+          "url": "https://www.youtube.com/watch?v=3rZ9n-SZHqY",
+          "channel": "Kun Foods",
+          "views": "3,507,171",
+          "published": "about 5 years ago (YouTube search page)",
+          "comment_feedback": "Many say it came out perfect and is their go-to. Viewers praise the clear explanations. One critic objected to Karachi biryani's use of food colour. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Extreme Chicken Biryani Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=40VJanswaAQ",
+          "channel": "Food Fusion",
+          "views": "1,657,146",
+          "published": "2020-03-27",
+          "comment_feedback": "Positive. One viewer needed 3 attempts to get it right. Another added a spoon of packet biryani masala at the dum stage. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1g5jllz/what_is_your_foolproof_chicken_biryani_recipe/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Thread asking for a foolproof biryani. One user calls a Food Fusion Karachi-style masala biryani video the best. Others marinate the chicken in Shan masala and yogurt. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/1ihcnwp/please_share_your_best_biryani_recipe/",
+          "subreddit": "r/pakistan",
+          "summary": "Users share their own home methods. No single website or channel stands out. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1fji3n7/chicken_biryani_with_limited_ingredients/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Advice: biryani is basically a thick chicken masala layered with rice, and packet biryani masala is an accepted shortcut. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/chicken-biryani/",
+        "video_url": "https://www.youtube.com/watch?v=uFa6urPkK4c",
+        "reason": "Highest verified written rating (4.93 from 264). Most-viewed Pakistani-channel biryani video found (8.56M), with consistently positive 'tried it' comments. Neither is the 'Extreme' recipe, so keep the current Food Fusion pair if the app must match it exactly."
+      },
+      "not_verified": "Food Fusion pages show no star ratings. Reddit threads could not be opened (blocked to fetchers), so those summaries come from search snippets. YouTube comment counts were not captured; only the top ~20 comments per video were read."
+    },
+    {
+      "id": "R002",
+      "dish": "Chicken Yakhni Pulao",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/chicken-yakhni-pulao/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
+        "video_status": "OK, playable",
+        "video_title": "Chicken Yakhni Pulao Recipe By Food Fusion (Ramzan Special Recipe)",
+        "video_views": "4,031,319 (watch page, 2026-10-04); published 2020-05-05"
+      },
+      "written": [
+        {
+          "title": "Pakistani Chicken Pulao (Yakhni Pulao)",
+          "url": "https://www.teaforturmeric.com/chicken-pulao-yakhni-pulao/",
+          "site": "Tea for Turmeric",
+          "rating": "4.77",
+          "rating_count": 46,
+          "notes": "Classic Pakistani pulao made with yakhni (meat stock), plus troubleshooting tips. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Yakhni Pulao Recipe Made Quicker with an Instant Pot",
+          "url": "https://www.flourandspiceblog.com/yakhni-pulao-made-quicker-with-an-instant-pot/",
+          "site": "Flour & Spice",
+          "rating": "4.6",
+          "rating_count": 40,
+          "notes": "Faster pressure-cooker version. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Easy Pakistani Chicken Yakhni Pulao",
+          "url": "https://jamilghar.com/chicken-yakhni-pulao/",
+          "site": "Jamil Ghar",
+          "rating": "5",
+          "rating_count": 5,
+          "notes": "Few ratings. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Chicken Yakhni Pulao Recipe By Food Fusion (Ramzan Special Recipe) (current)",
+          "url": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
+          "channel": "Food Fusion",
+          "views": "4,031,319",
+          "published": "2020-05-05",
+          "comment_feedback": "Very positive. People who made it several times say it comes out flavourful every time. A top-liked tip adds a Shan yakhni pulao packet or a stock cube to the stock. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Chicken Yakhni Pulao Recipe By ijaz Ansari",
+          "url": "https://www.youtube.com/watch?v=7L2Ujq6VF9Q",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "1,584,492",
+          "published": "about 4 years ago (YouTube search page)",
+          "comment_feedback": "Positive. One viewer said the rice stayed whole and was not overcooked. Several asked how much salt to use because the video does not say. One used less spice for a milder dish. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Degi Chicken Yakhni Pulao",
+          "url": "https://www.youtube.com/watch?v=xU-T2H3V1ps",
+          "channel": "Kun Foods",
+          "views": "285,301",
+          "published": "about 4 weeks ago (YouTube search page)",
+          "comment_feedback": "New video. Mostly general praise, plus one viewer from Kolkata who made it successfully. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1siyaxp/which_cut_of_meat_should_i_actually_get_for_pulao/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Discussion of which meat to buy for pulao. One commenter recommends any Kun Foods recipe for Urdu speakers and explains boiling the rice in the stock, then cooking it on dum (sealed, low heat). (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/nkuaol/chicken_yakhni_pulao_recipe/",
+          "subreddit": "r/IndianFood",
+          "summary": "A user posts their own whole-spice yakhni recipe. No agreement on a best source. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/chicken-pulao-yakhni-pulao/",
+        "video_url": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
+        "reason": "Keep the current video. It is the most-viewed yakhni pulao found (4.03M) and its comments are very positive. Tea for Turmeric has the best verified written rating (4.77 from 46)."
+      },
+      "not_verified": "Food Fusion written page has no rating. Reddit threads seen only as search snippets."
+    },
+    {
+      "id": "R003",
+      "dish": "Red Beans (Lal Lobia Masala)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/lal-lobia-masala/",
+        "written_status": "200 OK, Food Fusion recipe page loads; no star rating or serving size shown on the page",
+        "video_url": "https://www.youtube.com/watch?v=mFfYhYCzyVg",
+        "video_status": "OK (playable)",
+        "video_title": "Lal Lobia Masala Recipe By Food Fusion",
+        "video_views": "1,267,217 (13 thousand likes; published 2020-10-10)"
+      },
+      "written": [
+        {
+          "title": "Rajma Recipe (Rajma Masala - Red Kidney Beans Curry)",
+          "url": "https://www.teaforturmeric.com/rajma-recipe/",
+          "site": "Tea for Turmeric (Pakistani-American author)",
+          "rating": "5.0",
+          "rating_count": "29",
+          "notes": "Serves 4. Uses dried beans soaked overnight. Pakistani home style that calls the dish lal lobia."
+        },
+        {
+          "title": "Rajma Masala - Kidney Beans Curry",
+          "url": "https://www.cookwithmanali.com/rajma-masala/",
+          "site": "Cook With Manali",
+          "rating": "4.94",
+          "rating_count": "77",
+          "notes": "Most-rated version found, but Indian Punjabi style. Serves 5."
+        },
+        {
+          "title": "Lal Lobia Masala",
+          "url": "https://foodfusion.com/recipe/lal-lobia-masala/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Current link. Pakistani masala served with rice. Matches the Food Fusion video."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Rajma Lobia ka Salan Kidney Bean Curry Recipe in Urdu Hindi - RKK",
+          "url": "https://www.youtube.com/watch?v=K0IQN6ySpT0",
+          "channel": "Ruby Ka Kitchen",
+          "views": "1,447,661 (about 25,098 likes)",
+          "published": "2019-08-19",
+          "comment_feedback": "Many viewers say they made it and their family loved it. One viewer liked that she explains what to do and what to avoid. No complaints in the top ~30 comments."
+        },
+        {
+          "title": "Lal Lobia Masala Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=mFfYhYCzyVg",
+          "channel": "Food Fusion",
+          "views": "1,267,217 (13 thousand likes)",
+          "published": "2020-10-10",
+          "comment_feedback": "Top comment (438 likes) advises boiling the beans without salt so they stay bright red instead of turning dark. Several viewers have made it many times. One swapped the cream for yogurt and was happy with it."
+        },
+        {
+          "title": "Rajma Lobia ka Salan Kidney Bean Curry Recipe in Urdu Hindi | BaBaFood Chef Rizwan",
+          "url": "https://www.youtube.com/watch?v=ULlNtYWpHNs",
+          "channel": "BaBa Food RRC",
+          "views": "1,057,776 (about 16.5 thousand likes)",
+          "published": "2020-07-03",
+          "comment_feedback": "Top English comment is from someone who never liked rajma but loved this version. Others say they have cooked it this way for years."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/1exr0zg/how_can_i_make_rajma_kidney_beans_more_tasty/",
+          "subreddit": "r/IndianFood",
+          "summary": "Users say to avoid canned beans. Pressure-cook dried beans with whole spices and keep the cooking water. Cook the onions well and add kasuri methi near the end."
+        },
+        {
+          "url": "https://www.reddit.com/r/budgetcooking/comments/17a5iez/red_kidney_beans_popularly_called_as_rajma_in/",
+          "subreddit": "r/budgetcooking",
+          "summary": "Mash a few beans against the side of the pan to thicken the gravy. Don't mash too many or it turns to pulp."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/1acnz66/cooking_rajma_kidney_beans_without_cooker/",
+          "subreddit": "r/IndianFood",
+          "summary": "Without a pressure cooker: add soaked beans to boiling water, cover, and start checking after 30-45 minutes until they are fork-tender."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/rajma-recipe/",
+        "video_url": "https://www.youtube.com/watch?v=K0IQN6ySpT0",
+        "reason": "Highest-rated Pakistani-style written recipe (5.0 from 29 ratings) and serves exactly 4. Ruby Ka Kitchen has the most views and likes of the Pakistani lal lobia videos, with strong reports from people who made it. The current Food Fusion video (1.27M views) is a close second and has a useful bean-boiling tip in its comments."
+      },
+      "not_verified": "No Reddit threads about Pakistani 'lal lobia' by that name were found, so the Reddit notes come from rajma threads (same bean). reddit.com could not be fetched directly, so threads were read only through search snippets. Food Fusion shows no rating. I did not read Tea for Turmeric's 7 written reviews."
+    },
+    {
+      "id": "R004",
+      "dish": "Chicken Karahi (Fire)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/fire-chicken-karahi/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=T3pQmbC1GW4",
+        "video_status": "OK, playable",
+        "video_title": "Fire Chicken Karahi Recipe By Food Fusion (Eid Special Recipe)",
+        "video_views": "460,730 (watch page, 2026-10-04); published 2021-05-07"
+      },
+      "written": [
+        {
+          "title": "Pakistani Chicken Karahi (Easy & Authentic)",
+          "url": "https://www.teaforturmeric.com/chicken-karahi/",
+          "site": "Tea for Turmeric",
+          "rating": "4.96",
+          "rating_count": 155,
+          "notes": "Classic karahi built on tomato, ginger and green chilli. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Chicken Karahi - Boneless or Bone in!",
+          "url": "https://www.flourandspiceblog.com/karahi-chicken-boneless-with-step-by-step-video/",
+          "site": "Flour & Spice",
+          "rating": "4.96",
+          "rating_count": 24,
+          "notes": "Pakistani home-style, with step-by-step photos and video. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Fire Chicken Karahi (current)",
+          "url": "https://foodfusion.com/recipe/fire-chicken-karahi/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "The only one that is specifically the 'Fire' style. No rating on the page."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Best Chicken Karahi",
+          "url": "https://www.youtube.com/watch?v=SZ_mfgZC75E",
+          "channel": "Kun Foods",
+          "views": "2,923,524",
+          "published": "about 4 years ago (YouTube search page)",
+          "comment_feedback": "Very strong. The most-liked comments (hundreds of likes) say people cooked it many times and guests loved it. Viewers like that he does not over-talk. One said it tastes a little different from the usual karahi. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Highway style chicken karahi recipe by food fusion",
+          "url": "https://www.youtube.com/watch?v=DiEv4eqfAQw",
+          "channel": "Food Fusion",
+          "views": "2,403,528",
+          "published": "about 8 years ago (YouTube search page)",
+          "comment_feedback": "Positive. Several viewers say it came out as good as a restaurant karahi and their families praised it. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Fire Chicken Karahi Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=T3pQmbC1GW4",
+          "channel": "Food Fusion",
+          "views": "460,730",
+          "published": "2021-05-07",
+          "comment_feedback": "Positive. Several say it tasted like bazaar karahi. One asked where to buy the wok. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1jfqrdg/chicken_karahi_recipe_needed/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Users stress using plenty of oil, fresh ginger-garlic rather than paste, and frying the chicken before adding tomatoes. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1g3dswh/please_share_chicken_karahi_recipe/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Advice: cook the tomatoes down until the oil separates, add green chillies and ginger near the end, and stir in yogurt if it is too spicy. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/food/comments/lif953/homemade_pakistani_chicken_karahi/",
+          "subreddit": "r/food",
+          "summary": "The poster followed a YouTube recipe. Their hotter stove dried out the masala, so they had to keep adding water. They used breast instead of thigh. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/chicken-karahi/",
+        "video_url": "https://www.youtube.com/watch?v=SZ_mfgZC75E",
+        "reason": "Tea for Turmeric has the strongest verified rating (4.96 from 155). Kun Foods 'Best Chicken Karahi' has about 6x the views of the current Fire karahi video and the most enthusiastic 'made it many times' comments. Keep the current Food Fusion pair only if the 'Fire' version is specifically wanted."
+      },
+      "not_verified": "Food Fusion written page has no rating. Reddit threads seen only as search snippets."
+    },
+    {
+      "id": "R005",
+      "dish": "Chicken Qorma",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/chicken-korma/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
+        "video_status": "OK, playable",
+        "video_title": "Chicken Korma Recipe by Food Fusion",
+        "video_views": "4,154,655 (watch page, 2026-10-04); published 2017-08-12"
+      },
+      "written": [
+        {
+          "title": "The BEST Authentic Chicken Korma",
+          "url": "https://www.teaforturmeric.com/authentic-chicken-korma/",
+          "site": "Tea for Turmeric",
+          "rating": "4.95",
+          "rating_count": 127,
+          "notes": "Pakistani korma made with yogurt and fried onion. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Pakistani Chicken Korma - Authentic Recipe",
+          "url": "https://fatimacooks.net/chicken-korma-authentic-pakistani-recipe/",
+          "site": "Fatima Cooks",
+          "rating": "4.59",
+          "rating_count": 36,
+          "notes": "Rich wedding-style korma. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Chicken Korma Simplified",
+          "url": "https://www.flourandspiceblog.com/chicken-korma-simplified/",
+          "site": "Flour & Spice",
+          "rating": "5",
+          "rating_count": 7,
+          "notes": "Quick home-style version. Few ratings. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Chicken Korma Recipe by Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
+          "channel": "Food Fusion",
+          "views": "4,154,655",
+          "published": "2017-08-12",
+          "comment_feedback": "Positive. Viewers like the short, straight-to-the-point format and say their families enjoyed it. Few detailed tips. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "1kg Authentic Chicken Korma Recipe - Original Karachi Style Recipe",
+          "url": "https://www.youtube.com/watch?v=qRW-dZK4CGI",
+          "channel": "Kun Foods",
+          "views": "2,582,887",
+          "published": "about 1 year ago (YouTube search page)",
+          "comment_feedback": "Positive. Viewers say the spices are well balanced and it tastes like wedding (shaadi) qorma. Praised for detail. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Authentic Karachi Korma Recipe - Easy Step by Step Korma Recipe",
+          "url": "https://www.youtube.com/watch?v=c53CLCbb75s",
+          "channel": "Kun Foods",
+          "views": "2,518,280",
+          "published": "about 3 years ago (YouTube search page)",
+          "comment_feedback": "Positive. One viewer said Shan korma masala alone did not give enough flavour and this recipe fixed it. Another recommends a clay pot for slow cooking. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1i53knz/need_recipe_for_chicken_qorma/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Someone asks for a quick qorma recipe. The replies were not visible in the snippet. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/Cooking/comments/sdw8kt/anyone_know_a_really_good_chicken_korma_recipe/",
+          "subreddit": "r/Cooking",
+          "summary": "Replies point to British curry-house korma, which is not Pakistani qorma. A reminder to avoid the creamy, sweet restaurant style for this app. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/authentic-chicken-korma/",
+        "video_url": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
+        "reason": "Keep the current video: it has the most views (4.15M) and positive comments. Tea for Turmeric has the best verified written rating (4.95 from 127) for Pakistani-style qorma. Kun Foods qRW-dZK4CGI is the best alternative for a more detailed video."
+      },
+      "not_verified": "Food Fusion written page has no rating. Little real Reddit discussion of Pakistani qorma was found."
+    },
+    {
+      "id": "R006a",
+      "dish": "Daal Chana (Masala)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/masala-chana-daal/",
+        "written_status": "200 OK, Food Fusion recipe page loads; no star rating or serving size shown on the page",
+        "video_url": "https://www.youtube.com/watch?v=72Sy9j7DLVk",
+        "video_status": "OK (playable)",
+        "video_title": "Masala Chana Daal Recipe by Food Fusion",
+        "video_views": "367,824 (2.6 thousand likes; published 2023-09-30)"
+      },
+      "written": [
+        {
+          "title": "Chana Dal (Easy, Restaurant-Style)",
+          "url": "https://www.teaforturmeric.com/chana-dal/",
+          "site": "Tea for Turmeric",
+          "rating": "4.93",
+          "rating_count": "13",
+          "notes": "Serves 4. Pakistani author."
+        },
+        {
+          "title": "Chanay ki Daal Instant Pot / Stovetop - Pakistani Recipe",
+          "url": "https://www.flourandspiceblog.com/chana-daal-instant-pot/",
+          "site": "Flour & Spice",
+          "rating": "4.74",
+          "rating_count": "26",
+          "notes": "Serves 6. Stovetop and Instant Pot methods. Simple, light spicing."
+        },
+        {
+          "title": "Chana daal (Dhaba Style)",
+          "url": "https://foodfusion.com/recipe/chana-daal-dhaba-style/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Written page for the most-viewed chana daal video. Page loads."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Chana Daal (Dhaba Style) By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=nt1f0IegTWQ",
+          "channel": "Food Fusion",
+          "views": "4,809,831 (about 36,882 likes)",
+          "published": "2018-06-28",
+          "comment_feedback": "Many viewers made it and say everyone loved it. One has used it for 6 years. Tips: add kasuri methi and black pepper, and more red chilli if you like it hot. Viewers liked that it states how many people it serves."
+        },
+        {
+          "title": "Chana Daal Hotel Recipe | Dhaba Style Chana Daal Recipe | Commercial Chana Daal",
+          "url": "https://www.youtube.com/watch?v=pCr6qThdT8Q",
+          "channel": "BaBa Food RRC",
+          "views": "3,709,776 (about 46,495 likes)",
+          "published": "2021-02-07",
+          "comment_feedback": "Many success reports, including from people who never liked chana daal before. One viewer says it tastes like a dhaba and is flavourful with just one tadka."
+        },
+        {
+          "title": "Masala Chana Daal Recipe by Food Fusion",
+          "url": "https://www.youtube.com/watch?v=72Sy9j7DLVk",
+          "channel": "Food Fusion",
+          "views": "367,824 (2.6 thousand likes)",
+          "published": "2023-09-30",
+          "comment_feedback": "Mostly short praise. A few viewers say it tastes pleasantly different from everyday daal. Few detailed reports from people who made it."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/7b1n20/how_to_make_chana_dal_thats_not_horrible/",
+          "subreddit": "r/IndianFood",
+          "summary": "Main warning: soak chana dal first and cook it until very soft, then mash or partly blend it. Many recipes skip this step."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/j4ywhb/using_an_instantpot_for_chana_dal/",
+          "subreddit": "r/IndianFood",
+          "summary": "One user found a one-hour soak was not enough. Others say 12-15 minutes at high pressure works."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/1nn5skh/why_doesnt_my_dhal_fully_melt_when_cooking_it/",
+          "subreddit": "r/IndianFood",
+          "summary": "If soaked dal still won't break down, users suggest a pinch of baking soda. Old dal can stay hard no matter what."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://foodfusion.com/recipe/chana-daal-dhaba-style/",
+        "video_url": "https://www.youtube.com/watch?v=nt1f0IegTWQ",
+        "reason": "Food Fusion's Dhaba Style video has about 13 times the views of the current one (4.8M vs 368K) and strong reports from people who made it. Its written page matches the video. If a written recipe with star ratings is required, use Tea for Turmeric (4.93 from 13 ratings)."
+      },
+      "not_verified": "Food Fusion pages show no ratings. I did not check the serving size on the Dhaba Style written page. Reddit was read only through search snippets. The r/PakistaniFood chana daal posts found were promotional video links with no useful discussion."
+    },
+    {
+      "id": "R006b",
+      "dish": "Daal Mash with Tadka",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/mash-daal-with-tadka/",
+        "written_status": "200 OK, Food Fusion recipe page loads; no star rating or serving size shown on the page",
+        "video_url": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
+        "video_status": "OK (playable)",
+        "video_title": "Mash Daal with Tadka Recipe By Food Fusion",
+        "video_views": "2,527,693 (20 thousand likes; published 2018-08-01)"
+      },
+      "written": [
+        {
+          "title": "Pakistani Urad Dal (Maash Ki Dal)",
+          "url": "https://www.teaforturmeric.com/maash-ki-daal-urad-dal/",
+          "site": "Tea for Turmeric",
+          "rating": "5.0",
+          "rating_count": "39",
+          "notes": "Serves 4. Traditional Pakistani dry, firm (bhuni) style."
+        },
+        {
+          "title": "Maash Ki Daal - Urad Lentils",
+          "url": "https://fatimacooks.net/mash-ki-daal-pakistani-urad-dal/",
+          "site": "Fatima Cooks",
+          "rating": "4.68",
+          "rating_count": "81",
+          "notes": "Serves 5. Pakistani blog with the most ratings of any version found."
+        },
+        {
+          "title": "Maash Ki Dal (White Urad Dal Recipe)",
+          "url": "https://www.jcookingodyssey.com/mash-ki-daal23/",
+          "site": "J Cooking Odyssey",
+          "rating": "5.0",
+          "rating_count": "8",
+          "notes": "Serves 6. Stovetop and Instant Pot methods."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Mash Daal with Tadka Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
+          "channel": "Food Fusion",
+          "views": "2,527,693 (20 thousand likes)",
+          "published": "2018-08-01",
+          "comment_feedback": "Top comment (288 likes) praises it for being quick and not wasting time. Several viewers made it and say it turned out delicious. No complaints seen."
+        },
+        {
+          "title": "Fry Daal Mash Street Style | Daal Mash Perfect Recipe",
+          "url": "https://www.youtube.com/watch?v=3mNLV7p8eh0",
+          "channel": "BaBa Food RRC",
+          "views": "2,546,080 (about 29 thousand likes)",
+          "published": "2021-08-30",
+          "comment_feedback": "Strong success reports, such as 'a hit in my family' (38 likes). One viewer made it twice with good results. It won over people who disliked maash daal."
+        },
+        {
+          "title": "Daal Mash Recipe of Pakistani Home - Urad Dal with Exact Measurements",
+          "url": "https://www.youtube.com/watch?v=Q4C74-2j-e4",
+          "channel": "Kun Foods",
+          "views": "531,377 (7.2 thousand likes)",
+          "published": "2026-03-25",
+          "comment_feedback": "Home style with exact measurements. One viewer used oil instead of most of the ghee and it still turned out well. Viewers praised the fried-garlic start."
+        },
+        {
+          "title": "Daal Mash Recipe By ijaz Ansari",
+          "url": "https://www.youtube.com/watch?v=cHDHqTlwFZk",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "1,241,456 (13 thousand likes)",
+          "published": "2023-05-18",
+          "comment_feedback": "Good reports of families approving. One top comment notes this method skips pre-boiling the daal, unlike his older video."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/EatCheapAndVegan/comments/xtl0dj/maash_ki_dal_urid_lentils_on_brown_rice/",
+          "subreddit": "r/EatCheapAndVegan",
+          "summary": "The poster boils the lentils to about 90% done so they stay slightly firm, then finishes them in the masala. This keeps the grains separate."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1h3eb93/dal_maash_first_time/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Photo of a first attempt. Commenters praised the dhaba look, and one mentioned Shahi Daal Mash as a variation."
+        },
+        {
+          "url": "https://www.reddit.com/r/recipes/comments/chaueo/daal_mash_recipe_urad_daallentil_recipe_khari/",
+          "subreddit": "r/recipes",
+          "summary": "Khari (dry) style: soak the daal 5-6 hours, then cook it covered on low heat with little water."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/maash-ki-daal-urad-dal/",
+        "video_url": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
+        "reason": "Tea for Turmeric is the top-rated written recipe (5.0 from 39 ratings), serves exactly 4 and uses the Pakistani dry style. Keep the current Food Fusion video: it has 2.5M views, matches 'with tadka', and viewers praise how quick it is. BaBa Food (2.55M views, more likes) is an equally good alternative."
+      },
+      "not_verified": "Reddit was read only through search snippets. Food Fusion shows no rating."
+    },
+    {
+      "id": "R006c",
+      "dish": "Daal Masoor (Malka) - split red lentils",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/malka-masoor-daal-with-quick-achaar/",
+        "written_status": "200 OK, page loads, no rating shown. Does not match the dish: the video description says it uses whole black (kali) masoor and serves 5-6. Noor's recipe uses split red lentils.",
+        "video_url": "https://www.youtube.com/watch?v=s1rA4kd1Wfg",
+        "video_status": "OK (playable). Does not match the dish: whole black masoor, not split red lentils",
+        "video_title": "Malka Masoor Daal with Instant Quick Achar Recipe by Food Fusion",
+        "video_views": "486,034 (4.2 thousand likes; published 2023-09-12)"
+      },
+      "written": [
+        {
+          "title": "My Go-To Masoor Dal Recipe (Red Lentil Dal)",
+          "url": "https://www.teaforturmeric.com/masoor-dal/",
+          "site": "Tea for Turmeric",
+          "rating": "4.98",
+          "rating_count": "98",
+          "notes": "Labelled Pakistani-style. Split red lentils with no soaking. Serves 4, 45 minutes total, finished with lemon juice. No curry leaves, so add them in the tarka to match Noor's version."
+        },
+        {
+          "title": "Masoor ki Daal - with and without tomatoes",
+          "url": "https://www.flourandspiceblog.com/masoor-daal/",
+          "site": "Flour & Spice",
+          "rating": "4.93",
+          "rating_count": "14",
+          "notes": "Pakistani blog. Serves 4. I did not check whether it uses split or whole masoor, curry leaves, or lemon."
+        },
+        {
+          "title": "Daal with Zeera Chawal and Talli hui Mirchein",
+          "url": "https://foodfusion.com/recipe/daal-zeera-chawal-talli-hui-mirchein/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Comfort daal with curry leaves in the tarka and lemon on the fried chillies. It uses equal parts moong and masoor, so it is not pure masoor. No serving size shown."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Daal Masoor Recipe By ijaz Ansari | Daal Recipe | Daal Banane Ka Tarika",
+          "url": "https://www.youtube.com/watch?v=wlCtxhkdqbI",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "2,442,942 (31 thousand likes)",
+          "published": "2021-12-25",
+          "comment_feedback": "Many viewers made it and say everyone loved it. Several made it twice with good results. One said it tasted like his grandmother's. Viewers say it is simple and easy. Split red lentils, checked from the thumbnail."
+        },
+        {
+          "title": "Masoor Ki Daal Dhaba Style | Masoor Ki Daal Recipe | Red Lentils Recipe | Tadke Wali Daal",
+          "url": "https://www.youtube.com/watch?v=dhmhene8XtA",
+          "channel": "BaBa Food RRC",
+          "views": "1,808,330 (26 thousand likes)",
+          "published": "2020-08-22",
+          "comment_feedback": "Steady success reports. One viewer halved it and served it with tarka rice. Viewers say it is easy to follow and well explained. One added a chicken cube and liked it."
+        },
+        {
+          "title": "Daal with Zeera Chawal and Talli hui Mirchein recipe by Food Fusion",
+          "url": "https://www.youtube.com/watch?v=rxggi5gBJng",
+          "channel": "Food Fusion",
+          "views": "3,147,925 (31 thousand likes)",
+          "published": "2017-07-10",
+          "comment_feedback": "Most-viewed option, and its comments have the most detailed feedback. One viewer (104 likes) says it fed 4 hungry people. Newlyweds and first-time cooks report family praise. But it is a moong and masoor mix, not pure masoor."
+        },
+        {
+          "title": "Lal Masoor Dal | Red Lentil Recipe",
+          "url": "https://www.youtube.com/watch?v=xy8x4YBfojE",
+          "channel": "Yummy Food Lahore",
+          "views": "642,501 (12 thousand likes)",
+          "published": "2023-06-01",
+          "comment_feedback": "Comments not read."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/AskCulinary/comments/d0v9yv/made_red_lentil_dahl_for_the_first_time_it_lacked/",
+          "subreddit": "r/AskCulinary",
+          "summary": "For a bland first red-lentil dal, the advice was a proper hot-oil cumin tempering poured in at the end. Avoid adding both canned tomatoes and broth, which dilute the flavour."
+        },
+        {
+          "url": "https://www.reddit.com/r/vegetarian/comments/1kjjx34/masoor_dal_indian_red_lentil_soup/",
+          "subreddit": "r/vegetarian",
+          "summary": "Masoor is the fastest dal to cook. For a tadka-style dal, cook the dal and temper the spices separately."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/hn7rai/red_lentil_daal_tastes_more_like_curry_than_what/",
+          "subreddit": "r/IndianFood",
+          "summary": "Home-style tip: boil the red lentils with turmeric and salt to the consistency you want, then add a simple tarka. Heavy masala makes it taste like curry instead of daal."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/13aiyz1/good_dahl_recipe_please/",
+          "subreddit": "r/IndianFood",
+          "summary": "Users suggest a ghee tarka with dried red chilli, garlic and curry leaves for a stronger flavour, and about 3-4 cups of water per cup of lentils."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/masoor-dal/",
+        "video_url": "https://www.youtube.com/watch?v=wlCtxhkdqbI",
+        "reason": "Tea for Turmeric is the best-rated Pakistani split red masoor recipe (4.98 from 98 ratings) and matches Noor's dish closely: serves 4, about 45 minutes, finished with lemon. Ijaz Ansari is the most-viewed pure split-red masoor video (2.44M views, 31k likes) with many 'made it, family loved it' comments."
+      },
+      "not_verified": "I did not check the Flour & Spice recipe's lentil type or method. Ijaz Ansari's video description does not name the lentil; I confirmed split red lentils from the thumbnail only. I did not read comments on the Yummy Food Lahore video. Reddit was read only through Brave search snippets, and the threads are general or Indian, not Pakistani. Food Fusion has no pure split-masoor video of comparable reach; its 3.1M-view comfort daal is a moong and masoor mix."
+    },
+    {
+      "id": "R007",
+      "dish": "Beef Salan (Aloo Gosht, Delhi style)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=cbzmggwKZbw",
+        "video_status": "OK, playable",
+        "video_title": "Aloo Ghosht (Delhi Style) Recipe By Food Fusion",
+        "video_views": "1,629,532 (watch page, 2026-10-04); published 2017-01-24"
+      },
+      "written": [
+        {
+          "title": "Aloo Gosht Recipe - Authentic Pakistani Curry (Instant Pot & Stovetop)",
+          "url": "https://www.flourandspiceblog.com/aalu-gosht/",
+          "site": "Flour & Spice",
+          "rating": "4.76",
+          "rating_count": 66,
+          "notes": "Says outright it works with mutton or beef. Three methods, including pressure cooker. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Aloo Gosht (Mutton/Lamb and Potato Curry)",
+          "url": "https://www.teaforturmeric.com/mutton-and-potato-curry-aloo-gosht/",
+          "site": "Tea for Turmeric",
+          "rating": "4.9",
+          "rating_count": 46,
+          "notes": "Written for mutton or lamb. The site notes beef is also used. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Aloo Ghosht (Delhi Style) (current)",
+          "url": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "The only one labelled 'Delhi style'."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Aloo Ghosht (Delhi Style) Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=cbzmggwKZbw",
+          "channel": "Food Fusion",
+          "views": "1,629,532",
+          "published": "2017-01-24",
+          "comment_feedback": "Positive. Called easy and relaxed to make. One viewer used a pressure cooker and added bay leaf and cinnamon, with good results. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Degi Aloo Gosht Recipe by Food Fusion",
+          "url": "https://www.youtube.com/watch?v=jHR_axwA3Cw",
+          "channel": "Food Fusion",
+          "views": "1,363,305",
+          "published": "about 3 years ago (YouTube search page)",
+          "comment_feedback": "Positive. Beginners call it their best aloo gosht. A few dislike the background music. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Aloo Gosht Authentic Recipe",
+          "url": "https://www.youtube.com/watch?v=xZnACiPXv0w",
+          "channel": "Kun Foods",
+          "views": "1,203,003",
+          "published": "about 3 years ago (YouTube search page)",
+          "comment_feedback": "Positive. Viewers call it the most authentic version and like that he explains why each step is done. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1hvzwp1/aloo_gosht_beef_and_potatoes/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Beef aloo gosht made in an Instant Pot. The poster said the beef was less tender than they wanted but it tasted good, which suggests beef needs more pressure time. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/1gnpbu4/cooking_aloo_gosht/",
+          "subreddit": "r/pakistan",
+          "summary": "If the shorba (gravy) is too thin, simmer it uncovered on the stove to thicken it. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.flourandspiceblog.com/aalu-gosht/",
+        "video_url": "https://www.youtube.com/watch?v=cbzmggwKZbw",
+        "reason": "Keep the current video. It is the only well-viewed 'Delhi style' version (1.63M, more than the alternatives) and its comments are positive. Flour & Spice has the most verified ratings (4.76 from 66) and covers beef by name."
+      },
+      "not_verified": "Food Fusion written page has no rating. No rated written recipe labelled 'Delhi style' was found. Reddit threads seen only as search snippets."
+    },
+    {
+      "id": "R008",
+      "dish": "Shami Kabab",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/shami-kabab-recipe/",
+        "written_status": "OK. It redirects to foodfusion.com without www. Title is 'Shami Kabab' and it embeds video vhXMVKd1OGI. No rating or servings shown.",
+        "video_url": "https://www.youtube.com/watch?v=vhXMVKd1OGI",
+        "video_status": "OK, playable",
+        "video_title": "Shami Kabab Recipe By Food Fusion",
+        "video_views": "6,090,726 views and about 41,419 likes (YouTube watch page, 2026-10-04)"
+      },
+      "written": [
+        {
+          "title": "Juicy Shami Kababs - Beef/Mutton, Instant Pot & Stove top",
+          "url": "https://www.flourandspiceblog.com/shami-kabab/",
+          "site": "Flour & Spice (Pakistani blog)",
+          "rating": "4.92",
+          "rating_count": "36 ratings (8 reviews)",
+          "notes": "Pakistani beef/mutton version focused on the stringy 'reshedar' texture. Stovetop or Instant Pot. Makes 22 kababs, plenty for 6. Rating from the page's recipe schema."
+        },
+        {
+          "title": "Easy Shami Kebab (Instant Pot and Stovetop)",
+          "url": "https://www.teaforturmeric.com/shami-kebab/",
+          "site": "Tea for Turmeric (Pakistani blog)",
+          "rating": "4.82",
+          "rating_count": "61 ratings (7 reviews)",
+          "notes": "Pakistani home style. Makes about 20. Rating from the page's recipe schema."
+        },
+        {
+          "title": "Shami Kabab: Pakistani Ground beef and Chickpea Kabab",
+          "url": "https://thespicemess.com/shami-kabab-recipe/",
+          "site": "The Spice Mess",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Pakistani style with ground beef and chana daal. Makes about 15. The fetched page showed no rating."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Real Shami Kabab - Special Original Shami Kabab",
+          "url": "https://www.youtube.com/watch?v=z0kJfblzQ9c",
+          "channel": "Kun Foods",
+          "views": "7,688,667 views; about 88,759 likes",
+          "published": "about 3 years ago (YouTube search listing)",
+          "comment_feedback": "I read about 30 top comments. Many call it their go-to or fool-proof recipe and say they made it several times. People praise the detailed tips, such as removing the meat smell, and the clear teaching. One viewer could not follow it because it is in Urdu. Runs 14:26."
+        },
+        {
+          "title": "Shami Kabab Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=vhXMVKd1OGI",
+          "channel": "Food Fusion",
+          "views": "6,090,726 views; about 41,419 likes",
+          "published": "2016-12-24",
+          "comment_feedback": "I read about 40 comments. Many say they made it and the family loved it. People like that it is quick, with no talking (2 minutes). A commenter with 18 likes says their mother adds chopped onion after grinding rather than pressure-cooking it. One family's kids compared it to K&N's shami."
+        },
+        {
+          "title": "Kabab Recipe By ijaz Ansari | Shami Kabab Recipe | Eid Special",
+          "url": "https://www.youtube.com/watch?v=4iE_tPog_a8",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "15,233,140 views; about 148,384 likes",
+          "published": "about 5 years ago (YouTube search listing)",
+          "comment_feedback": "Most top comments are religious or du'a posts. In the cooking comments, several people say they tried it and it came out tasty and soft. One asks for written ingredients. This is the most-viewed shami video I found."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1hnnwm7/shami_kebab_help_needed_please/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "The poster's kababs kept falling apart in the pan. Advice: add an egg to the mixture and dip the kababs in beaten egg too. Use about equal meat and chana daal. Don't let the pressure cooker run dry. Fry in hot oil, not cold. Boil potatoes in big chunks so they hold less water. A little flour or besan helps bind. Some prefer shredding the meat by hand or on a sil-batta instead of a grinder for better texture."
+        },
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/m0zdew/my_first_attempt_at_making_shami_kebab_1010_if_i/",
+          "subreddit": "r/pakistan",
+          "summary": "A first-timer's kababs broke when flipped. Replies suggest a little flour or breadcrumbs to bind them."
+        },
+        {
+          "url": "https://www.reddit.com/r/FoodPorn/comments/lx7lif/i_made_shami_kebab_following_an_old_family_recipe/",
+          "subreddit": "r/FoodPorn",
+          "summary": "A family recipe post. Meat is pressure-cooked with chana daal, flavoured with ginger, garlic, green chilli, mint and garam masala, then shallow fried. Replies were only positive."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.flourandspiceblog.com/shami-kabab/",
+        "video_url": "https://www.youtube.com/watch?v=z0kJfblzQ9c",
+        "reason": "Flour & Spice has the highest verified rating (4.92 from 36) for a Pakistani beef/mutton shami. Kun Foods has 7.7M views and the most consistent 'fool-proof, made it many times' comments. The Food Fusion pair still works as a quick 2-minute option."
+      },
+      "not_verified": "I could not check ratings for The Spice Mess or International Cuisine (Cloudflare blocks them). Food Fusion pages show no ratings. I did not get total YouTube comment counts and read only the top comments that loaded. Reddit blocks direct fetches, so I read the threads through the Arctic Shift archive."
+    },
+    {
+      "id": "R009",
+      "dish": "Chicken Manchurian",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/chicken-manchurian/",
+        "written_status": "OK - loads, titled 'Chicken Manchurian' (Food Fusion, recipe by Asad Memon, dated 29 Jul 2025, English + Urdu). No star rating, no servings stated. Embeds a newer Short (upkLkPkyJ6s), not the 2016 video.",
+        "video_url": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
+        "video_status": "OK - playable, matches dish",
+        "video_title": "Chicken Manchurian Simplified Recipe By - Food Fusion",
+        "video_views": "6,241,159 (YouTube page viewCount, read 2026-10-04; published 2016-06-26)"
+      },
+      "written": [
+        {
+          "title": "Chicken Manchurian (Crispy with Gravy)",
+          "url": "https://www.teaforturmeric.com/chicken-manchurian/",
+          "site": "Tea for Turmeric",
+          "rating": "4.7",
+          "rating_count": "33 ratings (9 reviews), from page schema data",
+          "notes": "Pakistani-American blogger; serves 4; includes a pan-fried, less-crispy 'more Pakistani-style' variation. Recommended by name in an r/PakistaniFood thread."
+        },
+        {
+          "title": "Chicken Manchurian (Indo-Chinese Takeout Style)",
+          "url": "https://www.chilitochoc.com/chicken-manchurian/",
+          "site": "Chili to Choc",
+          "rating": "4.93",
+          "rating_count": "14 ratings (5 reviews), from page schema data",
+          "notes": "Pakistani blogger; serves 4; uses Pakistani-brand ketchup and chilli garlic sauce. Readers' comments say it came out like takeout."
+        },
+        {
+          "title": "Chicken Manchurian",
+          "url": "https://www.foodfusion.com/recipe/chicken-manchurian/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Current link. No on-page rating. Pakistani restaurant style, Urdu + English."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Chicken Manchurian Simplified Recipe By - Food Fusion",
+          "url": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
+          "channel": "Food Fusion",
+          "views": "6,241,159",
+          "published": "2016-06-26",
+          "comment_feedback": "Top comments are many 'tried it, family loved it' reports, several made it repeatedly; praise for the short no-talking format. One viewer adds a spoon of BBQ sauce for smokiness. No complaints seen in the top ~20."
+        },
+        {
+          "title": "Chicken Manchurian Recipe By ijaz Ansari | Restaurant Style Chicken Manchurian Egg Fried Rice Recipe",
+          "url": "https://www.youtube.com/watch?v=JD8RGSIBM5s",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "8,603,064",
+          "published": "about 3 years ago (YouTube search label)",
+          "comment_feedback": "Many 'tried it, tasted like restaurant' comments (Urdu and English); top comment is a viewer-typed marinade list with a tip to fry on low heat. Covers Manchurian plus egg fried rice in one video. In Urdu."
+        },
+        {
+          "title": "Chicken Manchurian Recipe - Restaurant Style - Chicken Recipes by (HUMA IN THE KITCHEN)",
+          "url": "https://www.youtube.com/watch?v=JJD0agX0aMg",
+          "channel": "Huma in the kitchen",
+          "views": "5,394,536",
+          "published": "about 9 years ago (YouTube search label)",
+          "comment_feedback": "Frequent 'go-to recipe, made it 5+ times' comments, called 'perfectly Indo/Pak Chinese'. One viewer halved the ketchup because it was too sweet for them."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1jtgq66/manchurian_recipe/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Someone asked for a 2-person Manchurian recipe; replies pointed to Tea for Turmeric's blog and to the Taste Show YouTube video (I_6aMZwf9CU, 21.2M views, Indo-Chinese style), the latter with a 'just follow it' endorsement."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1wwld0j/for_manchurian_which_ketchup_is_preferred_chilli/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Chilli garlic ketchup recommended over plain tomato ketchup for more kick; plain ketchup gives a sweeter, milder result."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1ryoy94/i_made_egg_fried_rice_with_chicken_manchurian/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Mostly compliments; one commenter said their homemade attempt tasted 'a bit weird' and asked which sauces to use, which suggests the sauce balance is the tricky part."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/chicken-manchurian/",
+        "video_url": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
+        "reason": "Tea for Turmeric has the best verified rating among Pakistani-style versions (4.7 from 33 ratings), serves 4, and Reddit users recommend it. Food Fusion's video has 6.2M views and consistently positive 'tried it' comments. Ijaz Ansari (8.6M views) is the Urdu alternative. Keeping Food Fusion for both is also fine, but its page shows no rating."
+      },
+      "not_verified": "Food Fusion page has no rating or servings. YouTube like counts not checked. Taste Show video (21.2M views) not assessed for Pakistani authenticity (comments show international, largely non-cooking reactions). Reddit read via the PullPush archive because reddit.com blocked direct access; scores may be stale. NYT Cooking version (based on Lahore's Hsin Kuang) is paywalled, rating not checked."
+    },
+    {
+      "id": "R010",
+      "dish": "Chinese Fried Rice",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/chinese-fried-rice/",
+        "written_status": "OK - loads, 'Chinese Fried Rice - restaurant style'. Egg + vegetable only (no chicken). No rating, no servings. Embeds the current video.",
+        "video_url": "https://www.youtube.com/watch?v=P2tIt4bZNmI",
+        "video_status": "OK - playable, matches written page",
+        "video_title": "Chinese Fried Rice - restaurant style  Recipe By Food Fusion",
+        "video_views": "3,022,945 (YouTube page viewCount, read 2026-10-04; published 2018-04-17)"
+      },
+      "written": [
+        {
+          "title": "Restaurant Style Chicken Fried Rice",
+          "url": "https://www.foodfusion.com/recipe/restaurant-style-chicken-fried-rice/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Chicken + egg + vegetables version. Paired with Food Fusion's most-viewed fried rice video (17M). No servings or rating on the page."
+        },
+        {
+          "title": "Indo Chinese Fried Rice (Basmati Fried Rice)",
+          "url": "https://www.teaforturmeric.com/indo-chinese-fried-rice/",
+          "site": "Tea for Turmeric",
+          "rating": "5",
+          "rating_count": "6 ratings (6 reviews), from page schema data",
+          "notes": "Pakistani-style basmati fried rice with chicken and vegetables; serves 4. Small rating sample."
+        },
+        {
+          "title": "Chinese Fried Rice - restaurant style",
+          "url": "https://www.foodfusion.com/recipe/chinese-fried-rice/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Current link. Egg/veg only, good as a plain side for Manchurian."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Restaurant Style Chicken Fried Rice Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=WTUz9fOVpiI",
+          "channel": "Food Fusion",
+          "views": "17,025,146",
+          "published": "2020-01-22",
+          "comment_feedback": "Many 'tried it, turned out amazing' reports, some made it 8+ times; one viewer asks which rice brand is used. No negative comments in the top ~20."
+        },
+        {
+          "title": "Chinese Fried Rice - restaurant style  Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=P2tIt4bZNmI",
+          "channel": "Food Fusion",
+          "views": "3,022,945",
+          "published": "2018-04-17",
+          "comment_feedback": "Praised as quick, simple and no-talk; one viewer liked that it skips chilli and soy sauces; noted as good for leftover rice."
+        },
+        {
+          "title": "Egg Fried Rice Recipe By ijaz Ansari | Mix Vegetable Rice Recipe | Restaurant Style Egg Fried",
+          "url": "https://www.youtube.com/watch?v=bruf7Pp011I",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "2,748,112",
+          "published": "2022-01-21",
+          "comment_feedback": "Positive 'tried it, everyone liked it' comments in Urdu and English; viewers note the rice is par-boiled about 80-90% first so it stays separate."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1my7m07/any_chinese_lover_here/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "A commenter who did not expect to like Pakistani fried rice said basmati, instead of jasmine or short-grain rice, gives it a delicate flavour."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1rgtk28/short_grain_rice_or_long_grain_rice/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Users say most Pakistani homes want separate, fluffy grains ('khilay khilay') and use basmati for fried rice and pulao. Sella is mostly kept for biryani."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1sbn9te/fried_rice_1st_attempt/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "A first-timer's well-received shrimp fried rice was made from a Food Fusion recipe."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.foodfusion.com/recipe/restaurant-style-chicken-fried-rice/",
+        "video_url": "https://www.youtube.com/watch?v=WTUz9fOVpiI",
+        "reason": "Same channel and style as the current pick, but this version has chicken and 17.0M views (vs 3.0M). The written page and video match each other. Keep the current egg-only version only if the app wants a plain side for Manchurian."
+      },
+      "not_verified": "Food Fusion pages show no ratings or servings. No Reddit thread directly compared these specific recipes; Reddit coverage is general rice tips only. Reddit read via the PullPush archive; some r/Cooking searches were rate-limited (HTTP 429)."
+    },
+    {
+      "id": "R011",
+      "dish": "One Pot Spicy Pasta",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
+        "written_status": "OK - loads, 'One pot Spicy Pasta'. Uses chicken mince and is cooked in one pot. No rating, no servings. Embeds the current video.",
+        "video_url": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
+        "video_status": "OK - playable, matches written page",
+        "video_title": "One Pot Spicy Pasta Recipe By Food Fusion",
+        "video_views": "539,118 (YouTube page viewCount, read 2026-10-04; published 2020-10-09)"
+      },
+      "written": [
+        {
+          "title": "One pot Spicy Pasta",
+          "url": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Current link. Desi-spiced chicken mince pasta made in one pot. Best stylistic match."
+        },
+        {
+          "title": "Chicken Tikka Masala Pasta",
+          "url": "https://pipingpotcurry.com/chicken-tikka-masala-pasta/",
+          "site": "Piping Pot Curry",
+          "rating": "4.94",
+          "rating_count": "43 ratings (7 reviews), from page schema data",
+          "notes": "Indian-style one-pot (Instant Pot) spicy chicken pasta; serves 4. Highest verified rating found, but made in a pressure cooker and creamier than the Food Fusion dish."
+        },
+        {
+          "title": "Indian Fusion Chicken Pasta",
+          "url": "https://www.tamarindnthyme.com/indian-fusion-chicken-pasta/",
+          "site": "Tamarind & Thyme",
+          "rating": "5",
+          "rating_count": "1 rating",
+          "notes": "Desi-spiced chicken pasta; serves 4. Too few ratings to count for much."
+        }
+      ],
+      "videos": [
+        {
+          "title": "One Pot Spicy Pasta Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
+          "channel": "Food Fusion",
+          "views": "539,118",
+          "published": "2020-10-09",
+          "comment_feedback": "Positive overall. One maker used small leg/thigh cubes instead of mince and it worked well; another swapped in beef and spinach with good results. Mostly praise, no complaints seen."
+        },
+        {
+          "title": "One Pot No Mess Pasta Recipe in Urdu Hindi - RKK",
+          "url": "https://www.youtube.com/watch?v=zHAAS7q3QgM",
+          "channel": "Ruby Ka Kitchen",
+          "views": "361,538",
+          "published": "2022-04-12",
+          "comment_feedback": "Generic praise (quick, time-saving, good for iftar); few comments from people who actually made it."
+        },
+        {
+          "title": "Desi Style Chicken Pasta Recipe | Spicy Chicken Macaroni Recipe | Chicken pasta",
+          "url": "https://www.youtube.com/watch?v=dhPVNdkidoI",
+          "channel": "Ain Zain Kitchen",
+          "views": "122,890",
+          "published": "about 1 year ago (YouTube search label)",
+          "comment_feedback": "Comments not read."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1uj3v74/what_are_some_good_local_pasta_brands/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Users warn that many local Pakistani pasta brands turn mushy. Bake Parlor, Mario, Nature's Own and Reggia were named as better options, or imported packs (around Rs 500)."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1uhtn5t/good_premade_pasta_sauce_in_pakistan/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Most suggest making your own sauce. Salman's and Trandoz jars were rated decent bases; store sauces usually need extra seasoning. One tip: season the sauce slightly saltier, spicier and tangier than you want, because the pasta dilutes it."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1uiw9gy/craving_pasta_but_the_fridge_is_empty_no_chicken/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Pantry ideas for desi pasta: a garlic, chilli, soy, vinegar and lemon toss; chilli-oil aglio e olio; or a little yogurt in place of cheese to balance tomato sauce."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
+        "video_url": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
+        "reason": "Keep the current pair. Both links work and match each other, and this is the most-viewed desi one-pot spicy pasta found (539K). Comments are positive and include successful swaps. The higher-rated alternatives are Indian Instant Pot or creamy styles, not a closer match."
+      },
+      "not_verified": "No rated Pakistani one-pot spicy pasta blog recipe found (The Aziz Kitchen desi chicken pasta domain is dead; Tiffin and Tea blocked access). Food Fusion shows no rating or servings. The Ain Zain video's comments were not read. No Reddit thread discusses this specific recipe."
+    },
+    {
+      "id": "R012",
+      "dish": "Chicken Macaroni (Korma-style)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
+        "written_status": "OK - despite the 'korma-masala' URL slug, the page is titled 'Chicken Korma Pasta' (Food Fusion, Seema Hanif, Dec 2019). It is korma-spiced chicken tossed with elbow macaroni, and it embeds the current video, so it DOES match a korma-style chicken macaroni. No rating, no servings.",
+        "video_url": "https://www.youtube.com/watch?v=1epkIJdJCds",
+        "video_status": "OK - playable, matches written page",
+        "video_title": "Chicken Korma Pasta Recipe By Food Fusion",
+        "video_views": "45,682 (YouTube page viewCount, read 2026-10-04; published 2019-12-20)"
+      },
+      "written": [
+        {
+          "title": "Chicken Korma Pasta",
+          "url": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Current link; correct korma-style macaroni dish despite the misleading URL slug."
+        },
+        {
+          "title": "Lunchbox Chicken Macaroni",
+          "url": "https://foodfusion.com/recipe/lunchbox-chicken-macaroni/",
+          "site": "Food Fusion",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Classic Pakistani 'Chinese-style' chicken macaroni with ketchup, soy and chilli sauces and mixed veg, elbow pasta. Not korma-flavoured. Use this if the app wants the everyday desi version. Video 5v89kxArsK4 has 155,736 views (Aug 2026)."
+        },
+        {
+          "title": "Keema macaroni | Minced meat pasta",
+          "url": "https://butteroverbae.com/keema-macaroni/",
+          "site": "Butter Over Bae (Pakistani blog)",
+          "rating": "4.6",
+          "rating_count": "79 ratings (4 reviews), from page schema data",
+          "notes": "Best-rated Pakistani macaroni recipe found. Uses mince (chicken works) rather than chicken pieces; serves 6, so scale to 4."
+        }
+      ],
+      "videos": [
+        {
+          "title": "How To Make Macaroni By ijaz Ansari | Restaurant Style Chicken Macaroni Recipe",
+          "url": "https://www.youtube.com/watch?v=CneJZRfMes0",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "9,645,162",
+          "published": "2022-01-23",
+          "comment_feedback": "Many 'tried it, turned out delicious' comments in Urdu and English; a top comment lists boiling steps. Lots of off-topic prayer comments. Desi-Chinese style, not korma."
+        },
+        {
+          "title": "How To Make Chicken Macaroni | Quick And Delicious Macaroni Recipe",
+          "url": "https://www.youtube.com/watch?v=LPklZxhZbgA",
+          "channel": "Samina Food Story",
+          "views": "3,349,764",
+          "published": "2023-05-22",
+          "comment_feedback": "Strong 'made it, family loved it' feedback, including first-time and teen cooks, so beginner-friendly. Desi-Chinese style."
+        },
+        {
+          "title": "Chicken Korma Pasta Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=1epkIJdJCds",
+          "channel": "Food Fusion",
+          "views": "45,682",
+          "published": "2019-12-20",
+          "comment_feedback": "Few comments, mostly generic praise. One liked the sauce texture. Another joked it's just leftover korma poured on macaroni."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1hoifux/desi_style_macaroni/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "Commenters prefer desi-style macaroni to Western versions. The poster's flavourings were chilli powder, vinegar, soy, macaroni masala and ketchup with capsicum, carrot and onion; one person suggested a little achaar for extra desi flavour."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1uj3v74/what_are_some_good_local_pasta_brands/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "The pasta-brand warnings apply here too: some local elbow macaroni goes mushy; Bake Parlor and imported brands were preferred."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
+        "video_url": "https://www.youtube.com/watch?v=1epkIJdJCds",
+        "reason": "The current link is not wrong. It is Food Fusion's 'Chicken Korma Pasta' made with elbow macaroni and matches the dish name and video exactly. Views are low (45.7K) and no korma-macaroni alternative with more traction was found. If the app would rather offer the popular everyday desi chicken macaroni, use Food Fusion Lunchbox Chicken Macaroni (written) + Ijaz Ansari CneJZRfMes0 (9.6M views) and drop 'Korma-style' from the name."
+      },
+      "not_verified": "No rating or servings on either Food Fusion page. No other korma-style macaroni recipe was found to compare. Comments on the Food Fusion Lunchbox video were read but there are few of them. Cooking With Benazir's desi chicken macaroni page has no rating data. Reddit read via the PullPush archive."
+    },
+    {
+      "id": "R013",
+      "dish": "Bhindi (Masala Aloo Bhindi)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
+        "written_status": "OK (HTTP 200). Title is 'Masala Aloo Bhindi' and it embeds NZwQExS8u9k. No rating or servings shown.",
+        "video_url": "https://www.youtube.com/watch?v=NZwQExS8u9k",
+        "video_status": "OK, playable",
+        "video_title": "Masala Aloo Bhindi Recipe By Food Fusion",
+        "video_views": "220,652 views and about 2,607 likes (YouTube watch page)"
+      },
+      "written": [
+        {
+          "title": "Masala Aloo Bhindi",
+          "url": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Pakistani. Exact dish match, paired with its own video."
+        },
+        {
+          "title": "Masala Bhindi Aaloo",
+          "url": "https://desibypardesi.com/masala-bhindi-aaloo/",
+          "site": "Desi by Pardesi (Pakistani blog)",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Pakistani-style aloo bhindi. Serves 4 (from the recipe schema)."
+        },
+        {
+          "title": "Aloo Bhindi Recipe (Okra with Potatoes)",
+          "url": "https://www.indianhealthyrecipes.com/aloo-bhindi/",
+          "site": "Swasthi's Recipes",
+          "rating": "5.0",
+          "rating_count": "18 ratings (6 reviews)",
+          "notes": "North Indian, but very close to the Pakistani dish. Serves 4. The best-rated aloo bhindi I found."
+        },
+        {
+          "title": "Bhindi Masala - a 25 Minute Pakistani Okra Curry",
+          "url": "https://www.flourandspiceblog.com/bhindi-masala/",
+          "site": "Flour & Spice",
+          "rating": "4.82",
+          "rating_count": "22 ratings (4 reviews)",
+          "notes": "Pakistani, serves 4, with tips to keep okra from going slimy. Has no potato."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Bhindi Aloo Ki Sabzi Okra with Potatoes Recipe Kun Foods",
+          "url": "https://www.youtube.com/watch?v=FpXwvBHKJHA",
+          "channel": "Kun Foods",
+          "views": "101,995 views; about 2,785 likes",
+          "published": "2020-09-05",
+          "comment_feedback": "Comments are positive but generic ('superb as usual', 'well explained'). One calls it Karachi-style aloo bhindi. I saw no complaints. Runs 7:41."
+        },
+        {
+          "title": "Masala Aloo Bhindi Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=NZwQExS8u9k",
+          "channel": "Food Fusion",
+          "views": "220,652 views; about 2,607 likes",
+          "published": "2018-08-28",
+          "comment_feedback": "Several people say they made it for lunch and it was delicious. One likes that it uses little oil and no deep frying. Runs 1:36."
+        },
+        {
+          "title": "Dry Aalo Bhindi Masala with Butter Paratha Recipe by Food Fusion",
+          "url": "https://www.youtube.com/watch?v=lherUtkAO-4",
+          "channel": "Food Fusion",
+          "views": "214,032 views; about 1,978 likes",
+          "published": "2024-07-28",
+          "comment_feedback": "Commenters like that it uses everyday ingredients. Some say it is a Sindhi home dish. A few made it and liked it."
+        },
+        {
+          "title": "Masala Bhindi - Restaurant Style Bhindi Recipe (no potato)",
+          "url": "https://www.youtube.com/watch?v=5h5ra49ThnI",
+          "channel": "Kun Foods",
+          "views": "5,533,569 views; about 65,039 likes",
+          "published": "2022-09-22",
+          "comment_feedback": "Very positive. Several say they always make bhindi this way, recommend it fully, and got good results many times. It has no potatoes, so use it only if aloo is optional."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/91lv5w/cooking_bhindi_help/",
+          "subreddit": "r/IndianFood",
+          "summary": "How to stop the slime: wash and fully dry the okra before cutting, or air-dry the slices. Fry on high heat, stirring, until the stickiness goes. Add salt late. Lemon or another sour ingredient helps."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/frbqnz/how_do_you_deal_with_frozen_okra_bhindiladys/",
+          "subreddit": "r/IndianFood",
+          "summary": "Keep moisture out: cook uncovered, add salt last, and use lemon, vinegar or yogurt to cut slime. Some say frozen okra works straight from the freezer on medium-high heat. Boiled potato soaks up gumminess."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/solo57/what_recipe_of_making_bhindi_is_better_for_a_beginner/",
+          "subreddit": "r/IndianFood",
+          "summary": "For beginners: dry the okra, and cut it bigger or lengthwise so it releases less slime. Half-fry the potatoes before adding the okra. Cut back the chilli for people who can't take heat."
+        },
+        {
+          "url": "https://www.reddit.com/r/castiron/comments/1489k2b/aloo_bhindi_potatoes_and_okra_fry/",
+          "subreddit": "r/castiron",
+          "summary": "Aloo bhindi in a cast-iron pan. Tip: cook uncovered on low heat for the first 15 minutes or so to get rid of the stickiness."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
+        "video_url": "https://www.youtube.com/watch?v=FpXwvBHKJHA",
+        "reason": "None of the Pakistani aloo bhindi pages show a rating, so keep Food Fusion's exact-match recipe. Swasthi's (5.0 from 18) is the best-rated backup, but it is Indian. Kun Foods' aloo bhindi has more likes than the current video with half the views, and at 7:41 it explains more. If plain masala bhindi is fine, Kun Foods 5h5ra49ThnI (5.5M views) is the strongest video."
+      },
+      "not_verified": "Food Fusion, Desi by Pardesi and Cook with Faiza pages show no ratings. I did not get total YouTube comment counts. I found no Pakistani-subreddit thread on aloo bhindi; the advice comes from r/IndianFood and r/castiron."
+    },
+    {
+      "id": "R014",
+      "dish": "Gobi Masala (Dhaba Style)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/dhaba-style-mix-vegetable/",
+        "written_status": "OK (HTTP 200), but this is 'Dhaba Style Mix Vegetable', not a gobi recipe. It embeds L7LXJ7FiRPA. No rating shown.",
+        "video_url": "https://www.youtube.com/watch?v=L7LXJ7FiRPA",
+        "video_status": "OK, playable, but it is mixed vegetable, not gobi",
+        "video_title": "Dhaba Style Mix Vegetable Recipe By Food Fusion",
+        "video_views": "1,638,182 views and about 18,467 likes (YouTube watch page)"
+      },
+      "written": [
+        {
+          "title": "Cauliflower and Potato Curry (Aloo Gobi)",
+          "url": "https://www.teaforturmeric.com/aloo-gobi/",
+          "site": "Tea for Turmeric (Pakistani blog)",
+          "rating": "4.94",
+          "rating_count": "94 ratings (8 reviews)",
+          "notes": "Pakistani home-style aloo gobi. Serves 4, which matches the household."
+        },
+        {
+          "title": "Aloo Gobi Recipe (Cauliflower Potato Curry)",
+          "url": "https://www.indianhealthyrecipes.com/aloo-gobi-recipe/",
+          "site": "Swasthi's Recipes",
+          "rating": "5.0",
+          "rating_count": "632 ratings (10 reviews)",
+          "notes": "Has the most ratings, but it is Indian. Dry and gravy versions. Serves 3. One Reddit user said its cooking times didn't work for them."
+        },
+        {
+          "title": "Aloo Gobi - Potatoes & Cauliflower",
+          "url": "https://www.cookwithmanali.com/aloo-gobi/",
+          "site": "Cook With Manali",
+          "rating": "4.79",
+          "rating_count": "281 ratings (9 reviews)",
+          "notes": "Indian. Serves 2, so double it."
+        },
+        {
+          "title": "Dhaba Style Dry Aloo Gobi",
+          "url": "https://www.mygingergarlickitchen.com/aloo-gobi-dhaba-style-punjabi-dry-aloo-gobi-sabji-video-recipe-potato-cauliflower/",
+          "site": "My Ginger Garlic Kitchen",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Punjabi dhaba-style dry aloo gobi. Serves 5."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Aloo Gobi Dhaba Style Simple and Easy Aloo Gobhi for Lunch Box",
+          "url": "https://www.youtube.com/watch?v=cyFdxehMfGQ",
+          "channel": "BaBa Food RRC",
+          "views": "2,124,767 views; about 30,280 likes",
+          "published": "2020-08-14",
+          "comment_feedback": "People who disliked gobi say this recipe changed their mind. A 10-year-old made it successfully. Commenters praise the step-by-step explanation, and several made it 2-3 times. Pakistani dhaba style, 8:41."
+        },
+        {
+          "title": "Aloo Gobhi Recipe By Ijaz Ansari. Best Aloo Gobhi Recipe on Internet.",
+          "url": "https://www.youtube.com/watch?v=wC_xpyBvuuw",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "2,201,077 views; about 55,525 likes",
+          "published": "2020-02-06",
+          "comment_feedback": "One viewer made it exactly as shown and called it the tastiest cauliflower they'd had. Others say it suits beginners. One suggests adding a little ajwain. Most likes of the gobi videos."
+        },
+        {
+          "title": "Dhaba Style Mix Vegetable Recipe By Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=L7LXJ7FiRPA",
+          "channel": "Food Fusion",
+          "views": "1,638,182 views; about 18,467 likes",
+          "published": "2019-06-18",
+          "comment_feedback": "Very positive: lots of compliments, and one husband loved it. But it is mixed vegetables, not gobi."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/Cooking/comments/1cc48at/theres_an_indian_dish_called_gobi_directly/",
+          "subreddit": "r/Cooking",
+          "summary": "Mushy gobi: cook it less and add the cauliflower later. Many recipes pre-fry or blanch the florets and add them near the end."
+        },
+        {
+          "url": "https://www.reddit.com/r/Cooking/comments/mbuavg/aloo_gobi_recipe/",
+          "subreddit": "r/Cooking",
+          "summary": "Cut the potatoes small and don't crowd the pan. One user warns that boiling the cauliflower first turns it to mush. Another found Swasthi's cooking times too short and wished they had par-boiled. For a dry version, Priya Krishna's roasted aloo gobi (Bon Appetit) is suggested."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/aloo-gobi/",
+        "video_url": "https://www.youtube.com/watch?v=cyFdxehMfGQ",
+        "reason": "Replace the current link, which is mixed vegetable, not gobi. Tea for Turmeric is the best-rated Pakistani gobi recipe (4.94 from 94) and serves 4. BaBa Food RRC is a Pakistani dhaba-style aloo gobi with 2.1M views and strong 'made it and loved it' comments. Ijaz Ansari (wC_xpyBvuuw) is an equally good alternative with more likes."
+      },
+      "not_verified": "I found no Food Fusion page just for gobi masala, only 'Vegetable Recipes 3-ways' and 'Gobhi Musallam'. I did not get total YouTube comment counts. I found no r/PakistaniFood thread on gobi."
+    },
+    {
+      "id": "R015",
+      "dish": "Karela (Qeema Karelay)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/qeema-karaley/",
+        "written_status": "OK. It redirects to foodfusion.com. Title is 'Qeema Karaley' and it embeds C2p7idVXhE8. No rating shown.",
+        "video_url": "https://www.youtube.com/watch?v=C2p7idVXhE8",
+        "video_status": "OK, playable",
+        "video_title": "Qeema Karelay Recipe by food fusion",
+        "video_views": "591,165 views and about 5,246 likes (YouTube watch page)"
+      },
+      "written": [
+        {
+          "title": "Pakistani Keema Kareley (Ground Beef and Bitter Melon)",
+          "url": "https://www.teaforturmeric.com/pakistani-keema-kareley-ground-beef-and-bitter-melon/",
+          "site": "Tea for Turmeric (Pakistani blog)",
+          "rating": "5.0",
+          "rating_count": "8 ratings (5 reviews)",
+          "notes": "Pakistani, serves 4. Explains salting the karela to reduce bitterness."
+        },
+        {
+          "title": "Qeema Karaley",
+          "url": "https://www.foodfusion.com/recipe/qeema-karaley/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "The current link. Pakistani. Food Fusion also has a Beef Qeema Karelay page: https://foodfusion.com/recipe/beef-qeema-karelay/"
+        },
+        {
+          "title": "Delicious Pakistani-Style Karela Keema",
+          "url": "https://twoclovesinapot.com/delicious-pakistani-style-karela-keema/",
+          "site": "Two Cloves In A Pot",
+          "rating": "5",
+          "rating_count": "1 rating",
+          "notes": "Pakistani, serves 6. Only one rating."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Kemma Karely With New Techniques | Karela Recipe with Professional Chef Rizwan",
+          "url": "https://www.youtube.com/watch?v=jpFelvaiveQ",
+          "channel": "BaBa Food RRC",
+          "views": "876,523 views; about 12,317 likes",
+          "published": "2020-10-19",
+          "comment_feedback": "Comments are mostly short praise, such as 'perfect taste' and 'time-saving for household cooks'. I saw no complaints."
+        },
+        {
+          "title": "Keema Karelay - Bitter Gourd with Mince",
+          "url": "https://www.youtube.com/watch?v=QgghVu5wLro",
+          "channel": "Kun Foods",
+          "views": "583,432 views; about 7,418 likes",
+          "published": "2024-05-20",
+          "comment_feedback": "Several commenters like that he leaves the karela unpeeled and unsqueezed, which they see as healthier. One praises him for crediting where the recipe came from. Runs 12:18."
+        },
+        {
+          "title": "Qeema Karelay Recipe by food fusion (current)",
+          "url": "https://www.youtube.com/watch?v=C2p7idVXhE8",
+          "channel": "Food Fusion",
+          "views": "591,165 views; about 5,246 likes",
+          "published": "2019-12-24",
+          "comment_feedback": "Mostly generic praise. One says they cooked it for the first time and everyone liked it."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/vapio5/karela_to_rule_them_all/",
+          "subreddit": "r/pakistan",
+          "summary": "Lots of love for keema karelay. Commenters explain 'band' karelay: seeds removed, stuffed with qeema and tied shut with thread. Several say well-made karela is barely bitter."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/k7oyjq/good_stuffed_karela_recipe/",
+          "subreddit": "r/IndianFood",
+          "summary": "To cut bitterness: peel, slit and remove the seeds, then salt for a few hours or overnight. Rinse, squeeze hard and fry. Some skip salting because they like the bitterness."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/1dhwpvf/while_making_bitter_gourdmelon_or_karela_sabji/",
+          "subreddit": "r/IndianFood",
+          "summary": "Asks whether salting removes nutrients. Replies say the loss is small and that some bitterness is the point of the dish."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/pakistani-keema-kareley-ground-beef-and-bitter-melon/",
+        "video_url": "https://www.youtube.com/watch?v=jpFelvaiveQ",
+        "reason": "Tea for Turmeric is Pakistani, serves 4, is rated 5.0 from 8 and explains how to reduce bitterness. BaBa Food RRC has the most views and likes of the chopped qeema-karela videos (877K views, 12.3K likes). Kun Foods is the pick if the family likes it bitter, since it skips peeling and salting."
+      },
+      "not_verified": "Few written karela recipes show many ratings, and Tea for Turmeric's 8 is a small sample. I could not check Masala Secret's achari version (Cloudflare blocks it). I did not get total YouTube comment counts."
+    },
+    {
+      "id": "R016",
+      "dish": "Aalu (Masala Aloo)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/masala-aloo-recipe/",
+        "written_status": "OK. It redirects to foodfusion.com. Title is 'Masala Aloo' and it embeds cwps_0u-vPQ. No rating shown.",
+        "video_url": "https://www.youtube.com/watch?v=cwps_0u-vPQ",
+        "video_status": "OK, playable",
+        "video_title": "Very Easy Masala Aloo Recipe - Food Fusion",
+        "video_views": "345,454 views. The page did not show a like count."
+      },
+      "written": [
+        {
+          "title": "Pakistani spicy potatoes (aloo bhujia)",
+          "url": "https://www.bbc.co.uk/food/recipes/pakistani_spicy_potatoes_93471",
+          "site": "BBC Food",
+          "rating": "4.54",
+          "rating_count": "28 ratings",
+          "notes": "Pakistani aloo bhujia, serves 3-4. Has the most ratings of the Pakistani-style dry aloo recipes I found."
+        },
+        {
+          "title": "Aloo Ki Bhujia with Tomatoes",
+          "url": "https://fatimacooks.net/aloo-ki-bhujia-with-tomatoes/",
+          "site": "Fatima Cooks (Pakistani blog)",
+          "rating": "4.5",
+          "rating_count": "18 ratings (2 reviews)",
+          "notes": "Pakistani home style with tomatoes. Serves 4."
+        },
+        {
+          "title": "Masala Aloo",
+          "url": "https://www.foodfusion.com/recipe/masala-aloo-recipe/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "The current link. A very short, simple recipe."
+        },
+        {
+          "title": "Aloo Bhujia (Pakistani Potato Curry)",
+          "url": "https://untoldrecipesbynosheen.com/easy-aloo-sabzi-potato-curry/",
+          "site": "Untold Recipes By Nosheen",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "Pakistani. Cloudflare blocked the page, so I could not check the rating."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Aloo ki Bhujia Recipe | Potato Curry | Aloo Sabzi | Quick And Easy Recipe",
+          "url": "https://www.youtube.com/watch?v=EAaaAkaoFPk",
+          "channel": "BaBa Food RRC",
+          "views": "2,383,103 views; about 32,192 likes",
+          "published": "2022-01-31",
+          "comment_feedback": "Several people tried it and called it amazing or the best. The rest is generic praise. I saw no complaints."
+        },
+        {
+          "title": "Aloo ki Bhujia Recipe | Delicious Potato Curry By Cooking with Asifa",
+          "url": "https://www.youtube.com/watch?v=hr24FBMky2o",
+          "channel": "Cooking with Asifa",
+          "views": "1,761,075 views; about 25,535 likes",
+          "published": "2018-11-20",
+          "comment_feedback": "Mixed. Some always follow it. Others asked whether onions or water are needed, and one said their potatoes never softened."
+        },
+        {
+          "title": "Very Easy Masala Aloo Recipe - Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=cwps_0u-vPQ",
+          "channel": "Food Fusion",
+          "views": "345,453 views (likes not shown)",
+          "published": "2016-06-14",
+          "comment_feedback": "Positive but brief. One person made it for supper and found it delicious. Another added crushed fennel at the end and liked the result."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/6p14cp/how_to_make_dry_aloo_ki_sabzialoo_jeera/",
+          "subreddit": "r/IndianFood",
+          "summary": "For dry aloo that turns out bland or mushy: cut the potatoes small and cook uncovered on medium, letting them brown a little. Wash the cut potatoes. Users disagree on waxy versus starchy potatoes. Fry the jeera in oil rather than boiling it with the potatoes."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.bbc.co.uk/food/recipes/pakistani_spicy_potatoes_93471",
+        "video_url": "https://www.youtube.com/watch?v=EAaaAkaoFPk",
+        "reason": "BBC Food's Pakistani aloo bhujia has the most verified ratings (4.54 from 28) and serves 3-4. BaBa Food RRC's aloo bhujia has about 7 times the current video's views (2.38M), 32K likes and positive 'tried it' comments. Fatima Cooks (4.5 from 18, serves 4) is the Pakistani-blog alternative."
+      },
+      "not_verified": "I could not check the Untold Recipes by Nosheen rating (blocked). The Food Fusion video's like count was not shown. I found no Pakistani-subreddit thread on masala aloo."
+    },
+    {
+      "id": "R017",
+      "dish": "Qeema (Dhaba Style Aloo Qeema)",
+      "current": {
+        "written_url": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/",
+        "written_status": "OK (HTTP 200). Title is 'Dhaba Style Aloo Qeema'. It embeds the full-length video ewat8Dt52l8, not the Short. No rating shown.",
+        "video_url": "https://www.youtube.com/shorts/qVQCbXiU7_A",
+        "video_status": "OK, playable (a Short)",
+        "video_title": "Dhaba Style Aloo Keema Recipe By Food Fusion",
+        "video_views": "398,266 views and about 7,727 likes (YouTube watch page). Published 2025-09-24."
+      },
+      "written": [
+        {
+          "title": "Pakistani Aloo Keema (Ground Beef and Potato Curry)",
+          "url": "https://www.teaforturmeric.com/aloo-keema/",
+          "site": "Tea for Turmeric (Pakistani blog)",
+          "rating": "4.96",
+          "rating_count": "86 ratings (8 reviews)",
+          "notes": "Pakistani home style. Serves 4, so scale up a little for 5."
+        },
+        {
+          "title": "Pakistani Aloo Keema",
+          "url": "https://fatimacooks.net/aloo-keema/",
+          "site": "Fatima Cooks (Pakistani blog)",
+          "rating": "4.6",
+          "rating_count": "189 ratings (7 reviews)",
+          "notes": "Has the most ratings. Serves 3. Includes notes on adapting it for mutton."
+        },
+        {
+          "title": "Aloo Keema Recipe + Tips for the BEST Keema (Pakistani)",
+          "url": "https://www.flourandspiceblog.com/aaloo-qeema-ground-beef-and-potatoes/",
+          "site": "Flour & Spice",
+          "rating": "4.87",
+          "rating_count": "45 ratings (3 reviews)",
+          "notes": "Pakistani, serves 4. Good tips on keeping the potatoes whole."
+        },
+        {
+          "title": "Dhaba Style Aloo Qeema",
+          "url": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "The current link. Exact dhaba-style match."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Dhaba Style Aloo Keema Recipe By Food Fusion (full length)",
+          "url": "https://www.youtube.com/watch?v=ewat8Dt52l8",
+          "channel": "Food Fusion",
+          "views": "2,854,986 views; about 27,273 likes",
+          "published": "2019-06-10",
+          "comment_feedback": "Many say they tried it and it turned out great. Beginners found it easy and not stressful. Commenters call it tried and tested."
+        },
+        {
+          "title": "1kg Perfect Aloo Keema Recipe - Dhaba Style Gravy wala keema",
+          "url": "https://www.youtube.com/watch?v=J10IGN5lSSc",
+          "channel": "Kun Foods",
+          "views": "1,133,022 views; about 15,368 likes",
+          "published": "2023-10-05",
+          "comment_feedback": "Very positive. The top comment (353 likes) praises the lack of music and wasted time. People like the exact measurements, and experienced cooks say it gave their best result. The 1 kg batch suits 5 people. Runs 10:55."
+        },
+        {
+          "title": "Aloo Keema Recipe | Commercial Beef Aloo Keema Recipe",
+          "url": "https://www.youtube.com/watch?v=RudosrIRf9M",
+          "channel": "BaBa Food RRC",
+          "views": "964,716 views; about 11,329 likes",
+          "published": "2022-07-12",
+          "comment_feedback": "Positive. One viewer's dish looked just like the video's. Another compares his teaching to learning from their mother. Some tried it and liked it."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/1guvrvw/everyone_says_i_make_great_qeema/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "A popular qeema post (228 upvotes). The poster's tip: bhuno (stir-fry) the qeema a lot, until it has a fried texture, before adding tomatoes. They used about half a packet of Shan keema masala. Others call aloo qeema an underrated home staple."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/144y84g/how_to_make_mutton_keema_that_is_not_chewy/",
+          "subreddit": "r/IndianFood",
+          "summary": "For chewy keema: don't boil the mince first. Brown it directly in the masala, add salt later and don't overcook. Marinating in yogurt and spices also helps."
+        },
+        {
+          "url": "https://www.reddit.com/r/PakistaniFood/comments/rdff1y/recipe_in_comments_pakistani_aloo_keema_minced/",
+          "subreddit": "r/PakistaniFood",
+          "summary": "A recipe-share post linking to jamilghar.com. Little discussion, and only positive replies."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/aloo-keema/",
+        "video_url": "https://www.youtube.com/watch?v=ewat8Dt52l8",
+        "reason": "Tea for Turmeric has the best rating with a solid number of votes (4.96 from 86). Replace the Short with Food Fusion's full-length version of the same dish (2.85M views, 27K likes), which the current written page already embeds. Kun Foods J10IGN5lSSc is the best detailed alternative, with exact 1 kg measurements."
+      },
+      "not_verified": "I did not get total YouTube comment counts. I could not check I Knead to Eat's rating (blocked)."
+    },
+    {
+      "id": "R018",
+      "dish": "Beef Nihari",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/perfect-beef-nihari-recipe/",
+        "written_status": "200 OK, page loads (Food Fusion; no star rating shown on page)",
+        "video_url": "https://www.youtube.com/watch?v=mZOXDAvMCM4",
+        "video_status": "OK, playable",
+        "video_title": "Perfect Beef Nihari Recipe by Food Fusion",
+        "video_views": "1,737,883 (watch page, 2026-10-04); published 2016-08-26"
+      },
+      "written": [
+        {
+          "title": "Easy Nihari (Pakistani Beef Stew) - Stovetop + Slow Cooker",
+          "url": "https://www.teaforturmeric.com/easy-slow-cooker-nihari-beef-stew/",
+          "site": "Tea for Turmeric",
+          "rating": "4.99",
+          "rating_count": 66,
+          "notes": "Beef shank nihari, stovetop or slow cooker. Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Nihari - A Classic Pakistani Dish",
+          "url": "https://www.flourandspiceblog.com/nihari/",
+          "site": "Flour & Spice",
+          "rating": "4.65",
+          "rating_count": 59,
+          "notes": "Rating from schema.org aggregateRating on the page, fetched 2026-10-04."
+        },
+        {
+          "title": "Easy Pakistani Beef Nihari Recipe",
+          "url": "https://falasteenifoodie.com/easy-pakistani-beef-nihari-recipe-pakistani-stew/",
+          "site": "FalasteeniFoodie",
+          "rating": "not verified",
+          "rating_count": "not verified",
+          "notes": "No rating found on the page."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Nihari || A Recipe from History!!",
+          "url": "https://www.youtube.com/watch?v=KCcEKQt1-G0",
+          "channel": "Kun Foods",
+          "views": "2,731,847",
+          "published": "about 6 years ago (YouTube search page)",
+          "comment_feedback": "The most-liked comments praise his step-by-step reasoning; one compares him to a maths teacher. People who tried it say it tasted great. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "How to Make Best Beef Nihari with Homemade Nihari Masala (Bakra Eid Special)",
+          "url": "https://www.youtube.com/watch?v=1Kd3mhopYaE",
+          "channel": "Food Fusion",
+          "views": "2,068,967",
+          "published": "about 3 years ago (YouTube search page)",
+          "comment_feedback": "The top comment (300+ likes) is from someone who wanted a homemade-masala nihari and was happy with the result. Others say the only real effort is roasting and grinding the spices. One left out dry ginger and it was still fine. Based on the top ~20 comments, read 2026-10-04."
+        },
+        {
+          "title": "Perfect Beef Nihari Recipe by Food Fusion (current)",
+          "url": "https://www.youtube.com/watch?v=mZOXDAvMCM4",
+          "channel": "Food Fusion",
+          "views": "1,737,883",
+          "published": "2016-08-26",
+          "comment_feedback": "Positive. First-time nihari cooks say it worked and call it a safe recipe to try. Based on the top ~20 comments, read 2026-10-04."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/1itxpdf/give_me_your_best_nihari_recipe/",
+          "subreddit": "r/pakistan",
+          "summary": "A first-timer asks which YouTube cook to trust for nihari. The replies were not visible in the snippet. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/pakistan/comments/buf1xy/best_nihari_masala_recipe/",
+          "subreddit": "r/pakistan",
+          "summary": "Discussion of homemade nihari masala. One user cuts the chilli for a milder dish and adds a little water so the masala does not burn. (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        },
+        {
+          "url": "https://www.reddit.com/r/tonightsdinner/comments/v1vcwj/pakistani_beef_stew_nihari_slow_cooked_beef_shank/",
+          "subreddit": "r/tonightsdinner",
+          "summary": "The poster made slow-cooked beef shank nihari using a Tea for Turmeric recipe (the Instant Pot version). (Reddit cannot be fetched directly; summary from search-result snippet only.)"
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/easy-slow-cooker-nihari-beef-stew/",
+        "video_url": "https://www.youtube.com/watch?v=KCcEKQt1-G0",
+        "reason": "Tea for Turmeric has the highest verified rating found (4.99 from 66), and a Reddit user used its nihari. Kun Foods nihari is the most-viewed home-recipe nihari found (2.73M), and comments single out its clear explanations. Food Fusion 1Kd3mhopYaE (2.07M, homemade masala) is a strong, shorter alternative."
+      },
+      "not_verified": "Food Fusion written page has no rating. Reddit threads seen only as search snippets. Comments on the Tea for Turmeric and Flour & Spice pages were not read."
+    },
+    {
+      "id": "R019",
+      "dish": "Khichri (Spicy Fried Khichdi)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
+        "written_status": "200 OK, Food Fusion recipe page loads; no star rating or serving size shown on the page",
+        "video_url": "https://www.youtube.com/watch?v=H71MWbyhO0E",
+        "video_status": "OK (playable)",
+        "video_title": "Spicy Fried Khichdi Recipe By Food Fusion",
+        "video_views": "323,872 (2.7 thousand likes; published 2017-02-14)"
+      },
+      "written": [
+        {
+          "title": "Spicy Fried Khichdi",
+          "url": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
+          "site": "Food Fusion",
+          "rating": "not shown",
+          "rating_count": "not shown",
+          "notes": "Current link. The only version found in the 'spicy fried' style: rice and moong, mashed, then tempered and finished with butter."
+        },
+        {
+          "title": "Khichdi Recipe (For Sick Days, Surprisingly Tasty!)",
+          "url": "https://www.teaforturmeric.com/khichdi-recipe/",
+          "site": "Tea for Turmeric",
+          "rating": "5.0",
+          "rating_count": "8",
+          "notes": "Serves 4. Pakistani author, but a milder comfort-food version."
+        },
+        {
+          "title": "Moong ki Khichri | Zubaida Tariq",
+          "url": "https://masala.tv/moong-ki-khichri-by-zubaida-tariq/",
+          "site": "Masala TV",
+          "rating": "not reliable",
+          "rating_count": "not reliable",
+          "notes": "Serves 6. Classic Pakistani household khichri. Masala TV shows 5 stars from 235 ratings on every recipe checked, so the rating looks like a placeholder."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Spicy Fried Khichdi Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=H71MWbyhO0E",
+          "channel": "Food Fusion",
+          "views": "323,872 (2.7 thousand likes)",
+          "published": "2017-02-14",
+          "comment_feedback": "Mostly short praise. A couple of viewers made it and liked it. One asks whether masoor can replace the moong, and one plans to leave out the coriander seeds."
+        },
+        {
+          "title": "Moong ki Daal ki Khichdi - Khichdi Pakane ka Tarika - Comfort Food",
+          "url": "https://www.youtube.com/watch?v=b_2jClXrYV8",
+          "channel": "BaBa Food RRC",
+          "views": "1,099,759 (14 thousand likes)",
+          "published": "2023-08-06",
+          "comment_feedback": "Several viewers made it and found it very tasty. One praised it for not being soggy, which they see as a common khichdi mistake."
+        },
+        {
+          "title": "Hari Moong dal Khichdi (Green Mong Dal Lentil Khichdi) Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=pkSgODBKzdI",
+          "channel": "Food Fusion",
+          "views": "1,331,939 (likes not shown)",
+          "published": "2016-07-20",
+          "comment_feedback": "Top comment: soaked the dal for 1 hour, it came out soft and suited an upset stomach. Uses a different dal (green moong) and is milder."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/173k69f/whats_your_twist_on_khichidi_if_you_dont_make_it/",
+          "subreddit": "r/IndianFood",
+          "summary": "Popular additions: a final tarka of onion, tomato, chillies, garlic and ginger, plus extra ghee on top. Some mix several dals with rice in equal parts."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/17o8g4b/how_to_make_khichdi_that_i_once_requested_for/",
+          "subreddit": "r/IndianFood",
+          "summary": "To keep some texture, lightly fry the moong in the cumin tadka before adding water."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/173s3js/how_much_water_is_to_be_added_for_making_a_runny/",
+          "subreddit": "r/IndianFood",
+          "summary": "Adjust the water for the consistency you want, then finish with a small ghee or mustard-oil tadka with cumin and hing."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
+        "video_url": "https://www.youtube.com/watch?v=H71MWbyhO0E",
+        "reason": "Keep the current pair. It is the only recipe found in the specific spicy-fried style. Khichdi videos with more views are plainer comfort versions. If a classic moong khichri is acceptable, BaBa Food (1.1M views) is the best alternative."
+      },
+      "not_verified": "No rated written recipe in the spicy-fried style was found. Food Fusion's page shows no rating or serving size. Reddit was read only through search snippets, and the threads are Indian rather than Pakistani."
+    },
+    {
+      "id": "R020",
+      "dish": "Saag (Sarson Ka Saag)",
+      "current": {
+        "written_url": "https://www.foodfusion.com/recipe/sarson-ka-saag-recipe/",
+        "written_status": "200 OK, Food Fusion recipe page loads; no star rating or serving size shown on the page. Long simmer (2-3 hours on low)",
+        "video_url": "https://www.youtube.com/watch?v=XH2_pWrguvI",
+        "video_status": "OK (playable)",
+        "video_title": "Sarson Ka Saag Recipe By Food Fusion",
+        "video_views": "1,559,154 (13 thousand likes; published 2016-12-27)"
+      },
+      "written": [
+        {
+          "title": "Easy Sarson Ka Saag (Stovetop & Instant Pot)",
+          "url": "https://www.teaforturmeric.com/easy-sarson-ka-saag/",
+          "site": "Tea for Turmeric",
+          "rating": "4.95",
+          "rating_count": "18",
+          "notes": "Serves 4. Pakistani author. Faster than the traditional 2-3 hour simmer."
+        },
+        {
+          "title": "sarson ka saag recipe | saag recipe | how to make sarson da saag",
+          "url": "https://hebbarskitchen.com/sarson-ka-saag-recipe-sarson-da-saag/",
+          "site": "Hebbars Kitchen",
+          "rating": "4.98",
+          "rating_count": "243",
+          "notes": "Most-rated version found. Indian Punjabi style, serves 3, uses a pressure cooker."
+        },
+        {
+          "title": "Sarson ka Saag",
+          "url": "https://www.cookwithmanali.com/sarson-ka-saag/",
+          "site": "Cook With Manali",
+          "rating": "4.97",
+          "rating_count": "26",
+          "notes": "Serves 4. Indian Punjabi style."
+        }
+      ],
+      "videos": [
+        {
+          "title": "Sarson Ka Saag Recipe By Food Fusion",
+          "url": "https://www.youtube.com/watch?v=XH2_pWrguvI",
+          "channel": "Food Fusion",
+          "views": "1,559,154 (13 thousand likes)",
+          "published": "2016-12-27",
+          "comment_feedback": "Several viewers call it authentic village-style saag with no extra masala. One says it matched her phupho's recipe. One complaint: amounts are given in 'bunches', which is unclear, and a viewer asked for grams."
+        },
+        {
+          "title": "Sarson Ka Saag Traditional Recipe (BaBa Food RRC)",
+          "url": "https://www.youtube.com/watch?v=Fs9sKU_GEEw",
+          "channel": "BaBa Food RRC",
+          "views": "1,598,584 (19 thousand likes)",
+          "published": "2021-10-01",
+          "comment_feedback": "Mostly general praise such as 'authentic' and 'favourite'. Few detailed reports from people who made it in the top comments."
+        },
+        {
+          "title": "Sarso Ka Saag Recipe By ijaz Ansari",
+          "url": "https://www.youtube.com/watch?v=2yGkcPrBr-c",
+          "channel": "Ijaz Ansari Food Secrets",
+          "views": "1,039,459 (10 thousand likes)",
+          "published": "2021-11-06",
+          "comment_feedback": "General praise only. No detailed feedback in the top comments."
+        },
+        {
+          "title": "Sarson Ka Saag | Makki Ki Roti | Homemade Butter | Village Food Secrets",
+          "url": "https://www.youtube.com/watch?v=1vK9yIUit6s",
+          "channel": "Village Food Secrets",
+          "views": "1,973,648 (28 thousand likes)",
+          "published": "2019-11-07",
+          "comment_feedback": "Comments are about the village setting, not the cooking. This is a vlog rather than a step-by-step recipe, so it is not recommended for the app."
+        }
+      ],
+      "reddit": [
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/14ii3g1/saag_recipe/",
+          "subreddit": "r/IndianFood",
+          "summary": "Saag greens can be bitter. Blanching them helps remove the bitterness."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/779foa/broccoli_rabe_vs_mustard_green_for_saag/",
+          "subreddit": "r/IndianFood",
+          "summary": "Remove tough stems, which add bitterness, and caramelise the onions to balance the bitter greens."
+        },
+        {
+          "url": "https://www.reddit.com/r/IndianFood/comments/1puigrg/what_greens_do_you_use_for_saag_paneer_or_just/",
+          "subreddit": "r/IndianFood",
+          "summary": "Punjabi families use mustard greens, spinach, fenugreek and bathua. Users warn that dill does not suit sarson ka saag."
+        }
+      ],
+      "recommended": {
+        "written_url": "https://www.teaforturmeric.com/easy-sarson-ka-saag/",
+        "video_url": "https://www.youtube.com/watch?v=XH2_pWrguvI",
+        "reason": "Tea for Turmeric is the highest-rated Pakistani-style version (4.95 from 18 ratings) and serves 4, close to the household's 5. Keep the Food Fusion video: its views are about equal to BaBa Food's (1.56M vs 1.60M), and its comments specifically call it authentic."
+      },
+      "not_verified": "Hebbars Kitchen has far more ratings (243) but is Indian style and serves 3. Reddit was read only through search snippets, and the threads are Indian rather than Pakistani. Food Fusion shows no rating."
+    }
+  ]
+}
