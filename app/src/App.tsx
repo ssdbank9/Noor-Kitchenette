@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { seed } from './data/seed';
+import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
 import { balances, cookingHistory, makeEvent, monthSummary, reverse } from './domain/ledger';
 import { availability, cookableNow, suggestNextMeals } from './domain/suggest';
 import type { Ingredient, KitchenEvent, MealSlot, Movement } from './domain/types';
@@ -31,10 +31,32 @@ export function formatAmount(baseAmount: number, ingredient: Ingredient): string
   return `${amount} ${unit}`;
 }
 
+// --- KR4RJP persistence: load from IndexedDB, then hand the kitchen to the screens ---
 export function App() {
-  const { ingredients, recipes, settings } = seed;
+  const load = useKitchenLoad();
+  if (load.phase === 'ready') return <Kitchen store={load.store} />;
+  return (
+    <div className="app">
+      <main>
+        {load.phase === 'loading' ? (
+          <div className="placeholder" role="status">Opening the kitchen...</div>
+        ) : (
+          <div className="placeholder" role="alert">
+            Could not open the saved kitchen: {load.error}{' '}
+            <button type="button" onClick={load.reload}>Try again</button>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+// --- end KR4RJP ---
+
+function Kitchen({ store }: { store: KitchenStore }) {
+  const { ingredients, recipes, settings } = store.data;
+  const save = useSaveState(store.queue); // KR4RJP
   const tz = settings.timeZone;
-  const [events, setEvents] = useState<KitchenEvent[]>(seed.events);
+  const [events, setEvents] = useState<KitchenEvent[]>(store.data.events);
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
   const [toast, setToast] = useState<{ text: string; undoId?: string } | null>(null);
@@ -78,6 +100,7 @@ export function App() {
       note: choice.usedRecipeAmounts ? undefined : 'Amounts not deducted yet: adjust them in Pantry.',
     }, tz);
     setEvents(prev => [...prev, event]);
+    void store.queue.enqueue({ type: 'events', events: [event] }); // KR4RJP
     setView({ name: 'tab', tab: 'today' });
     setToast({
       text: choice.usedRecipeAmounts ? `Saved ${recipe.name}. Pantry updated.` : `Saved ${recipe.name}. Adjust amounts in Pantry.`,
@@ -91,6 +114,7 @@ export function App() {
     try {
       const r = reverse(target, events, new Date());
       setEvents(prev => [...prev, r]);
+      void store.queue.enqueue({ type: 'events', events: [r] }); // KR4RJP
       setToast({ text: 'Undone. Stock and history are back as they were.' });
     } catch (e) {
       setToast({ text: (e as Error).message });
@@ -168,6 +192,12 @@ export function App() {
 
   return (
     <div className="app">
+      {save.status === 'error' && ( // KR4RJP
+        <div className="save-banner" role="alert">
+          <span>Not saved yet</span>
+          <button type="button" onClick={() => void store.queue.retry()}>Retry</button>
+        </div>
+      )}
       <main>{screen}</main>
       {toast && (
         <div className="toast" role="status">
