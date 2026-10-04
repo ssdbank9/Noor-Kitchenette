@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T17:19:52Z
+updated-at: 2026-10-04T17:27:31Z
 updated-by: Aly Jafferani
 ---
 
@@ -31,7 +31,7 @@ updated-by: Aly Jafferani
 - [ ] Installed and opened on Noor's actual phone (record which phone)
 - [ ] Every P1 row in docs/FEATURES.md is implemented or explicitly deferred with Aly's agreement
 - [ ] Regression test per defect D1-D6, each shown to fail against v3 behaviour
-- [ ] Every dish opens a recipe: the saved link, or one found on the internet with its source shown (F78)
+- [ ] Each of the 22 existing dishes opens its researched recipe and video, working offline (live internet lookup is P2: F78, F80)
 - [ ] Cooking history report: how often each dish is cooked per week and month, last cooked, not cooked for a while (F79)
 
 ## Options
