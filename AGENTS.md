@@ -20,6 +20,13 @@ Aly Jafferani owns the app and makes every decision. Noor is the main user. If a
 needs a decision, an account, a key, a password, a payment or a publication, stop and
 ask Aly. Record decisions in `docs/DECISIONS.md` only after Aly makes them.
 
+## Repository
+
+- Remote: `https://github.com/ssdbank9/Noor-Kitchenette.git` (`origin`), branch `main`.
+- Pull before starting (`git pull --ff-only`). Do not push until Aly has settled
+  the repository's visibility (D-05); the repository was public when it was linked
+  on 2026-10-04.
+
 ## Working on a ticket
 
 - Claim the ticket before editing (`jaira claim <id>`, or move it to in-progress).
