@@ -6,6 +6,8 @@ import type { Ingredient, KitchenEvent, MealSlot, Movement } from './domain/type
 import { fromBase, toBase } from './domain/units';
 import { formatHouseholdDay, householdDate, householdTime, instantFromHousehold, nextSlot } from './lib/localDate';
 import { BottomNav, type Tab } from './ui/BottomNav';
+import { AdjustUsageScreen } from './ui/AdjustUsageScreen';
+import { buildUsage } from './domain/usage';
 import { CookedScreen, type CookedChoice } from './ui/CookedScreen';
 import { HistoryScreen } from './ui/HistoryScreen';
 import { PantryScreen } from './ui/PantryScreen';
@@ -15,7 +17,8 @@ import { TodayScreen } from './ui/TodayScreen';
 type View =
   | { name: 'tab'; tab: Tab }
   | { name: 'recipe'; recipeId: string; back: Tab }
-  | { name: 'cooked'; recipeId: string; servings: number; back: Tab };
+  | { name: 'cooked'; recipeId: string; servings: number; back: Tab }
+  | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab }; // F61: Nahi path
 
 const SLOT_LABEL: Record<MealSlot, string> = { breakfast: 'Breakfast', lunch: 'Lunch', chai: 'Chai', dinner: 'Dinner' };
 const YES = 'Jee';
@@ -88,22 +91,21 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const open = (recipeId: string, back: Tab) => setView({ name: 'recipe', recipeId, back });
   const currentTab: Tab = view.name === 'tab' ? view.tab : view.back;
 
-  function saveCooked(recipeId: string, choice: CookedChoice) {
+  function saveCooked(recipeId: string, choice: CookedChoice, adjusted?: Movement[]) {
     const recipe = recipesById.get(recipeId)!;
     const a = availability(recipe, choice.servings, balances(events), byId, toBase);
-    const movements: Movement[] = choice.usedRecipeAmounts
+    const movements: Movement[] = adjusted ?? (choice.usedRecipeAmounts
       ? a.needs.filter(n => n.need !== null && n.need > 0).map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const }))
-      : [];
+      : []);
     const event = makeEvent('cook', movements, instantFromHousehold(choice.localDate, choice.localTime, tz), {
       meal: { recipeId, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
       source: 'recipe',
-      note: choice.usedRecipeAmounts ? undefined : 'Amounts not deducted yet: adjust them in Pantry.',
     }, tz);
     setEvents(prev => [...prev, event]);
     void store.queue.enqueue({ type: 'events', events: [event] }); // KR4RJP
     setView({ name: 'tab', tab: 'today' });
     setToast({
-      text: choice.usedRecipeAmounts ? `Saved ${recipe.name}. Pantry updated.` : `Saved ${recipe.name}. Adjust amounts in Pantry.`,
+      text: `Saved ${recipe.name}. Pantry updated.`,
       undoId: event.id,
     });
   }
@@ -151,7 +153,20 @@ function Kitchen({ store }: { store: KitchenStore }) {
         yesWord={YES}
         noWord={NO}
         onBack={() => open(recipe.id, view.back)}
-        onSave={choice => saveCooked(recipe.id, choice)}
+        onSave={choice => (choice.usedRecipeAmounts ? saveCooked(recipe.id, choice) : setView({ name: 'adjust', recipeId: recipe.id, choice, back: view.back }))}
+      />
+    );
+  } else if (view.name === 'adjust') { // F61: adjust usage
+    const recipe = recipesById.get(view.recipeId)!;
+    const choice = view.choice;
+    screen = (
+      <AdjustUsageScreen
+        key={recipe.id}
+        recipeName={recipe.name}
+        lines={buildUsage(availability(recipe, choice.servings, stock, byId, toBase), recipe, byId)}
+        ingredientsById={byId}
+        onBack={() => setView({ name: 'cooked', recipeId: recipe.id, servings: choice.servings, back: view.back })}
+        onSave={movements => saveCooked(recipe.id, choice, movements)}
       />
     );
   } else if (view.tab === 'today') {
