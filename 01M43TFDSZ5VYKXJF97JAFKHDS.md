@@ -1,6 +1,6 @@
 ---
 id: 01M43TFDSZ5VYKXJF97JAFKHDS
-title: "P2: photo pantry and receipts (Gemini)"
+title: "P2: Gemini - new-dish lookup, internet recipes, photo pantry"
 status: backlog
 ready: false
 creator: Aly Jafferani
@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:19:14Z
+updated-at: 2026-10-04T17:27:10Z
 updated-by: Aly Jafferani
 ---
 
