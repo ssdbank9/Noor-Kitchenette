@@ -1,0 +1,76 @@
+/* Noor's colours (D-14): rust, lilac, warm pink, cyan. */
+:root {
+  --ground: #fff6f3;
+  --surface: #ffffff;
+  --ink: #2b1a1f;
+  --muted: #6a5459;
+  --border: #efdcd8;
+  --rust: #b5532a;          /* main buttons, white text */
+  --rust-tint: #fbe3d7;
+  --rust-text: #8a3a16;     /* "need" text on light grounds */
+  --lilac: #6e4a8e;         /* selected states, white text */
+  --lilac-tint: #efe4f7;
+  --warm-pink: #ffd9d2;     /* large cards, dark text */
+  --cyan: #087a88;          /* "you have it", ready, save */
+  --cyan-tint: #d5f4f7;
+  --cyan-text: #05525b;
+  --radius-card: 20px;
+  --radius-button: 16px;
+  --tap: 48px;
+  --font-display: 'Baloo 2', system-ui, sans-serif;
+  --font-body: 'Nunito Sans Variable', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+button { font: inherit; cursor: pointer; }
+
+a { color: var(--cyan); }
+
+.shell {
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eyebrow { font-size: 14px; font-weight: 700; color: var(--muted); }
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.card {
+  background: var(--warm-pink);
+  border-radius: 24px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.button-primary {
+  min-height: var(--tap);
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--rust);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+}

@@ -1,7 +1,7 @@
 ---
 id: 01M43TE2G1C88AC7MNEJYCTCKZ
 title: "Decide platform and hosting (D-01, D-04)"
-status: backlog
+status: done
 ready: true
 creator: Aly Jafferani
 goal: "Aly chooses what the app is built on and where it is hosted, so P0 can start."
@@ -17,9 +17,12 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:30Z
-updated-at: 2026-10-04T17:47:50Z
+updated-at: 2026-10-04T18:22:15Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
+outcome-what: Aly decided React + TypeScript PWA on Netlify
+outcome-why: Recorded as D-01 and D-04 in docs/DECISIONS.md
+outcome-resolves: Platform and hosting decision
 ---
 
 # Decide platform and hosting (D-01, D-04)
