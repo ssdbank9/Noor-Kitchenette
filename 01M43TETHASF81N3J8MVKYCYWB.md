@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-04T18:32:04Z
+updated-at: 2026-10-04T18:32:09Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 claimed-by: X1CarbonPC-43200
@@ -33,7 +33,8 @@ claimed-at: 2026-10-04T18:22:25Z
   proof: AGENTS.md section Tests
 - [x] One command runs unit tests and one runs browser tests, both documented in README.md
   proof: README.md Running the app: npm test, npm run test:e2e
-- [ ] Browser tests use 390 x 844 and Asia/Karachi
+- [x] Browser tests use 390 x 844 and Asia/Karachi
+  proof: app/playwright.config.ts viewport 390x844, timezoneId Asia/Karachi
 - [ ] App has a web manifest and service worker and passes an installability check in Chrome
 
 ## Options
