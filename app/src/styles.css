@@ -312,3 +312,14 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
   border-radius: 16px; padding: 12px 16px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .toast button { min-height: 40px; border: 0; border-radius: 10px; background: #fff; color: var(--ink); font-weight: 800; padding: 0 12px; }
+.alt { border: 1px dashed var(--lilac); border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.alt__title { font-weight: 800; color: var(--lilac); }
+.alt__note { font-size: 13px; font-weight: 600; color: var(--muted); }
+.alt__links { display: flex; gap: 16px; flex-wrap: wrap; }
+.alt__links a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 800; color: var(--lilac); }
+.pantry-group { display: flex; flex-direction: column; gap: 6px; }
+.pantry-group h2 { margin: 8px 0 0; font-size: 15px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.pantry-item { display: flex; justify-content: space-between; align-items: center; min-height: 44px; padding: 0 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; font-weight: 700; }
+.pantry-item__amount { font-weight: 800; }
+.pantry-item__amount--low { color: var(--rust-text); }
+.pantry-item__amount--unconfirmed { color: var(--lilac); }

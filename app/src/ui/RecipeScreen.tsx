@@ -21,8 +21,13 @@ export function RecipeScreen(p: RecipeScreenProps) {
   const [showAll, setShowAll] = useState(false);
   const a = p.availabilityFor(servings);
   const rows = showAll ? a.needs : a.needs.slice(0, 4);
-  const written = p.recipe.recommendedWrittenUrl ?? p.recipe.writtenUrl;
-  const video = p.recipe.recommendedVideoUrl ?? p.recipe.videoUrl;
+  // The links that match this recipe's ingredient list come first. Better-rated versions
+  // are different recipes (amounts and steps differ), so they are offered separately and
+  // never silently replace the instructions the stock check is based on.
+  const written = p.recipe.writtenUrl;
+  const video = p.recipe.videoUrl;
+  const altWritten = p.recipe.recommendedWrittenUrl;
+  const altVideo = p.recipe.recommendedVideoUrl;
 
   const banner =
     a.status === 'ready' ? { cls: 'status status--good', text: `You have everything for ${servings}` }
@@ -82,6 +87,16 @@ export function RecipeScreen(p: RecipeScreenProps) {
           {video && <a className="source source--video" href={video} target="_blank" rel="noreferrer">▶ Watch</a>}
           {written && <a className="source" href={written} target="_blank" rel="noreferrer">Read recipe</a>}
         </div>
+        {(altWritten || altVideo) && (
+          <div className="alt">
+            <div className="alt__title">Alternative version</div>
+            <div className="alt__note">Higher rated online. A different recipe: amounts may not match this list.</div>
+            <div className="alt__links">
+              {altVideo && <a href={altVideo} target="_blank" rel="noreferrer">Watch alternative</a>}
+              {altWritten && <a href={altWritten} target="_blank" rel="noreferrer">Read alternative</a>}
+            </div>
+          </div>
+        )}
         {p.recipe.notes && <p className="recipe__notes">{p.recipe.notes}</p>}
       </div>
       <div className="action-bar">

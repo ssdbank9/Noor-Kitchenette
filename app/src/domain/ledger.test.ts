@@ -36,9 +36,20 @@ describe('balances', () => {
     expect(balances(events).get('Chicken')?.amount).toBe(500);
   });
 
-  it('never shows negative stock', () => {
+  it('never shows negative stock, and asks for a check when more was used than recorded', () => {
     const events = [buyChicken(500), cookKarahi()];
-    expect(balances(events).get('Chicken')?.amount).toBe(0);
+    expect(balances(events).get('Chicken')).toMatchObject({ amount: 0, needsCheck: true, basis: 'estimate' });
+  });
+
+  it('keeps the over-use flag after a later purchase until stock is checked (+1000, -1500, +1000)', () => {
+    const mk = (id: string, delta: number, iso: string) =>
+      makeEvent('purchase', [{ ingredientId: 'Chicken', delta, basis: 'measured' }], at(iso), { id });
+    const events = [mk('a', 1000, '2026-10-01T10:00:00Z'), mk('b', -1500, '2026-10-02T10:00:00Z'), mk('c', 1000, '2026-10-03T10:00:00Z')];
+    // At least 1000 g is there; the exact amount is unknown until Noor checks.
+    expect(balances(events).get('Chicken')).toMatchObject({ amount: 1000, needsCheck: true });
+    const check = makeEvent('set-stock', [{ ingredientId: 'Chicken', delta: 0, basis: 'measured', setTo: 1200 }], at('2026-10-03T12:00:00Z'));
+    expect(balances([...events, check]).get('Chicken')).toMatchObject({ amount: 1200, basis: 'measured' });
+    expect(balances([...events, check]).get('Chicken')?.needsCheck).toBeUndefined();
   });
 
   it('treats "set remaining amount" as the new starting point, even if an older purchase is undone', () => {

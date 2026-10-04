@@ -20,6 +20,11 @@ export interface Balance {
   basis: QuantityBasis;
   /** Local date of the last event that touched this ingredient. */
   lastChanged: string;
+  /**
+   * More was used than the log says was there, so the real amount is not known exactly.
+   * Shown as "check stock" until Noor checks what remains (set-stock clears it).
+   */
+  needsCheck?: boolean;
 }
 
 const BASIS_RANK: Record<QuantityBasis, number> = { measured: 0, estimate: 1, unknown: 2 };
@@ -106,7 +111,17 @@ export function balances(events: KitchenEvent[]): Map<string, Balance> {
           lastChanged: e.localDate,
         };
       }
-      if (next.amount !== null) next.amount = Math.max(0, Math.round(next.amount * 1000) / 1000);
+      if (prev?.needsCheck && !(e.kind === 'set-stock' && m.setTo !== undefined)) next.needsCheck = true;
+      if (next.amount !== null) {
+        next.amount = Math.round(next.amount * 1000) / 1000;
+        if (next.amount < 0) {
+          // Using more than recorded means there was more than recorded. Do not invent a
+          // negative stock or silently drop the difference: hold at zero and ask for a check.
+          next.amount = 0;
+          next.basis = weaker(next.basis, 'estimate');
+          next.needsCheck = true;
+        }
+      }
       result.set(m.ingredientId, next);
     }
   }
