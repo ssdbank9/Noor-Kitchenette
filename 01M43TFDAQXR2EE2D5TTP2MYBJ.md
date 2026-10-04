@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T23:32:56Z
+updated-at: 2026-10-04T23:33:00Z
 updated-by: Aly Jafferani
 ---
 
@@ -27,7 +27,7 @@ updated-by: Aly Jafferani
 ## Definition of Done
 
 - [ ] Acceptance checklist for every core feature passes: synthetic data walkthrough, browser tests, real-phone check
-- [ ] Noor's feedback recorded in docs/DECISIONS.md
+- [-] Noor's feedback recorded in docs/DECISIONS.md
 
 ## Options
 
