@@ -17,3 +17,6 @@ Thumbs.db
 
 # eat-out lists refreshed on Aly's computer (foodpanda data, near home)
 /data/eatout/
+
+# agent worktrees
+/.claude/worktrees/
