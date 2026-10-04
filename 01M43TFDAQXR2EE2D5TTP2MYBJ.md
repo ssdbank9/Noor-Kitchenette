@@ -1,6 +1,6 @@
 ---
 id: 01M43TFDAQXR2EE2D5TTP2MYBJ
-title: "Pilot: one week with Noor, then walkthrough"
+title: "Internal acceptance before handing over the core (D-15)"
 status: backlog
 ready: false
 creator: Aly Jafferani
@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T17:19:25Z
+updated-at: 2026-10-04T23:32:52Z
 updated-by: Aly Jafferani
 ---
 
