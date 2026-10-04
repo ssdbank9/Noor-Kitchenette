@@ -12,6 +12,7 @@ Status (2026-10-04): planning. No app code yet.
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Open questions for Aly, and decisions made |
 | [`docs/RECIPE_SOURCES.md`](docs/RECIPE_SOURCES.md) | Best-rated recipe and video for each of the 22 dishes (researched 2026-10-04) |
 | [`docs/WORKFLOW_REVIEW.md`](docs/WORKFLOW_REVIEW.md) | Claude's review of Codex's review and workflow |
+| [Screen designs](https://claude.ai/artifact/1xG287oNN3QgPTKzEWPs1A) | Claude Design canvas: Today, Recipe, I cooked it, Snap pantry, Add a new dish, History (private to Aly) |
 | [`AGENTS.md`](AGENTS.md) | Rules for Codex, Claude and people working here |
 | `Noor_Kitchen_Coverage_Review.html` | Codex's coverage review (open in a browser) |
 | `audit/` | Codex's evidence: workbook extraction, browser checks, reconciliation |
