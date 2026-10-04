@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:19:10Z
+updated-at: 2026-10-04T17:19:14Z
 updated-by: Aly Jafferani
 ---
 
@@ -38,4 +38,4 @@ updated-by: Aly Jafferani
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-04 17:19 · Aly Jafferani** — 2026-10-04: Aly made photo recognition a must-have and chose Gemini (D-03). Moved from P3 to P2, before the pilot. Can be built alongside P1 once P0 is done; needs the hosting decision (YCTCKZ) because Gemini needs a server function.
