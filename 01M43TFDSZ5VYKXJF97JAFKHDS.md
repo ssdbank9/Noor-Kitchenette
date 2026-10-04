@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:19:05Z
+updated-at: 2026-10-04T17:19:10Z
 updated-by: Aly Jafferani
 ---
 
@@ -26,6 +26,7 @@ updated-by: Aly Jafferani
 ## Definition of Done
 
 - [ ] Test: a receipt and a grocery photo of the same shop change stock once
+- [ ] Gemini key held only by the server function; not in the app or the repo (D-08)
 
 ## Options
 
