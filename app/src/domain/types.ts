@@ -73,6 +73,12 @@ export interface Movement {
   /** Signed change in the ingredient's base unit. */
   delta: number;
   basis: QuantityBasis;
+  /**
+   * On 'set-stock' events: the amount Noor says is there now, in base units (null when she
+   * is not sure). It replaces everything before it, so undoing an older purchase later does
+   * not change a balance she has since confirmed. delta then records the difference seen.
+   */
+  setTo?: number | null;
 }
 
 export type EventKind =

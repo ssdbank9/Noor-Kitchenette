@@ -28,3 +28,15 @@ export function formatHouseholdDay(instant: Date, timeZone: string = HOUSEHOLD_T
   const dayMonth = new Intl.DateTimeFormat('en-GB', { timeZone, day: 'numeric', month: 'long' }).format(instant);
   return `${weekday} · ${dayMonth}`;
 }
+
+/** The household's local clock time for an instant, as HH:MM (24-hour). */
+export function householdTime(instant: Date, timeZone: string = HOUSEHOLD_TIME_ZONE): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(instant);
+  const get = (type: Intl.DateTimeFormatPartTypes) => parts.find(p => p.type === type)?.value ?? '00';
+  return `${get('hour')}:${get('minute')}`;
+}
