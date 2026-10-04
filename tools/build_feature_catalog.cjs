@@ -34,7 +34,7 @@ const ADDED_ROWS = [
   { id: 79, group: 'Aly 2026-10-04', feature: 'Cooking frequency analysis', priorWorkflow: 'Missing', legacyApp: 'Partial',
     futureAction: 'From the cooking history: how often each dish is cooked per week and month, when it was last cooked, dishes not cooked for a while, and the mix by meal type, for any date range.' },
   { id: 80, group: 'Aly 2026-10-04', feature: 'Add a new dish by name, looked up live', priorWorkflow: 'Missing', legacyApp: 'Partial',
-    futureAction: 'Noor types a dish name. Within seconds the app looks it up (Gemini with Google Search), loads its ingredients with amounts and units matched to her pantry items, checks whether current stock is enough for the chosen servings, lists what is missing, and shows the best-ranked written recipe and video (F78). She reviews and edits the ingredients before saving; the dish then joins her collection and cooking history like any other. Needs internet; v3 only allows typing a recipe by hand.' },
+    futureAction: 'Noor types a dish name in any spelling or language (Qorma or Korma, Karelay or Karela, Urdu). The app first checks her own collection so she does not add a duplicate, then shows a short list of matching dishes and recipes found online, each with its source, rating and video, and Noor picks the one she wants. The app then loads its ingredients with amounts and units matched to her pantry items, checks whether current stock is enough for the chosen servings, lists what is missing, and shows the best-ranked written recipe and video (F78). She reviews and edits the ingredients before saving; the dish then joins her collection and cooking history like any other. Needs internet; v3 only allows typing a recipe by hand.' },
 ];
 matrix.rows.push(...ADDED_ROWS);
 

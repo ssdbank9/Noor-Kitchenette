@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:27:15Z
+updated-at: 2026-10-04T17:31:54Z
 updated-by: Aly Jafferani
 ---
 
@@ -29,6 +29,7 @@ updated-by: Aly Jafferani
 - [ ] Gemini key held only by the server function; not in the app or the repo (D-08)
 - [ ] Typing a new dish name shows its ingredients matched to pantry items, a stock check for the chosen servings, the recipe and the video within seconds; Noor reviews before saving (F80)
 - [ ] Any dish without a saved link gets a ranked internet recipe and video with the reasons shown (F78)
+- [ ] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
 
 ## Options
 
