@@ -17,7 +17,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-04T16:03:40Z
+updated-at: 2026-10-04T16:56:22Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 ---
@@ -26,8 +26,10 @@ assignee: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] If a remote is created: visibility checked before the first push and the remote URL added to AGENTS.md
-- [ ] D-05 recorded in docs/DECISIONS.md
+- [x] If a remote is created: visibility checked before the first push and the remote URL added to AGENTS.md
+  proof: AGENTS.md Repository section; repo was already public when linked, Aly chose to keep it public
+- [x] D-05 recorded in docs/DECISIONS.md
+  proof: docs/DECISIONS.md D-05 row
 
 ## Options
 
@@ -39,4 +41,4 @@ assignee: Aly Jafferani
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-04 16:56 · Aly Jafferani** — Aly chose public on 2026-10-04 after being told the repo would expose household data. Remote linked and pushed by Claude.

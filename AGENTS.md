@@ -23,9 +23,10 @@ ask Aly. Record decisions in `docs/DECISIONS.md` only after Aly makes them.
 ## Repository
 
 - Remote: `https://github.com/ssdbank9/Noor-Kitchenette.git` (`origin`), branch `main`.
-- Pull before starting (`git pull --ff-only`). Do not push until Aly has settled
-  the repository's visibility (D-05); the repository was public when it was linked
-  on 2026-10-04.
+- Pull before starting (`git pull --ff-only`). Push your branch when the work is
+  committed.
+- The repository is **public** by Aly's decision (D-05, 2026-10-04). Never commit
+  API keys, passwords, `.env` files or anything Aly has not agreed to publish.
 
 ## Working on a ticket
 
