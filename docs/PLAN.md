@@ -27,6 +27,11 @@ A phone app for Noor's household kitchen that answers four questions:
 
 The tone stays personal (F50). The app is built for Noor first.
 
+**Design principles (D-11).** Beautiful, warm visuals. Big buttons and photos instead of forms.
+Typing is the exception: amounts are picked with steppers and quick chips, items from pictures
+and lists, and questions are answered with one-tap yes/no buttons in Noor's own words. Screens
+are designed in Claude Design before they are built.
+
 ## 2. The user journey (from Codex's nine steps, re-sequenced)
 
 | Step | What Noor does | Phase |
@@ -41,7 +46,7 @@ The tone stays personal (F50). The app is built for Noor first.
 | 8 | Everyday use, finished items, then leftovers, freezer, waste | P1 basics, P4 the rest |
 | 9 | Cooking history and how often each dish is cooked, sharing, backup and restore | P1 history and frequency, P3 sharing, P5 depth |
 
-## 3. Architecture (proposed, see D-01)
+## 3. Architecture (D-01 and D-04 decided: React PWA on Netlify)
 
 - **Installable phone web app (PWA), local-first.** Data lives on the phone in IndexedDB.
   Works offline. Installs to the home screen from an HTTPS address.
@@ -63,7 +68,7 @@ The tone stays personal (F50). The app is built for Noor first.
 - **Domain logic is separate from screens.** Units, availability, ranking, the basket and
   the event ledger are plain modules with unit tests, so either agent can change them
   safely.
-- **Suggested stack:** TypeScript, Vite, a small UI layer, Vitest for logic,
+- **Stack (D-01, decided):** React + TypeScript, Vite, Vitest for logic,
   Playwright for phone-sized browser tests (390 x 844, Asia/Karachi), as Codex's
   browser checks already used.
 - **Photo recognition (P2) uses Google Gemini** (D-03, decided). Gemini needs an API key,
