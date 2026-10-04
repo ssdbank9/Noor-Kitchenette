@@ -8,7 +8,7 @@ Status (2026-10-04): planning. No app code yet.
 | Start here | |
 |---|---|
 | [`docs/PLAN.md`](docs/PLAN.md) | What we are building, architecture, defects to avoid, phases |
-| [`docs/FEATURES.md`](docs/FEATURES.md) | All 83 features by phase (generated) |
+| [`docs/FEATURES.md`](docs/FEATURES.md) | All 84 features by phase (generated) |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Open questions for Aly, and decisions made |
 | [`docs/RECIPE_SOURCES.md`](docs/RECIPE_SOURCES.md) | Best-rated recipe and video for each of the 22 dishes (researched 2026-10-04) |
 | [`docs/WORKFLOW_REVIEW.md`](docs/WORKFLOW_REVIEW.md) | Claude's review of Codex's review and workflow |

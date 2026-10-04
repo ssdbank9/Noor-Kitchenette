@@ -9,6 +9,7 @@ after Aly states it, with the date and Aly's words or a link to them.
 |---|---|---|---|
 | D-02 | Should Noor and Aly share one live household? | Not in P1 to P4. Design events so sync can be added in P5 | Shared sync needs accounts and a server |
 | D-08 | Where does the Gemini key live, and are photos kept after review? | Key held by a small server function on the host, never in the app or the repo; photos discarded after review unless Noor keeps them | The repo is public and the app runs on phones, so a key in either would be exposed |
+| D-13 | Where does "order by mood" (F84) get its restaurant list? | Aly asked for the Apify foodpanda scraper (needs Aly's Apify account and token; about $1 per 1,000 results; returns ratings, delivery times, menus for Islamabad). Proposed: run it on a schedule from Aly's computer, not from Noor's phone, and first confirm foodpanda's terms allow it. Fallbacks: Noor's own tagged favourites, and foodpanda's own cuisine-filtered links | The token gives access to Aly's paid account; foodpanda's terms on automated extraction are unverified |
 | D-07 | What does the recipe "match %" mean? | Share of required amounts available, scaled to servings | Ranking must be explainable to Noor |
 
 ## Decided

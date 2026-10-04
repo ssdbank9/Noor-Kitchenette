@@ -22,7 +22,7 @@ const PHASE_OF_ENTRIES = [
        31, 32, 39, 40, 41, 42, 43, 45, 46, 47, 48, 50, 51, 53, 56, 61, 62, 63, 77]],
   ['P1', [79, 81, 82]],
   ['P2', [80, 78, 28, 29, 30, 52, 57, 73]],
-  ['P3', [33, 34, 35, 36, 37, 49, 54, 55, 60, 71, 72, 83]],
+  ['P3', [33, 34, 35, 36, 37, 49, 54, 55, 60, 71, 72, 83, 84]],
   ['P4', [65, 66, 67, 68, 76]],
   ['P5', [64, 70, 75]],
 ];
@@ -41,6 +41,8 @@ const ADDED_ROWS = [
     futureAction: 'When recording or planning a meal, Noor taps a day on a week strip or opens the full calendar, and taps a time (household slot times such as 8:00 am, 1:30 pm, 5:00 pm, 8:30 pm, editable in Settings). Stored as the household-local date and time (D5).' },
   { id: 83, group: 'Aly 2026-10-04', feature: 'Eat-out favourites and ordering', priorWorkflow: 'Missing', legacyApp: 'Missing',
     futureAction: 'Noor keeps favourite dine-out dishes with the restaurant name and area. When she is not in the mood to cook, the app suggests one (favourites, not ordered recently) and opens it: the restaurant’s saved foodpanda link opens that restaurant directly (in the foodpanda app if the phone hands the link to it); with no saved link, the app copies the restaurant name and opens foodpanda so she can paste it into search. Directions open the phone’s maps. Foodpanda has no documented way to pre-fill its search box; app hand-off is unverified on Noor’s phone.' },
+  { id: 84, group: 'Aly 2026-10-04', feature: 'Order by mood', priorWorkflow: 'Missing', legacyApp: 'Missing',
+    futureAction: 'Eat-out screen starts with mood buttons (Pasta, Pizza, BBQ, Karahi, Chinese, Korean wings, Handi, Burgers; editable). Tapping one shows only matching places: Noor’s favourites first, then the best-rated restaurants near home for that mood with rating, delivery time and starting price, each with Order; plus one button opening foodpanda’s own list for that cuisine. Data source is open (D-13): Aly asked for the Apify foodpanda scraper; foodpanda’s terms on automated extraction were not readable (403) and are unverified.' },
 ];
 matrix.rows.push(...ADDED_ROWS);
 
