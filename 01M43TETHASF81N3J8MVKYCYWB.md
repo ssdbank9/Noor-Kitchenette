@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-04T18:32:09Z
+updated-at: 2026-10-04T18:32:13Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 claimed-by: X1CarbonPC-43200
@@ -35,7 +35,8 @@ claimed-at: 2026-10-04T18:22:25Z
   proof: README.md Running the app: npm test, npm run test:e2e
 - [x] Browser tests use 390 x 844 and Asia/Karachi
   proof: app/playwright.config.ts viewport 390x844, timezoneId Asia/Karachi
-- [ ] App has a web manifest and service worker and passes an installability check in Chrome
+- [x] App has a web manifest and service worker and passes an installability check in Chrome
+  proof: app/tests/e2e/shell.spec.ts 'is installable' (Page.getInstallabilityErrors empty apart from the test browser's in-incognito)
 
 ## Options
 
