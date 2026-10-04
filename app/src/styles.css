@@ -323,3 +323,51 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
 .pantry-item__amount { font-weight: 800; }
 .pantry-item__amount--low { color: var(--rust-text); }
 .pantry-item__amount--unconfirmed { color: var(--lilac); }
+
+/* ---------- Recipes and Shop ---------- */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.input {
+  width: 100%; min-height: var(--tap); padding: 0 14px; border-radius: var(--radius-button);
+  border: 2px solid var(--border); background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; font-size: 16px;
+}
+.input:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
+.choice-chip {
+  min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--border);
+  background: var(--surface); color: var(--ink); font-weight: 800; font-size: 14px;
+}
+.choice-chip[aria-pressed='true'] { background: var(--lilac); border-color: var(--lilac); color: #fff; }
+.section__see-all { min-height: 44px; border: 0; background: none; color: var(--cyan); font-weight: 800; font-size: 15px; padding: 0 4px; }
+
+.recipes__head { display: flex; align-items: center; gap: 12px; }
+.recipes__head .title { margin: 0; }
+.filter-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.filter-chips .choice-chip { flex: none; }
+.recipes__meta { font-size: 14px; font-weight: 700; color: var(--muted); }
+.badge { flex: none; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.badge--ready { background: var(--cyan-tint); color: var(--cyan-text); }
+.badge--need { background: var(--rust-tint); color: var(--rust-text); }
+.badge--check { background: var(--lilac-tint); color: var(--lilac); }
+
+.shop { padding-left: 20px; padding-right: 20px; padding-bottom: 150px; }
+.shop .screen__header { padding: 0; }
+.shop__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.shop__actions .button-outline { padding: 0 16px; }
+.shop .empty { margin: 0; }
+.shop__group { display: flex; flex-direction: column; gap: 8px; }
+.shop__aisle { margin: 8px 0 0; font-size: 15px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.shop-item { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 6px 12px 6px 6px; }
+.shop-item__line { display: flex; align-items: center; gap: 8px; }
+.shop-item__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.shop-item__why { font-size: 13px; font-weight: 700; color: var(--muted); }
+.shop-item__amount { font-weight: 800; white-space: nowrap; }
+.shop-item__amount--check { color: var(--lilac); }
+.tick { flex: none; width: 44px; height: 44px; border: 0; background: none; position: relative; }
+.tick::before { content: ''; position: absolute; inset: 9px; border-radius: 8px; border: 2px solid var(--cyan); background: var(--surface); }
+.buy { display: flex; flex-direction: column; gap: 10px; padding: 8px 6px 10px; border-top: 1px solid var(--border); margin-top: 6px; }
+.buy__q { font-weight: 800; }
+.buy__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.buy__other { display: flex; gap: 8px; align-items: center; }
+.buy__field { flex: 1; display: flex; align-items: center; gap: 8px; }
+.buy__unit { font-weight: 800; }
+.buy__save { padding: 0 16px; white-space: nowrap; }
+.buy__error { margin: 0; color: var(--rust-text); font-weight: 700; }

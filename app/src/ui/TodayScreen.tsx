@@ -14,6 +14,7 @@ export interface TodayProps {
   onAnother: () => void;
   onOpenRecipe: (recipeId: string) => void;
   onAddToList: (recipeId: string) => void;
+  onSeeAll: () => void;
   onEatOut: () => void;
   onSnap: () => void;
 }
@@ -67,6 +68,7 @@ export function TodayScreen(p: TodayProps) {
       <section className="section">
         <div className="section__head">
           <h2 className="section__title">Ready now · {p.ready.length}</h2>
+          <button type="button" className="section__see-all" onClick={p.onSeeAll}>See all</button>
         </div>
         {p.ready.length === 0 ? (
           <p className="empty">Nothing is fully ready yet. Check "Almost there".</p>
