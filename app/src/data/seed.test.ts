@@ -92,6 +92,7 @@ describe('starter collection seed (F9, F38)', () => {
       expect(e.id).toBe(`seed-${m.ingredientId}`);
       expect(byId.has(m.ingredientId), e.id).toBe(true);
       expect(m.delta, e.id).toBeGreaterThan(0);
+      expect(m.setTo, e.id).toBe(m.delta);
       expect(m.basis, e.id).toBe('estimate');
       expect(e).toMatchObject({
         at: '2026-10-04T00:00:00Z', localDate: '2026-10-04', localTime: '05:00',

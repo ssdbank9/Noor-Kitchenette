@@ -46,8 +46,9 @@
 //   In every count case one base piece is one of the source unit, so minStock, starting
 //   stock and recipe amounts carry over unchanged.
 // minStock is [2] converted to base units (kept even when 0, which v3 treats as never low).
-// Starting stock: when [3] > 0, one 'set-stock' event per ingredient, delta [3] in base
-// units, basis 'estimate' because nobody confirmed it. [3] = 0 gives no event.
+// Starting stock: when [3] > 0, one 'set-stock' event per ingredient, delta and setTo [3]
+// in base units (setTo makes it the starting point the ledger counts from), basis
+// 'estimate' because nobody confirmed it. [3] = 0 gives no event.
 // Order: ingredients, recipes and events keep the source order; output is 2-space JSON
 // with a trailing newline, so the same inputs always give the same bytes.
 'use strict';
@@ -217,7 +218,7 @@ function buildSeed() {
         localDate: SEED_LOCAL_DATE,
         localTime: SEED_LOCAL_TIME,
         timeZone: TIME_ZONE,
-        movements: [{ ingredientId: id, delta: round(start * factor), basis: 'estimate' }],
+        movements: [{ ingredientId: id, delta: round(start * factor), basis: 'estimate', setTo: round(start * factor) }],
         source: 'typed',
         note: 'Starting stock from the v3 app; never confirmed.',
       });
