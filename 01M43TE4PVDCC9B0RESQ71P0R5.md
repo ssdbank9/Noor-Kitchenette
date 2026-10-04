@@ -17,7 +17,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-04T16:56:17Z
+updated-at: 2026-10-04T16:56:22Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 ---
@@ -29,7 +29,7 @@ assignee: Aly Jafferani
 - [x] If a remote is created: visibility checked before the first push and the remote URL added to AGENTS.md
   proof: AGENTS.md Repository section; repo was already public when linked, Aly chose to keep it public
 - [x] D-05 recorded in docs/DECISIONS.md
-  proof: AGENTS.md Repository section; repo was already public when linked
+  proof: docs/DECISIONS.md D-05 row
 
 ## Options
 
