@@ -17,7 +17,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:30Z
-updated-at: 2026-10-04T17:47:43Z
+updated-at: 2026-10-04T17:47:50Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
@@ -39,4 +39,4 @@ updated-by: Aly Jafferani
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-04 17:47 · Aly Jafferani** — Aly chose Netlify (not Cloudflare) and accepted React + TypeScript + Vite PWA. Gemini key is to be entered on Noor's phone in Settings, so no server functions; D-08 still to be confirmed by Aly.
