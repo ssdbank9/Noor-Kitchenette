@@ -14,7 +14,9 @@ refer to it and to the defect list in this file.
 A phone app for Noor's household kitchen that answers four questions:
 
 1. **What can I cook now?** Recipes ranked against what is actually in the pantry. Every dish
-   opens a recipe: the saved one, or one found on the internet (F78).
+   opens a recipe and a video: the saved ones, or the best-rated ones found on the internet (F78).
+   Noor can type the name of a new dish and the app looks it up live: ingredients, whether her
+   stock is enough, the recipe and the video (F80).
 2. **What should we cook this week, and what do we need to buy?** A plan by date and
    meal slot, and one shopping basket for the plan.
 3. **What is in the kitchen?** Stock that stays correct after shopping, cooking,
@@ -67,7 +69,8 @@ The tone stays personal (F50). The app is built for Noor first.
 - **Photo recognition (P2) uses Google Gemini** (D-03, decided). Gemini needs an API key,
   and a key inside a phone app can be copied by anyone, so a small server function holds it
   and the app calls that function. The same function finds internet recipes for dishes that
-  have no saved link (F78). So the host must run small server functions (D-04, D-08).
+  have no saved link (F78) and looks up new dishes (F80). So the host must run small server
+  functions (D-04, D-08).
 
 ## 4. Defects in v3 that the new design must not repeat
 
@@ -89,14 +92,15 @@ change later (the data model, units, dates, events) and keeps screens incrementa
 | Phase | Goal | Feature rows | Done when |
 |---|---|---|---|
 | **P0 Foundations** | Data model, units, local dates, saving, seed import from the workbooks, test harness | F9, F38, F44, F58, F59, F69, F74 | All 22 recipes, 62 ingredients and 276 recipe-ingredient rows import and reconcile with `audit/reconciliation.json`; unit and ledger tests pass; a failed save is visible |
-| **P1 Cook from what we have** | Everything v3 does, without D1 to D6, plus a recipe for every dish and cooking-frequency analysis: pantry, recipes, Today suggestions, cooking with confirmation and undo, cooking history, low stock, backup | 47 rows, see FEATURES.md | Each of the six defects has a regression test that failed on v3 behaviour and passes now; every dish opens a recipe; the app installs on Noor's phone |
-| **P2 Photo pantry (Gemini)** | A photo of groceries, the fridge or a receipt becomes an editable list; Noor checks it and saves; one purchase never changes stock twice | F28 to F30, F52, F57, F73 | Two photos of one purchase change stock once; tested with Noor's phone camera |
+| **P1 Cook from what we have** | Everything v3 does, without D1 to D6, plus the researched recipe and video for each of the 22 dishes and cooking-frequency analysis: pantry, recipes, Today suggestions, cooking with confirmation and undo, cooking history, low stock, backup | 47 rows, see FEATURES.md | Each of the six defects has a regression test that failed on v3 behaviour and passes now; every dish opens a recipe; the app installs on Noor's phone |
+| **P2 Gemini features** | Add a new dish by name and get its ingredients, a stock check, the recipe and the video live; internet recipes for any dish without one; a photo of groceries, the fridge or a receipt becomes an editable list; one purchase never changes stock twice | F78, F80, F28 to F30, F52, F57, F73 | A new dish typed by name shows ingredients, a stock check, a recipe and a video; two photos of one purchase change stock once; tested on Noor's phone |
 | **Pilot** | One week of real use by Noor, including photo entry | n/a | Noor's feedback recorded in DECISIONS.md before P3 starts |
 | **P3 Plan and shop** | Planner by date and slot, one basket for the plan, staples, aisles, actual purchases and prices, single-dish shopping, sharing a list | F33 to F37, F49, F54, F55, F60, F71, F72 | Basket for a 3-meal plan equals hand-calculated need minus stock, counted once |
 | **P4 Kitchen depth** | Fridge/freezer/shelf, batches, expiry and frozen-on dates, leftovers, waste | F65 to F68, F76 | Waste, use and correction are reported separately |
 | **P5 Household and insights** | Optional shared access for Noor and Aly, family recipe import from photos, offline sync status | F64, F70, F75 | Depends on D-02 |
 
-P1 and P2 can be built side by side once P0 is done.
+P1 and P2 can be built side by side once P0 is done. P1 works fully offline; everything that
+needs Gemini and the internet is in P2.
 
 The one-week planner idea from the earlier workflow stays a **limited pilot** inside P3,
 not the whole product.
