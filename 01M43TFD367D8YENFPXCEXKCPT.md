@@ -1,6 +1,6 @@
 ---
 id: 01M43TFD367D8YENFPXCEXKCPT
-title: "P1: cook from what we have (v3 parity without D1-D6)"
+title: "P1: cook from stock, cooking history, a recipe for every dish"
 status: backlog
 ready: false
 creator: Aly Jafferani
@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T17:19:30Z
+updated-at: 2026-10-04T17:19:52Z
 updated-by: Aly Jafferani
 ---
 
