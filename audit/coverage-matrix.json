@@ -1,0 +1,978 @@
+{
+  "date": "2026-10-04",
+  "sources": {
+    "v2": "C:/Users/Aly Jafferani/Desktop/Noor_Kitchen_Planner_v2.xlsx",
+    "final": "C:/Users/Aly Jafferani/Documents/Codex/2026-07-08/fianc-video-file-project/outputs/Noor_Kitchen_Planner_Final.xlsx",
+    "app": "C:/Users/Aly Jafferani/Documents/Codex/2026-07-08/fianc-video-file-project/outputs/Noor_Kitchen_App_v3.html"
+  },
+  "definitions": {
+    "workflow": "The seven-step plain-English workflow given immediately before the new files were supplied.",
+    "excel": "Capabilities found in both workbooks. Workbook instructions are evidence of source intent, not new user instructions.",
+    "app": "The supplied earlier HTML v3, not a newly built phone app.",
+    "verified": "Observed in an isolated desktop Chrome browser or fully reconciled as catalog data. This is not physical-phone acceptance.",
+    "present": "Present in source; complete user behavior has not been independently verified.",
+    "partial": "Some behavior exists but is incomplete for the described need.",
+    "broken": "A defect was reproduced in isolated browser checks.",
+    "missing": "No implementing view/state/function found in the supplied source."
+  },
+  "requirements": [
+    {
+      "requirement": "Inspect all supplied sources",
+      "status": "Proven",
+      "evidence": "Both workbooks: eight sheets each including hidden Lists; complete HTML source and embedded catalog."
+    },
+    {
+      "requirement": "Check Excel ideas against workflow and app separately",
+      "status": "Proven",
+      "evidence": "77 capability rows with source references and separate workflow/app statuses."
+    },
+    {
+      "requirement": "Preserve confirmed photo/manual pantry and phone requirements",
+      "status": "Proven",
+      "evidence": "Dedicated Current requirements rows and expanded workflow."
+    },
+    {
+      "requirement": "Design for a thorough app",
+      "status": "Partial",
+      "evidence": "Fuller feature baseline and reliability corrections proposed. App implementation and final product choices remain outstanding."
+    }
+  ],
+  "rows": [
+    {
+      "id": 1,
+      "group": "Excel",
+      "feature": "Household cooking count",
+      "source": "Home!B5:E5; Lists!F2:F13",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML 111–112, 162; browser baseline",
+      "futureAction": "Make the number of people explicit for each planned meal and cooking event."
+    },
+    {
+      "id": 2,
+      "group": "Excel",
+      "feature": "Scale ingredient amounts to people served",
+      "source": "Data!D3:G278; Recipe Card!C10:C27",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Verified",
+      "evidence": "HTML 125; browser navigation_and_mobile_layout",
+      "futureAction": "Preserve scaling and show the base servings beside the selected servings."
+    },
+    {
+      "id": 3,
+      "group": "Excel",
+      "feature": "Recheck availability when servings change",
+      "source": "Data!J3:M278; What Can I Cook!M4:M25",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 125–130",
+      "futureAction": "Recalculate suggestions, shortages, and shopping whenever servings change."
+    },
+    {
+      "id": 4,
+      "group": "Excel",
+      "feature": "Ready-to-cook dish count",
+      "source": "Home!B8:F8",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "HTML 176–180; browser navigation_and_mobile_layout",
+      "futureAction": "Keep a Today summary of recipes for which all required amounts are available."
+    },
+    {
+      "id": 5,
+      "group": "Excel",
+      "feature": "Rank dishes by pantry ingredient coverage",
+      "source": "What Can I Cook!D4:H25; Home!B13:F24",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 126–130, 176–185",
+      "futureAction": "Keep suggestions alongside planning. Explain what the percentage means."
+    },
+    {
+      "id": 6,
+      "group": "Excel",
+      "feature": "Top ten recommendations on Home",
+      "source": "Home!B13:F24",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "HTML 176 selects six non-ready recipes",
+      "futureAction": "Provide an expandable full ranked list. The current Tonight view limits near matches to six."
+    },
+    {
+      "id": 7,
+      "group": "Excel",
+      "feature": "List missing ingredients and quantities",
+      "source": "Pantry!C4; Shopping List!E5; Data!M3:M278",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Present",
+      "evidence": "HTML 127–129, 194, 222–223",
+      "futureAction": "Show every shortage with quantity and unit, including the main ingredient of a dish."
+    },
+    {
+      "id": 8,
+      "group": "Excel",
+      "feature": "Search recipes by dish name",
+      "source": "Recipes!A3:I3",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Broken",
+      "evidence": "HTML 213; browser ordinary_search_typing",
+      "futureAction": "Keep focus and the complete query while typing."
+    },
+    {
+      "id": 9,
+      "group": "Excel",
+      "feature": "Preserve the starter recipe collection",
+      "source": "Recipes!A6:H27; Lists!A2:E23",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "Catalog reconciliation: 22 entries and 276 ingredient rows",
+      "futureAction": "Carry over all recipe IDs, ingredients, servings, times, notes, and links. Some dishes have variants."
+    },
+    {
+      "id": 10,
+      "group": "Excel",
+      "feature": "Recipe source servings",
+      "source": "Recipes!C6:C27; Recipe Card!B4:C5",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML 193, 225",
+      "futureAction": "Show original servings and the selected cooking count."
+    },
+    {
+      "id": 11,
+      "group": "Excel",
+      "feature": "Prep and cooking time",
+      "source": "Recipes!D6:D27; Recipe Card!B6:C6",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 193, 225; catalog reconciliation",
+      "futureAction": "Preserve recipe time and add optional planning filters."
+    },
+    {
+      "id": 12,
+      "group": "Excel",
+      "feature": "Cooking tips and recipe notes",
+      "source": "Recipes!H6:H27; Recipe Card!B7:C7",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 226; catalog reconciliation",
+      "futureAction": "Keep recipe-specific notes and personal variations."
+    },
+    {
+      "id": 13,
+      "group": "Excel",
+      "feature": "Video recipe links",
+      "source": "Recipes!E6:E27 hyperlinks; Lists!E2:E23",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 196, 228; actual hyperlink targets reconciled",
+      "futureAction": "Keep video links. Their current availability and recipe accuracy were not checked."
+    },
+    {
+      "id": 14,
+      "group": "Excel",
+      "feature": "Written recipe links",
+      "source": "Recipes!F6:F27 hyperlinks; Lists!D2:D23",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 197, 229; actual hyperlink targets reconciled",
+      "futureAction": "Keep written sources beside the in-app recipe. External content was not verified."
+    },
+    {
+      "id": 15,
+      "group": "Excel",
+      "feature": "Recipe card with need, current stock, and status",
+      "source": "Recipe Card!B9:F27",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Partial",
+      "evidence": "HTML 222–227 shows need and have/buy, without a numeric current-stock column",
+      "futureAction": "Show required amount, available amount, and shortfall together."
+    },
+    {
+      "id": 16,
+      "group": "Excel",
+      "feature": "Open a detailed card from a top recommendation",
+      "source": "Home!D15:D24; Recipe Card!B2:F27",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "HTML Tonight cards have external links; internal cards are opened in Recipes",
+      "futureAction": "Let Today recommendations open the same detailed recipe card."
+    },
+    {
+      "id": 17,
+      "group": "Excel",
+      "feature": "Cooking history records the dish",
+      "source": "Home!B26:E39",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Verified",
+      "evidence": "HTML 209; browser cooking_deduction_and_undo_log",
+      "futureAction": "Keep a full editable cooking history with stable meal-event IDs."
+    },
+    {
+      "id": 18,
+      "group": "Excel",
+      "feature": "Cooking date is user-selectable",
+      "source": "Home!C28:C39; Lists!G2:G11",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "HTML 209 fixes date to now; browser local_date_month_boundary",
+      "futureAction": "Support today and backdated entries using the household timezone."
+    },
+    {
+      "id": 19,
+      "group": "Excel",
+      "feature": "Breakfast, lunch, dinner, and chai/snack",
+      "source": "Home!D28:D39; Lists!H2:H5",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML 204",
+      "futureAction": "Retain all four choices and permit household-specific slot names."
+    },
+    {
+      "id": 20,
+      "group": "Excel",
+      "feature": "Record actual people served per cooking event",
+      "source": "Home!E28:E39",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Verified",
+      "evidence": "HTML 201–209; browser cooking_deduction_and_undo_log",
+      "futureAction": "Store servings on the event independently of the household default."
+    },
+    {
+      "id": 21,
+      "group": "Excel",
+      "feature": "Deduct ingredients after cooking",
+      "source": "Data!H3:I278; Pantry!H7:I68",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Verified",
+      "evidence": "HTML 131–132; browser cooking_deduction_and_undo_log",
+      "futureAction": "Preserve deduction, with a review of actual amounts used and a linked reversal."
+    },
+    {
+      "id": 22,
+      "group": "Excel",
+      "feature": "Pantry ingredient quantities and units",
+      "source": "Pantry!A6:C68",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "HTML 243–250; browser manual_pantry_edit_persists",
+      "futureAction": "Add direct numeric entry and unit selection rather than relying on fixed increment buttons."
+    },
+    {
+      "id": 23,
+      "group": "Excel",
+      "feature": "Editable minimum-stock threshold",
+      "source": "Pantry!D7:D68",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "HTML 133 reads thresholds from the database; no threshold editor",
+      "futureAction": "Let Noor set minimum and preferred restocking levels."
+    },
+    {
+      "id": 24,
+      "group": "Excel",
+      "feature": "Low-stock status and item count",
+      "source": "Pantry!J7:J68; Home!B9:F9",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "HTML 133, 179, 243–244; browser baseline",
+      "futureAction": "Keep visible low-stock indicators and connect them to shopping."
+    },
+    {
+      "id": 25,
+      "group": "Excel",
+      "feature": "Ingredient usage totals from cooking history",
+      "source": "Pantry!H7:H68; Data!I3:I278",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "HTML log stores dish, date, meal, and persons, without per-ingredient usage history",
+      "futureAction": "Keep ingredient movements so purchases, cooking, waste, and corrections can be traced."
+    },
+    {
+      "id": 26,
+      "group": "Excel",
+      "feature": "Calculated remaining pantry balance",
+      "source": "Pantry!I7:I68",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Verified",
+      "evidence": "HTML 132, 250; browser pantry edit and cooking checks",
+      "futureAction": "Use a current balance backed by its movement history."
+    },
+    {
+      "id": 27,
+      "group": "Excel",
+      "feature": "Pantry last-updated date",
+      "source": "Pantry!E7:E68",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "HTML state has no last-updated field per ingredient",
+      "futureAction": "Record when each stock quantity was last confirmed."
+    },
+    {
+      "id": 28,
+      "group": "Excel",
+      "feature": "Typed versus photo entry method",
+      "source": "Pantry!F7:F68",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "HTML state does not store entry method per stock update",
+      "futureAction": "Preserve the source of each update."
+    },
+    {
+      "id": 29,
+      "group": "Excel",
+      "feature": "Photo notes for pantry entries",
+      "source": "Pantry!G6:G68",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "HTML photo URL is transient; no persistent photo-note field",
+      "futureAction": "Keep useful notes and optional private image references on the update."
+    },
+    {
+      "id": 30,
+      "group": "Excel",
+      "feature": "External photo-to-Claude helper process",
+      "source": "Pantry!A2; Home!B46",
+      "priorWorkflow": "Replaced",
+      "legacyApp": "Verified",
+      "evidence": "HTML 251–287; browser photo_is_preview_and_manual_tiles",
+      "futureAction": "Retain manual fallback while adding integrated recognition. Current photo use is a visual aid."
+    },
+    {
+      "id": 31,
+      "group": "Excel",
+      "feature": "Ingredient presence checklist",
+      "source": "What Can I Cook!A4:B65",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML Pantry quantities and recipe have/buy statuses",
+      "futureAction": "Distinguish some stock from enough stock for the selected recipe."
+    },
+    {
+      "id": 32,
+      "group": "Excel",
+      "feature": "Check whether a particular dish is possible",
+      "source": "Pantry!C3:F4",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML 221–232",
+      "futureAction": "Use one consistent availability calculation in recipes, Today, and the planner."
+    },
+    {
+      "id": 33,
+      "group": "Excel",
+      "feature": "Shopping shortages for one selected dish",
+      "source": "Shopping List!C5:E5",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML 295–301, 315–317",
+      "futureAction": "Keep single-dish shopping as an alternative to the weekly basket."
+    },
+    {
+      "id": 34,
+      "group": "Excel",
+      "feature": "Catalog-wide ingredient totals",
+      "source": "Shopping List!C8:C69",
+      "priorWorkflow": "Replaced",
+      "legacyApp": "Missing",
+      "evidence": "Excel C8 sums Data Qty(base) across the recipe catalog; HTML uses low stock and one dish",
+      "futureAction": "Replace shopping demand with the selected plan or basket. Catalog totals are not a weekly plan."
+    },
+    {
+      "id": 35,
+      "group": "Excel",
+      "feature": "Shopping organised by aisle",
+      "source": "Shopping List!E8:E69",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "HTML 304–308; browser navigation_and_mobile_layout",
+      "futureAction": "Retain aisle grouping and household shopping categories."
+    },
+    {
+      "id": 36,
+      "group": "Excel",
+      "feature": "Shopping completion marks",
+      "source": "Shopping List!A8:A69",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "HTML 311–314; browser threshold_shopping_uses_assumed_purchase",
+      "futureAction": "Capture actual quantities bought and keep completion marks consistent with undo."
+    },
+    {
+      "id": 37,
+      "group": "Excel",
+      "feature": "Store suggestions by shopping category",
+      "source": "Shopping List!I8:I69; Home!B47",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "HTML 103–106, 305",
+      "futureAction": "Make existing Islamabad suggestions editable. Current stores and delivery claims were not verified."
+    },
+    {
+      "id": 38,
+      "group": "Excel",
+      "feature": "Consistent ingredient identity across modules",
+      "source": "Home!B49; Data!C3:C278",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Present",
+      "evidence": "HTML database IDs; full catalog reconciliation",
+      "futureAction": "Keep stable ingredient IDs and add user-friendly aliases."
+    },
+    {
+      "id": 39,
+      "group": "Legacy HTML",
+      "feature": "Recipe category filters",
+      "source": "HTML 100–102, 214–216",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "Recipe category buttons render in the browser",
+      "futureAction": "Keep category filters, personal recipes, and a reliable search."
+    },
+    {
+      "id": 40,
+      "group": "Legacy HTML",
+      "feature": "Create a personal recipe",
+      "source": "HTML 356–391",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Verified",
+      "evidence": "browser custom_recipe_creation_backup_restore",
+      "futureAction": "Preserve creation and add full instructions, photos, and editing."
+    },
+    {
+      "id": 41,
+      "group": "Legacy HTML",
+      "feature": "Create a new ingredient",
+      "source": "HTML 371–385",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "Creation is available within Add recipe, with fixed threshold 1",
+      "futureAction": "Make ingredient creation available directly from Pantry and photo review."
+    },
+    {
+      "id": 42,
+      "group": "Legacy HTML",
+      "feature": "Delete a personal recipe",
+      "source": "HTML 392",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "Source inspection; delete button appears for custom recipes",
+      "futureAction": "Confirm deletion and keep past cooking events intact."
+    },
+    {
+      "id": 43,
+      "group": "Legacy HTML",
+      "feature": "Undo a pantry change",
+      "source": "HTML 122–123",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Broken",
+      "evidence": "Browser confirms stock-only reversal leaves cooking history and purchase marks unchanged",
+      "futureAction": "Reverse all linked effects of an event and keep a correction history."
+    },
+    {
+      "id": 44,
+      "group": "Legacy HTML",
+      "feature": "Local saving and reloading",
+      "source": "HTML 113–121",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Partial",
+      "evidence": "Normal edit survives reload; simulated storage failure silently loses the edit",
+      "futureAction": "Show failed saves, preserve pending work, and provide reliable recovery."
+    },
+    {
+      "id": 45,
+      "group": "Legacy HTML",
+      "feature": "Export a backup",
+      "source": "HTML 393",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "browser custom_recipe_creation_backup_restore",
+      "futureAction": "Keep an export containing pantry, recipes, plans, events, and settings."
+    },
+    {
+      "id": 46,
+      "group": "Legacy HTML",
+      "feature": "Restore a valid backup",
+      "source": "HTML 394–397",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "Valid export restored a custom recipe and survived reload",
+      "futureAction": "Validate every imported field and preserve existing data before replacement. Malformed restore was not tested."
+    },
+    {
+      "id": 47,
+      "group": "Legacy HTML",
+      "feature": "Monthly cooking totals and dish rankings",
+      "source": "HTML 328–345",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "Browser stats render; timezone boundary puts an October event in September",
+      "futureAction": "Retain summaries with local dates and clear servings rather than unique-person claims."
+    },
+    {
+      "id": 48,
+      "group": "Legacy HTML",
+      "feature": "Monthly breakdown by meal type",
+      "source": "HTML 337, 343",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Present",
+      "evidence": "Browser cooking summary includes Dinner: 1",
+      "futureAction": "Keep breakfast, lunch, dinner, and snack history."
+    },
+    {
+      "id": 49,
+      "group": "Legacy HTML",
+      "feature": "Share shopping list and monthly summary",
+      "source": "HTML 318–322, 347–350",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Source only",
+      "evidence": "Share functions exist; no external message was sent",
+      "futureAction": "Preserve user-initiated sharing. Delivery and mobile share-sheet behavior remain unverified."
+    },
+    {
+      "id": 50,
+      "group": "Legacy HTML",
+      "feature": "Personalised appearance and message",
+      "source": "HTML 77–78, 173",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Verified",
+      "evidence": "390-pixel screenshot inspected",
+      "futureAction": "Preserve Noor-specific naming and the personal character of the app."
+    },
+    {
+      "id": 51,
+      "group": "Current requirements",
+      "feature": "Phone use and home-screen icon",
+      "source": "User confirmed phone/home-screen use",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "Responsive HTML and Apple meta tag; no manifest or service worker in source",
+      "futureAction": "Deliver an installable app and verify installation on Noor’s actual phone."
+    },
+    {
+      "id": 52,
+      "group": "Current requirements",
+      "feature": "Integrated photo recognition",
+      "source": "User requires pictures to update pantry",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "Browser photo upload creates 62 manual tiles; source has no image-analysis call",
+      "futureAction": "Photo to editable detected-item draft, then confirmation and save."
+    },
+    {
+      "id": 53,
+      "group": "Current requirements",
+      "feature": "Manual items with weights and amounts",
+      "source": "User explicitly requested manual items, weight and quantities",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "Existing item edits work; new items are created through recipe flow",
+      "futureAction": "Allow direct item creation, exact quantity entry, and unit changes in Pantry."
+    },
+    {
+      "id": 54,
+      "group": "Proposed workflow",
+      "feature": "Weekly or multi-day meal planner",
+      "source": "Prior workflow steps 4–5",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "No plan collection, planner view, or scheduled-meal state in HTML",
+      "futureAction": "Plan meals by date, slot, recipe, and servings, with swaps and cancellations."
+    },
+    {
+      "id": 55,
+      "group": "Proposed workflow",
+      "feature": "One shopping basket across planned meals",
+      "source": "Prior workflow step 5",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "HTML supports thresholds and one dish; Excel totals the complete catalog",
+      "futureAction": "Aggregate selected future meals, subtract stock once, and include chosen restocking needs."
+    },
+    {
+      "id": 56,
+      "group": "Proposed workflow",
+      "feature": "New purchase versus remaining-stock correction",
+      "source": "Prior workflow steps 2 and 6",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "HTML applyPaste overwrites amounts; no operation-purpose field",
+      "futureAction": "Use separate Add purchase and Set remaining amount actions."
+    },
+    {
+      "id": 57,
+      "group": "Proposed workflow",
+      "feature": "Review photo items before committing",
+      "source": "Prior workflow steps 2 and 6",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "Photo tile buttons save immediately; pasted values have no parsed-item preview",
+      "futureAction": "Review additions, corrections, uncertainty, and before/after balances before save."
+    },
+    {
+      "id": 58,
+      "group": "Proposed workflow",
+      "feature": "Safe conversions between compatible units",
+      "source": "Prior design: quantities, weights, and desi glossary",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Broken",
+      "evidence": "Browser paste converts Chicken 500 g to stored 500 kg by ignoring the input unit",
+      "futureAction": "Convert g/kg and ml/L; configure pao and dozen; require size for packets and ingredient-specific conversions for cups."
+    },
+    {
+      "id": 59,
+      "group": "Proposed workflow",
+      "feature": "Unknown versus measured quantity",
+      "source": "Prior design: package labels and unknown amounts",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "HTML only stores a numeric quantity per ingredient",
+      "futureAction": "Separate package size, remaining amount, estimate, and unknown amount."
+    },
+    {
+      "id": 60,
+      "group": "Proposed workflow",
+      "feature": "Actual quantity bought and partial purchases",
+      "source": "Prior workflow step 6",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "HTML purchase tick assumes a top-up to twice the minimum",
+      "futureAction": "Capture actual receipts and amounts, even when a purchase differs from the suggested quantity."
+    },
+    {
+      "id": 61,
+      "group": "Proposed workflow",
+      "feature": "Review actual ingredient usage after cooking",
+      "source": "Prior workflow step 7",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Missing",
+      "evidence": "HTML cooking confirmation lets the user change servings and meal only",
+      "futureAction": "Accept recipe quantities or adjust each actual amount before deduction."
+    },
+    {
+      "id": 62,
+      "group": "Proposed workflow",
+      "feature": "Record everyday usage and finished items",
+      "source": "Prior workflow step 7",
+      "priorWorkflow": "Covered",
+      "legacyApp": "Partial",
+      "evidence": "Minus buttons change stock; no dedicated usage event or Finished action",
+      "futureAction": "Provide Used some, Finished, and Correction actions with undo."
+    },
+    {
+      "id": 63,
+      "group": "Proposed workflow",
+      "feature": "Edit recipes and retain full cooking steps",
+      "source": "Prior workflow step 3",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Missing",
+      "evidence": "HTML custom recipe has name, ingredients, links and one notes field, without steps or edit flow",
+      "futureAction": "Add editable instructions and personal variations. Preserve the recipe version used in history."
+    },
+    {
+      "id": 64,
+      "group": "Thorough app proposal",
+      "feature": "Optional shared household access",
+      "source": "Earlier proposal; user has not selected shared versus solo access",
+      "priorWorkflow": "Conditional",
+      "legacyApp": "Missing",
+      "evidence": "HTML localStorage is device-local; no accounts or synchronization",
+      "futureAction": "If enabled, both members share plans, stock, recipes, and change history."
+    },
+    {
+      "id": 65,
+      "group": "Thorough app proposal",
+      "feature": "Leftovers as prepared food",
+      "source": "Earlier Should feature",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Missing",
+      "evidence": "No leftover or prepared-portion state",
+      "futureAction": "Record portions left, storage date, and their reuse as a later meal."
+    },
+    {
+      "id": 66,
+      "group": "Thorough app proposal",
+      "feature": "Fridge, freezer, and shelf locations",
+      "source": "Earlier pantry proposal",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Missing",
+      "evidence": "No storage-location field",
+      "futureAction": "Track where items and separate packages or batches are stored."
+    },
+    {
+      "id": 67,
+      "group": "Thorough app proposal",
+      "feature": "Expiry and frozen-on dates",
+      "source": "Earlier Should feature",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Missing",
+      "evidence": "No expiry or frozen-on fields",
+      "futureAction": "Track optional supplied dates and use-soon indicators. Do not infer safe food from a photo."
+    },
+    {
+      "id": 68,
+      "group": "Thorough app proposal",
+      "feature": "Waste and spoilage records",
+      "source": "New proposal arising from stock lifecycle review",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "No waste event type",
+      "futureAction": "Distinguish discarded food from cooking usage and stock corrections."
+    },
+    {
+      "id": 69,
+      "group": "Thorough app proposal",
+      "feature": "Editable local names and units",
+      "source": "Earlier Roman Urdu/desi glossary proposal",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Missing",
+      "evidence": "Parser matches canonical English ingredient names and ignores unit text",
+      "futureAction": "Add reviewed aliases for ingredients and household unit conventions."
+    },
+    {
+      "id": 70,
+      "group": "Thorough app proposal",
+      "feature": "Family recipe import from photos",
+      "source": "Earlier open decision/Delight feature",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Missing",
+      "evidence": "No recipe image-extraction flow",
+      "futureAction": "Plan a separate review of ingredient amounts, instructions, and handwriting."
+    },
+    {
+      "id": 71,
+      "group": "Thorough app proposal",
+      "feature": "Guest meals and editable Ramadan slots",
+      "source": "Earlier Should feature",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Partial",
+      "evidence": "Servings and four meal types exist; no event plan or configurable slots",
+      "futureAction": "Use per-meal servings and editable occasion labels."
+    },
+    {
+      "id": 72,
+      "group": "Thorough app proposal",
+      "feature": "Actual grocery spending and budgeting",
+      "source": "Earlier Should feature",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Missing",
+      "evidence": "No purchase prices or spending history",
+      "futureAction": "Store actual purchase prices when entered and distinguish them from quantity estimates."
+    },
+    {
+      "id": 73,
+      "group": "Thorough app proposal",
+      "feature": "Prevent applying one purchase twice",
+      "source": "Earlier photo/purchase design discussion",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Missing",
+      "evidence": "No purchase-batch IDs or receipt/photo reconciliation",
+      "futureAction": "Link review and stock changes to one accepted purchase event."
+    },
+    {
+      "id": 74,
+      "group": "Thorough app proposal",
+      "feature": "Backup validation and versioned recovery",
+      "source": "Expanded reliability requirement",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Partial",
+      "evidence": "Valid backup tested; restore only checks for pantry property in source",
+      "futureAction": "Validate schema, migrate known versions, and keep a recoverable pre-import copy."
+    },
+    {
+      "id": 75,
+      "group": "Thorough app proposal",
+      "feature": "Offline reading and clear synchronization state",
+      "source": "Earlier architecture proposal",
+      "priorWorkflow": "Deferred",
+      "legacyApp": "Partial",
+      "evidence": "The local HTML runs without a backend; no shared synchronization or network-pending state exists",
+      "futureAction": "Make saved plans, recipes, and lists readable offline. Show pending changes clearly. Hosted photo analysis waits for internet."
+    },
+    {
+      "id": 76,
+      "group": "Thorough app proposal",
+      "feature": "Ingredient packages or batches with different dates",
+      "source": "Expanded pantry lifecycle proposal",
+      "priorWorkflow": "Missing",
+      "legacyApp": "Missing",
+      "evidence": "HTML stores one quantity for each ingredient",
+      "futureAction": "Keep separate packages or batches when expiry, frozen-on date, location, or quantity basis differs."
+    },
+    {
+      "id": 77,
+      "group": "Thorough app proposal",
+      "feature": "Editable complete cooking history",
+      "source": "Expanded cooking-record requirement",
+      "priorWorkflow": "Partial",
+      "legacyApp": "Partial",
+      "evidence": "HTML shows the last six meals on Tonight and monthly totals; no event editor or full-history screen",
+      "futureAction": "Browse, search, correct, backdate, and reverse cooking events without leaving inconsistent stock balances."
+    }
+  ],
+  "defects": [
+    [
+      "Search loses focus",
+      "Typing biryani leaves query b; typing chicken in Pantry leaves c.",
+      "HTML 213, 239",
+      "ordinary_search_typing",
+      "Keep the same input while updating results, or restore focus to the new input."
+    ],
+    [
+      "Pasted quantity ignores its unit",
+      "Chicken - 500 g saves quantity 500 in the ingredient’s kg unit. Negative -2 is parsed as positive 2.",
+      "HTML 136–155, 284–286",
+      "paste_ignores_units_and_overwrites_stock",
+      "Parse and validate quantity and unit together. Reject invalid input and review the converted amount."
+    ],
+    [
+      "Undo leaves the cooked meal counted",
+      "Chicken stock goes 1000 → 999.3333 → 1000, while cooking history still contains one meal and Stats still counts it.",
+      "HTML 122–123, 209",
+      "cooking_deduction_and_undo_log",
+      "Tie stock movements and history to the same event and reverse both."
+    ],
+    [
+      "Purchase undo temporarily contradicts the checkbox",
+      "Undo returns Onion stock to 0 while the row remains checked and says in pantry. The purchase marker has a 2.6-second removal timer.",
+      "HTML 123, 311–314",
+      "threshold_shopping_uses_assumed_purchase",
+      "Reverse the purchase status with its stock update, without relying on a later timer."
+    ],
+    [
+      "A local October meal is grouped into September",
+      "At 01:30 Karachi time on 1 October, the log displays 01 Oct but stores iso 2026-09-30 and Stats groups it under Sep 2026.",
+      "HTML 209, 326",
+      "local_date_month_boundary",
+      "Store the household local date separately from the timestamp used for ordering."
+    ],
+    [
+      "Failed saving is hidden",
+      "With a simulated storage quota exception, Chicken changes 1 → 1.25 in memory, then reload returns 1 without an error message.",
+      "HTML 121",
+      "storage_failure_is_silent",
+      "Expose failed saves and retain a recoverable pending change. This is a simulated failure, not evidence of past user data loss."
+    ]
+  ],
+  "workflow": [
+    [
+      "Set up the kitchen",
+      "Choose the usual number of people, meal names, preferred units, storage locations, and solo or shared access. Review starter stock instead of accepting sample quantities as real inventory."
+    ],
+    [
+      "Bring in the recipe collection",
+      "Keep the existing 22 entries, ingredient quantities, times, notes, videos, and written links. Add and edit family recipes with full steps. Photo recipe import gets its own reviewed flow."
+    ],
+    [
+      "Record actual pantry stock",
+      "Add items manually or review items detected from a picture. Enter quantity and unit, storage location, and optional expiry/frozen-on date. Keep uncertain amounts visible."
+    ],
+    [
+      "Decide or plan",
+      "Today shows ready recipes and the best near matches. Noor can cook spontaneously or assign recipes and servings to dates and meal slots."
+    ],
+    [
+      "Build the shopping basket",
+      "Combine the selected meals, subtract available stock once, and add chosen minimum-stock top-ups. Group by aisle and show dish-specific shortages and editable store hints."
+    ],
+    [
+      "Record purchases",
+      "Tick what was bought, confirm the actual quantity and optional price, and update stock once. Link a receipt and grocery photo if they describe the same purchase."
+    ],
+    [
+      "Cook and confirm usage",
+      "Open the scaled recipe, instructions, notes, or video. Record the actual cooking date, meal type, servings, and ingredient amounts used. Then update stock and history together."
+    ],
+    [
+      "Handle the rest of kitchen life",
+      "Record chai ingredients and other everyday usage, remaining portions, food moved to the freezer, finished items, and waste. Corrections can be undone without corrupting history."
+    ],
+    [
+      "Review and protect the records",
+      "See monthly meal and dish summaries, servings prepared, stock movements, and grocery spending where prices were captured. Share only on user action and support validated export and restore."
+    ]
+  ],
+  "verification": {
+    "browserChecks": 10,
+    "verificationErrors": 0,
+    "width": 390,
+    "timezone": "Asia/Karachi",
+    "sourceHashes": [
+      {
+        "file": "C:\\Users\\Aly Jafferani\\Desktop\\Noor_Kitchen_Planner_v2.xlsx",
+        "sha256": "9e13f744024ca590f011fc1fc905b2392b6e49595a08901906485b61adedc770"
+      },
+      {
+        "file": "C:\\Users\\Aly Jafferani\\Documents\\Codex\\2026-07-08\\fianc-video-file-project\\outputs\\Noor_Kitchen_Planner_Final.xlsx",
+        "sha256": "b64b08178627d315560b9285f405837c5cf59df97d3c27bb33b3de8080313f57"
+      }
+    ],
+    "catalogReconciliation": {
+      "normalized_workbook_differences": [
+        {
+          "sheet": "Home",
+          "cell": "B51",
+          "v2": "Made with love for Noor - from your Aly",
+          "final": "Made with love for Noor - from your Aly."
+        },
+        {
+          "sheet": "Home",
+          "cell": "D5",
+          "v2": 1,
+          "final": 4
+        },
+        {
+          "sheet": "Recipe Card",
+          "cell": "C3",
+          "v2": "Daal Mash with Tadka",
+          "final": null
+        }
+      ],
+      "recipe_ingredient_rows": 276,
+      "catalog_content_mismatches": [],
+      "pantry_seed_mismatches": [],
+      "xml_validation": {
+        "Noor_Kitchen_Planner_v2.xlsx": {
+          "total": 11,
+          "extended": 9,
+          "ranges": [
+            "Lists!$F$2:$F$13 | 0 | D5",
+            "Lists!$B$2:$B$23 | 0 | B28:B39",
+            "Lists!$G$2:$G$11 | 0 | C28:C39",
+            "Lists!$H$2:$H$5 | 0 | D28:D39",
+            "Lists!$F$2:$F$13 | 0 | E28:E39",
+            "Lists!$B$2:$B$23 | 0 | C3",
+            "F7:F68",
+            "Lists!$B$2:$B$23 | 0 | C3",
+            "A8:A69",
+            "Lists!$B$2:$B$23 | 0 | C5",
+            "Lists!$B$2:$B$23 | 0 | C3"
+          ]
+        },
+        "Noor_Kitchen_Planner_Final.xlsx": {
+          "total": 11,
+          "extended": 0,
+          "ranges": [
+            "D5",
+            "B28:B39",
+            "C28:C39",
+            "D28:D39",
+            "E28:E39",
+            "C3",
+            "F7:F68",
+            "C5",
+            "A8:A69",
+            "C3",
+            "C3"
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "No native Excel recalculation was performed. Formula text, cached values, raw XML dropdowns, hidden content, and relationships were inspected.",
+    "Browser checks used disposable isolated data and local files. No real household data or original source file was changed.",
+    "Physical Android/iPhone camera capture, home-screen installation, offline synchronization, cloud vision, multi-user access, and external sharing delivery were not tested.",
+    "Recipe/video URLs and store suggestions were preserved but their current availability, accuracy, ranking, prices, and delivery claims were not verified.",
+    "A valid backup/restore was tested; malformed restore payloads were not tested."
+  ]
+}

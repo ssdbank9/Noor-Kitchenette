@@ -1,0 +1,235 @@
+VALUE_OR_FORMULA_DIFFERENCES [{"sheet": "Home", "cell": "B51", "v2": "Made with love for Noor - from your Aly", "final": "Made with love for Noor - from your Aly."}, {"sheet": "Home", "cell": "D5", "v2": 1, "final": 4}, {"sheet": "Pantry", "cell": "C4", "v2": {"kind": "array_formula", "text": "=IF($C$3=\"\",\"\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$3)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\")))", "range": "C4"}, "final": {"kind": "array_formula", "text": "=IF($C$3=\"\",\"\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$3)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\")))", "range": "C4:C4"}}, {"sheet": "Shopping List", "cell": "C4", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF($H$8:$H$69=\"BUY\",$B$8:$B$69,\"\"))", "range": "C4"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF($H$8:$H$69=\"BUY\",$B$8:$B$69,\"\"))", "range": "C4:C4"}}, {"sheet": "Shopping List", "cell": "E5", "v2": {"kind": "array_formula", "text": "=IF($C$5=\"\",\"pick a dish and this lists exactly what to buy for it\",IF(SUMPRODUCT((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0))=0,\"Nothing needed - you have it all!\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\"))))", "range": "E5"}, "final": {"kind": "array_formula", "text": "=IF($C$5=\"\",\"pick a dish and this lists exactly what to buy for it\",IF(SUMPRODUCT((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0))=0,\"Nothing needed - you have it all!\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\"))))", "range": "E5:E5"}}, {"sheet": "What Can I Cook", "cell": "H10", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E10)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H10"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E10)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H10:H10"}}, {"sheet": "What Can I Cook", "cell": "H11", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E11)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H11"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E11)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H11:H11"}}, {"sheet": "What Can I Cook", "cell": "H12", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E12)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H12"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E12)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H12:H12"}}, {"sheet": "What Can I Cook", "cell": "H13", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E13)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H13"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E13)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H13:H13"}}, {"sheet": "What Can I Cook", "cell": "H14", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E14)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H14"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E14)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H14:H14"}}, {"sheet": "What Can I Cook", "cell": "H15", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E15)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H15"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E15)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H15:H15"}}, {"sheet": "What Can I Cook", "cell": "H16", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E16)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H16"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E16)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H16:H16"}}, {"sheet": "What Can I Cook", "cell": "H17", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E17)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H17"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E17)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H17:H17"}}, {"sheet": "What Can I Cook", "cell": "H18", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E18)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H18"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E18)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H18:H18"}}, {"sheet": "What Can I Cook", "cell": "H19", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E19)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H19"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E19)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H19:H19"}}, {"sheet": "What Can I Cook", "cell": "H20", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E20)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H20"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E20)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H20:H20"}}, {"sheet": "What Can I Cook", "cell": "H21", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E21)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H21"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E21)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H21:H21"}}, {"sheet": "What Can I Cook", "cell": "H22", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E22)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H22"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E22)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H22:H22"}}, {"sheet": "What Can I Cook", "cell": "H23", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E23)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H23"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E23)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H23:H23"}}, {"sheet": "What Can I Cook", "cell": "H24", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E24)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H24"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E24)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H24:H24"}}, {"sheet": "What Can I Cook", "cell": "H25", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E25)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H25"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E25)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H25:H25"}}, {"sheet": "What Can I Cook", "cell": "H4", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E4)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H4"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E4)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H4:H4"}}, {"sheet": "What Can I Cook", "cell": "H5", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E5)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H5"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E5)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H5:H5"}}, {"sheet": "What Can I Cook", "cell": "H6", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E6)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H6"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E6)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H6:H6"}}, {"sheet": "What Can I Cook", "cell": "H7", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E7)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H7"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E7)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H7:H7"}}, {"sheet": "What Can I Cook", "cell": "H8", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E8)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H8"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E8)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H8:H8"}}, {"sheet": "What Can I Cook", "cell": "H9", "v2": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E9)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H9"}, "final": {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E9)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H9:H9"}}, {"sheet": "Recipe Card", "cell": "B10", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),1)),\"\")", "range": "B10"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),1)),\"\")", "range": "B10:B10"}}, {"sheet": "Recipe Card", "cell": "B11", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),2)),\"\")", "range": "B11"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),2)),\"\")", "range": "B11:B11"}}, {"sheet": "Recipe Card", "cell": "B12", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),3)),\"\")", "range": "B12"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),3)),\"\")", "range": "B12:B12"}}, {"sheet": "Recipe Card", "cell": "B13", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),4)),\"\")", "range": "B13"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),4)),\"\")", "range": "B13:B13"}}, {"sheet": "Recipe Card", "cell": "B14", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),5)),\"\")", "range": "B14"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),5)),\"\")", "range": "B14:B14"}}, {"sheet": "Recipe Card", "cell": "B15", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),6)),\"\")", "range": "B15"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),6)),\"\")", "range": "B15:B15"}}, {"sheet": "Recipe Card", "cell": "B16", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),7)),\"\")", "range": "B16"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),7)),\"\")", "range": "B16:B16"}}, {"sheet": "Recipe Card", "cell": "B17", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),8)),\"\")", "range": "B17"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),8)),\"\")", "range": "B17:B17"}}, {"sheet": "Recipe Card", "cell": "B18", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),9)),\"\")", "range": "B18"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),9)),\"\")", "range": "B18:B18"}}, {"sheet": "Recipe Card", "cell": "B19", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),10)),\"\")", "range": "B19"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),10)),\"\")", "range": "B19:B19"}}, {"sheet": "Recipe Card", "cell": "B20", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),11)),\"\")", "range": "B20"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),11)),\"\")", "range": "B20:B20"}}, {"sheet": "Recipe Card", "cell": "B21", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),12)),\"\")", "range": "B21"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),12)),\"\")", "range": "B21:B21"}}, {"sheet": "Recipe Card", "cell": "B22", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),13)),\"\")", "range": "B22"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),13)),\"\")", "range": "B22:B22"}}, {"sheet": "Recipe Card", "cell": "B23", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),14)),\"\")", "range": "B23"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),14)),\"\")", "range": "B23:B23"}}, {"sheet": "Recipe Card", "cell": "B24", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),15)),\"\")", "range": "B24"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),15)),\"\")", "range": "B24:B24"}}, {"sheet": "Recipe Card", "cell": "B25", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),16)),\"\")", "range": "B25"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),16)),\"\")", "range": "B25:B25"}}, {"sheet": "Recipe Card", "cell": "B26", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),17)),\"\")", "range": "B26"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),17)),\"\")", "range": "B26:B26"}}, {"sheet": "Recipe Card", "cell": "B27", "v2": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),18)),\"\")", "range": "B27"}, "final": {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),18)),\"\")", "range": "B27:B27"}}, {"sheet": "Recipe Card", "cell": "C3", "v2": "Daal Mash with Tadka", "final": null}]
+XML_VALIDATIONS Noor_Kitchen_Planner_v2.xlsx [{"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000000000000}"}, "content": "Lists!$F$2:$F$13 | 0 | D5"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000001000000}"}, "content": "Lists!$B$2:$B$23 | 0 | B28:B39"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000002000000}"}, "content": "Lists!$G$2:$G$11 | 0 | C28:C39"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000003000000}"}, "content": "Lists!$H$2:$H$5 | 0 | D28:D39"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000004000000}"}, "content": "Lists!$F$2:$F$13 | 0 | E28:E39"}, {"part": "xl/worksheets/sheet3.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "prompt": "Type or pick a dish", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0200-000000000000}"}, "content": "Lists!$B$2:$B$23 | 0 | C3"}, {"part": "xl/worksheets/sheet5.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"type": "list", "allowBlank": "1", "sqref": "F7:F68", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0400-000001000000}"}, "content": "\"Typed,Photo\" | 0"}, {"part": "xl/worksheets/sheet5.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0400-000000000000}"}, "content": "Lists!$B$2:$B$23 | 0 | C3"}, {"part": "xl/worksheets/sheet6.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"type": "list", "allowBlank": "1", "sqref": "A8:A69", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0500-000001000000}"}, "content": "\"☑,☐\" | 0"}, {"part": "xl/worksheets/sheet6.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0500-000000000000}"}, "content": "Lists!$B$2:$B$23 | 0 | C5"}, {"part": "xl/worksheets/sheet8.xml", "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main", "attributes": {"type": "list", "allowBlank": "1", "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0700-000000000000}"}, "content": "Lists!$B$2:$B$23 | 0 | C3"}]
+XML_VALIDATIONS Noor_Kitchen_Planner_Final.xlsx [{"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "false", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "D5", "type": "list"}, "content": "Lists!$F$2:$F$13 | 0"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "B28:B39", "type": "list"}, "content": "Lists!$B$2:$B$23 | 0"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "C28:C39", "type": "list"}, "content": "Lists!$G$2:$G$11 | 0"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "D28:D39", "type": "list"}, "content": "Lists!$H$2:$H$5 | 0"}, {"part": "xl/worksheets/sheet1.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "E28:E39", "type": "list"}, "content": "Lists!$F$2:$F$13 | 0"}, {"part": "xl/worksheets/sheet5.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "C3", "type": "list"}, "content": "Lists!$B$2:$B$23 | 0"}, {"part": "xl/worksheets/sheet5.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "F7:F68", "type": "list"}, "content": "\"Typed,Photo\" | 0"}, {"part": "xl/worksheets/sheet6.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "C5", "type": "list"}, "content": "Lists!$B$2:$B$23 | 0"}, {"part": "xl/worksheets/sheet6.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "A8:A69", "type": "list"}, "content": "\"☑,☐\" | 0"}, {"part": "xl/worksheets/sheet3.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "prompt": "Type or pick a dish", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "C3", "type": "list"}, "content": "Lists!$B$2:$B$23 | 0"}, {"part": "xl/worksheets/sheet8.xml", "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main", "attributes": {"allowBlank": "true", "errorStyle": "stop", "operator": "between", "showDropDown": "false", "showErrorMessage": "false", "showInputMessage": "false", "sqref": "C3", "type": "list"}, "content": "Lists!$B$2:$B$23 | 0"}]
+DETAIL Home
+B2 "Noor's Kitchen Planner" CACHE "Noor's Kitchen Planner"
+B3 "20 beloved Pakistani dishes, one clever spreadsheet. Happy cooking!" CACHE "20 beloved Pakistani dishes, one clever spreadsheet. Happy cooking!"
+B5 "Cooking for how many people?" CACHE "Cooking for how many people?"
+D5 4 CACHE 4
+E5 "<- every quantity, match % and shopping amount rescales instantly" CACHE "<- every quantity, match % and shopping amount rescales instantly"
+B7 "Live Kitchen Dashboard" CACHE "Live Kitchen Dashboard"
+B8 "Meals ready right now (100% match):" CACHE "Meals ready right now (100% match):"
+F8 "=COUNTIF('What Can I Cook'!$M$4:$M$25,1)" CACHE 2
+B9 "Items to buy this week:" CACHE "Items to buy this week:"
+F9 "='Shopping List'!$C$3" CACHE 20
+B10 "Meals logged in the Cook Log:" CACHE "Meals logged in the Cook Log:"
+F10 "=COUNTIF($B$28:$B$39,\"?*\")" CACHE 0
+B11 "Tonight's best match:" CACHE "Tonight's best match:"
+F11 "='What Can I Cook'!$F$4" CACHE "Aalu (Masala Aloo)"
+B13 "Top 10 - Best Matches Tonight (click to open the recipe)" CACHE "Top 10 - Best Matches Tonight (click to open the recipe)"
+B14 "Rank" CACHE "Rank"
+C14 "ID" CACHE "ID"
+D14 "Dish" CACHE "Dish"
+F14 "Match %" CACHE "Match %"
+G14 "Video" CACHE "Video"
+H14 "Recipe" CACHE "Recipe"
+B15 1 CACHE 1
+C15 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B15),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R016"
+D15 "=VLOOKUP($C15,Lists!$A$2:$B$23,2,0)" CACHE "Aalu (Masala Aloo)"
+F15 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C15,'What Can I Cook'!$L$4:$L$25,0))" CACHE 1
+G15 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C15,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H15 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C15,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B16 2 CACHE 2
+C16 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B16),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R006a"
+D16 "=VLOOKUP($C16,Lists!$A$2:$B$23,2,0)" CACHE "Daal Chana (Masala)"
+F16 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C16,'What Can I Cook'!$L$4:$L$25,0))" CACHE 1
+G16 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C16,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H16 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C16,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B17 3 CACHE 3
+C17 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B17),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R019"
+D17 "=VLOOKUP($C17,Lists!$A$2:$B$23,2,0)" CACHE "Khichri (Spicy Fried Khichdi)"
+F17 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C17,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.916666666666667
+G17 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C17,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H17 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C17,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B18 4 CACHE 4
+C18 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B18),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R013"
+D18 "=VLOOKUP($C18,Lists!$A$2:$B$23,2,0)" CACHE "Bhindi (Masala Aloo Bhindi)"
+F18 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C18,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.916666666666667
+G18 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C18,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H18 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C18,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B19 5 CACHE 5
+C19 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B19),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R011"
+D19 "=VLOOKUP($C19,Lists!$A$2:$B$23,2,0)" CACHE "One Pot Spicy Pasta"
+F19 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C19,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.916666666666667
+G19 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C19,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H19 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C19,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B20 6 CACHE 6
+C20 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B20),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R006c"
+D20 "=VLOOKUP($C20,Lists!$A$2:$B$23,2,0)" CACHE "Daal Masoor (Malka)"
+F20 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C20,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.916666666666667
+G20 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C20,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H20 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C20,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B21 7 CACHE 7
+C21 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B21),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R006b"
+D21 "=VLOOKUP($C21,Lists!$A$2:$B$23,2,0)" CACHE "Daal Mash with Tadka"
+F21 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C21,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.916666666666667
+G21 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C21,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H21 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C21,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B22 8 CACHE 8
+C22 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B22),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R017"
+D22 "=VLOOKUP($C22,Lists!$A$2:$B$23,2,0)" CACHE "Qeema (Dhaba Style Aloo Qeema)"
+F22 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C22,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.866666666666667
+G22 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C22,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H22 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C22,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B23 9 CACHE 9
+C23 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B23),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R008"
+D23 "=VLOOKUP($C23,Lists!$A$2:$B$23,2,0)" CACHE "Shami Kabab"
+F23 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C23,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.866666666666667
+G23 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C23,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H23 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C23,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B24 10 CACHE 10
+C24 "=INDEX('What Can I Cook'!$L$4:$L$25,MATCH(LARGE('What Can I Cook'!$N$4:$N$25,$B24),'What Can I Cook'!$N$4:$N$25,0))" CACHE "R014"
+D24 "=VLOOKUP($C24,Lists!$A$2:$B$23,2,0)" CACHE "Gobi Masala (Dhaba Style)"
+F24 "=INDEX('What Can I Cook'!$M$4:$M$25,MATCH($C24,'What Can I Cook'!$L$4:$L$25,0))" CACHE 0.857142857142857
+G24 "=HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C24,Lists!$A$2:$A$23,0)),\"> Watch\")" CACHE "> Watch"
+H24 "=HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C24,Lists!$A$2:$A$23,0)),\"Read\")" CACHE "Read"
+B26 "Cook Log - what did you cook?" CACHE "Cook Log - what did you cook?"
+E26 "(all dropdowns - pantry deducts the exact scaled amounts instantly)" CACHE "(all dropdowns - pantry deducts the exact scaled amounts instantly)"
+B27 "Dish" CACHE "Dish"
+C27 "Date" CACHE "Date"
+D27 "Meal" CACHE "Meal"
+E27 "People fed" CACHE "People fed"
+B41 "How it works" CACHE "How it works"
+B42 "1. Set how many people you're cooking for (yellow box above) - everything rescales: recipe card amounts, availability, match % and dish shopping lists." CACHE "1. Set how many people you're cooking for (yellow box above) - everything rescales: recipe card amounts, availability, match % and dish shopping lists."
+B43 "2. Cooked something? Log it above: dish, date, meal, people fed - all dropdowns. The Pantry deducts the exact scaled quantities automatically." CACHE "2. Cooked something? Log it above: dish, date, meal, people fed - all dropdowns. The Pantry deducts the exact scaled quantities automatically."
+B44 "3. RECIPES tab: search box with instant preview; every dish has a Video and a Written recipe column (best-rated Food Fusion versions)." CACHE "3. RECIPES tab: search box with instant preview; every dish has a Video and a Written recipe column (best-rated Food Fusion versions)."
+B45 "4. RECIPE CARD tab: pick a dish, see exactly what you need for your party size, what's in the pantry, and what to buy - with one-click video/recipe links." CACHE "4. RECIPE CARD tab: pick a dish, see exactly what you need for your party size, what's in the pantry, and what to buy - with one-click video/recipe links."
+B46 "5. PANTRY tab: dish-check panel tells you instantly if you can cook a dish; photo entry = send a fridge/grocery photo to Claude, type in what it reads out." CACHE "5. PANTRY tab: dish-check panel tells you instantly if you can cook a dish; photo entry = send a fridge/grocery photo to Claude, type in what it reads out."
+B47 "6. SHOPPING LIST tab: auto-aggregated by aisle with Islamabad store suggestions; 'Shop for a dish' panel lists exactly what a single dish needs." CACHE "6. SHOPPING LIST tab: auto-aggregated by aisle with Islamabad store suggestions; 'Shop for a dish' panel lists exactly what a single dish needs."
+B48 "7. Checkboxes everywhere: click the cell, pick the ticked box from the dropdown. On Excel 365 you can also use Insert > Checkbox." CACHE "7. Checkboxes everywhere: click the cell, pick the ticked box from the dropdown. On Excel 365 you can also use Insert > Checkbox."
+B49 "Keep ingredient names exactly as written (e.g. Ginger_Garlic_Paste) - automation matches on names." CACHE "Keep ingredient names exactly as written (e.g. Ginger_Garlic_Paste) - automation matches on names."
+B51 "Made with love for Noor - from your Aly." CACHE "Made with love for Noor - from your Aly."
+DETAIL Pantry
+A1 "Pantry & Inventory" CACHE "Pantry & Inventory"
+A2 "Yellow cells = yours to edit. Log cooking on Home - quantities deduct automatically. Photo entry: send a fridge/grocery photo to Claude, it reads the items, you type them once here." CACHE "Yellow cells = yours to edit. Log cooking on Home - quantities deduct automatically. Photo entry: send a fridge/grocery photo to Claude, it reads the items, you type them once here."
+A3 "Dish check:" CACHE "Dish check:"
+F3 "=IF($C$3=\"\",\"pick a dish to check\",IF(SUMPRODUCT((Data!$B$3:$B$278=$C$3)*(Data!$L$3:$L$278=0))=0,\"ALL AVAILABLE for \"&Home!$D$5&\" people\",\"MISSING \"&SUMPRODUCT((Data!$B$3:$B$278=$C$3)*(Data!$L$3:$L$278=0))&\" item(s)\"))" CACHE "pick a dish to check"
+A4 "Missing:" CACHE "Missing:"
+C4 {"kind": "array_formula", "text": "=IF($C$3=\"\",\"\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$3)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\")))", "range": "C4:C4"} CACHE null
+A6 "Ingredient" CACHE "Ingredient"
+B6 "Qty on Hand" CACHE "Qty on Hand"
+C6 "Unit" CACHE "Unit"
+D6 "Min Threshold" CACHE "Min Threshold"
+E6 "Last Updated" CACHE "Last Updated"
+F6 "Entry Method" CACHE "Entry Method"
+G6 "Photo Notes" CACHE "Photo Notes"
+H6 "Used (from Cook Log)" CACHE "Used (from Cook Log)"
+I6 "Qty Left (auto)" CACHE "Qty Left (auto)"
+J6 "Status" CACHE "Status"
+A7 "Bitter_Gourd_Karela" CACHE "Bitter_Gourd_Karela"
+B7 0 CACHE 0
+C7 "g" CACHE "g"
+D7 250 CACHE 250
+E7 "2026-07-07 00:00:00" CACHE "2026-07-07 00:00:00"
+F7 "Typed" CACHE "Typed"
+H7 "=SUMIFS(Data!$I$3:$I$278,Data!$C$3:$C$278,$A7)" CACHE 0
+I7 "=MAX(0,$B7-$H7)" CACHE 0
+J7 "=IF($I7<$D7,\"LOW - BUY\",\"OK\")" CACHE "LOW - BUY"
+DETAIL Shopping List
+A1 "Shopping List" CACHE "Shopping List"
+A2 "Aggregated across all 20 recipes by aisle. BUY lights up when pantry drops below minimum. Tick the box as you shop." CACHE "Aggregated across all 20 recipes by aisle. BUY lights up when pantry drops below minimum. Tick the box as you shop."
+A3 "Items to buy this week:" CACHE "Items to buy this week:"
+C3 "=COUNTIF($H$8:$H$69,\"BUY\")" CACHE 20
+A4 "Buy this week:" CACHE "Buy this week:"
+C4 {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF($H$8:$H$69=\"BUY\",$B$8:$B$69,\"\"))", "range": "C4:C4"} CACHE "Bitter_Gourd_Karela, Cabbage, Cauliflower_Gobi, Lemon, Mint, Mustard_Greens_Saag, Okra_Bhindi, Spring_Onion, Beef_Boneless, Beef_Shank_with_Bones, Fennel_Seeds, Kashmiri_Red_Chilli_Powder, Nihari_Masala, Chilli_Garlic_Sauce, Fried_Onion, Ginger_Garlic_Paste, Maize_Flour_Makai, Pasta, Masoor_Daal, Red_Kidney_Beans"
+A5 "Shop for a dish:" CACHE "Shop for a dish:"
+E5 {"kind": "array_formula", "text": "=IF($C$5=\"\",\"pick a dish and this lists exactly what to buy for it\",IF(SUMPRODUCT((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0))=0,\"Nothing needed - you have it all!\",_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$B$3:$B$278=$C$5)*(Data!$M$3:$M$278>0),Data!$C$3:$C$278&\" (\"&TEXT(Data!$M$3:$M$278,\"0.##\")&\" \"&Data!$E$3:$E$278&\")\",\"\"))))", "range": "E5:E5"} CACHE "pick a dish and this lists exactly what to buy for it"
+A7 "Got it?" CACHE "Got it?"
+B7 "Ingredient" CACHE "Ingredient"
+C7 "Total Needed (all recipes)" CACHE "Total Needed (all recipes)"
+D7 "Unit" CACHE "Unit"
+E7 "Aisle" CACHE "Aisle"
+F7 "In Pantry Now" CACHE "In Pantry Now"
+G7 "Min Threshold" CACHE "Min Threshold"
+H7 "Action" CACHE "Action"
+I7 "Where to buy (Islamabad)" CACHE "Where to buy (Islamabad)"
+A8 "☐" CACHE "☐"
+B8 "Bitter_Gourd_Karela" CACHE "Bitter_Gourd_Karela"
+C8 "=SUMIFS(Data!$D$3:$D$278,Data!$C$3:$C$278,$B8)" CACHE 500
+D8 "g" CACHE "g"
+E8 "Produce" CACHE "Produce"
+F8 "=INDEX(Pantry!$I$7:$I$68,MATCH($B8,Pantry!$A$7:$A$68,0))" CACHE 0
+G8 "=INDEX(Pantry!$D$7:$D$68,MATCH($B8,Pantry!$A$7:$A$68,0))" CACHE 250
+H8 "=IF($F8<$G8,\"BUY\",\"OK\")" CACHE "BUY"
+I8 "Sabzi Mandi I-11 (bulk) / Save Mart / Metro online (3-hr)" CACHE "Sabzi Mandi I-11 (bulk) / Save Mart / Metro online (3-hr)"
+DETAIL What Can I Cook
+A1 "What Can I Cook Tonight?" CACHE "What Can I Cook Tonight?"
+F1 "=\"Cooking for \"&Home!$D$5&\" people - change this on the Home tab\"" CACHE "Cooking for 4 people - change this on the Home tab"
+A2 "Checklist syncs live from your Pantry. Rankings account for how many people you're feeding (set on Home). Green = dinner is ready." CACHE "Checklist syncs live from your Pantry. Rankings account for how many people you're feeding (set on Home). Green = dinner is ready."
+A3 "Have it?" CACHE "Have it?"
+B3 "Ingredient" CACHE "Ingredient"
+D3 "Rank" CACHE "Rank"
+E3 "Recipe_ID" CACHE "Recipe_ID"
+F3 "Recipe" CACHE "Recipe"
+G3 "Match %" CACHE "Match %"
+H3 "You're Missing" CACHE "You're Missing"
+L3 "rid" CACHE "rid"
+M3 "match" CACHE "match"
+N3 "adj" CACHE "adj"
+A4 "=IF(INDEX(Pantry!$I$7:$I$68,MATCH($B4,Pantry!$A$7:$A$68,0))>0,\"☑\",\"☐\")" CACHE "☐"
+B4 "Bitter_Gourd_Karela" CACHE "Bitter_Gourd_Karela"
+D4 1 CACHE 1
+E4 "=INDEX($L$4:$L$25,MATCH(LARGE($N$4:$N$25,$D4),$N$4:$N$25,0))" CACHE "R016"
+F4 "=VLOOKUP($E4,Lists!$A$2:$B$23,2,0)" CACHE "Aalu (Masala Aloo)"
+G4 "=INDEX($M$4:$M$25,MATCH($E4,$L$4:$L$25,0))" CACHE 1
+H4 {"kind": "array_formula", "text": "=_xlfn.TEXTJOIN(\", \",TRUE(),IF((Data!$A$3:$A$278=$E4)*(Data!$L$3:$L$278=0),Data!$C$3:$C$278,\"\"))", "range": "H4:H4"} CACHE null
+L4 "R001" CACHE "R001"
+M4 "=SUMIFS(Data!$L$3:$L$278,Data!$A$3:$A$278,$L4)/COUNTIFS(Data!$A$3:$A$278,$L4)" CACHE 0.8
+N4 "=$M4+ROW()/1000000" CACHE 0.800004
+DETAIL Recipe Card
+B2 "Recipe Card" CACHE "Recipe Card"
+B3 "Pick a dish:" CACHE "Pick a dish:"
+B4 "Source serves:" CACHE "Source serves:"
+C4 "=IF($C$3=\"\",\"\",INDEX(Lists!$C$2:$C$23,MATCH($C$3,Lists!$B$2:$B$23,0))&\" persons\")" CACHE null
+F4 "=IF($C$3=\"\",\"\",HYPERLINK(INDEX(Lists!$E$2:$E$23,MATCH($C$3,Lists!$B$2:$B$23,0)),\"> WATCH VIDEO\"))" CACHE null
+B5 "You're cooking for:" CACHE "You're cooking for:"
+C5 "=IF($C$3=\"\",\"\",Home!$D$5&\" persons (change on Home)\")" CACHE null
+F5 "=IF($C$3=\"\",\"\",HYPERLINK(INDEX(Lists!$D$2:$D$23,MATCH($C$3,Lists!$B$2:$B$23,0)),\"READ FULL RECIPE\"))" CACHE null
+B6 "Time:" CACHE "Time:"
+C6 "=IF($C$3=\"\",\"\",INDEX(Recipes!$D$6:$D$27,MATCH($C$3,Recipes!$B$6:$B$27,0)))" CACHE null
+B7 "Notes:" CACHE "Notes:"
+C7 "=IF($C$3=\"\",\"\",INDEX(Recipes!$H$6:$H$27,MATCH($C$3,Recipes!$B$6:$B$27,0)))" CACHE null
+B9 "Ingredient" CACHE "Ingredient"
+C9 "You Need" CACHE "You Need"
+D9 "Unit" CACHE "Unit"
+E9 "In Pantry" CACHE "In Pantry"
+F9 "Status" CACHE "Status"
+B10 {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),1)),\"\")", "range": "B10:B10"} CACHE null
+C10 "=IF($B10=\"\",\"\",ROUND(SUMIFS(Data!$G$3:$G$278,Data!$B$3:$B$278,$C$3,Data!$C$3:$C$278,$B10)*Home!$D$5,2))" CACHE null
+D10 "=IF($B10=\"\",\"\",VLOOKUP($B10,Pantry!$A$7:$C$68,3,0))" CACHE null
+E10 "=IF($B10=\"\",\"\",VLOOKUP($B10,Pantry!$A$7:$I$68,9,0))" CACHE null
+F10 "=IF($B10=\"\",\"\",IF($E10>=$C10-0.0001,\"☑ Have it\",\"BUY \"&TEXT($C10-$E10,\"0.##\")&\" \"&$D10))" CACHE null
+B11 {"kind": "array_formula", "text": "=IFERROR(INDEX(Data!$C$3:$C$278,SMALL(IF(Data!$B$3:$B$278=$C$3,ROW(Data!$B$3:$B$278)-2),2)),\"\")", "range": "B11:B11"} CACHE null
+C11 "=IF($B11=\"\",\"\",ROUND(SUMIFS(Data!$G$3:$G$278,Data!$B$3:$B$278,$C$3,Data!$C$3:$C$278,$B11)*Home!$D$5,2))" CACHE null
+D11 "=IF($B11=\"\",\"\",VLOOKUP($B11,Pantry!$A$7:$C$68,3,0))" CACHE null
+E11 "=IF($B11=\"\",\"\",VLOOKUP($B11,Pantry!$A$7:$I$68,9,0))" CACHE null
+F11 "=IF($B11=\"\",\"\",IF($E11>=$C11-0.0001,\"☑ Have it\",\"BUY \"&TEXT($C11-$E11,\"0.##\")&\" \"&$D11))" CACHE null
+DETAIL Data
+A1 "ENGINE - one row per recipe ingredient. Do not edit." CACHE "ENGINE - one row per recipe ingredient. Do not edit."
+A2 "Recipe_ID" CACHE "Recipe_ID"
+B2 "Recipe_Name" CACHE "Recipe_Name"
+C2 "Ingredient" CACHE "Ingredient"
+D2 "Qty(base)" CACHE "Qty(base)"
+E2 "Unit" CACHE "Unit"
+F2 "Serves" CACHE "Serves"
+G2 "Per_Person" CACHE "Per_Person"
+H2 "Persons_Cooked" CACHE "Persons_Cooked"
+I2 "Qty_Used" CACHE "Qty_Used"
+J2 "Need_Now" CACHE "Need_Now"
+K2 "Pantry_Left" CACHE "Pantry_Left"
+L2 "Have(1/0)" CACHE "Have(1/0)"
+M2 "Shortfall" CACHE "Shortfall"
+A3 "R001" CACHE "R001"
+B3 "Chicken Biryani (Extreme)" CACHE "Chicken Biryani (Extreme)"
+C3 "Chicken" CACHE "Chicken"
+D3 1 CACHE 1
+E3 "kg" CACHE "kg"
+F3 6 CACHE 6
+G3 "=$D3/$F3" CACHE 0.166666666666667
+H3 "=SUMIFS(Home!$E$28:$E$39,Home!$B$28:$B$39,$B3)" CACHE 0
+I3 "=$G3*$H3" CACHE 0
+J3 "=$G3*Home!$D$5" CACHE 0.666666666666667
+K3 "=INDEX(Pantry!$I$7:$I$68,MATCH($C3,Pantry!$A$7:$A$68,0))" CACHE 1
+L3 "=IF($K3>=$J3-0.0001,1,0)" CACHE 1
+M3 "=MAX(0,$J3-$K3)" CACHE 0
+CATALOG_COMPARISON {"recipe_count_excel": 22, "recipe_count_html": 22, "missing_recipe_ids_html": [], "extra_recipe_ids_html": [], "ingredient_count_excel": 62, "ingredient_count_html": 62, "missing_ingredient_ids_html": [], "extra_ingredient_ids_html": [], "unit_diffs": []}

@@ -1,0 +1,192 @@
+[
+  {
+    "name": "navigation_and_mobile_layout",
+    "status": "observed",
+    "evidence": {
+      "views": [
+        {
+          "name": "tonight",
+          "visibleText": "2\nready to cook\n20\nitems to buy\n0\nmeals logged\n🍛 Ready right now — for 4\n100%\nDaal Chana (Masala)\n⏱ 50 min · source serves 4, scaled to 4\n▶ Video\n📖 Recipe\n✅ I cooked this\n100%\nAa",
+          "overflow": false
+        },
+        {
+          "name": "recipes",
+          "visibleText": "➕ Add your own recipe\n💾 Backup\n📥 Restore\nAll\nRice\nDaal & Beans\nSalan & Meat\nSabzi\nDesi-Chinese & Pasta\n⭐ My own\n80%\nChicken Biryani (Extreme)\n⏱ 1 hr 15 min · serves 6 → scaled to",
+          "overflow": false
+        },
+        {
+          "name": "pantry",
+          "visibleText": "📷 Update by photo\n📋 Paste Claude's list\n↩ Undo\nPRODUCE\nSabzi Mandi I-11 · Save Mart · Metro online\nOnion\n−\n6 unit\n+\nTomato\n−\n4 unit\n+\nPotato\n−\n5 unit\n+\nGreen Chilli\n−\n10 unit\n+\nF",
+          "overflow": false
+        },
+        {
+          "name": "shop",
+          "visibleText": "🛒 20 items to buy\nTick as you shop — I'll drop them straight into your pantry. 😉\n📤 Share list (WhatsApp)\n↩ Undo\n🍽 Shop for a dish\n— pick a dish —\nChicken Biryani (Extreme)\nChic",
+          "overflow": false
+        },
+        {
+          "name": "stats",
+          "visibleText": "📊 Monthly summary\nNo meals logged yet. Cook something and tap ✅ \"I cooked this\" — your story starts there. 🍳\nMade with love for Noor - from your Aly 💗",
+          "overflow": false
+        }
+      ],
+      "recipes": 22,
+      "ingredients": 62,
+      "scaledChicken4": 0.6666666666666666
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "ordinary_search_typing",
+    "status": "observed",
+    "evidence": {
+      "recipe": {
+        "query": "b",
+        "activeTag": "BODY"
+      },
+      "pantry": {
+        "query": "c",
+        "activeTag": "BODY"
+      }
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "manual_pantry_edit_persists",
+    "status": "observed",
+    "evidence": {
+      "before": 1,
+      "edited": 1.25,
+      "reloaded": 1.25
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "photo_is_preview_and_manual_tiles",
+    "status": "observed",
+    "evidence": {
+      "preview": 1,
+      "manualTiles": 62,
+      "instructions": "📷 Photo update\nSnap your fridge, pantry shelf or grocery bags. The photo stays on screen while you tap what you see — no typing.\nTap an item you can see, then adjust:\nOnion\n6 unit\nTomato\n4 unit\nPotato\n5 unit\nGreen Chilli\n10 unit\nFresh Coriander\n2 bunch\nMint\n0 bunch\nGinger\n3 inch\nLemon\n1 unit\nOkra Bhindi\n0 g\nCauliflower Gobi\n0 unit\nBitter Gourd Karela\n0 g\nMustard Greens Saag\n0 bunch\nSpinach\n1 bunch\nCabbage\n0 g\nCarrot\n3 unit\nCapsicum\n2 unit\nSpring Onion\n0 unit\nCurry Leaves\n4 sprig\nChicken\n1 kg\nBeef Boneless\n0 kg\nBeef Mince\n1 kg\nBeef Shank with Bones\n0 kg\nYogurt\n2 cup\nButter\n8 tbsp\nEggs\n6 unit\nSalt\n50 tsp\nRed Chilli Powder\n20 tsp\nTurmeric Powder\n15 tsp\nCoriander Powder\n12 tsp\nCumin Seeds\n8 tsp\nCoriander Seeds\n6 tsp\nFennel Seeds\n1 tsp\nGaram Masala Powder\n10 tsp\nKashmiri Red Chilli Powder\n0 tsp\nBlack Pepper Powder\n5 tsp\nWhole Spices Mix\n4 tbsp\nDried Fenugreek Leaves\n2 tsp\nNihari Masala\n0 tbsp\nBiryani Masala\n2 tbsp\nBasmati Rice\n3 kg\nCooking Oil\n5 cup\nGhee\n10 tbsp\nGinger Garlic Paste\n1 tbsp\nFried Onion\n0 cup\nWheat Flour Atta\n20 tbsp\nGram Flour Besan\n6 tbsp\nCornflour\n4 tbsp\nSoy Sauce\n6 tbsp\nVinegar\n5 tbsp\nChilli Garlic Sauce\n2 tbsp\nKetchup\n8 tbsp\nPasta\n0 g\nMacaroni\n500 g\nKewra Water\n2 tsp\nMaize Flour Makai\n0 tbsp\nSugar\n30 tsp\nChicken Stock Cube\n2 unit\nChana Daal\n500 g\nMash Daal\n250 g\nMasoor Daal\n0 g\nMoong Daal\n300 g\nRed Kidney Beans\n0 g\nWant it fully automatic? Tap below to copy a magic prompt, send it with the photo to Claude, then paste the reply via 📋 Paste Claude's list — the app fills everything in itself.\n✨ Copy the magic prompt\nDone"
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "paste_ignores_units_and_overwrites_stock",
+    "status": "observed",
+    "evidence": {
+      "parsed": [
+        {
+          "n": "Chicken",
+          "qty": 500
+        },
+        {
+          "n": "Cooking_Oil",
+          "qty": 500
+        },
+        {
+          "n": "Tomato",
+          "qty": 2
+        }
+      ],
+      "saved": {
+        "quantity": 500,
+        "unit": "kg",
+        "snapshots": 1
+      }
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "cooking_deduction_and_undo_log",
+    "status": "observed",
+    "evidence": {
+      "before": 1000,
+      "after": {
+        "stock": 999.3333333333334,
+        "logs": 1
+      },
+      "undone": {
+        "stock": 1000,
+        "logs": 1
+      },
+      "stats": "Oct 2026\n1\nmeals cooked\n4\npeople fed\n1\ndifferent dishes\n🏆 What you cooked — Oct 2026\nChicken Biryani (Extreme)\n1×\n🕐 By meal\nDinner: 1\nStar of the month: Chicken Biryani (Extreme) — cooked 1× 👑\n📤 Share this summary\nMade with love for Noor - from your Aly 💗"
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "threshold_shopping_uses_assumed_purchase",
+    "status": "observed",
+    "evidence": {
+      "before": "Onion\n4 unit",
+      "purchased": {
+        "stock": 4,
+        "marked": true
+      },
+      "afterUndo": {
+        "stock": 0,
+        "marked": true
+      },
+      "rowAfterUndo": "✓\nOnion\nin pantry ✓"
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "custom_recipe_creation_backup_restore",
+    "status": "observed",
+    "evidence": {
+      "created": {
+        "custom": 1,
+        "all": 23,
+        "recipe": {
+          "id": "C1791125129888",
+          "name": "Audit family recipe",
+          "url": "",
+          "serves": 4,
+          "time": "45 min",
+          "notes": "Family recipe",
+          "ings": [
+            [
+              "Chicken",
+              1
+            ]
+          ],
+          "cat": "Salan & Meat",
+          "video": ""
+        }
+      },
+      "afterRestore": {
+        "custom": 1,
+        "all": 23
+      },
+      "backupSize": 1295
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "local_date_month_boundary",
+    "status": "observed",
+    "evidence": {
+      "log": {
+        "dish": "Chicken Biryani (Extreme)",
+        "date": "01 Oct",
+        "meal": "Dinner",
+        "persons": 4,
+        "iso": "2026-09-30"
+      },
+      "stats": "Sep 2026\n1\nmeals cooked\n4\npeople fed\n1\ndifferent dishes\n🏆 What you cooked — Sep 2026\nChicken Biryani (Extreme)\n1×\n🕐 By meal\nDinner: 1\nStar of the month: Chicken Biryani (Extreme) — cooked 1× 👑\n📤 Share this summary\nMade with love for Noor - from your Aly 💗"
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "storage_failure_is_silent",
+    "status": "observed",
+    "evidence": {
+      "before": 1,
+      "inMemory": 1.25,
+      "reloaded": 1,
+      "message": ""
+    },
+    "pageErrors": []
+  }
+]

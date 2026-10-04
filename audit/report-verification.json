@@ -1,0 +1,13 @@
+{
+  "expected": 77,
+  "before": 77,
+  "filtered": 11,
+  "excel": 38,
+  "broken": 3,
+  "restored": 77,
+  "mobile": {
+    "documentWidth": 390,
+    "viewport": 390
+  },
+  "pageErrors": []
+}

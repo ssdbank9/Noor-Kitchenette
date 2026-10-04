@@ -1,0 +1,61 @@
+{
+  "normalized_workbook_differences": [
+    {
+      "sheet": "Home",
+      "cell": "B51",
+      "v2": "Made with love for Noor - from your Aly",
+      "final": "Made with love for Noor - from your Aly."
+    },
+    {
+      "sheet": "Home",
+      "cell": "D5",
+      "v2": 1,
+      "final": 4
+    },
+    {
+      "sheet": "Recipe Card",
+      "cell": "C3",
+      "v2": "Daal Mash with Tadka",
+      "final": null
+    }
+  ],
+  "recipe_ingredient_rows": 276,
+  "catalog_content_mismatches": [],
+  "pantry_seed_mismatches": [],
+  "xml_validation": {
+    "Noor_Kitchen_Planner_v2.xlsx": {
+      "total": 11,
+      "extended": 9,
+      "ranges": [
+        "Lists!$F$2:$F$13 | 0 | D5",
+        "Lists!$B$2:$B$23 | 0 | B28:B39",
+        "Lists!$G$2:$G$11 | 0 | C28:C39",
+        "Lists!$H$2:$H$5 | 0 | D28:D39",
+        "Lists!$F$2:$F$13 | 0 | E28:E39",
+        "Lists!$B$2:$B$23 | 0 | C3",
+        "F7:F68",
+        "Lists!$B$2:$B$23 | 0 | C3",
+        "A8:A69",
+        "Lists!$B$2:$B$23 | 0 | C5",
+        "Lists!$B$2:$B$23 | 0 | C3"
+      ]
+    },
+    "Noor_Kitchen_Planner_Final.xlsx": {
+      "total": 11,
+      "extended": 0,
+      "ranges": [
+        "D5",
+        "B28:B39",
+        "C28:C39",
+        "D28:D39",
+        "E28:E39",
+        "C3",
+        "F7:F68",
+        "C5",
+        "A8:A69",
+        "C3",
+        "C3"
+      ]
+    }
+  }
+}

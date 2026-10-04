@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#C2185B">
+<title>Noor's Kitchen 💗</title>
+<style>
+:root{--rose:#C2185B;--rose2:#E91E63;--blush:#FCE4EC;--blush2:#F8BBD0;--green:#2E7D32;--greenbg:#E8F5E9;--red:#C62828;--redbg:#FFEBEE;--gold:#FFF8E1;--ink:#37232B;--gray:#8D6E63;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:#FFF7FA;color:var(--ink);padding-bottom:84px}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(120deg,#C2185B,#E91E63 60%,#F06292);color:#fff;padding:14px 16px 12px;border-radius:0 0 22px 22px;box-shadow:0 4px 14px rgba(194,24,91,.25)}
+header h1{font-size:22px;letter-spacing:.3px}
+header .tag{font-size:12px;opacity:.92;margin-top:2px}
+.pcontrol{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.18);border-radius:30px;padding:6px 10px;margin-top:10px;width:fit-content}
+.pcontrol b{font-size:16px;min-width:118px;text-align:center}
+.stepbtn{width:34px;height:34px;border-radius:50%;border:none;background:#fff;color:var(--rose);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
+main{padding:14px 14px 8px;max-width:640px;margin:0 auto}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(194,24,91,.08);border:1px solid #FBE2EC}
+.card h3{font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub{color:var(--gray);font-size:12px;margin-top:2px}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.b-green{background:var(--greenbg);color:var(--green)}.b-red{background:var(--redbg);color:var(--red)}.b-gold{background:var(--gold);color:#8D6E00}
+.ring{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.btnrow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{border:none;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-rose{background:var(--rose);color:#fff}.btn-lite{background:var(--blush);color:var(--rose)}.btn-green{background:var(--green);color:#fff}.btn-ghost{background:#fff;color:var(--gray);border:1.5px solid #eee}
+a.btn{text-decoration:none;display:inline-block}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{background:var(--redbg);color:var(--red);border-radius:16px;padding:4px 10px;font-size:11.5px;font-weight:600}
+.chip.ok{background:var(--greenbg);color:var(--green)}
+.search{width:100%;padding:12px 16px;border-radius:14px;border:1.5px solid var(--blush2);font-size:15px;background:#fff;margin-bottom:10px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.cat{white-space:nowrap;border:none;background:#fff;border:1.5px solid var(--blush2);color:var(--rose);border-radius:20px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.cat.on{background:var(--rose);color:#fff;border-color:var(--rose)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #F3D5E2;z-index:60;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:none;background:none;padding:9px 0 7px;font-size:10.5px;color:var(--gray);cursor:pointer;font-weight:600}
+nav button .ico{display:block;font-size:21px;margin-bottom:2px}
+nav button.on{color:var(--rose)}
+.aisle{margin:16px 0 8px;font-size:13px;font-weight:800;color:var(--rose);display:flex;justify-content:space-between;align-items:center}
+.aisle .store{font-size:10px;color:var(--gray);font-weight:500;text-align:right;max-width:55%}
+.prow{display:flex;align-items:center;background:#fff;border-radius:12px;padding:9px 12px;margin-bottom:6px;border:1px solid #FBE2EC;gap:8px}
+.prow .nm{flex:1;font-size:13.5px;font-weight:600}
+.prow .qty{font-size:13px;font-weight:800;min-width:74px;text-align:center}
+.prow.low{border-color:#F8BBD0;background:#FFF5F7}
+.sstep{width:30px;height:30px;border-radius:50%;border:none;background:var(--blush);color:var(--rose);font-size:17px;font-weight:800;cursor:pointer}
+.tick{width:26px;height:26px;border-radius:50%;border:2px solid var(--blush2);background:#fff;cursor:pointer;flex-shrink:0;font-size:14px;line-height:1}
+.tick.on{background:var(--green);border-color:var(--green);color:#fff}
+.done .nm{text-decoration:line-through;color:#aaa}
+.modal{position:fixed;inset:0;background:rgba(60,10,30,.45);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.modal.show{display:flex}
+.sheet{background:#fff;border-radius:22px 22px 0 0;padding:20px 18px 26px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto}
+.sheet h2{color:var(--rose);font-size:18px;margin-bottom:4px}
+select,textarea{width:100%;padding:11px;border-radius:12px;border:1.5px solid var(--blush2);font-size:14px;margin-top:8px;background:#fff}
+.mealchips{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+.mealchips .cat.on{background:var(--rose);color:#fff}
+#toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:24px;font-size:13.5px;opacity:0;transition:.3s;z-index:120;max-width:88%;text-align:center;pointer-events:none}
+#toast.show{opacity:1}
+.stat{display:flex;gap:10px;margin-bottom:12px}
+.stat .s{flex:1;background:#fff;border-radius:14px;padding:10px;text-align:center;border:1px solid #FBE2EC}
+.stat .s b{display:block;font-size:20px;color:var(--rose)}
+.stat .s span{font-size:10.5px;color:var(--gray)}
+.foot{text-align:center;color:var(--rose);font-size:12.5px;font-style:italic;margin:22px 0 8px}
+.ingtable{width:100%;font-size:12.5px;margin-top:8px;border-collapse:collapse}
+.ingtable td{padding:5px 4px;border-bottom:1px solid #FDEFF5}
+.photoimg{width:100%;border-radius:14px;margin:10px 0;max-height:260px;object-fit:cover}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.gtile{background:var(--blush);border:none;border-radius:12px;padding:10px 8px;font-size:12.5px;font-weight:700;color:var(--rose);cursor:pointer;text-align:left}
+.logrow{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 2px;border-bottom:1px solid #FDEFF5;color:var(--gray)}
+.hint{font-size:11.5px;color:var(--gray);margin-top:6px;line-height:1.5}
+h4.sec{color:var(--rose);margin:18px 4px 8px;font-size:15px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Noor's Kitchen 💗</h1>
+  <div class="tag">Your 20 dishes, zero headache — sab kuch automatic.</div>
+  <div class="pcontrol">
+    <button class="stepbtn" onclick="chgPersons(-1)">−</button>
+    <b>Cooking for <span id="pnum">4</span></b>
+    <button class="stepbtn" onclick="chgPersons(1)">+</button>
+  </div>
+</header>
+<main id="view"></main>
+<nav>
+  <button id="nav-tonight" class="on" onclick="go('tonight')"><span class="ico">🍳</span>Tonight</button>
+  <button id="nav-recipes" onclick="go('recipes')"><span class="ico">📖</span>Recipes</button>
+  <button id="nav-pantry" onclick="go('pantry')"><span class="ico">🧺</span>Pantry</button>
+  <button id="nav-shop" onclick="go('shop')"><span class="ico">🛒</span>Shopping</button>
+  <button id="nav-stats" onclick="go('stats')"><span class="ico">📊</span>Stats</button>
+</nav>
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<div id="toast"></div>
+
+<script>
+/* ================= DATA & PURE LOGIC ================= */
+const DB = {"ING": {"Onion": ["unit", "Produce", 2, 6], "Tomato": ["unit", "Produce", 3, 4], "Potato": ["unit", "Produce", 3, 5], "Green_Chilli": ["unit", "Produce", 5, 10], "Fresh_Coriander": ["bunch", "Produce", 1, 2], "Mint": ["bunch", "Produce", 1, 0], "Ginger": ["inch", "Produce", 2, 3], "Lemon": ["unit", "Produce", 2, 1], "Okra_Bhindi": ["g", "Produce", 250, 0], "Cauliflower_Gobi": ["unit", "Produce", 1, 0], "Bitter_Gourd_Karela": ["g", "Produce", 250, 0], "Mustard_Greens_Saag": ["bunch", "Produce", 2, 0], "Spinach": ["bunch", "Produce", 1, 1], "Cabbage": ["g", "Produce", 100, 0], "Carrot": ["unit", "Produce", 2, 3], "Capsicum": ["unit", "Produce", 1, 2], "Spring_Onion": ["unit", "Produce", 2, 0], "Curry_Leaves": ["sprig", "Produce", 2, 4], "Chicken": ["kg", "Meat", 1, 1], "Beef_Boneless": ["kg", "Meat", 0.5, 0], "Beef_Mince": ["kg", "Meat", 0.5, 1], "Beef_Shank_with_Bones": ["kg", "Meat", 1, 0], "Yogurt": ["cup", "Dairy", 1, 2], "Butter": ["tbsp", "Dairy", 2, 8], "Eggs": ["unit", "Dairy", 4, 6], "Salt": ["tsp", "Spices/Masala", 10, 50], "Red_Chilli_Powder": ["tsp", "Spices/Masala", 6, 20], "Turmeric_Powder": ["tsp", "Spices/Masala", 4, 15], "Coriander_Powder": ["tsp", "Spices/Masala", 4, 12], "Cumin_Seeds": ["tsp", "Spices/Masala", 3, 8], "Coriander_Seeds": ["tsp", "Spices/Masala", 2, 6], "Fennel_Seeds": ["tsp", "Spices/Masala", 2, 1], "Garam_Masala_Powder": ["tsp", "Spices/Masala", 3, 10], "Kashmiri_Red_Chilli_Powder": ["tsp", "Spices/Masala", 2, 0], "Black_Pepper_Powder": ["tsp", "Spices/Masala", 2, 5], "Whole_Spices_Mix": ["tbsp", "Spices/Masala", 2, 4], "Dried_Fenugreek_Leaves": ["tsp", "Spices/Masala", 1, 2], "Nihari_Masala": ["tbsp", "Spices/Masala", 2, 0], "Biryani_Masala": ["tbsp", "Spices/Masala", 2, 2], "Basmati_Rice": ["kg", "Pantry/Dry Goods", 1, 3], "Cooking_Oil": ["cup", "Pantry/Dry Goods", 2, 5], "Ghee": ["tbsp", "Pantry/Dry Goods", 4, 10], "Ginger_Garlic_Paste": ["tbsp", "Pantry/Dry Goods", 2, 1], "Fried_Onion": ["cup", "Pantry/Dry Goods", 1, 0], "Wheat_Flour_Atta": ["tbsp", "Pantry/Dry Goods", 4, 20], "Gram_Flour_Besan": ["tbsp", "Pantry/Dry Goods", 3, 6], "Cornflour": ["tbsp", "Pantry/Dry Goods", 2, 4], "Soy_Sauce": ["tbsp", "Pantry/Dry Goods", 3, 6], "Vinegar": ["tbsp", "Pantry/Dry Goods", 2, 5], "Chilli_Garlic_Sauce": ["tbsp", "Pantry/Dry Goods", 3, 2], "Ketchup": ["tbsp", "Pantry/Dry Goods", 3, 8], "Pasta": ["g", "Pantry/Dry Goods", 250, 0], "Macaroni": ["g", "Pantry/Dry Goods", 250, 500], "Kewra_Water": ["tsp", "Pantry/Dry Goods", 1, 2], "Maize_Flour_Makai": ["tbsp", "Pantry/Dry Goods", 3, 0], "Sugar": ["tsp", "Pantry/Dry Goods", 4, 30], "Chicken_Stock_Cube": ["unit", "Pantry/Dry Goods", 1, 2], "Chana_Daal": ["g", "Canned/Legumes", 250, 500], "Mash_Daal": ["g", "Canned/Legumes", 250, 250], "Masoor_Daal": ["g", "Canned/Legumes", 250, 0], "Moong_Daal": ["g", "Canned/Legumes", 250, 300], "Red_Kidney_Beans": ["g", "Canned/Legumes", 250, 0]}, "R": [{"id": "R001", "name": "Chicken Biryani (Extreme)", "url": "https://foodfusion.com/recipe/extreme-chicken-biryani/", "serves": 6, "time": "1 hr 15 min", "notes": "Medium-hot, layered dum biryani. Use aged basmati; kewra at the end.", "ings": [["Chicken", 1], ["Basmati_Rice", 0.75], ["Onion", 3], ["Tomato", 3], ["Yogurt", 1], ["Ginger_Garlic_Paste", 2], ["Biryani_Masala", 3], ["Cooking_Oil", 1], ["Mint", 1], ["Fresh_Coriander", 1], ["Green_Chilli", 6], ["Lemon", 1], ["Salt", 2], ["Fried_Onion", 1], ["Kewra_Water", 1]]}, {"id": "R002", "name": "Chicken Yakhni Pulao", "url": "https://foodfusion.com/recipe/chicken-yakhni-pulao/", "serves": 5, "time": "1 hr", "notes": "Mild, whole-spice yakhni. Strain stock well for clear grains.", "ings": [["Chicken", 1], ["Basmati_Rice", 0.75], ["Onion", 2], ["Whole_Spices_Mix", 2], ["Cumin_Seeds", 2], ["Coriander_Seeds", 2], ["Fennel_Seeds", 2], ["Ginger_Garlic_Paste", 2], ["Yogurt", 0.5], ["Cooking_Oil", 0.75], ["Salt", 2], ["Green_Chilli", 4]]}, {"id": "R003", "name": "Red Beans (Lal Lobia Masala)", "url": "https://foodfusion.com/recipe/lal-lobia-masala/", "serves": 4, "time": "1 hr 10 min", "notes": "Soak beans overnight; boil 45-50 min until tender. Protein-packed.", "ings": [["Red_Kidney_Beans", 375], ["Onion", 2], ["Tomato", 3], ["Ginger_Garlic_Paste", 1.5], ["Red_Chilli_Powder", 2], ["Turmeric_Powder", 0.5], ["Coriander_Powder", 2], ["Cumin_Seeds", 1], ["Garam_Masala_Powder", 1], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Fresh_Coriander", 0.5]]}, {"id": "R004", "name": "Chicken Karahi (Fire)", "url": "https://foodfusion.com/recipe/fire-chicken-karahi/", "serves": 5, "time": "45 min", "notes": "Hot & spicy. Authentic karahi = tomatoes and ginger, no onion.", "ings": [["Chicken", 1], ["Tomato", 6], ["Ginger_Garlic_Paste", 2], ["Green_Chilli", 8], ["Ginger", 2], ["Yogurt", 0.5], ["Red_Chilli_Powder", 2], ["Black_Pepper_Powder", 1], ["Cumin_Seeds", 2], ["Coriander_Seeds", 2], ["Cooking_Oil", 0.75], ["Salt", 2], ["Fresh_Coriander", 0.5], ["Butter", 2]]}, {"id": "R005", "name": "Chicken Qorma", "url": "https://www.foodfusion.com/recipe/chicken-korma/", "serves": 6, "time": "1 hr", "notes": "Shadi-style qorma; fried onion + kewra finish. Ghee makes it.", "ings": [["Chicken", 1], ["Onion", 3], ["Yogurt", 1], ["Ghee", 6], ["Ginger_Garlic_Paste", 2], ["Whole_Spices_Mix", 2], ["Red_Chilli_Powder", 2], ["Coriander_Powder", 2], ["Garam_Masala_Powder", 1], ["Fried_Onion", 0.5], ["Kewra_Water", 1], ["Salt", 2]]}, {"id": "R006a", "name": "Daal Chana (Masala)", "url": "https://www.foodfusion.com/recipe/masala-chana-daal/", "serves": 4, "time": "50 min", "notes": "Soak 30 min. Finish with cumin + curry leaf tarka.", "ings": [["Chana_Daal", 375], ["Onion", 1], ["Tomato", 2], ["Green_Chilli", 3], ["Ginger_Garlic_Paste", 1], ["Cumin_Seeds", 2], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.5], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Fresh_Coriander", 0.5], ["Curry_Leaves", 2]]}, {"id": "R006b", "name": "Daal Mash with Tadka", "url": "https://www.foodfusion.com/recipe/mash-daal-with-tadka/", "serves": 4, "time": "45 min", "notes": "Dry-style mash daal; ginger julienne + butter tadka on top.", "ings": [["Mash_Daal", 300], ["Onion", 1], ["Tomato", 1], ["Ginger", 2], ["Green_Chilli", 3], ["Cumin_Seeds", 2], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.5], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Fresh_Coriander", 0.5], ["Butter", 2]]}, {"id": "R006c", "name": "Daal Masoor (Malka)", "url": "https://www.foodfusion.com/recipe/malka-masoor-daal-with-quick-achaar/", "serves": 4, "time": "40 min", "notes": "Everyday comfort daal; squeeze of lemon lifts it.", "ings": [["Masoor_Daal", 300], ["Onion", 1], ["Tomato", 2], ["Ginger_Garlic_Paste", 1], ["Cumin_Seeds", 1.5], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.75], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Curry_Leaves", 2], ["Green_Chilli", 2], ["Lemon", 1]]}, {"id": "R007", "name": "Beef Salan (Aloo Gosht, Delhi)", "url": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/", "serves": 5, "time": "1 hr 30 min", "notes": "Classic shorba-wala salan; slow-cook beef till tender.", "ings": [["Beef_Boneless", 0.75], ["Potato", 4], ["Onion", 3], ["Ginger_Garlic_Paste", 2], ["Yogurt", 0.5], ["Red_Chilli_Powder", 2], ["Kashmiri_Red_Chilli_Powder", 1], ["Turmeric_Powder", 1], ["Coriander_Powder", 2], ["Whole_Spices_Mix", 1], ["Cooking_Oil", 0.75], ["Salt", 2], ["Fresh_Coriander", 0.5], ["Green_Chilli", 3]]}, {"id": "R008", "name": "Shami Kabab", "url": "https://www.foodfusion.com/recipe/shami-kabab-recipe/", "serves": 6, "time": "1 hr", "notes": "Makes 12-14; freeze extras. Wash daal, don't soak it.", "ings": [["Beef_Mince", 0.5], ["Chana_Daal", 250], ["Onion", 1], ["Whole_Spices_Mix", 2], ["Ginger_Garlic_Paste", 2], ["Turmeric_Powder", 1], ["Salt", 2], ["Coriander_Seeds", 2], ["Cumin_Seeds", 2], ["Eggs", 2], ["Green_Chilli", 4], ["Mint", 0.5], ["Fresh_Coriander", 0.5], ["Cooking_Oil", 0.5], ["Red_Chilli_Powder", 2]]}, {"id": "R009", "name": "Chicken Manchurian", "url": "https://www.foodfusion.com/recipe/chicken-manchurian/", "serves": 4, "time": "40 min", "notes": "Desi-Chinese; sweet, hot & sour. Pair with fried rice (R010).", "ings": [["Chicken", 0.5], ["Eggs", 1], ["Cornflour", 4], ["Ketchup", 6], ["Chilli_Garlic_Sauce", 4], ["Soy_Sauce", 2], ["Vinegar", 2], ["Sugar", 2], ["Black_Pepper_Powder", 1], ["Capsicum", 1], ["Spring_Onion", 2], ["Cooking_Oil", 1], ["Salt", 1], ["Ginger_Garlic_Paste", 1]]}, {"id": "R010", "name": "Chinese Fried Rice", "url": "https://www.foodfusion.com/recipe/chinese-fried-rice/", "serves": 4, "time": "30 min", "notes": "Day-old boiled rice gives the best texture.", "ings": [["Basmati_Rice", 0.5], ["Eggs", 2], ["Carrot", 1], ["Cabbage", 200], ["Spring_Onion", 3], ["Soy_Sauce", 2], ["Vinegar", 1], ["Black_Pepper_Powder", 1], ["Salt", 1], ["Cooking_Oil", 0.5], ["Capsicum", 1]]}, {"id": "R011", "name": "One Pot Spicy Pasta", "url": "https://foodfusion.com/recipe/one-pot-spicy-pasta/", "serves": 4, "time": "35 min", "notes": "Weeknight one-pot; dial chilli up or down.", "ings": [["Pasta", 250], ["Chicken", 0.25], ["Onion", 1], ["Tomato", 2], ["Ginger_Garlic_Paste", 1], ["Red_Chilli_Powder", 1], ["Black_Pepper_Powder", 1], ["Ketchup", 4], ["Chilli_Garlic_Sauce", 2], ["Cooking_Oil", 0.25], ["Salt", 1], ["Capsicum", 1]]}, {"id": "R012", "name": "Chicken Macaroni (Korma-style)", "url": "https://www.foodfusion.com/recipe/chicken-korma-masala/", "serves": 4, "time": "45 min", "notes": "Food Fusion's korma masala served over boiled macaroni - desi twist.", "ings": [["Macaroni", 300], ["Chicken", 0.5], ["Onion", 2], ["Yogurt", 0.5], ["Ginger_Garlic_Paste", 1.5], ["Whole_Spices_Mix", 1], ["Coriander_Powder", 1.5], ["Red_Chilli_Powder", 1.5], ["Fried_Onion", 0.5], ["Cooking_Oil", 0.5], ["Salt", 1.5]]}, {"id": "R013", "name": "Bhindi (Masala Aloo Bhindi)", "url": "https://foodfusion.com/recipe/masala-aloo-bhindi/", "serves": 4, "time": "30 min", "notes": "Dry bhindi; lemon at the end keeps it crisp, not slimy.", "ings": [["Okra_Bhindi", 500], ["Potato", 2], ["Onion", 1], ["Cumin_Seeds", 1.5], ["Coriander_Seeds", 1.5], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.5], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Lemon", 1], ["Green_Chilli", 2], ["Fresh_Coriander", 0.5]]}, {"id": "R014", "name": "Gobi Masala (Dhaba Style)", "url": "https://foodfusion.com/recipe/dhaba-style-mix-vegetable/", "serves": 4, "time": "35 min", "notes": "Dhaba-style gobi with aloo & carrot; don't overcook the florets.", "ings": [["Cauliflower_Gobi", 1], ["Potato", 2], ["Carrot", 1], ["Onion", 2], ["Tomato", 2], ["Ginger_Garlic_Paste", 1.5], ["Cumin_Seeds", 1.5], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.75], ["Coriander_Powder", 1.5], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Green_Chilli", 3], ["Fresh_Coriander", 0.5]]}, {"id": "R015", "name": "Karela (Qeema Karelay)", "url": "https://www.foodfusion.com/recipe/qeema-karaley/", "serves": 4, "time": "1 hr (+1-2 hr salting)", "notes": "Salt & rest karela 1-2 hrs, then wash well to tame bitterness.", "ings": [["Bitter_Gourd_Karela", 500], ["Beef_Mince", 0.5], ["Onion", 2], ["Tomato", 2], ["Ginger_Garlic_Paste", 1.5], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.75], ["Garam_Masala_Powder", 1], ["Cooking_Oil", 0.75], ["Salt", 2], ["Green_Chilli", 3], ["Fresh_Coriander", 0.5]]}, {"id": "R016", "name": "Aalu (Masala Aloo)", "url": "https://www.foodfusion.com/recipe/masala-aloo-recipe/", "serves": 4, "time": "25 min", "notes": "Quick potato bhujia; lovely with puri, daal-chawal or paratha.", "ings": [["Potato", 5], ["Onion", 1], ["Tomato", 2], ["Cumin_Seeds", 1.5], ["Curry_Leaves", 2], ["Red_Chilli_Powder", 1.5], ["Turmeric_Powder", 0.75], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Green_Chilli", 3], ["Fresh_Coriander", 0.5]]}, {"id": "R017", "name": "Qeema (Dhaba Style Aloo Qeema)", "url": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/", "serves": 5, "time": "1 hr", "notes": "Dhaba-style; methi (fenugreek) finish is the secret.", "ings": [["Beef_Mince", 0.75], ["Potato", 3], ["Onion", 2], ["Tomato", 3], ["Yogurt", 0.5], ["Ginger_Garlic_Paste", 2], ["Whole_Spices_Mix", 1], ["Red_Chilli_Powder", 2], ["Kashmiri_Red_Chilli_Powder", 1], ["Turmeric_Powder", 0.75], ["Coriander_Powder", 2], ["Dried_Fenugreek_Leaves", 1], ["Chicken_Stock_Cube", 1], ["Cooking_Oil", 0.75], ["Salt", 1.5]]}, {"id": "R018", "name": "Beef Nihari", "url": "https://www.foodfusion.com/recipe/perfect-beef-nihari-recipe/", "serves": 6, "time": "3 hr 30 min", "notes": "Slow-cooked shank; serve with ginger julienne, green chilli, lemon & naan.", "ings": [["Beef_Shank_with_Bones", 1.5], ["Onion", 2], ["Ginger_Garlic_Paste", 2], ["Nihari_Masala", 4], ["Wheat_Flour_Atta", 6], ["Gram_Flour_Besan", 2], ["Ghee", 8], ["Salt", 2], ["Ginger", 3], ["Green_Chilli", 4], ["Lemon", 2], ["Fresh_Coriander", 0.5]]}, {"id": "R019", "name": "Khichri (Spicy Fried Khichdi)", "url": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/", "serves": 4, "time": "40 min", "notes": "Comfort in a bowl; serve with raita and achar.", "ings": [["Basmati_Rice", 0.5], ["Moong_Daal", 250], ["Onion", 1], ["Whole_Spices_Mix", 1], ["Ginger_Garlic_Paste", 1], ["Turmeric_Powder", 0.75], ["Red_Chilli_Powder", 1], ["Cumin_Seeds", 1.5], ["Spring_Onion", 2], ["Cooking_Oil", 0.5], ["Salt", 1.5], ["Green_Chilli", 2]]}, {"id": "R020", "name": "Saag (Sarson Ka Saag)", "url": "https://www.foodfusion.com/recipe/sarson-ka-saag-recipe/", "serves": 5, "time": "3 hr slow cook", "notes": "Slow-cook 2-3 hrs; serve with makai ki roti & white butter.", "ings": [["Mustard_Greens_Saag", 3], ["Spinach", 2], ["Green_Chilli", 4], ["Maize_Flour_Makai", 4], ["Butter", 4], ["Ginger", 2], ["Cooking_Oil", 0.25], ["Salt", 2], ["Red_Chilli_Powder", 1], ["Ginger_Garlic_Paste", 1]]}], "VIDEO": {"R001": "https://www.youtube.com/watch?v=40VJanswaAQ", "R002": "https://www.youtube.com/watch?v=QaZWOGs82Nw", "R003": "https://www.youtube.com/watch?v=mFfYhYCzyVg", "R004": "https://www.youtube.com/watch?v=T3pQmbC1GW4", "R005": "https://www.youtube.com/watch?v=9jOH3TEB-NI", "R006a": "https://www.youtube.com/watch?v=72Sy9j7DLVk", "R006b": "https://www.youtube.com/watch?v=iyO-3eD_fs8", "R006c": "https://www.youtube.com/watch?v=s1rA4kd1Wfg", "R007": "https://www.youtube.com/watch?v=cbzmggwKZbw", "R008": "https://www.youtube.com/watch?v=vhXMVKd1OGI", "R009": "https://www.youtube.com/watch?v=WM-i9wGT4zk", "R010": "https://www.youtube.com/watch?v=P2tIt4bZNmI", "R011": "https://www.youtube.com/watch?v=a6nYTLyi6sU", "R012": "https://www.youtube.com/watch?v=1epkIJdJCds", "R013": "https://www.youtube.com/watch?v=NZwQExS8u9k", "R014": "https://www.youtube.com/watch?v=L7LXJ7FiRPA", "R015": "https://www.youtube.com/watch?v=C2p7idVXhE8", "R016": "https://www.youtube.com/watch?v=cwps_0u-vPQ", "R017": "https://www.youtube.com/shorts/qVQCbXiU7_A", "R018": "https://www.youtube.com/watch?v=mZOXDAvMCM4", "R019": "https://www.youtube.com/watch?v=H71MWbyhO0E", "R020": "https://www.youtube.com/watch?v=XH2_pWrguvI"}};
+const STEP={kg:.25,g:50,unit:1,tbsp:1,tsp:.5,cup:.25,bunch:1,inch:1,sprig:1,cloves:2};
+const CATS={ "Rice":["R001","R002","R010","R019"],"Daal & Beans":["R003","R006a","R006b","R006c"],
+ "Salan & Meat":["R004","R005","R007","R008","R015","R017","R018"],"Sabzi":["R013","R014","R016","R020"],
+ "Desi-Chinese & Pasta":["R009","R011","R012"]};
+const STORES={"Produce":"Sabzi Mandi I-11 · Save Mart · Metro online","Meat":"Metro · Al-Fatah · butcher (F-10/I-8)",
+ "Dairy":"Al-Fatah · Save Mart · Carrefour","Spices/Masala":"Al-Fatah · D. Watson · Metro",
+ "Pantry/Dry Goods":"Metro · Carrefour · alfatah.pk","Canned/Legumes":"Metro · Save Mart · kiryana"};
+const AISLES=["Produce","Meat","Dairy","Spices/Masala","Pantry/Dry Goods","Canned/Legumes"];
+const pretty=n=>n.replace(/_/g," ");
+const fmt=x=>(+x.toFixed(2)).toString();
+
+let S=null;
+function defaultState(){const p={};for(const k in DB.ING)p[k]=DB.ING[k][3];
+ return {persons:4,pantry:p,got:{},log:[],snaps:[],myRecipes:[],myIng:{}};}
+function load(){try{S=JSON.parse(localStorage.getItem("noorKitchen"))||defaultState();}catch(e){S=defaultState();}
+ if(!S.pantry)S=defaultState();S.myRecipes=S.myRecipes||[];S.myIng=S.myIng||{};applyCustom();}
+let BASE=null;
+function applyCustom(){if(!BASE)BASE={R:DB.R.slice(),ING:Object.assign({},DB.ING),VIDEO:Object.assign({},DB.VIDEO)};
+ DB.R=BASE.R.concat(S.myRecipes||[]);
+ DB.ING=Object.assign({},BASE.ING,S.myIng||{});
+ DB.VIDEO=Object.assign({},BASE.VIDEO);(S.myRecipes||[]).forEach(r=>{if(r.video)DB.VIDEO[r.id]=r.video;});
+ for(const k in DB.ING)if(S.pantry[k]===undefined)S.pantry[k]=DB.ING[k][3]||0;}
+function save(){try{localStorage.setItem("noorKitchen",JSON.stringify(S));}catch(e){}}
+function snap(label){S.snaps.push({label,pantry:JSON.parse(JSON.stringify(S.pantry))});if(S.snaps.length>15)S.snaps.shift();}
+function undo(){const s=S.snaps.pop();if(!s){toast("Nothing to undo");return;}S.pantry=s.pantry;save();rerender();toast("Undone: "+s.label);}
+
+function needQty(r,q){return q/r.serves*S.persons;}
+function matchInfo(r){let have=0,missing=[];
+ for(const [n,q] of r.ings){const nd=needQty(r,q);const cur=S.pantry[n]||0;
+  if(cur>=nd-1e-4)have++;else missing.push({n,short:nd-cur,unit:DB.ING[n][0]});}
+ return {pct:Math.round(have/r.ings.length*100),missing};}
+function ranked(){return DB.R.map(r=>({r,m:matchInfo(r)})).sort((a,b)=>b.m.pct-a.m.pct||a.m.missing.length-b.m.missing.length);}
+function cook(rid,persons){const r=DB.R.find(x=>x.id===rid);snap("cooked "+r.name);
+ for(const [n,q] of r.ings){const use=q/r.serves*persons;S.pantry[n]=Math.max(0,(S.pantry[n]||0)-use);}}
+function lowItems(){return Object.keys(DB.ING).filter(n=>(S.pantry[n]||0)<DB.ING[n][2]);}
+function topUpQty(n){const min=DB.ING[n][2];return Math.max(0,min*2-(S.pantry[n]||0));}
+function dishShortfalls(rid){const r=DB.R.find(x=>x.id===rid);return matchInfo(r).missing;}
+function parsePaste(txt){ // "Onion 4" / "onion - 4" / "4 onions" per line/comma
+ const names=Object.keys(DB.ING);const norm=s=>s.toLowerCase().replace(/[_\s-]+/g,"");
+ const idx={};names.forEach(n=>idx[norm(n)]=n);
+ // also match on words: "onion"->Onion, "ginger garlic paste"
+ const out=[];
+ txt.split(/[\n,;]+/).forEach(line=>{
+  const mnum=line.match(/(\d+(?:\.\d+)?)/);if(!mnum)return;
+  const qty=parseFloat(mnum[1]);const rest=norm(line.replace(mnum[1],""));
+  const rest2=rest.replace(/s(?=[^a-z]|$)/g,"");
+  let best=null,bs=0;
+  for(const n of names){const nn=norm(n);let sc=0;
+   const words=n.toLowerCase().split("_");
+   const allWords=words.every(w=>rest.includes(w)||rest2.includes(w));
+   if(rest===nn||rest2===nn)sc=400;                            // exact
+   else if(allWords)sc=300+words.length;                       // all name words present, any order
+   else if(rest.includes(nn)||rest2.includes(nn))sc=200+nn.length;
+   else if(rest.length>3&&nn.includes(rest2||rest))sc=100-nn.length;
+   if(sc>bs){bs=sc;best=n;}}
+  if(best)out.push({n:best,qty});});
+ return out;}
+</script>
+<script>
+/* ================= UI ================= */
+let tab="tonight",q1="",q2="",cat="",shopDish="",photoURL=null;
+function go(t){tab=t;document.querySelectorAll("nav button").forEach(b=>b.classList.remove("on"));
+ document.getElementById("nav-"+(t==="shop"?"shop":t)).classList.add("on");rerender();window.scrollTo(0,0);}
+function chgPersons(d){S.persons=Math.min(12,Math.max(1,S.persons+d));save();rerender();}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+ clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove("show"),2600);}
+function modal(html){document.getElementById("sheet").innerHTML=html;document.getElementById("modal").classList.add("show");}
+function closeModal(){document.getElementById("modal").classList.remove("show");window._psnap=false;}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal();});
+function ringHTML(pct){const col=pct===100?"#2E7D32":pct>=70?"#F9A825":"#C62828";
+ return `<div class="ring" style="background:conic-gradient(${col} ${pct*3.6}deg,#F3E2EA 0);"><span style="background:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center">${pct}%</span></div>`;}
+function rerender(){document.getElementById("pnum").textContent=S.persons+(S.persons===1?" person":" people");
+ const v=document.getElementById("view");
+ v.innerHTML= tab==="tonight"?vTonight():tab==="recipes"?vRecipes():tab==="pantry"?vPantry():tab==="stats"?vStats():vShop();}
+const FOOT=`<div class="foot">Made with love for Noor - from your Aly 💗</div>`;
+
+/* ---------- TONIGHT ---------- */
+function vTonight(){const rk=ranked();const ready=rk.filter(x=>x.m.pct===100);const rest=rk.filter(x=>x.m.pct<100).slice(0,6);
+ let h=`<div class="stat">
+  <div class="s"><b>${ready.length}</b><span>ready to cook</span></div>
+  <div class="s"><b>${lowItems().length}</b><span>items to buy</span></div>
+  <div class="s"><b>${S.log.length}</b><span>meals logged</span></div></div>`;
+ h+=`<h4 class="sec">🍛 Ready right now — for ${S.persons}</h4>`;
+ if(!ready.length)h+=`<div class="card"><div class="sub">Nothing at 100% yet for ${S.persons} people. Check "So close" below or tap 🛒 Shopping — it already knows what you need.</div></div>`;
+ ready.forEach(({r,m})=>h+=dishCard(r,m,true));
+ h+=`<h4 class="sec">🧂 So close…</h4>`;
+ rest.forEach(({r,m})=>h+=dishCard(r,m,false));
+ if(S.log.length){h+=`<h4 class="sec">📒 Cook log</h4><div class="card">`;
+  S.log.slice(-6).reverse().forEach(l=>h+=`<div class="logrow"><span><b style="color:var(--ink)">${l.dish}</b> · ${l.meal}</span><span>${l.date} · ${l.persons}👥</span></div>`);
+  h+=`<div class="btnrow"><button class="btn btn-ghost" onclick="undo()">↩ Undo last pantry change</button></div></div>`;}
+ return h+FOOT;}
+function dishCard(r,m,ready){
+ return `<div class="card"><div style="display:flex;gap:12px;align-items:center">
+  ${ringHTML(m.pct)}
+  <div style="flex:1"><h3>${r.name}</h3><div class="sub">⏱ ${r.time} · source serves ${r.serves}, scaled to ${S.persons}</div></div></div>
+  ${m.missing.length?`<div class="chips">${m.missing.map(x=>`<span class="chip">${pretty(x.n)} +${fmt(x.short)} ${x.unit}</span>`).join("")}</div>`:""}
+  <div class="btnrow">
+   ${DB.VIDEO[r.id]?`<a class="btn btn-lite" href="${DB.VIDEO[r.id]}" target="_blank">▶ Video</a>`:""}
+   ${r.url?`<a class="btn btn-lite" href="${r.url}" target="_blank">📖 Recipe</a>`:""}
+   ${ready?`<button class="btn btn-green" onclick="askCook('${r.id}')">✅ I cooked this</button>`
+          :`<button class="btn btn-rose" onclick="shopDish='${r.id}';go('shop')">🛒 Get what's missing</button>`}
+  </div></div>`;}
+function askCook(rid){const r=DB.R.find(x=>x.id===rid);let pp=S.persons,meal="Dinner";
+ modal(`<h2>Shabash! 👩‍🍳 ${r.name}</h2><div class="sub">I'll deduct the exact amounts from your pantry.</div>
+  <div class="pcontrol" style="background:var(--blush);margin:14px 0"><button class="stepbtn" onclick="_cp(-1)">−</button><b style="color:var(--rose)" id="cookp">${pp} people</b><button class="stepbtn" onclick="_cp(1)">+</button></div>
+  <div class="mealchips">${["Breakfast","Lunch","Dinner","Chai / Snack"].map(m=>`<button class="cat ${m==="Dinner"?"on":""}" onclick="_cm(this,'${m}')">${m}</button>`).join("")}</div>
+  <div class="btnrow"><button class="btn btn-green" style="flex:1;padding:14px" onclick="_cok()">Confirm — update pantry</button>
+  <button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>`);
+ window._cp=d=>{pp=Math.min(12,Math.max(1,pp+d));document.getElementById("cookp").textContent=pp+" people";};
+ window._cm=(el,m)=>{meal=m;document.querySelectorAll(".mealchips .cat").forEach(b=>b.classList.remove("on"));el.classList.add("on");};
+ window._cok=()=>{cook(rid,pp);S.log.push({dish:r.name,date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short"}),meal,persons:pp,iso:new Date().toISOString().slice(0,10)});
+  save();closeModal();rerender();toast("Mazay karo! 😋 Pantry updated for "+r.name);};}
+
+/* ---------- RECIPES ---------- */
+function vRecipes(){let h=`<div class="btnrow" style="margin-bottom:10px"><button class="btn btn-rose" onclick="addRecipeFlow()">➕ Add your own recipe</button><button class="btn btn-ghost" onclick="backup()">💾 Backup</button><button class="btn btn-ghost" onclick="restoreFlow()">📥 Restore</button></div><input class="search" placeholder="🔍 Search a dish… (biryani, daal, karahi)" value="${q1}" oninput="q1=this.value;rerender();this.focus();this.setSelectionRange(this.value.length,this.value.length)">
+ <div class="cats"><button class="cat ${cat===""?"on":""}" onclick="cat='';rerender()">All</button>${Object.keys(CATS).map(c=>`<button class="cat ${cat===c?"on":""}" onclick="cat='${c}';rerender()">${c}</button>`).join("")}<button class="cat ${cat==="MY"?"on":""}" onclick="cat='MY';rerender()">⭐ My own</button></div>`;
+ let list=DB.R.filter(r=>r.name.toLowerCase().includes(q1.toLowerCase()));
+ if(cat==="MY")list=list.filter(r=>String(r.id)[0]==="C");else if(cat)list=list.filter(r=>CATS[cat].includes(r.id)||r.cat===cat);
+ list.forEach(r=>{const m=matchInfo(r);
+  h+=`<div class="card"><div style="display:flex;gap:12px;align-items:center" onclick="openRecipe('${r.id}')">
+   ${ringHTML(m.pct)}<div style="flex:1"><h3>${r.name}</h3><div class="sub">⏱ ${r.time} · serves ${r.serves} → scaled to ${S.persons} · tap for card</div></div></div></div>`;});
+ return h+FOOT;}
+function openRecipe(rid){const r=DB.R.find(x=>x.id===rid);const m=matchInfo(r);
+ let rows=r.ings.map(([n,q])=>{const nd=needQty(r,q);const cur=S.pantry[n]||0;const ok=cur>=nd-1e-4;
+  return `<tr><td>${pretty(n)}</td><td><b>${fmt(nd)} ${DB.ING[n][0]}</b></td><td>${ok?`<span class="badge b-green">✓ have</span>`:`<span class="badge b-red">buy ${fmt(nd-cur)}</span>`}</td></tr>`;}).join("");
+ modal(`<h2>${r.name} ${m.pct===100?"🟢":""}</h2>
+  <div class="sub">⏱ ${r.time} · for <b>${S.persons} people</b> (source serves ${r.serves}) · match ${m.pct}%</div>
+  <div class="hint">💡 ${r.notes}</div>
+  <table class="ingtable">${rows}</table>
+  <div class="btnrow">${DB.VIDEO[r.id]?`<a class="btn btn-rose" href="${DB.VIDEO[r.id]}" target="_blank">▶ Watch video</a>`:""}
+   ${r.url?`<a class="btn btn-lite" href="${r.url}" target="_blank">📖 Written recipe</a>`:""}${String(r.id)[0]==="C"?`<button class="btn btn-ghost" onclick="delRecipe('${r.id}')">🗑 Remove</button>`:""}</div>
+  <div class="btnrow">${m.pct===100?`<button class="btn btn-green" style="flex:1" onclick="closeModal();askCook('${r.id}')">✅ I cooked this</button>`
+   :`<button class="btn btn-rose" style="flex:1" onclick="closeModal();shopDish='${r.id}';go('shop')">🛒 Shop for this dish</button>`}
+   <button class="btn btn-ghost" onclick="closeModal()">Close</button></div>`);}
+
+/* ---------- PANTRY ---------- */
+function vPantry(){let h=`<div class="btnrow" style="margin-bottom:10px">
+  <button class="btn btn-rose" onclick="photoFlow()">📷 Update by photo</button>
+  <button class="btn btn-lite" onclick="pasteFlow()">📋 Paste Claude's list</button>
+  <button class="btn btn-ghost" onclick="undo()">↩ Undo</button></div>
+ <input class="search" placeholder="🔍 Find an ingredient…" value="${q2}" oninput="q2=this.value;rerender();this.focus();this.setSelectionRange(this.value.length,this.value.length)">`;
+ AISLES.forEach(a=>{const items=Object.keys(DB.ING).filter(n=>DB.ING[n][1]===a&&pretty(n).toLowerCase().includes(q2.toLowerCase()));
+  if(!items.length)return;
+  h+=`<div class="aisle">${a.toUpperCase()}<span class="store">${STORES[a]}</span></div>`;
+  items.forEach(n=>{const cur=S.pantry[n]||0;const low=cur<DB.ING[n][2];const u=DB.ING[n][0];
+   h+=`<div class="prow ${low?"low":""}"><div class="nm">${pretty(n)} ${low?'<span class="badge b-red">low</span>':""}</div>
+    <button class="sstep" onclick="bump('${n}',-1)">−</button><div class="qty">${fmt(cur)} ${u}</div>
+    <button class="sstep" onclick="bump('${n}',1)">+</button></div>`;});});
+ return h+FOOT;}
+function bump(n,dir){const u=DB.ING[n][0];const st=STEP[u]||1;
+ if(!window._bumped){snap("pantry edits");window._bumped=true;setTimeout(()=>window._bumped=false,4000);}
+ S.pantry[n]=Math.max(0,+((S.pantry[n]||0)+dir*st).toFixed(2));save();rerender();}
+function photoFlow(){
+ modal(`<h2>📷 Photo update</h2>
+  <div class="hint">Snap your fridge, pantry shelf or grocery bags. The photo stays on screen while you tap what you see — no typing.</div>
+  <input type="file" accept="image/*" capture="environment" id="pfile" style="margin-top:10px" onchange="photoPicked(this)">
+  <div id="pzone"></div>
+  <div class="hint" style="margin-top:12px"><b>Want it fully automatic?</b> Tap below to copy a magic prompt, send it with the photo to Claude, then paste the reply via 📋 Paste Claude's list — the app fills everything in itself.</div>
+  <div class="btnrow"><button class="btn btn-lite" onclick="copyPrompt()">✨ Copy the magic prompt</button>
+  <button class="btn btn-ghost" onclick="closeModal()">Done</button></div>`);}
+function tileGrid(){return `<div class="hint">Tap an item you can see, then adjust:</div>
+  <div class="grid">${Object.keys(DB.ING).map(n=>`<button class="gtile" onclick="tileEdit('${n}',this)">${pretty(n)}<br><span style="font-weight:500;color:var(--gray)">${fmt(S.pantry[n]||0)} ${DB.ING[n][0]}</span></button>`).join("")}</div>`;}
+function photoPicked(inp){const f=inp.files[0];if(!f)return;photoURL=URL.createObjectURL(f);
+ document.getElementById("pzone").innerHTML=`<img class="photoimg" src="${photoURL}">`+tileGrid();}
+function tileEdit(n,el){if(el.dataset.open)return;el.dataset.open="1";
+ if(!window._psnap){snap("photo update");window._psnap=true;}
+ el.innerHTML=`${pretty(n)}<div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+  <button class="sstep" onclick="event.stopPropagation();tileBump('${n}',-1,this)">−</button>
+  <b data-q>${fmt(S.pantry[n]||0)} ${DB.ING[n][0]}</b>
+  <button class="sstep" onclick="event.stopPropagation();tileBump('${n}',1,this)">+</button></div>`;}
+function tileBump(n,dir,btn){const st=STEP[DB.ING[n][0]]||1;
+ S.pantry[n]=Math.max(0,+((S.pantry[n]||0)+dir*st).toFixed(2));save();
+ btn.parentElement.querySelector("[data-q]").textContent=fmt(S.pantry[n])+" "+DB.ING[n][0];}
+function magicPrompt(){const names=Object.keys(DB.ING).map(n=>pretty(n)+" ("+DB.ING[n][0]+")").join(", ");
+ return `Look at this photo of my fridge/pantry/groceries. From this exact list of ingredients: ${names} — tell me which ones you can see and roughly how much, one per line, format "Ingredient - quantity" (numbers only, in the unit shown). Only list what you can actually see.`;}
+function copyPrompt(){const p=magicPrompt();
+ const done=()=>toast("Prompt copied! Send it with your photo to Claude 💬");
+ const fail=()=>{modal(`<h2>✨ Magic prompt</h2><div class="hint">Long-press inside the box, Select All, Copy — then send it with your photo to Claude.</div><textarea rows="7" onclick="this.select()">${p}</textarea><div class="btnrow"><button class="btn btn-ghost" onclick="closeModal()">Done</button></div>`);};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(p).then(done,fail);}else fail();}
+function pasteFlow(){
+ modal(`<h2>📋 Paste Claude's list</h2>
+  <div class="hint">Paste the reply here (e.g. "Onion - 4, Tomato - 6, Yogurt - 1"). I'll read it and update the pantry myself.</div>
+  <textarea id="pastebox" rows="6" placeholder="Onion - 4&#10;Tomato - 6&#10;Yogurt - 1"></textarea>
+  <div class="btnrow"><button class="btn btn-green" style="flex:1" onclick="applyPaste()">✨ Read & update pantry</button>
+  <button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>`);}
+function applyPaste(){const txt=document.getElementById("pastebox").value;const hits=parsePaste(txt);
+ if(!hits.length){toast("Hmm, I couldn't read any items — check the format?");return;}
+ snap("paste update");hits.forEach(h=>S.pantry[h.n]=Math.max(0,h.qty));save();closeModal();rerender();
+ toast(`Updated ${hits.length} item${hits.length>1?"s":""}: ${hits.slice(0,3).map(h=>pretty(h.n)).join(", ")}${hits.length>3?"…":""}`);}
+
+/* ---------- SHOPPING ---------- */
+function vShop(){const low=lowItems();
+ let h=`<div class="card"><h3>🛒 ${low.length} item${low.length!==1?"s":""} to buy</h3>
+  <div class="sub">Tick as you shop — I'll drop them straight into your pantry. 😉</div>
+  <div class="btnrow"><button class="btn btn-lite" onclick="shareList()">📤 Share list (WhatsApp)</button>
+  <button class="btn btn-ghost" onclick="undo()">↩ Undo</button></div></div>`;
+ h+=`<div class="card"><h3>🍽 Shop for a dish</h3>
+  <select onchange="shopDish=this.value;rerender()"><option value="">— pick a dish —</option>
+  ${DB.R.map(r=>`<option value="${r.id}" ${shopDish===r.id?"selected":""}>${r.name}</option>`).join("")}</select>`;
+ if(shopDish){const sf=dishShortfalls(shopDish);const rn=DB.R.find(r=>r.id===shopDish).name;
+  h+=sf.length?`<div class="chips">${sf.map(x=>`<span class="chip">${pretty(x.n)} — ${fmt(x.short)} ${x.unit}</span>`).join("")}</div>
+   <div class="btnrow"><button class="btn btn-green" onclick="boughtDish('${shopDish}')">✅ Bought it all → pantry</button></div>`
+   :`<div class="chips"><span class="chip ok">You have everything for ${rn} (for ${S.persons}) — go cook! 🎉</span></div>`;}
+ h+=`</div>`;
+ const show=[...new Set([...low,...Object.keys(S.got)])];
+ AISLES.forEach(a=>{const items=show.filter(n=>DB.ING[n][1]===a);if(!items.length)return;
+  h+=`<div class="aisle">${a.toUpperCase()}<span class="store">${STORES[a]}</span></div>`;
+  items.forEach(n=>{const done=S.got[n];const buy=topUpQty(n);
+   h+=`<div class="prow ${done?"done":""}"><button class="tick ${done?"on":""}" onclick="tickBuy('${n}')">${done?"✓":""}</button>
+    <div class="nm">${pretty(n)}</div><div class="qty">${done?"in pantry ✓":fmt(buy)+" "+DB.ING[n][0]}</div></div>`;});});
+ if(!low.length)h+=`<div class="card"><div class="sub">Pantry is stocked, meri jaan — nothing to buy! 🎉</div></div>`;
+ return h+FOOT;}
+function tickBuy(n){if(S.got[n]){delete S.got[n];save();rerender();return;}
+ const buy=topUpQty(n);snap("bought "+pretty(n));S.pantry[n]=(S.pantry[n]||0)+buy;S.got[n]=true;save();rerender();
+ toast(`${pretty(n)} +${fmt(buy)} ${DB.ING[n][0]} added to pantry ✅`);
+ setTimeout(()=>{delete S.got[n];save();if(tab==="shop")rerender();},2600);}
+function boughtDish(rid){const sf=dishShortfalls(rid);snap("dish shopping");
+ sf.forEach(x=>S.pantry[x.n]=(S.pantry[x.n]||0)+x.short);save();rerender();
+ toast("All set! You can cook "+DB.R.find(r=>r.id===rid).name+" now 🎉");}
+function shareList(){const low=lowItems();
+ const txt="🛒 Noor's shopping list:\n"+AISLES.map(a=>{const it=low.filter(n=>DB.ING[n][1]===a);
+  return it.length?`\n${a}:\n`+it.map(n=>` • ${pretty(n)} — ${fmt(topUpQty(n))} ${DB.ING[n][0]}`).join("\n"):"";}).join("")+"\n\nMade with love for Noor 💗";
+ if(navigator.share){navigator.share({text:txt}).catch(()=>{});}
+ else{window.open("https://wa.me/?text="+encodeURIComponent(txt));}}
+
+/* ---------- STATS ---------- */
+let statMonth=null;
+function monthKey(l){return l.iso?l.iso.slice(0,7):null;}
+function monthLabel(k){const p=k.split("-");return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p[1]-1]+" "+p[0];}
+function vStats(){
+ const logs=S.log.filter(l=>l.iso);
+ const months=[...new Set(logs.map(monthKey))].sort().reverse();
+ if(!months.length)return `<div class="card"><h3>📊 Monthly summary</h3><div class="sub">No meals logged yet. Cook something and tap ✅ "I cooked this" — your story starts there. 🍳</div></div>`+FOOT;
+ if(!statMonth||!months.includes(statMonth))statMonth=months[0];
+ const ml=logs.filter(l=>monthKey(l)===statMonth);
+ const fed=ml.reduce((a,l)=>a+(l.persons||0),0);
+ const byDish={};ml.forEach(l=>byDish[l.dish]=(byDish[l.dish]||0)+1);
+ const top=Object.entries(byDish).sort((a,b)=>b[1]-a[1]);
+ const byMeal={};ml.forEach(l=>byMeal[l.meal]=(byMeal[l.meal]||0)+1);
+ const mx=top.length?top[0][1]:1;
+ let h=`<div class="cats">${months.map(k=>`<button class="cat ${k===statMonth?"on":""}" onclick="statMonth='${k}';rerender()">${monthLabel(k)}</button>`).join("")}</div>`;
+ h+=`<div class="stat"><div class="s"><b>${ml.length}</b><span>meals cooked</span></div><div class="s"><b>${fed}</b><span>people fed</span></div><div class="s"><b>${top.length}</b><span>different dishes</span></div></div>`;
+ h+=`<div class="card"><h3>🏆 What you cooked — ${monthLabel(statMonth)}</h3>`;
+ top.forEach(p=>{h+=`<div style="margin-top:8px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b>${p[0]}</b><span>${p[1]}×</span></div><div style="background:var(--blush);border-radius:6px;height:10px;margin-top:3px"><div style="width:${Math.round(p[1]/mx*100)}%;background:linear-gradient(90deg,var(--rose),#F06292);height:10px;border-radius:6px"></div></div></div>`;});
+ h+=`</div><div class="card"><h3>🕐 By meal</h3><div class="chips">${Object.entries(byMeal).map(p=>`<span class="chip ok">${p[0]}: ${p[1]}</span>`).join("")}</div></div>`;
+ if(top.length)h+=`<div class="card"><div class="sub">Star of the month: <b style="color:var(--rose)">${top[0][0]}</b> — cooked ${top[0][1]}× 👑</div></div>`;
+ h+=`<div class="btnrow"><button class="btn btn-lite" onclick="shareMonth()">📤 Share this summary</button></div>`;
+ return h+FOOT;}
+function shareMonth(){const logs=S.log.filter(l=>l.iso&&monthKey(l)===statMonth);
+ const byDish={};logs.forEach(l=>byDish[l.dish]=(byDish[l.dish]||0)+1);
+ const txt=`📊 Noor's Kitchen — ${monthLabel(statMonth)}\n${logs.length} meals cooked, ${logs.reduce((a,l)=>a+(l.persons||0),0)} people fed\n`+Object.entries(byDish).sort((a,b)=>b[1]-a[1]).map(p=>` • ${p[0]} ×${p[1]}`).join("\n")+"\n\nMade with love for Noor 💗";
+ if(navigator.share){navigator.share({text:txt}).catch(()=>{});}else{window.open("https://wa.me/?text="+encodeURIComponent(txt));}}
+
+/* ---------- ADD RECIPE / BACKUP ---------- */
+let NEWR=null;
+const TIMES=["15 min","20 min","30 min","45 min","1 hr","1 hr 30 min","2 hr","3 hr+"];
+const UNITS=["unit","g","kg","tbsp","tsp","cup","bunch","inch","sprig"];
+function addRecipeFlow(){NEWR={name:"",serves:4,time:"45 min",cat:"Salan & Meat",video:"",url:"",notes:"",ings:[],_q:1,_showNewIng:false,_sel:null};renderAddForm();}
+function fld(label,inner){return '<div style="margin-top:10px"><b style="font-size:12px;color:var(--rose)">'+label+'</b>'+inner+'</div>';}
+function renderAddForm(){
+ const ingOpts=Object.keys(DB.ING).sort().map(n=>'<option value="'+n+'">'+pretty(n)+' ('+DB.ING[n][0]+')</option>').join("");
+ const chips=NEWR.ings.map((x,i)=>'<span class="chip ok">'+pretty(x.n)+' '+fmt(x.q)+' '+DB.ING[x.n][0]+' <b style="cursor:pointer" onclick="NEWR.ings.splice('+i+',1);renderAddForm()"> ✕</b></span>').join("");
+ modal('<h2>➕ Add your own recipe</h2>'
+ +fld('Dish name','<input class="search" style="margin-top:6px" value="'+NEWR.name.replace(/"/g,"&quot;")+'" oninput="NEWR.name=this.value" placeholder="e.g. Chicken Jalfrezi">')
+ +fld('Serves','<div class="pcontrol" style="background:var(--blush)"><button class="stepbtn" onclick="NEWR.serves=Math.max(1,NEWR.serves-1);renderAddForm()">−</button><b style="color:var(--rose)">'+NEWR.serves+' people</b><button class="stepbtn" onclick="NEWR.serves=Math.min(12,NEWR.serves+1);renderAddForm()">+</button></div>')
+ +fld('Time','<select onchange="NEWR.time=this.value">'+TIMES.map(t=>'<option '+(t===NEWR.time?"selected":"")+'>'+t+'</option>').join("")+'</select>')
+ +fld('Category','<select onchange="NEWR.cat=this.value">'+Object.keys(CATS).map(c=>'<option '+(c===NEWR.cat?"selected":"")+'>'+c+'</option>').join("")+'</select>')
+ +fld('Ingredients'+(NEWR.ings.length?'':' (add at least one)'),
+   '<div class="chips">'+chips+'</div>'
+  +'<select id="ingsel" style="margin-top:6px">'+ingOpts+'</select>'
+  +'<div style="display:flex;align-items:center;gap:8px;margin-top:8px"><button class="sstep" onclick="NEWR._q=Math.max(0.25,+(NEWR._q-ingStep()).toFixed(2));renderKeep()">−</button><b>'+fmt(NEWR._q)+'</b><button class="sstep" onclick="NEWR._q=+(NEWR._q+ingStep()).toFixed(2);renderKeep()">+</button>'
+  +'<button class="btn btn-lite" onclick="addIngToNew()">Add ↑</button></div>'
+  +'<button class="btn btn-ghost" style="margin-top:8px" onclick="NEWR._showNewIng=!NEWR._showNewIng;renderKeep()">'+(NEWR._showNewIng?'Hide':'Ingredient not in the list? Create it')+'</button>'
+  +(NEWR._showNewIng?'<div style="background:var(--blush);border-radius:12px;padding:10px;margin-top:8px"><input class="search" id="nin" placeholder="New ingredient name e.g. Paneer"><select id="niu">'+UNITS.map(u=>'<option>'+u+'</option>').join("")+'</select><select id="nia">'+AISLES.map(a=>'<option>'+a+'</option>').join("")+'</select><button class="btn btn-rose" style="margin-top:8px" onclick="createIng()">Create ingredient</button></div>':''))
+ +fld('Video link (optional)','<input class="search" style="margin-top:6px" value="'+NEWR.video+'" oninput="NEWR.video=this.value" placeholder="Paste YouTube link">')
+ +fld('Written recipe link (optional)','<input class="search" style="margin-top:6px" value="'+NEWR.url+'" oninput="NEWR.url=this.value" placeholder="Paste recipe page link">')
+ +fld('Notes (optional)','<input class="search" style="margin-top:6px" value="'+NEWR.notes.replace(/"/g,"&quot;")+'" oninput="NEWR.notes=this.value" placeholder="Spice level, tips…">')
+ +'<div class="btnrow" style="margin-top:14px"><button class="btn btn-green" style="flex:1;padding:14px" onclick="saveNewRecipe()">💾 Save recipe</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>');
+ if(NEWR._sel){const s=document.getElementById("ingsel");if(s)s.value=NEWR._sel;}}
+function ingStep(){const s=document.getElementById("ingsel");const n=s?s.value:null;return n&&DB.ING[n]?(STEP[DB.ING[n][0]]||1):1;}
+function renderKeep(){const s=document.getElementById("ingsel");if(s)NEWR._sel=s.value;renderAddForm();}
+function addIngToNew(){const s=document.getElementById("ingsel");if(!s||!s.value)return;
+ const n=s.value;NEWR.ings=NEWR.ings.filter(x=>x.n!==n);NEWR.ings.push({n,q:NEWR._q});NEWR._sel=n;renderAddForm();}
+function createIng(){const el=document.getElementById("nin");const nm=(el&&el.value||"").trim();if(!nm){toast("Give it a name 😊");return;}
+ const key=nm.replace(/\s+/g,"_").replace(/[^\w]/g,"");if(DB.ING[key]){toast("Already exists!");return;}
+ S.myIng[key]=[document.getElementById("niu").value,document.getElementById("nia").value,1,0];
+ applyCustom();save();NEWR._showNewIng=false;NEWR._sel=key;renderAddForm();toast(pretty(key)+" created ✅");}
+function saveNewRecipe(){if(!NEWR.name.trim()){toast("Dish needs a name 💗");return;}
+ if(!NEWR.ings.length){toast("Add at least one ingredient");return;}
+ const r={id:"C"+Date.now(),name:NEWR.name.trim(),url:NEWR.url.trim(),serves:NEWR.serves,time:NEWR.time,
+  notes:NEWR.notes.trim()||"Family recipe",ings:NEWR.ings.map(x=>[x.n,x.q]),cat:NEWR.cat,video:NEWR.video.trim()};
+ S.myRecipes.push(r);applyCustom();save();closeModal();cat="MY";tab="recipes";rerender();
+ toast("⭐ "+r.name+" saved — it now works everywhere in the app!");}
+function delRecipe(rid){S.myRecipes=S.myRecipes.filter(r=>r.id!==rid);applyCustom();save();closeModal();rerender();toast("Recipe removed");}
+function backup(){const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(S));a.download="noor-kitchen-backup.json";document.body.appendChild(a);a.click();a.remove();toast("Backup downloaded 💾");}
+function restoreFlow(){modal('<h2>📥 Restore backup</h2><div class="hint">Pick your noor-kitchen-backup.json file.</div><input type="file" accept=".json,application/json" onchange="doRestore(this)" style="margin-top:10px"><div class="btnrow"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>');}
+function doRestore(inp){const f=inp.files[0];if(!f)return;const rd=new FileReader();
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);if(!d.pantry)throw 0;S=d;S.myRecipes=S.myRecipes||[];S.myIng=S.myIng||{};applyCustom();save();closeModal();rerender();toast("Everything restored 🎉");}catch(e){toast("That file doesn't look right 🤔");}};
+ rd.readAsText(f);}
+
+/* ---------- boot ---------- */
+load();rerender();
+</script>
+</body>
+</html>

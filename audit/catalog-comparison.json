@@ -1,0 +1,189 @@
+{
+  "recipe_count_excel": 22,
+  "recipe_count_html": 22,
+  "missing_recipe_ids_html": [],
+  "extra_recipe_ids_html": [],
+  "ingredient_count_excel": 62,
+  "ingredient_count_html": 62,
+  "missing_ingredient_ids_html": [],
+  "extra_ingredient_ids_html": [],
+  "unit_diffs": [],
+  "recipes": [
+    {
+      "id": "R001",
+      "name": "Chicken Biryani (Extreme)",
+      "serves": 6,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Medium-hot, layered dum biryani. Use aged basmati; kewra at the end."
+    },
+    {
+      "id": "R002",
+      "name": "Chicken Yakhni Pulao",
+      "serves": 5,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Mild, whole-spice yakhni. Strain stock well for clear grains."
+    },
+    {
+      "id": "R003",
+      "name": "Red Beans (Lal Lobia Masala)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Soak beans overnight; boil 45-50 min until tender. Protein-packed."
+    },
+    {
+      "id": "R004",
+      "name": "Chicken Karahi (Fire)",
+      "serves": 5,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Hot & spicy. Authentic karahi = tomatoes and ginger, no onion."
+    },
+    {
+      "id": "R005",
+      "name": "Chicken Qorma",
+      "serves": 6,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Shadi-style qorma; fried onion + kewra finish. Ghee makes it."
+    },
+    {
+      "id": "R006a",
+      "name": "Daal Chana (Masala)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Soak 30 min. Finish with cumin + curry leaf tarka."
+    },
+    {
+      "id": "R006b",
+      "name": "Daal Mash with Tadka",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Dry-style mash daal; ginger julienne + butter tadka on top."
+    },
+    {
+      "id": "R006c",
+      "name": "Daal Masoor (Malka)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Everyday comfort daal; squeeze of lemon lifts it."
+    },
+    {
+      "id": "R007",
+      "name": "Beef Salan (Aloo Gosht, Delhi)",
+      "serves": 5,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Classic shorba-wala salan; slow-cook beef till tender."
+    },
+    {
+      "id": "R008",
+      "name": "Shami Kabab",
+      "serves": 6,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Makes 12-14; freeze extras. Wash daal, don't soak it."
+    },
+    {
+      "id": "R009",
+      "name": "Chicken Manchurian",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Desi-Chinese; sweet, hot & sour. Pair with fried rice (R010)."
+    },
+    {
+      "id": "R010",
+      "name": "Chinese Fried Rice",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Day-old boiled rice gives the best texture."
+    },
+    {
+      "id": "R011",
+      "name": "One Pot Spicy Pasta",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Weeknight one-pot; dial chilli up or down."
+    },
+    {
+      "id": "R012",
+      "name": "Chicken Macaroni (Korma-style)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Food Fusion's korma masala served over boiled macaroni - desi twist."
+    },
+    {
+      "id": "R013",
+      "name": "Bhindi (Masala Aloo Bhindi)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Dry bhindi; lemon at the end keeps it crisp, not slimy."
+    },
+    {
+      "id": "R014",
+      "name": "Gobi Masala (Dhaba Style)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Dhaba-style gobi with aloo & carrot; don't overcook the florets."
+    },
+    {
+      "id": "R015",
+      "name": "Karela (Qeema Karelay)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Salt & rest karela 1-2 hrs, then wash well to tame bitterness."
+    },
+    {
+      "id": "R016",
+      "name": "Aalu (Masala Aloo)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Quick potato bhujia; lovely with puri, daal-chawal or paratha."
+    },
+    {
+      "id": "R017",
+      "name": "Qeema (Dhaba Style Aloo Qeema)",
+      "serves": 5,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Dhaba-style; methi (fenugreek) finish is the secret."
+    },
+    {
+      "id": "R018",
+      "name": "Beef Nihari",
+      "serves": 6,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Slow-cooked shank; serve with ginger julienne, green chilli, lemon & naan."
+    },
+    {
+      "id": "R019",
+      "name": "Khichri (Spicy Fried Khichdi)",
+      "serves": 4,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Comfort in a bowl; serve with raita and achar."
+    },
+    {
+      "id": "R020",
+      "name": "Saag (Sarson Ka Saag)",
+      "serves": 5,
+      "video": "> Watch video",
+      "url": "Read recipe",
+      "notes": "Slow-cook 2-3 hrs; serve with makai ki roti & white butter."
+    }
+  ]
+}

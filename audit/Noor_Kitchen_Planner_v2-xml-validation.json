@@ -1,0 +1,114 @@
+[
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000000000000}"
+    },
+    "content": "Lists!$F$2:$F$13 | 0 | D5"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000001000000}"
+    },
+    "content": "Lists!$B$2:$B$23 | 0 | B28:B39"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000002000000}"
+    },
+    "content": "Lists!$G$2:$G$11 | 0 | C28:C39"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000003000000}"
+    },
+    "content": "Lists!$H$2:$H$5 | 0 | D28:D39"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0000-000004000000}"
+    },
+    "content": "Lists!$F$2:$F$13 | 0 | E28:E39"
+  },
+  {
+    "part": "xl/worksheets/sheet3.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "prompt": "Type or pick a dish",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0200-000000000000}"
+    },
+    "content": "Lists!$B$2:$B$23 | 0 | C3"
+  },
+  {
+    "part": "xl/worksheets/sheet5.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "sqref": "F7:F68",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0400-000001000000}"
+    },
+    "content": "\"Typed,Photo\" | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet5.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0400-000000000000}"
+    },
+    "content": "Lists!$B$2:$B$23 | 0 | C3"
+  },
+  {
+    "part": "xl/worksheets/sheet6.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "sqref": "A8:A69",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0500-000001000000}"
+    },
+    "content": "\"☑,☐\" | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet6.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0500-000000000000}"
+    },
+    "content": "Lists!$B$2:$B$23 | 0 | C5"
+  },
+  {
+    "part": "xl/worksheets/sheet8.xml",
+    "namespace": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main",
+    "attributes": {
+      "type": "list",
+      "allowBlank": "1",
+      "{http://schemas.microsoft.com/office/spreadsheetml/2014/revision}uid": "{00000000-0002-0000-0700-000000000000}"
+    },
+    "content": "Lists!$B$2:$B$23 | 0 | C3"
+  }
+]

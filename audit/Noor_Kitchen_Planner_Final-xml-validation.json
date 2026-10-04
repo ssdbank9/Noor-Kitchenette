@@ -1,0 +1,168 @@
+[
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "false",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "D5",
+      "type": "list"
+    },
+    "content": "Lists!$F$2:$F$13 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "B28:B39",
+      "type": "list"
+    },
+    "content": "Lists!$B$2:$B$23 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "C28:C39",
+      "type": "list"
+    },
+    "content": "Lists!$G$2:$G$11 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "D28:D39",
+      "type": "list"
+    },
+    "content": "Lists!$H$2:$H$5 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet1.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "E28:E39",
+      "type": "list"
+    },
+    "content": "Lists!$F$2:$F$13 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet5.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "C3",
+      "type": "list"
+    },
+    "content": "Lists!$B$2:$B$23 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet5.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "F7:F68",
+      "type": "list"
+    },
+    "content": "\"Typed,Photo\" | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet6.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "C5",
+      "type": "list"
+    },
+    "content": "Lists!$B$2:$B$23 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet6.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "A8:A69",
+      "type": "list"
+    },
+    "content": "\"☑,☐\" | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet3.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "prompt": "Type or pick a dish",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "C3",
+      "type": "list"
+    },
+    "content": "Lists!$B$2:$B$23 | 0"
+  },
+  {
+    "part": "xl/worksheets/sheet8.xml",
+    "namespace": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "attributes": {
+      "allowBlank": "true",
+      "errorStyle": "stop",
+      "operator": "between",
+      "showDropDown": "false",
+      "showErrorMessage": "false",
+      "showInputMessage": "false",
+      "sqref": "C3",
+      "type": "list"
+    },
+    "content": "Lists!$B$2:$B$23 | 0"
+  }
+]

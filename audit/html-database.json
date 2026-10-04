@@ -1,0 +1,1726 @@
+{
+  "ING": {
+    "Onion": [
+      "unit",
+      "Produce",
+      2,
+      6
+    ],
+    "Tomato": [
+      "unit",
+      "Produce",
+      3,
+      4
+    ],
+    "Potato": [
+      "unit",
+      "Produce",
+      3,
+      5
+    ],
+    "Green_Chilli": [
+      "unit",
+      "Produce",
+      5,
+      10
+    ],
+    "Fresh_Coriander": [
+      "bunch",
+      "Produce",
+      1,
+      2
+    ],
+    "Mint": [
+      "bunch",
+      "Produce",
+      1,
+      0
+    ],
+    "Ginger": [
+      "inch",
+      "Produce",
+      2,
+      3
+    ],
+    "Lemon": [
+      "unit",
+      "Produce",
+      2,
+      1
+    ],
+    "Okra_Bhindi": [
+      "g",
+      "Produce",
+      250,
+      0
+    ],
+    "Cauliflower_Gobi": [
+      "unit",
+      "Produce",
+      1,
+      0
+    ],
+    "Bitter_Gourd_Karela": [
+      "g",
+      "Produce",
+      250,
+      0
+    ],
+    "Mustard_Greens_Saag": [
+      "bunch",
+      "Produce",
+      2,
+      0
+    ],
+    "Spinach": [
+      "bunch",
+      "Produce",
+      1,
+      1
+    ],
+    "Cabbage": [
+      "g",
+      "Produce",
+      100,
+      0
+    ],
+    "Carrot": [
+      "unit",
+      "Produce",
+      2,
+      3
+    ],
+    "Capsicum": [
+      "unit",
+      "Produce",
+      1,
+      2
+    ],
+    "Spring_Onion": [
+      "unit",
+      "Produce",
+      2,
+      0
+    ],
+    "Curry_Leaves": [
+      "sprig",
+      "Produce",
+      2,
+      4
+    ],
+    "Chicken": [
+      "kg",
+      "Meat",
+      1,
+      1
+    ],
+    "Beef_Boneless": [
+      "kg",
+      "Meat",
+      0.5,
+      0
+    ],
+    "Beef_Mince": [
+      "kg",
+      "Meat",
+      0.5,
+      1
+    ],
+    "Beef_Shank_with_Bones": [
+      "kg",
+      "Meat",
+      1,
+      0
+    ],
+    "Yogurt": [
+      "cup",
+      "Dairy",
+      1,
+      2
+    ],
+    "Butter": [
+      "tbsp",
+      "Dairy",
+      2,
+      8
+    ],
+    "Eggs": [
+      "unit",
+      "Dairy",
+      4,
+      6
+    ],
+    "Salt": [
+      "tsp",
+      "Spices/Masala",
+      10,
+      50
+    ],
+    "Red_Chilli_Powder": [
+      "tsp",
+      "Spices/Masala",
+      6,
+      20
+    ],
+    "Turmeric_Powder": [
+      "tsp",
+      "Spices/Masala",
+      4,
+      15
+    ],
+    "Coriander_Powder": [
+      "tsp",
+      "Spices/Masala",
+      4,
+      12
+    ],
+    "Cumin_Seeds": [
+      "tsp",
+      "Spices/Masala",
+      3,
+      8
+    ],
+    "Coriander_Seeds": [
+      "tsp",
+      "Spices/Masala",
+      2,
+      6
+    ],
+    "Fennel_Seeds": [
+      "tsp",
+      "Spices/Masala",
+      2,
+      1
+    ],
+    "Garam_Masala_Powder": [
+      "tsp",
+      "Spices/Masala",
+      3,
+      10
+    ],
+    "Kashmiri_Red_Chilli_Powder": [
+      "tsp",
+      "Spices/Masala",
+      2,
+      0
+    ],
+    "Black_Pepper_Powder": [
+      "tsp",
+      "Spices/Masala",
+      2,
+      5
+    ],
+    "Whole_Spices_Mix": [
+      "tbsp",
+      "Spices/Masala",
+      2,
+      4
+    ],
+    "Dried_Fenugreek_Leaves": [
+      "tsp",
+      "Spices/Masala",
+      1,
+      2
+    ],
+    "Nihari_Masala": [
+      "tbsp",
+      "Spices/Masala",
+      2,
+      0
+    ],
+    "Biryani_Masala": [
+      "tbsp",
+      "Spices/Masala",
+      2,
+      2
+    ],
+    "Basmati_Rice": [
+      "kg",
+      "Pantry/Dry Goods",
+      1,
+      3
+    ],
+    "Cooking_Oil": [
+      "cup",
+      "Pantry/Dry Goods",
+      2,
+      5
+    ],
+    "Ghee": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      4,
+      10
+    ],
+    "Ginger_Garlic_Paste": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      2,
+      1
+    ],
+    "Fried_Onion": [
+      "cup",
+      "Pantry/Dry Goods",
+      1,
+      0
+    ],
+    "Wheat_Flour_Atta": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      4,
+      20
+    ],
+    "Gram_Flour_Besan": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      3,
+      6
+    ],
+    "Cornflour": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      2,
+      4
+    ],
+    "Soy_Sauce": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      3,
+      6
+    ],
+    "Vinegar": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      2,
+      5
+    ],
+    "Chilli_Garlic_Sauce": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      3,
+      2
+    ],
+    "Ketchup": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      3,
+      8
+    ],
+    "Pasta": [
+      "g",
+      "Pantry/Dry Goods",
+      250,
+      0
+    ],
+    "Macaroni": [
+      "g",
+      "Pantry/Dry Goods",
+      250,
+      500
+    ],
+    "Kewra_Water": [
+      "tsp",
+      "Pantry/Dry Goods",
+      1,
+      2
+    ],
+    "Maize_Flour_Makai": [
+      "tbsp",
+      "Pantry/Dry Goods",
+      3,
+      0
+    ],
+    "Sugar": [
+      "tsp",
+      "Pantry/Dry Goods",
+      4,
+      30
+    ],
+    "Chicken_Stock_Cube": [
+      "unit",
+      "Pantry/Dry Goods",
+      1,
+      2
+    ],
+    "Chana_Daal": [
+      "g",
+      "Canned/Legumes",
+      250,
+      500
+    ],
+    "Mash_Daal": [
+      "g",
+      "Canned/Legumes",
+      250,
+      250
+    ],
+    "Masoor_Daal": [
+      "g",
+      "Canned/Legumes",
+      250,
+      0
+    ],
+    "Moong_Daal": [
+      "g",
+      "Canned/Legumes",
+      250,
+      300
+    ],
+    "Red_Kidney_Beans": [
+      "g",
+      "Canned/Legumes",
+      250,
+      0
+    ]
+  },
+  "R": [
+    {
+      "id": "R001",
+      "name": "Chicken Biryani (Extreme)",
+      "url": "https://foodfusion.com/recipe/extreme-chicken-biryani/",
+      "serves": 6,
+      "time": "1 hr 15 min",
+      "notes": "Medium-hot, layered dum biryani. Use aged basmati; kewra at the end.",
+      "ings": [
+        [
+          "Chicken",
+          1
+        ],
+        [
+          "Basmati_Rice",
+          0.75
+        ],
+        [
+          "Onion",
+          3
+        ],
+        [
+          "Tomato",
+          3
+        ],
+        [
+          "Yogurt",
+          1
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Biryani_Masala",
+          3
+        ],
+        [
+          "Cooking_Oil",
+          1
+        ],
+        [
+          "Mint",
+          1
+        ],
+        [
+          "Fresh_Coriander",
+          1
+        ],
+        [
+          "Green_Chilli",
+          6
+        ],
+        [
+          "Lemon",
+          1
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Fried_Onion",
+          1
+        ],
+        [
+          "Kewra_Water",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "R002",
+      "name": "Chicken Yakhni Pulao",
+      "url": "https://foodfusion.com/recipe/chicken-yakhni-pulao/",
+      "serves": 5,
+      "time": "1 hr",
+      "notes": "Mild, whole-spice yakhni. Strain stock well for clear grains.",
+      "ings": [
+        [
+          "Chicken",
+          1
+        ],
+        [
+          "Basmati_Rice",
+          0.75
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Whole_Spices_Mix",
+          2
+        ],
+        [
+          "Cumin_Seeds",
+          2
+        ],
+        [
+          "Coriander_Seeds",
+          2
+        ],
+        [
+          "Fennel_Seeds",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Yogurt",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.75
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Green_Chilli",
+          4
+        ]
+      ]
+    },
+    {
+      "id": "R003",
+      "name": "Red Beans (Lal Lobia Masala)",
+      "url": "https://foodfusion.com/recipe/lal-lobia-masala/",
+      "serves": 4,
+      "time": "1 hr 10 min",
+      "notes": "Soak beans overnight; boil 45-50 min until tender. Protein-packed.",
+      "ings": [
+        [
+          "Red_Kidney_Beans",
+          375
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Tomato",
+          3
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ],
+        [
+          "Turmeric_Powder",
+          0.5
+        ],
+        [
+          "Coriander_Powder",
+          2
+        ],
+        [
+          "Cumin_Seeds",
+          1
+        ],
+        [
+          "Garam_Masala_Powder",
+          1
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R004",
+      "name": "Chicken Karahi (Fire)",
+      "url": "https://foodfusion.com/recipe/fire-chicken-karahi/",
+      "serves": 5,
+      "time": "45 min",
+      "notes": "Hot & spicy. Authentic karahi = tomatoes and ginger, no onion.",
+      "ings": [
+        [
+          "Chicken",
+          1
+        ],
+        [
+          "Tomato",
+          6
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Green_Chilli",
+          8
+        ],
+        [
+          "Ginger",
+          2
+        ],
+        [
+          "Yogurt",
+          0.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ],
+        [
+          "Black_Pepper_Powder",
+          1
+        ],
+        [
+          "Cumin_Seeds",
+          2
+        ],
+        [
+          "Coriander_Seeds",
+          2
+        ],
+        [
+          "Cooking_Oil",
+          0.75
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ],
+        [
+          "Butter",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R005",
+      "name": "Chicken Qorma",
+      "url": "https://www.foodfusion.com/recipe/chicken-korma/",
+      "serves": 6,
+      "time": "1 hr",
+      "notes": "Shadi-style qorma; fried onion + kewra finish. Ghee makes it.",
+      "ings": [
+        [
+          "Chicken",
+          1
+        ],
+        [
+          "Onion",
+          3
+        ],
+        [
+          "Yogurt",
+          1
+        ],
+        [
+          "Ghee",
+          6
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Whole_Spices_Mix",
+          2
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ],
+        [
+          "Coriander_Powder",
+          2
+        ],
+        [
+          "Garam_Masala_Powder",
+          1
+        ],
+        [
+          "Fried_Onion",
+          0.5
+        ],
+        [
+          "Kewra_Water",
+          1
+        ],
+        [
+          "Salt",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R006a",
+      "name": "Daal Chana (Masala)",
+      "url": "https://www.foodfusion.com/recipe/masala-chana-daal/",
+      "serves": 4,
+      "time": "50 min",
+      "notes": "Soak 30 min. Finish with cumin + curry leaf tarka.",
+      "ings": [
+        [
+          "Chana_Daal",
+          375
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Green_Chilli",
+          3
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ],
+        [
+          "Cumin_Seeds",
+          2
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ],
+        [
+          "Curry_Leaves",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R006b",
+      "name": "Daal Mash with Tadka",
+      "url": "https://www.foodfusion.com/recipe/mash-daal-with-tadka/",
+      "serves": 4,
+      "time": "45 min",
+      "notes": "Dry-style mash daal; ginger julienne + butter tadka on top.",
+      "ings": [
+        [
+          "Mash_Daal",
+          300
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Tomato",
+          1
+        ],
+        [
+          "Ginger",
+          2
+        ],
+        [
+          "Green_Chilli",
+          3
+        ],
+        [
+          "Cumin_Seeds",
+          2
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ],
+        [
+          "Butter",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R006c",
+      "name": "Daal Masoor (Malka)",
+      "url": "https://www.foodfusion.com/recipe/malka-masoor-daal-with-quick-achaar/",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Everyday comfort daal; squeeze of lemon lifts it.",
+      "ings": [
+        [
+          "Masoor_Daal",
+          300
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ],
+        [
+          "Cumin_Seeds",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Curry_Leaves",
+          2
+        ],
+        [
+          "Green_Chilli",
+          2
+        ],
+        [
+          "Lemon",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "R007",
+      "name": "Beef Salan (Aloo Gosht, Delhi)",
+      "url": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/",
+      "serves": 5,
+      "time": "1 hr 30 min",
+      "notes": "Classic shorba-wala salan; slow-cook beef till tender.",
+      "ings": [
+        [
+          "Beef_Boneless",
+          0.75
+        ],
+        [
+          "Potato",
+          4
+        ],
+        [
+          "Onion",
+          3
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Yogurt",
+          0.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ],
+        [
+          "Kashmiri_Red_Chilli_Powder",
+          1
+        ],
+        [
+          "Turmeric_Powder",
+          1
+        ],
+        [
+          "Coriander_Powder",
+          2
+        ],
+        [
+          "Whole_Spices_Mix",
+          1
+        ],
+        [
+          "Cooking_Oil",
+          0.75
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ],
+        [
+          "Green_Chilli",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "R008",
+      "name": "Shami Kabab",
+      "url": "https://www.foodfusion.com/recipe/shami-kabab-recipe/",
+      "serves": 6,
+      "time": "1 hr",
+      "notes": "Makes 12-14; freeze extras. Wash daal, don't soak it.",
+      "ings": [
+        [
+          "Beef_Mince",
+          0.5
+        ],
+        [
+          "Chana_Daal",
+          250
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Whole_Spices_Mix",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Turmeric_Powder",
+          1
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Coriander_Seeds",
+          2
+        ],
+        [
+          "Cumin_Seeds",
+          2
+        ],
+        [
+          "Eggs",
+          2
+        ],
+        [
+          "Green_Chilli",
+          4
+        ],
+        [
+          "Mint",
+          0.5
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R009",
+      "name": "Chicken Manchurian",
+      "url": "https://www.foodfusion.com/recipe/chicken-manchurian/",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Desi-Chinese; sweet, hot & sour. Pair with fried rice (R010).",
+      "ings": [
+        [
+          "Chicken",
+          0.5
+        ],
+        [
+          "Eggs",
+          1
+        ],
+        [
+          "Cornflour",
+          4
+        ],
+        [
+          "Ketchup",
+          6
+        ],
+        [
+          "Chilli_Garlic_Sauce",
+          4
+        ],
+        [
+          "Soy_Sauce",
+          2
+        ],
+        [
+          "Vinegar",
+          2
+        ],
+        [
+          "Sugar",
+          2
+        ],
+        [
+          "Black_Pepper_Powder",
+          1
+        ],
+        [
+          "Capsicum",
+          1
+        ],
+        [
+          "Spring_Onion",
+          2
+        ],
+        [
+          "Cooking_Oil",
+          1
+        ],
+        [
+          "Salt",
+          1
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "R010",
+      "name": "Chinese Fried Rice",
+      "url": "https://www.foodfusion.com/recipe/chinese-fried-rice/",
+      "serves": 4,
+      "time": "30 min",
+      "notes": "Day-old boiled rice gives the best texture.",
+      "ings": [
+        [
+          "Basmati_Rice",
+          0.5
+        ],
+        [
+          "Eggs",
+          2
+        ],
+        [
+          "Carrot",
+          1
+        ],
+        [
+          "Cabbage",
+          200
+        ],
+        [
+          "Spring_Onion",
+          3
+        ],
+        [
+          "Soy_Sauce",
+          2
+        ],
+        [
+          "Vinegar",
+          1
+        ],
+        [
+          "Black_Pepper_Powder",
+          1
+        ],
+        [
+          "Salt",
+          1
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Capsicum",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "R011",
+      "name": "One Pot Spicy Pasta",
+      "url": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
+      "serves": 4,
+      "time": "35 min",
+      "notes": "Weeknight one-pot; dial chilli up or down.",
+      "ings": [
+        [
+          "Pasta",
+          250
+        ],
+        [
+          "Chicken",
+          0.25
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ],
+        [
+          "Red_Chilli_Powder",
+          1
+        ],
+        [
+          "Black_Pepper_Powder",
+          1
+        ],
+        [
+          "Ketchup",
+          4
+        ],
+        [
+          "Chilli_Garlic_Sauce",
+          2
+        ],
+        [
+          "Cooking_Oil",
+          0.25
+        ],
+        [
+          "Salt",
+          1
+        ],
+        [
+          "Capsicum",
+          1
+        ]
+      ]
+    },
+    {
+      "id": "R012",
+      "name": "Chicken Macaroni (Korma-style)",
+      "url": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
+      "serves": 4,
+      "time": "45 min",
+      "notes": "Food Fusion's korma masala served over boiled macaroni - desi twist.",
+      "ings": [
+        [
+          "Macaroni",
+          300
+        ],
+        [
+          "Chicken",
+          0.5
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Yogurt",
+          0.5
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1.5
+        ],
+        [
+          "Whole_Spices_Mix",
+          1
+        ],
+        [
+          "Coriander_Powder",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Fried_Onion",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ]
+      ]
+    },
+    {
+      "id": "R013",
+      "name": "Bhindi (Masala Aloo Bhindi)",
+      "url": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
+      "serves": 4,
+      "time": "30 min",
+      "notes": "Dry bhindi; lemon at the end keeps it crisp, not slimy.",
+      "ings": [
+        [
+          "Okra_Bhindi",
+          500
+        ],
+        [
+          "Potato",
+          2
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Cumin_Seeds",
+          1.5
+        ],
+        [
+          "Coriander_Seeds",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Lemon",
+          1
+        ],
+        [
+          "Green_Chilli",
+          2
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R014",
+      "name": "Gobi Masala (Dhaba Style)",
+      "url": "https://foodfusion.com/recipe/dhaba-style-mix-vegetable/",
+      "serves": 4,
+      "time": "35 min",
+      "notes": "Dhaba-style gobi with aloo & carrot; don't overcook the florets.",
+      "ings": [
+        [
+          "Cauliflower_Gobi",
+          1
+        ],
+        [
+          "Potato",
+          2
+        ],
+        [
+          "Carrot",
+          1
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1.5
+        ],
+        [
+          "Cumin_Seeds",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Coriander_Powder",
+          1.5
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Green_Chilli",
+          3
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R015",
+      "name": "Karela (Qeema Karelay)",
+      "url": "https://www.foodfusion.com/recipe/qeema-karaley/",
+      "serves": 4,
+      "time": "1 hr (+1-2 hr salting)",
+      "notes": "Salt & rest karela 1-2 hrs, then wash well to tame bitterness.",
+      "ings": [
+        [
+          "Bitter_Gourd_Karela",
+          500
+        ],
+        [
+          "Beef_Mince",
+          0.5
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1.5
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Garam_Masala_Powder",
+          1
+        ],
+        [
+          "Cooking_Oil",
+          0.75
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Green_Chilli",
+          3
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R016",
+      "name": "Aalu (Masala Aloo)",
+      "url": "https://www.foodfusion.com/recipe/masala-aloo-recipe/",
+      "serves": 4,
+      "time": "25 min",
+      "notes": "Quick potato bhujia; lovely with puri, daal-chawal or paratha.",
+      "ings": [
+        [
+          "Potato",
+          5
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Tomato",
+          2
+        ],
+        [
+          "Cumin_Seeds",
+          1.5
+        ],
+        [
+          "Curry_Leaves",
+          2
+        ],
+        [
+          "Red_Chilli_Powder",
+          1.5
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Green_Chilli",
+          3
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R017",
+      "name": "Qeema (Dhaba Style Aloo Qeema)",
+      "url": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/",
+      "serves": 5,
+      "time": "1 hr",
+      "notes": "Dhaba-style; methi (fenugreek) finish is the secret.",
+      "ings": [
+        [
+          "Beef_Mince",
+          0.75
+        ],
+        [
+          "Potato",
+          3
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Tomato",
+          3
+        ],
+        [
+          "Yogurt",
+          0.5
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Whole_Spices_Mix",
+          1
+        ],
+        [
+          "Red_Chilli_Powder",
+          2
+        ],
+        [
+          "Kashmiri_Red_Chilli_Powder",
+          1
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Coriander_Powder",
+          2
+        ],
+        [
+          "Dried_Fenugreek_Leaves",
+          1
+        ],
+        [
+          "Chicken_Stock_Cube",
+          1
+        ],
+        [
+          "Cooking_Oil",
+          0.75
+        ],
+        [
+          "Salt",
+          1.5
+        ]
+      ]
+    },
+    {
+      "id": "R018",
+      "name": "Beef Nihari",
+      "url": "https://www.foodfusion.com/recipe/perfect-beef-nihari-recipe/",
+      "serves": 6,
+      "time": "3 hr 30 min",
+      "notes": "Slow-cooked shank; serve with ginger julienne, green chilli, lemon & naan.",
+      "ings": [
+        [
+          "Beef_Shank_with_Bones",
+          1.5
+        ],
+        [
+          "Onion",
+          2
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          2
+        ],
+        [
+          "Nihari_Masala",
+          4
+        ],
+        [
+          "Wheat_Flour_Atta",
+          6
+        ],
+        [
+          "Gram_Flour_Besan",
+          2
+        ],
+        [
+          "Ghee",
+          8
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Ginger",
+          3
+        ],
+        [
+          "Green_Chilli",
+          4
+        ],
+        [
+          "Lemon",
+          2
+        ],
+        [
+          "Fresh_Coriander",
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "R019",
+      "name": "Khichri (Spicy Fried Khichdi)",
+      "url": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Comfort in a bowl; serve with raita and achar.",
+      "ings": [
+        [
+          "Basmati_Rice",
+          0.5
+        ],
+        [
+          "Moong_Daal",
+          250
+        ],
+        [
+          "Onion",
+          1
+        ],
+        [
+          "Whole_Spices_Mix",
+          1
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ],
+        [
+          "Turmeric_Powder",
+          0.75
+        ],
+        [
+          "Red_Chilli_Powder",
+          1
+        ],
+        [
+          "Cumin_Seeds",
+          1.5
+        ],
+        [
+          "Spring_Onion",
+          2
+        ],
+        [
+          "Cooking_Oil",
+          0.5
+        ],
+        [
+          "Salt",
+          1.5
+        ],
+        [
+          "Green_Chilli",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R020",
+      "name": "Saag (Sarson Ka Saag)",
+      "url": "https://www.foodfusion.com/recipe/sarson-ka-saag-recipe/",
+      "serves": 5,
+      "time": "3 hr slow cook",
+      "notes": "Slow-cook 2-3 hrs; serve with makai ki roti & white butter.",
+      "ings": [
+        [
+          "Mustard_Greens_Saag",
+          3
+        ],
+        [
+          "Spinach",
+          2
+        ],
+        [
+          "Green_Chilli",
+          4
+        ],
+        [
+          "Maize_Flour_Makai",
+          4
+        ],
+        [
+          "Butter",
+          4
+        ],
+        [
+          "Ginger",
+          2
+        ],
+        [
+          "Cooking_Oil",
+          0.25
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Red_Chilli_Powder",
+          1
+        ],
+        [
+          "Ginger_Garlic_Paste",
+          1
+        ]
+      ]
+    }
+  ],
+  "VIDEO": {
+    "R001": "https://www.youtube.com/watch?v=40VJanswaAQ",
+    "R002": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
+    "R003": "https://www.youtube.com/watch?v=mFfYhYCzyVg",
+    "R004": "https://www.youtube.com/watch?v=T3pQmbC1GW4",
+    "R005": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
+    "R006a": "https://www.youtube.com/watch?v=72Sy9j7DLVk",
+    "R006b": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
+    "R006c": "https://www.youtube.com/watch?v=s1rA4kd1Wfg",
+    "R007": "https://www.youtube.com/watch?v=cbzmggwKZbw",
+    "R008": "https://www.youtube.com/watch?v=vhXMVKd1OGI",
+    "R009": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
+    "R010": "https://www.youtube.com/watch?v=P2tIt4bZNmI",
+    "R011": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
+    "R012": "https://www.youtube.com/watch?v=1epkIJdJCds",
+    "R013": "https://www.youtube.com/watch?v=NZwQExS8u9k",
+    "R014": "https://www.youtube.com/watch?v=L7LXJ7FiRPA",
+    "R015": "https://www.youtube.com/watch?v=C2p7idVXhE8",
+    "R016": "https://www.youtube.com/watch?v=cwps_0u-vPQ",
+    "R017": "https://www.youtube.com/shorts/qVQCbXiU7_A",
+    "R018": "https://www.youtube.com/watch?v=mZOXDAvMCM4",
+    "R019": "https://www.youtube.com/watch?v=H71MWbyhO0E",
+    "R020": "https://www.youtube.com/watch?v=XH2_pWrguvI"
+  }
+}
