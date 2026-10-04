@@ -161,7 +161,15 @@ export function App() {
       />
     );
   } else if (view.tab === 'pantry') {
-    screen = <PantryScreen ingredients={ingredients} stock={stock} format={formatAmount} />;
+    // F56 pantry actions: append the event and offer Undo (reuses the toast pattern).
+    screen = (
+      <PantryScreen
+        ingredients={ingredients}
+        stock={stock}
+        format={formatAmount}
+        onAction={(event, text) => { setEvents(prev => [...prev, event]); setToast({ text, undoId: event.id }); }}
+      />
+    );
   } else {
     screen = <div className="placeholder">This part of the app is being built next.</div>;
   }
