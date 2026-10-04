@@ -1,0 +1,3327 @@
+{
+  "schemaVersion": 1,
+  "ingredients": [
+    {
+      "id": "Onion",
+      "name": "Onion",
+      "aliases": [
+        "pyaz"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Tomato",
+      "name": "Tomato",
+      "aliases": [
+        "tamatar"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 3,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Potato",
+      "name": "Potato",
+      "aliases": [
+        "aloo",
+        "aalu"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 3,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Green_Chilli",
+      "name": "Green Chilli",
+      "aliases": [
+        "hari mirch",
+        "green chili"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 5,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Fresh_Coriander",
+      "name": "Fresh Coriander",
+      "aliases": [
+        "dhania",
+        "hara dhania",
+        "cilantro"
+      ],
+      "dimension": "count",
+      "displayUnit": "bunch",
+      "aisle": "Produce",
+      "minStock": 1,
+      "conversions": {
+        "bunch": 1
+      }
+    },
+    {
+      "id": "Mint",
+      "name": "Mint",
+      "aliases": [
+        "pudina"
+      ],
+      "dimension": "count",
+      "displayUnit": "bunch",
+      "aisle": "Produce",
+      "minStock": 1,
+      "conversions": {
+        "bunch": 1
+      }
+    },
+    {
+      "id": "Ginger",
+      "name": "Ginger",
+      "aliases": [
+        "adrak"
+      ],
+      "dimension": "count",
+      "displayUnit": "inch",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "inch": 1
+      }
+    },
+    {
+      "id": "Lemon",
+      "name": "Lemon",
+      "aliases": [
+        "nimbu"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Okra_Bhindi",
+      "name": "Okra Bhindi",
+      "aliases": [
+        "okra",
+        "bhindi"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Produce",
+      "minStock": 250
+    },
+    {
+      "id": "Cauliflower_Gobi",
+      "name": "Cauliflower Gobi",
+      "aliases": [
+        "cauliflower",
+        "gobi",
+        "phool gobi"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 1,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Bitter_Gourd_Karela",
+      "name": "Bitter Gourd Karela",
+      "aliases": [
+        "bitter gourd",
+        "karela",
+        "karelay"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Produce",
+      "minStock": 250
+    },
+    {
+      "id": "Mustard_Greens_Saag",
+      "name": "Mustard Greens Saag",
+      "aliases": [
+        "mustard greens",
+        "saag",
+        "sarson"
+      ],
+      "dimension": "count",
+      "displayUnit": "bunch",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "bunch": 1
+      }
+    },
+    {
+      "id": "Spinach",
+      "name": "Spinach",
+      "aliases": [
+        "palak"
+      ],
+      "dimension": "count",
+      "displayUnit": "bunch",
+      "aisle": "Produce",
+      "minStock": 1,
+      "conversions": {
+        "bunch": 1
+      }
+    },
+    {
+      "id": "Cabbage",
+      "name": "Cabbage",
+      "aliases": [
+        "band gobi"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Produce",
+      "minStock": 100
+    },
+    {
+      "id": "Carrot",
+      "name": "Carrot",
+      "aliases": [
+        "gajar"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Capsicum",
+      "name": "Capsicum",
+      "aliases": [
+        "shimla mirch",
+        "bell pepper"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 1,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Spring_Onion",
+      "name": "Spring Onion",
+      "aliases": [
+        "hara pyaz",
+        "green onion"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Curry_Leaves",
+      "name": "Curry Leaves",
+      "aliases": [
+        "kari patta"
+      ],
+      "dimension": "count",
+      "displayUnit": "sprig",
+      "aisle": "Produce",
+      "minStock": 2,
+      "conversions": {
+        "sprig": 1
+      }
+    },
+    {
+      "id": "Chicken",
+      "name": "Chicken",
+      "aliases": [
+        "murghi"
+      ],
+      "dimension": "mass",
+      "displayUnit": "kg",
+      "aisle": "Meat",
+      "minStock": 1000
+    },
+    {
+      "id": "Beef_Boneless",
+      "name": "Beef Boneless",
+      "aliases": [],
+      "dimension": "mass",
+      "displayUnit": "kg",
+      "aisle": "Meat",
+      "minStock": 500
+    },
+    {
+      "id": "Beef_Mince",
+      "name": "Beef Mince",
+      "aliases": [
+        "qeema",
+        "keema"
+      ],
+      "dimension": "mass",
+      "displayUnit": "kg",
+      "aisle": "Meat",
+      "minStock": 500
+    },
+    {
+      "id": "Beef_Shank_with_Bones",
+      "name": "Beef Shank with Bones",
+      "aliases": [],
+      "dimension": "mass",
+      "displayUnit": "kg",
+      "aisle": "Meat",
+      "minStock": 1000
+    },
+    {
+      "id": "Yogurt",
+      "name": "Yogurt",
+      "aliases": [
+        "yoghurt",
+        "dahi"
+      ],
+      "dimension": "count",
+      "displayUnit": "cup",
+      "aisle": "Dairy",
+      "minStock": 1,
+      "conversions": {
+        "cup": 1
+      }
+    },
+    {
+      "id": "Butter",
+      "name": "Butter",
+      "aliases": [
+        "makhan"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Dairy",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Eggs",
+      "name": "Eggs",
+      "aliases": [
+        "egg",
+        "anda"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Dairy",
+      "minStock": 4,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Salt",
+      "name": "Salt",
+      "aliases": [
+        "namak"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 10,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Red_Chilli_Powder",
+      "name": "Red Chilli Powder",
+      "aliases": [
+        "lal mirch"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 6,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Turmeric_Powder",
+      "name": "Turmeric Powder",
+      "aliases": [
+        "haldi"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 4,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Coriander_Powder",
+      "name": "Coriander Powder",
+      "aliases": [
+        "dhania powder"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 4,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Cumin_Seeds",
+      "name": "Cumin Seeds",
+      "aliases": [
+        "zeera",
+        "jeera"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 3,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Coriander_Seeds",
+      "name": "Coriander Seeds",
+      "aliases": [
+        "sabut dhania"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Fennel_Seeds",
+      "name": "Fennel Seeds",
+      "aliases": [
+        "saunf"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Garam_Masala_Powder",
+      "name": "Garam Masala Powder",
+      "aliases": [
+        "garam masala"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 3,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Kashmiri_Red_Chilli_Powder",
+      "name": "Kashmiri Red Chilli Powder",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Black_Pepper_Powder",
+      "name": "Black Pepper Powder",
+      "aliases": [
+        "kali mirch"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Whole_Spices_Mix",
+      "name": "Whole Spices Mix",
+      "aliases": [
+        "sabut garam masala"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Dried_Fenugreek_Leaves",
+      "name": "Dried Fenugreek Leaves",
+      "aliases": [
+        "kasuri methi"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Spices/Masala",
+      "minStock": 1,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Nihari_Masala",
+      "name": "Nihari Masala",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Biryani_Masala",
+      "name": "Biryani Masala",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Spices/Masala",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Basmati_Rice",
+      "name": "Basmati Rice",
+      "aliases": [
+        "chawal"
+      ],
+      "dimension": "mass",
+      "displayUnit": "kg",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 1000
+    },
+    {
+      "id": "Cooking_Oil",
+      "name": "Cooking Oil",
+      "aliases": [
+        "oil"
+      ],
+      "dimension": "count",
+      "displayUnit": "cup",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 2,
+      "conversions": {
+        "cup": 1
+      }
+    },
+    {
+      "id": "Ghee",
+      "name": "Ghee",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 4,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Ginger_Garlic_Paste",
+      "name": "Ginger Garlic Paste",
+      "aliases": [
+        "adrak lehsan paste"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Fried_Onion",
+      "name": "Fried Onion",
+      "aliases": [
+        "birista"
+      ],
+      "dimension": "count",
+      "displayUnit": "cup",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 1,
+      "conversions": {
+        "cup": 1
+      }
+    },
+    {
+      "id": "Wheat_Flour_Atta",
+      "name": "Wheat Flour Atta",
+      "aliases": [
+        "atta",
+        "wheat flour"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 4,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Gram_Flour_Besan",
+      "name": "Gram Flour Besan",
+      "aliases": [
+        "besan",
+        "gram flour"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 3,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Cornflour",
+      "name": "Cornflour",
+      "aliases": [
+        "cornstarch"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 2,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Soy_Sauce",
+      "name": "Soy Sauce",
+      "aliases": [
+        "soya sauce"
+      ],
+      "dimension": "volume",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 45,
+      "conversions": {
+        "tbsp": 15,
+        "tsp": 5
+      }
+    },
+    {
+      "id": "Vinegar",
+      "name": "Vinegar",
+      "aliases": [
+        "sirka"
+      ],
+      "dimension": "volume",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 30,
+      "conversions": {
+        "tbsp": 15,
+        "tsp": 5
+      }
+    },
+    {
+      "id": "Chilli_Garlic_Sauce",
+      "name": "Chilli Garlic Sauce",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 3,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Ketchup",
+      "name": "Ketchup",
+      "aliases": [],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 3,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Pasta",
+      "name": "Pasta",
+      "aliases": [],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 250
+    },
+    {
+      "id": "Macaroni",
+      "name": "Macaroni",
+      "aliases": [],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 250
+    },
+    {
+      "id": "Kewra_Water",
+      "name": "Kewra Water",
+      "aliases": [
+        "kewra"
+      ],
+      "dimension": "volume",
+      "displayUnit": "tsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 5,
+      "conversions": {
+        "tbsp": 15,
+        "tsp": 5
+      }
+    },
+    {
+      "id": "Maize_Flour_Makai",
+      "name": "Maize Flour Makai",
+      "aliases": [
+        "makai ka atta",
+        "maize flour"
+      ],
+      "dimension": "count",
+      "displayUnit": "tbsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 3,
+      "conversions": {
+        "tbsp": 1
+      }
+    },
+    {
+      "id": "Sugar",
+      "name": "Sugar",
+      "aliases": [
+        "cheeni"
+      ],
+      "dimension": "count",
+      "displayUnit": "tsp",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 4,
+      "conversions": {
+        "tsp": 1
+      }
+    },
+    {
+      "id": "Chicken_Stock_Cube",
+      "name": "Chicken Stock Cube",
+      "aliases": [
+        "stock cube"
+      ],
+      "dimension": "count",
+      "displayUnit": "unit",
+      "aisle": "Pantry/Dry Goods",
+      "minStock": 1,
+      "conversions": {
+        "unit": 1
+      }
+    },
+    {
+      "id": "Chana_Daal",
+      "name": "Chana Daal",
+      "aliases": [
+        "chana dal"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Canned/Legumes",
+      "minStock": 250
+    },
+    {
+      "id": "Mash_Daal",
+      "name": "Mash Daal",
+      "aliases": [
+        "maash daal",
+        "urad dal"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Canned/Legumes",
+      "minStock": 250
+    },
+    {
+      "id": "Masoor_Daal",
+      "name": "Masoor Daal",
+      "aliases": [
+        "masoor dal"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Canned/Legumes",
+      "minStock": 250
+    },
+    {
+      "id": "Moong_Daal",
+      "name": "Moong Daal",
+      "aliases": [
+        "moong dal"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Canned/Legumes",
+      "minStock": 250
+    },
+    {
+      "id": "Red_Kidney_Beans",
+      "name": "Red Kidney Beans",
+      "aliases": [
+        "lal lobia",
+        "rajma"
+      ],
+      "dimension": "mass",
+      "displayUnit": "g",
+      "aisle": "Canned/Legumes",
+      "minStock": 250
+    }
+  ],
+  "recipes": [
+    {
+      "id": "R001",
+      "name": "Chicken Biryani (Extreme)",
+      "serves": 6,
+      "time": "1 hr 15 min",
+      "notes": "Medium-hot, layered dum biryani. Use aged basmati; kewra at the end.",
+      "category": "Rice",
+      "writtenUrl": "https://foodfusion.com/recipe/extreme-chicken-biryani/",
+      "videoUrl": "https://www.youtube.com/watch?v=40VJanswaAQ",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-biryani/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=uFa6urPkK4c",
+      "ingredients": [
+        {
+          "ingredientId": "Chicken",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Basmati_Rice",
+          "amount": 0.75,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Biryani_Masala",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Mint",
+          "amount": 1,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 1,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 6,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Lemon",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fried_Onion",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Kewra_Water",
+          "amount": 1,
+          "unit": "tsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R002",
+      "name": "Chicken Yakhni Pulao",
+      "serves": 5,
+      "time": "1 hr",
+      "notes": "Mild, whole-spice yakhni. Strain stock well for clear grains.",
+      "category": "Rice",
+      "writtenUrl": "https://foodfusion.com/recipe/chicken-yakhni-pulao/",
+      "videoUrl": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-pulao-yakhni-pulao/",
+      "ingredients": [
+        {
+          "ingredientId": "Chicken",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Basmati_Rice",
+          "amount": 0.75,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fennel_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.75,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 4,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R003",
+      "name": "Red Beans (Lal Lobia Masala)",
+      "serves": 4,
+      "time": "1 hr 10 min",
+      "notes": "Soak beans overnight; boil 45-50 min until tender. Protein-packed.",
+      "category": "Daal & Beans",
+      "writtenUrl": "https://foodfusion.com/recipe/lal-lobia-masala/",
+      "videoUrl": "https://www.youtube.com/watch?v=mFfYhYCzyVg",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/rajma-recipe/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=K0IQN6ySpT0",
+      "ingredients": [
+        {
+          "ingredientId": "Red_Kidney_Beans",
+          "amount": 375,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Garam_Masala_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R004",
+      "name": "Chicken Karahi (Fire)",
+      "serves": 5,
+      "time": "45 min",
+      "notes": "Hot & spicy. Authentic karahi = tomatoes and ginger, no onion.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://foodfusion.com/recipe/fire-chicken-karahi/",
+      "videoUrl": "https://www.youtube.com/watch?v=T3pQmbC1GW4",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-karahi/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=SZ_mfgZC75E",
+      "ingredients": [
+        {
+          "ingredientId": "Chicken",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 6,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 8,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger",
+          "amount": 2,
+          "unit": "inch"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Black_Pepper_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.75,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Butter",
+          "amount": 2,
+          "unit": "tbsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R005",
+      "name": "Chicken Qorma",
+      "serves": 6,
+      "time": "1 hr",
+      "notes": "Shadi-style qorma; fried onion + kewra finish. Ghee makes it.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://www.foodfusion.com/recipe/chicken-korma/",
+      "videoUrl": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/authentic-chicken-korma/",
+      "ingredients": [
+        {
+          "ingredientId": "Chicken",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Ghee",
+          "amount": 6,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Garam_Masala_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fried_Onion",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Kewra_Water",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R006a",
+      "name": "Daal Chana (Masala)",
+      "serves": 4,
+      "time": "50 min",
+      "notes": "Soak 30 min. Finish with cumin + curry leaf tarka.",
+      "category": "Daal & Beans",
+      "writtenUrl": "https://www.foodfusion.com/recipe/masala-chana-daal/",
+      "videoUrl": "https://www.youtube.com/watch?v=72Sy9j7DLVk",
+      "recommendedWrittenUrl": "https://foodfusion.com/recipe/chana-daal-dhaba-style/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=nt1f0IegTWQ",
+      "ingredients": [
+        {
+          "ingredientId": "Chana_Daal",
+          "amount": 375,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Curry_Leaves",
+          "amount": 2,
+          "unit": "sprig"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R006b",
+      "name": "Daal Mash with Tadka",
+      "serves": 4,
+      "time": "45 min",
+      "notes": "Dry-style mash daal; ginger julienne + butter tadka on top.",
+      "category": "Daal & Beans",
+      "writtenUrl": "https://www.foodfusion.com/recipe/mash-daal-with-tadka/",
+      "videoUrl": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/maash-ki-daal-urad-dal/",
+      "ingredients": [
+        {
+          "ingredientId": "Mash_Daal",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger",
+          "amount": 2,
+          "unit": "inch"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Butter",
+          "amount": 2,
+          "unit": "tbsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R006c",
+      "name": "Daal Masoor (Malka)",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Everyday comfort daal; squeeze of lemon lifts it.",
+      "category": "Daal & Beans",
+      "writtenUrl": "https://www.foodfusion.com/recipe/malka-masoor-daal-with-quick-achaar/",
+      "videoUrl": "https://www.youtube.com/watch?v=s1rA4kd1Wfg",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/masoor-dal/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=wlCtxhkdqbI",
+      "ingredients": [
+        {
+          "ingredientId": "Masoor_Daal",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Curry_Leaves",
+          "amount": 2,
+          "unit": "sprig"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Lemon",
+          "amount": 1,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R007",
+      "name": "Beef Salan (Aloo Gosht, Delhi)",
+      "serves": 5,
+      "time": "1 hr 30 min",
+      "notes": "Classic shorba-wala salan; slow-cook beef till tender.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=cbzmggwKZbw",
+      "recommendedWrittenUrl": "https://www.flourandspiceblog.com/aalu-gosht/",
+      "ingredients": [
+        {
+          "ingredientId": "Beef_Boneless",
+          "amount": 0.75,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Potato",
+          "amount": 4,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Kashmiri_Red_Chilli_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.75,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R008",
+      "name": "Shami Kabab",
+      "serves": 6,
+      "time": "1 hr",
+      "notes": "Makes 12-14; freeze extras. Wash daal, don't soak it.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://www.foodfusion.com/recipe/shami-kabab-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=vhXMVKd1OGI",
+      "recommendedWrittenUrl": "https://www.flourandspiceblog.com/shami-kabab/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=z0kJfblzQ9c",
+      "ingredients": [
+        {
+          "ingredientId": "Beef_Mince",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Chana_Daal",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Eggs",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 4,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Mint",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R009",
+      "name": "Chicken Manchurian",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Desi-Chinese; sweet, hot & sour. Pair with fried rice (R010).",
+      "category": "Desi-Chinese & Pasta",
+      "writtenUrl": "https://www.foodfusion.com/recipe/chicken-manchurian/",
+      "videoUrl": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-manchurian/",
+      "ingredients": [
+        {
+          "ingredientId": "Chicken",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Eggs",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cornflour",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ketchup",
+          "amount": 6,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Chilli_Garlic_Sauce",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Soy_Sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Vinegar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Sugar",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Black_Pepper_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Capsicum",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Spring_Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R010",
+      "name": "Chinese Fried Rice",
+      "serves": 4,
+      "time": "30 min",
+      "notes": "Day-old boiled rice gives the best texture.",
+      "category": "Rice",
+      "writtenUrl": "https://www.foodfusion.com/recipe/chinese-fried-rice/",
+      "videoUrl": "https://www.youtube.com/watch?v=P2tIt4bZNmI",
+      "recommendedWrittenUrl": "https://www.foodfusion.com/recipe/restaurant-style-chicken-fried-rice/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=WTUz9fOVpiI",
+      "ingredients": [
+        {
+          "ingredientId": "Basmati_Rice",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Eggs",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Carrot",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cabbage",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Spring_Onion",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Soy_Sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Vinegar",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Black_Pepper_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Capsicum",
+          "amount": 1,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R011",
+      "name": "One Pot Spicy Pasta",
+      "serves": 4,
+      "time": "35 min",
+      "notes": "Weeknight one-pot; dial chilli up or down.",
+      "category": "Desi-Chinese & Pasta",
+      "writtenUrl": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
+      "videoUrl": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
+      "ingredients": [
+        {
+          "ingredientId": "Pasta",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Chicken",
+          "amount": 0.25,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Black_Pepper_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Ketchup",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Chilli_Garlic_Sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.25,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Capsicum",
+          "amount": 1,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R012",
+      "name": "Chicken Macaroni (Korma-style)",
+      "serves": 4,
+      "time": "45 min",
+      "notes": "Food Fusion's korma masala served over boiled macaroni - desi twist.",
+      "category": "Desi-Chinese & Pasta",
+      "writtenUrl": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
+      "videoUrl": "https://www.youtube.com/watch?v=1epkIJdJCds",
+      "ingredients": [
+        {
+          "ingredientId": "Macaroni",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Chicken",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Fried_Onion",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R013",
+      "name": "Bhindi (Masala Aloo Bhindi)",
+      "serves": 4,
+      "time": "30 min",
+      "notes": "Dry bhindi; lemon at the end keeps it crisp, not slimy.",
+      "category": "Sabzi",
+      "writtenUrl": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
+      "videoUrl": "https://www.youtube.com/watch?v=NZwQExS8u9k",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=FpXwvBHKJHA",
+      "ingredients": [
+        {
+          "ingredientId": "Okra_Bhindi",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Potato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Lemon",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R014",
+      "name": "Gobi Masala (Dhaba Style)",
+      "serves": 4,
+      "time": "35 min",
+      "notes": "Dhaba-style gobi with aloo & carrot; don't overcook the florets.",
+      "category": "Sabzi",
+      "writtenUrl": "https://foodfusion.com/recipe/dhaba-style-mix-vegetable/",
+      "videoUrl": "https://www.youtube.com/watch?v=L7LXJ7FiRPA",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/aloo-gobi/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=cyFdxehMfGQ",
+      "ingredients": [
+        {
+          "ingredientId": "Cauliflower_Gobi",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Potato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Carrot",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R015",
+      "name": "Karela (Qeema Karelay)",
+      "serves": 4,
+      "time": "1 hr (+1-2 hr salting)",
+      "notes": "Salt & rest karela 1-2 hrs, then wash well to tame bitterness.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://www.foodfusion.com/recipe/qeema-karaley/",
+      "videoUrl": "https://www.youtube.com/watch?v=C2p7idVXhE8",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/pakistani-keema-kareley-ground-beef-and-bitter-melon/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=jpFelvaiveQ",
+      "ingredients": [
+        {
+          "ingredientId": "Bitter_Gourd_Karela",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Beef_Mince",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1.5,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Garam_Masala_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.75,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R016",
+      "name": "Aalu (Masala Aloo)",
+      "serves": 4,
+      "time": "25 min",
+      "notes": "Quick potato bhujia; lovely with puri, daal-chawal or paratha.",
+      "category": "Sabzi",
+      "writtenUrl": "https://www.foodfusion.com/recipe/masala-aloo-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=cwps_0u-vPQ",
+      "recommendedWrittenUrl": "https://www.bbc.co.uk/food/recipes/pakistani_spicy_potatoes_93471",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=EAaaAkaoFPk",
+      "ingredients": [
+        {
+          "ingredientId": "Potato",
+          "amount": 5,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Curry_Leaves",
+          "amount": 2,
+          "unit": "sprig"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R017",
+      "name": "Qeema (Dhaba Style Aloo Qeema)",
+      "serves": 5,
+      "time": "1 hr",
+      "notes": "Dhaba-style; methi (fenugreek) finish is the secret.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/",
+      "videoUrl": "https://www.youtube.com/shorts/qVQCbXiU7_A",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/aloo-keema/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=ewat8Dt52l8",
+      "ingredients": [
+        {
+          "ingredientId": "Beef_Mince",
+          "amount": 0.75,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Potato",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Tomato",
+          "amount": 3,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Yogurt",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Kashmiri_Red_Chilli_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Coriander_Powder",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Dried_Fenugreek_Leaves",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Chicken_Stock_Cube",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.75,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R018",
+      "name": "Beef Nihari",
+      "serves": 6,
+      "time": "3 hr 30 min",
+      "notes": "Slow-cooked shank; serve with ginger julienne, green chilli, lemon & naan.",
+      "category": "Salan & Meat",
+      "writtenUrl": "https://www.foodfusion.com/recipe/perfect-beef-nihari-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=mZOXDAvMCM4",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/easy-slow-cooker-nihari-beef-stew/",
+      "recommendedVideoUrl": "https://www.youtube.com/watch?v=KCcEKQt1-G0",
+      "ingredients": [
+        {
+          "ingredientId": "Beef_Shank_with_Bones",
+          "amount": 1.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Nihari_Masala",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Wheat_Flour_Atta",
+          "amount": 6,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Gram_Flour_Besan",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ghee",
+          "amount": 8,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Ginger",
+          "amount": 3,
+          "unit": "inch"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 4,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Lemon",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Fresh_Coriander",
+          "amount": 0.5,
+          "unit": "bunch"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R019",
+      "name": "Khichri (Spicy Fried Khichdi)",
+      "serves": 4,
+      "time": "40 min",
+      "notes": "Comfort in a bowl; serve with raita and achar.",
+      "category": "Rice",
+      "writtenUrl": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=H71MWbyhO0E",
+      "ingredients": [
+        {
+          "ingredientId": "Basmati_Rice",
+          "amount": 0.5,
+          "unit": "kg"
+        },
+        {
+          "ingredientId": "Moong_Daal",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredientId": "Onion",
+          "amount": 1,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Turmeric_Powder",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Cumin_Seeds",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Spring_Onion",
+          "amount": 2,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 1.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 2,
+          "unit": "unit"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "id": "R020",
+      "name": "Saag (Sarson Ka Saag)",
+      "serves": 5,
+      "time": "3 hr slow cook",
+      "notes": "Slow-cook 2-3 hrs; serve with makai ki roti & white butter.",
+      "category": "Sabzi",
+      "writtenUrl": "https://www.foodfusion.com/recipe/sarson-ka-saag-recipe/",
+      "videoUrl": "https://www.youtube.com/watch?v=XH2_pWrguvI",
+      "recommendedWrittenUrl": "https://www.teaforturmeric.com/easy-sarson-ka-saag/",
+      "ingredients": [
+        {
+          "ingredientId": "Mustard_Greens_Saag",
+          "amount": 3,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Spinach",
+          "amount": 2,
+          "unit": "bunch"
+        },
+        {
+          "ingredientId": "Green_Chilli",
+          "amount": 4,
+          "unit": "unit"
+        },
+        {
+          "ingredientId": "Maize_Flour_Makai",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Butter",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredientId": "Ginger",
+          "amount": 2,
+          "unit": "inch"
+        },
+        {
+          "ingredientId": "Cooking_Oil",
+          "amount": 0.25,
+          "unit": "cup"
+        },
+        {
+          "ingredientId": "Salt",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "version": 1
+    }
+  ],
+  "events": [
+    {
+      "id": "seed-Onion",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Onion",
+          "delta": 6,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Tomato",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Tomato",
+          "delta": 4,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Potato",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Potato",
+          "delta": 5,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Green_Chilli",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Green_Chilli",
+          "delta": 10,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Fresh_Coriander",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Fresh_Coriander",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Ginger",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Ginger",
+          "delta": 3,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Lemon",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Lemon",
+          "delta": 1,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Spinach",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Spinach",
+          "delta": 1,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Carrot",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Carrot",
+          "delta": 3,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Capsicum",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Capsicum",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Curry_Leaves",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Curry_Leaves",
+          "delta": 4,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Chicken",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Chicken",
+          "delta": 1000,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Beef_Mince",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Beef_Mince",
+          "delta": 1000,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Yogurt",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Yogurt",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Butter",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Butter",
+          "delta": 8,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Eggs",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Eggs",
+          "delta": 6,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Salt",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Salt",
+          "delta": 50,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Red_Chilli_Powder",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Red_Chilli_Powder",
+          "delta": 20,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Turmeric_Powder",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Turmeric_Powder",
+          "delta": 15,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Coriander_Powder",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Coriander_Powder",
+          "delta": 12,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Cumin_Seeds",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Cumin_Seeds",
+          "delta": 8,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Coriander_Seeds",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Coriander_Seeds",
+          "delta": 6,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Fennel_Seeds",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Fennel_Seeds",
+          "delta": 1,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Garam_Masala_Powder",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Garam_Masala_Powder",
+          "delta": 10,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Black_Pepper_Powder",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Black_Pepper_Powder",
+          "delta": 5,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Whole_Spices_Mix",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Whole_Spices_Mix",
+          "delta": 4,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Dried_Fenugreek_Leaves",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Dried_Fenugreek_Leaves",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Biryani_Masala",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Biryani_Masala",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Basmati_Rice",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Basmati_Rice",
+          "delta": 3000,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Cooking_Oil",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Cooking_Oil",
+          "delta": 5,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Ghee",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Ghee",
+          "delta": 10,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Ginger_Garlic_Paste",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Ginger_Garlic_Paste",
+          "delta": 1,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Wheat_Flour_Atta",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Wheat_Flour_Atta",
+          "delta": 20,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Gram_Flour_Besan",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Gram_Flour_Besan",
+          "delta": 6,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Cornflour",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Cornflour",
+          "delta": 4,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Soy_Sauce",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Soy_Sauce",
+          "delta": 90,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Vinegar",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Vinegar",
+          "delta": 75,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Chilli_Garlic_Sauce",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Chilli_Garlic_Sauce",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Ketchup",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Ketchup",
+          "delta": 8,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Macaroni",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Macaroni",
+          "delta": 500,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Kewra_Water",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Kewra_Water",
+          "delta": 10,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Sugar",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Sugar",
+          "delta": 30,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Chicken_Stock_Cube",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Chicken_Stock_Cube",
+          "delta": 2,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Chana_Daal",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Chana_Daal",
+          "delta": 500,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Mash_Daal",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Mash_Daal",
+          "delta": 250,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    },
+    {
+      "id": "seed-Moong_Daal",
+      "kind": "set-stock",
+      "at": "2026-10-04T00:00:00Z",
+      "localDate": "2026-10-04",
+      "localTime": "05:00",
+      "timeZone": "Asia/Karachi",
+      "movements": [
+        {
+          "ingredientId": "Moong_Daal",
+          "delta": 300,
+          "basis": "estimate"
+        }
+      ],
+      "source": "typed",
+      "note": "Starting stock from the v3 app; never confirmed."
+    }
+  ],
+  "settings": {
+    "householdName": "Noor's Kitchen",
+    "timeZone": "Asia/Karachi",
+    "defaultServings": 4,
+    "slotTimes": {
+      "breakfast": "08:00",
+      "lunch": "13:30",
+      "chai": "17:00",
+      "dinner": "20:30"
+    }
+  }
+}
