@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-04T18:22:25Z
+updated-at: 2026-10-04T18:31:59Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 claimed-by: X1CarbonPC-43200
@@ -29,7 +29,8 @@ claimed-at: 2026-10-04T18:22:25Z
 
 ## Definition of Done
 
-- [ ] Test commands added to AGENTS.md
+- [x] Test commands added to AGENTS.md
+  proof: AGENTS.md section Tests
 - [ ] One command runs unit tests and one runs browser tests, both documented in README.md
 - [ ] Browser tests use 390 x 844 and Asia/Karachi
 - [ ] App has a web manifest and service worker and passes an installability check in Chrome
