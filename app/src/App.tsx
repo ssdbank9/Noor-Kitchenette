@@ -11,14 +11,18 @@ import { buildUsage } from './domain/usage';
 import { CookedScreen, type CookedChoice } from './ui/CookedScreen';
 import { HistoryScreen } from './ui/HistoryScreen';
 import { PantryScreen } from './ui/PantryScreen';
+import { RecipesScreen } from './ui/RecipesScreen'; // F33
+import { ShopScreen } from './ui/ShopScreen'; // F33
+import { addDishShortfall, addLowStock, removeItem, type ShoppingItem, type ShoppingList } from './domain/shopping'; // F33
 import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 
 type View =
   | { name: 'tab'; tab: Tab }
-  | { name: 'recipe'; recipeId: string; back: Tab }
-  | { name: 'cooked'; recipeId: string; servings: number; back: Tab }
-  | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab }; // F61: Nahi path
+  | { name: 'recipe'; recipeId: string; back: Tab | 'recipes' }
+  | { name: 'recipes' } // F33
+  | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
+  | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
 const SLOT_LABEL: Record<MealSlot, string> = { breakfast: 'Breakfast', lunch: 'Lunch', chai: 'Chai', dinner: 'Dinner' };
 const YES = 'Jee';
@@ -62,6 +66,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [events, setEvents] = useState<KitchenEvent[]>(store.data.events);
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
+  const [shopList, setShopList] = useState<ShoppingList>([]); // F33
   const [toast, setToast] = useState<{ text: string; undoId?: string } | null>(null);
 
   const now = new Date();
@@ -88,8 +93,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
       missingNames: a.missing.map(m => byId.get(m.ingredientId)?.name.toLowerCase() ?? m.ingredientId),
     }));
 
-  const open = (recipeId: string, back: Tab) => setView({ name: 'recipe', recipeId, back });
-  const currentTab: Tab = view.name === 'tab' ? view.tab : view.back;
+  const open = (recipeId: string, back: Tab | 'recipes') => setView({ name: 'recipe', recipeId, back });
+  const currentTab: Tab = view.name === 'tab' ? view.tab : 'today';
 
   function saveCooked(recipeId: string, choice: CookedChoice, adjusted?: Movement[]) {
     const recipe = recipesById.get(recipeId)!;
@@ -123,8 +128,31 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }
   }
 
+  // F33: recipes and shopping list
+  function addToList(recipeId: string) {
+    const recipe = recipesById.get(recipeId)!;
+    setShopList(prev => addDishShortfall(prev, availability(recipe, servings, stock, byId, toBase)));
+    setToast({ text: 'Added to Shop' });
+  }
+  function boughtItem(item: ShoppingItem, amountBase: number) {
+    const event = makeEvent('purchase', [{ ingredientId: item.ingredientId, delta: amountBase, basis: 'measured' }], new Date(), { source: 'typed' }, tz);
+    setEvents(prev => [...prev, event]);
+    void store.queue.enqueue({ type: 'events', events: [event] });
+    setShopList(prev => removeItem(prev, item.ingredientId));
+    setToast({ text: `Bought ${byId.get(item.ingredientId)?.name ?? 'item'}. Pantry updated.` });
+  }
+
   let screen: React.ReactNode;
-  if (view.name === 'recipe') {
+  if (view.name === 'recipes') {
+    screen = (
+      <RecipesScreen
+        items={ranked.map(a => ({ recipe: recipesById.get(a.recipeId)!, availability: a }))}
+        servings={servings}
+        onOpen={id => open(id, 'recipes')}
+        onBack={() => setView({ name: 'tab', tab: 'today' })}
+      />
+    );
+  } else if (view.name === 'recipe') {
     const recipe = recipesById.get(view.recipeId)!;
     const month = today.slice(0, 7);
     const times = monthSummary(events, month).byRecipe.find(r => r.recipeId === recipe.id)?.count ?? 0;
@@ -137,7 +165,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         availabilityFor={n => availability(recipe, n, stock, byId, toBase)}
         format={formatAmount}
         timesThisMonth={times}
-        onBack={() => setView({ name: 'tab', tab: view.back })}
+        onBack={() => setView(view.back === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: view.back })}
         onCooked={n => setView({ name: 'cooked', recipeId: recipe.id, servings: n, back: view.back })}
       />
     );
@@ -183,7 +211,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onCook={id => open(id, 'today')}
         onAnother={() => setPick(i => i + 1)}
         onOpenRecipe={id => open(id, 'today')}
-        onAddToList={() => setToast({ text: 'Shopping list arrives in the next build.' })}
+        onAddToList={addToList}
+        onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
         onSnap={() => setToast({ text: 'Photo pantry arrives with Gemini (Phase 2).' })}
       />
@@ -207,6 +236,18 @@ function Kitchen({ store }: { store: KitchenStore }) {
         stock={stock}
         format={formatAmount}
         onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
+      />
+    );
+  } else if (view.tab === 'shop') {
+    screen = (
+      <ShopScreen
+        list={shopList}
+        ingredients={ingredients}
+        recipesById={recipesById}
+        format={formatAmount}
+        onAddLowStock={() => setShopList(prev => addLowStock(prev, ingredients, stock))}
+        onBought={boughtItem}
+        onToast={text => setToast({ text })}
       />
     );
   } else {
