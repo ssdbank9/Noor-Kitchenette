@@ -190,3 +190,61 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
 .save-banner button {
   min-height: 44px; padding: 0 14px; border-radius: 12px; border: 0; background: #fff; color: var(--rust-text); font-weight: 800;
 }
+
+/* ---------- Recipe ---------- */
+.recipe { padding-top: 0; gap: 0; }
+.recipe__art {
+  position: relative; height: 200px; background: var(--cyan); color: #cdeff3;
+  display: flex; align-items: center; justify-content: center;
+}
+.icon-button {
+  width: var(--tap); height: var(--tap); border-radius: 16px; border: 0; background: #fff; color: var(--ink);
+  font-size: 30px; line-height: 1; font-weight: 800;
+}
+.recipe__back { position: absolute; left: 16px; top: 16px; }
+.recipe__sheet {
+  margin-top: -24px; position: relative; background: var(--ground); border-radius: 24px 24px 0 0;
+  padding: 20px 20px 120px; display: flex; flex-direction: column; gap: 14px;
+}
+.stepper-row {
+  display: flex; align-items: center; justify-content: space-between; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 18px; padding: 6px 6px 6px 16px;
+}
+.stepper-row__label { font-weight: 800; font-size: 16px; }
+.stepper { display: flex; align-items: center; gap: 6px; }
+.stepper button {
+  width: var(--tap); height: var(--tap); border-radius: 14px; border: 0; background: var(--lilac-tint);
+  color: var(--lilac); font-size: 26px; font-weight: 800;
+}
+.stepper output { min-width: 40px; text-align: center; font-family: var(--font-display); font-size: 26px; font-weight: 800; }
+.status { border-radius: 16px; padding: 12px 16px; font-weight: 800; font-size: 15px; }
+.status--good { background: var(--cyan-tint); color: var(--cyan-text); }
+.status--maybe { background: var(--lilac-tint); color: var(--lilac); }
+.status--short { background: var(--rust-tint); color: var(--rust-text); }
+.ingredients {
+  list-style: none; margin: 0; padding: 4px 16px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px;
+}
+.ingredient {
+  min-height: 44px; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  border-bottom: 1px solid #f6e8e5; font-size: 15px;
+}
+.ingredient:last-child { border-bottom: 0; }
+.ingredient__name { font-weight: 700; }
+.ingredient__amounts { font-weight: 800; text-align: right; }
+.ingredient--enough .ingredient__have { color: var(--cyan); }
+.ingredient--short .ingredient__have { color: var(--rust-text); }
+.ingredient--maybe .ingredient__have, .ingredient--unconvertible .ingredient__have { color: var(--lilac); }
+.link-button { align-self: flex-start; min-height: 44px; border: 0; background: none; color: var(--cyan); font-weight: 800; font-size: 15px; padding: 0; }
+.sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.source {
+  min-height: 56px; border-radius: 18px; border: 1px solid var(--border); background: var(--surface);
+  color: var(--ink); text-decoration: none; font-weight: 800; display: flex; align-items: center; justify-content: center;
+}
+.source--video { background: var(--lilac); border-color: var(--lilac); color: #fff; }
+.recipe__notes { margin: 0; color: var(--muted); font-weight: 600; }
+.action-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 15; background: var(--ground);
+  border-top: 1px solid var(--border); padding: 12px 20px calc(16px + env(safe-area-inset-bottom));
+}
+.action-bar__main { width: 100%; max-width: 440px; display: block; margin: 0 auto; min-height: 58px; font-size: 22px; }
