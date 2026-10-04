@@ -18,9 +18,11 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-04T18:22:20Z
+updated-at: 2026-10-04T18:22:25Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
+claimed-by: X1CarbonPC-43200
+claimed-at: 2026-10-04T18:22:25Z
 ---
 
 # P0: app scaffold and test harness
