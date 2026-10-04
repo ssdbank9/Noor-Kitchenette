@@ -1,0 +1,5 @@
+* text=auto eol=lf
+sources/** -text
+audit/** -text
+*.xlsx binary
+*.png binary

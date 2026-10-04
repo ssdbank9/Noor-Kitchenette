@@ -1,0 +1,13 @@
+# jaira tag colours — one "name: <ansi256>" line per tag.
+# The number is an ANSI-256 colour, 0-255. Hand-edit it freely: jaira only ever
+# adds a line for a name it has not seen yet, rewrites the one line whose colour
+# you change, and never reorders or reformats the rest of this file.
+# A tag with no line here is real; it just renders without a colour.
+decision: 40
+p0: 135
+p1: 209
+p2: 208
+p3: 170
+p4: 111
+p5: 33
+pilot: 168

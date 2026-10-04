@@ -11,3 +11,6 @@ test-results/
 __pycache__/
 .DS_Store
 Thumbs.db
+
+# this project's lane files are this machine's, not the team's
+/.jaira/lanes/
