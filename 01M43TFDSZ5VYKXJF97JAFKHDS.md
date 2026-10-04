@@ -1,0 +1,40 @@
+---
+id: 01M43TFDSZ5VYKXJF97JAFKHDS
+title: "P2: photo pantry and receipts (Gemini)"
+status: backlog
+ready: false
+creator: Aly Jafferani
+goal: Photo of groceries or a receipt becomes an editable draft; Noor reviews and saves; one purchase never changes stock twice.
+context: "v3 has no recognition; the Excel used an external photo-to-Claude helper (F30). Needs D-03 (provider, key held in a server function, photo privacy). Rows: F28-F30, F52, F57, F73. Camera on a real phone is untested."
+definition-of-done: "Test: a receipt and a grocery photo of the same shop change stock once"
+tags:
+  - p3
+blocked-by:
+  - 01M43TEV902MGP88SF35823HWF
+  - 01M43TETSY6WV1M9SPVF54N99P
+  - 01M43TEV1ABBQ0T3RHJVE4434X
+  - 01M43TE2G1C88AC7MNEJYCTCKZ
+related: []
+commits: []
+created-at: 2026-10-04T16:03:14Z
+updated-at: 2026-10-04T17:19:05Z
+updated-by: Aly Jafferani
+---
+
+# P3: photo pantry and receipts
+
+## Definition of Done
+
+- [ ] Test: a receipt and a grocery photo of the same shop change stock once
+
+## Options
+
+- [ ] brainstorm
+- [ ] planning
+
+## Plan
+
+<Steps, in order — filled in by the pre-process step, or by you.>
+
+## Progress
+
