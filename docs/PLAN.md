@@ -13,12 +13,15 @@ refer to it and to the defect list in this file.
 
 A phone app for Noor's household kitchen that answers four questions:
 
-1. **What can I cook now?** Recipes ranked against what is actually in the pantry.
+1. **What can I cook now?** Recipes ranked against what is actually in the pantry. Every dish
+   opens a recipe: the saved one, or one found on the internet (F78).
 2. **What should we cook this week, and what do we need to buy?** A plan by date and
    meal slot, and one shopping basket for the plan.
 3. **What is in the kitchen?** Stock that stays correct after shopping, cooking,
-   everyday use, waste and corrections, entered by hand or from a photo.
-4. **What have we cooked and spent?** History and summaries that can be corrected.
+   everyday use, waste and corrections, entered by photo (Gemini) or by hand.
+4. **What have we cooked, how often, and what did we spend?** Every cooked meal goes into a
+   history that can be analysed: how often each dish is cooked, when it was last cooked, and
+   what has not been cooked for a while (F79).
 
 The tone stays personal (F50). The app is built for Noor first.
 
@@ -28,13 +31,13 @@ The tone stays personal (F50). The app is built for Noor first.
 |---|---|---|
 | 1 | Set up: people count, meal slot names, units, storage places | P0/P1 (locations P4) |
 | 2 | Bring in the 22 existing recipes; add and edit family recipes | P0 import, P1 editing |
-| 3 | Record pantry stock by hand; "not sure" is an allowed amount | P1 (photo P3, expiry P4) |
-| 4 | See what is ready now or nearly ready; plan meals by date and slot | P1 suggestions, P2 planner |
-| 5 | Build one basket for the plan plus staple top-ups, by aisle | P2 |
-| 6 | Record what was actually bought, with optional prices | P2 manual, P3 receipt photo |
+| 3 | Record pantry stock by photo or by hand; "not sure" is an allowed amount | P1 by hand, P2 photo, P4 expiry |
+| 4 | See what is ready now or nearly ready, each with its recipe; plan meals by date and slot | P1 suggestions and recipes, P3 planner |
+| 5 | Build one basket for the plan plus staple top-ups, by aisle | P3 |
+| 6 | Record what was actually bought, with optional prices | P2 receipt photo, P3 prices |
 | 7 | Cook: scaled recipe, date, slot, servings, confirm what was used | P1 |
 | 8 | Everyday use, finished items, then leftovers, freezer, waste | P1 basics, P4 the rest |
-| 9 | History, summaries, sharing, backup and restore | P1 basics, P2 sharing, P5 depth |
+| 9 | Cooking history and how often each dish is cooked, sharing, backup and restore | P1 history and frequency, P3 sharing, P5 depth |
 
 ## 3. Architecture (proposed, see D-01)
 
@@ -61,8 +64,10 @@ The tone stays personal (F50). The app is built for Noor first.
 - **Suggested stack:** TypeScript, Vite, a small UI layer, Vitest for logic,
   Playwright for phone-sized browser tests (390 x 844, Asia/Karachi), as Codex's
   browser checks already used.
-- **Photo recognition (P3)** needs a hosted vision model, so it needs a small server
-  function that holds the API key. The key never goes into the app (D-03).
+- **Photo recognition (P2) uses Google Gemini** (D-03, decided). Gemini needs an API key,
+  and a key inside a phone app can be copied by anyone, so a small server function holds it
+  and the app calls that function. The same function finds internet recipes for dishes that
+  have no saved link (F78). So the host must run small server functions (D-04, D-08).
 
 ## 4. Defects in v3 that the new design must not repeat
 
@@ -84,14 +89,16 @@ change later (the data model, units, dates, events) and keeps screens incrementa
 | Phase | Goal | Feature rows | Done when |
 |---|---|---|---|
 | **P0 Foundations** | Data model, units, local dates, saving, seed import from the workbooks, test harness | F9, F38, F44, F58, F59, F69, F74 | All 22 recipes, 62 ingredients and 276 recipe-ingredient rows import and reconcile with `audit/reconciliation.json`; unit and ledger tests pass; a failed save is visible |
-| **P1 Cook from what we have** | Everything v3 does, without D1 to D6: pantry, recipes, Today suggestions, cooking with confirmation and undo, low stock, monthly stats, backup | 45 rows, see FEATURES.md | Each of the six defects has a regression test that failed on v3 behaviour and passes now; app installs on Noor's phone |
-| **Pilot** | One week of real use by Noor | n/a | Noor's feedback recorded in DECISIONS.md before P2 starts |
-| **P2 Plan and shop** | Planner by date and slot, one basket for the plan, staples, aisles, actual purchases and prices, single-dish shopping, sharing a list | F33 to F37, F49, F54, F55, F60, F71, F72 | Basket for a 3-meal plan equals hand-calculated need minus stock, counted once |
-| **P3 Photo pantry** | Photo to an editable draft, review, then save; receipt photo; one purchase never applied twice | F28 to F30, F52, F57, F73 | Two photos of one purchase change stock once |
+| **P1 Cook from what we have** | Everything v3 does, without D1 to D6, plus a recipe for every dish and cooking-frequency analysis: pantry, recipes, Today suggestions, cooking with confirmation and undo, cooking history, low stock, backup | 47 rows, see FEATURES.md | Each of the six defects has a regression test that failed on v3 behaviour and passes now; every dish opens a recipe; the app installs on Noor's phone |
+| **P2 Photo pantry (Gemini)** | A photo of groceries, the fridge or a receipt becomes an editable list; Noor checks it and saves; one purchase never changes stock twice | F28 to F30, F52, F57, F73 | Two photos of one purchase change stock once; tested with Noor's phone camera |
+| **Pilot** | One week of real use by Noor, including photo entry | n/a | Noor's feedback recorded in DECISIONS.md before P3 starts |
+| **P3 Plan and shop** | Planner by date and slot, one basket for the plan, staples, aisles, actual purchases and prices, single-dish shopping, sharing a list | F33 to F37, F49, F54, F55, F60, F71, F72 | Basket for a 3-meal plan equals hand-calculated need minus stock, counted once |
 | **P4 Kitchen depth** | Fridge/freezer/shelf, batches, expiry and frozen-on dates, leftovers, waste | F65 to F68, F76 | Waste, use and correction are reported separately |
 | **P5 Household and insights** | Optional shared access for Noor and Aly, family recipe import from photos, offline sync status | F64, F70, F75 | Depends on D-02 |
 
-The one-week planner idea from the earlier workflow stays a **limited pilot** inside P2,
+P1 and P2 can be built side by side once P0 is done.
+
+The one-week planner idea from the earlier workflow stays a **limited pilot** inside P3,
 not the whole product.
 
 ## 6. How work is tracked
@@ -104,6 +111,6 @@ not the whole product.
 
 ## 7. Not verified yet (carried from Codex's review)
 
-Physical phone installation and camera, cloud photo recognition, shared sync, native
+Physical phone installation and camera, Gemini photo recognition accuracy, shared sync, native
 Excel recalculation, whether the recipe/video links and Islamabad store suggestions
 are still valid, and restore of a malformed backup.

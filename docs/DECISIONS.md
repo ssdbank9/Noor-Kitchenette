@@ -9,8 +9,8 @@ after Aly states it, with the date and Aly's words or a link to them.
 |---|---|---|---|
 | D-01 | What do we build on? | Installable PWA, local-first (IndexedDB), TypeScript + Vite, Vitest + Playwright | Every phase from P0 depends on it |
 | D-02 | Should Noor and Aly share one live household? | Not in P1 to P4. Design events so sync can be added in P5 | Shared sync needs accounts and a server |
-| D-03 | Photo recognition: which provider, who holds the key, where do photos go? | Claude vision through a small server function; photos not stored after review unless Noor keeps them | Cost, privacy, and the key must never be in the app |
-| D-04 | Where is the app hosted? | A free static HTTPS host (GitHub Pages, Netlify or Cloudflare Pages) | Phones install PWAs only from HTTPS |
+| D-08 | Where does the Gemini key live, and are photos kept after review? | Key held by a small server function on the host, never in the app or the repo; photos discarded after review unless Noor keeps them | The repo is public and the app runs on phones, so a key in either would be exposed |
+| D-04 | Where is the app hosted? | A free HTTPS host that also runs small server functions (Cloudflare Pages + Workers, Netlify or Vercel) | Phones install PWAs only from HTTPS; Gemini photo recognition and internet recipes need a server function (D-08) |
 | D-07 | What does the recipe "match %" mean? | Share of required amounts available, scaled to servings | Ranking must be explainable to Noor |
 
 ## Decided
@@ -19,3 +19,5 @@ after Aly states it, with the date and Aly's words or a link to them.
 |---|---|---|---|
 | D-06 | 2026-10-04 | Track work with Jaira (board in `.jaira/`) and keep the project in a local git repository that Codex and Claude both work from | Aly, Claude session 2026-10-04: "commit to git so both we can work with codex and claude interchangably", "jaira skill use. as well" |
 | D-05 | 2026-10-04 | GitHub remote is `ssdbank9/Noor-Kitchenette`, kept **public**. Household recipes, stock and audit evidence are published there knowingly | Aly, Claude session 2026-10-04: "Keep it public I am okay with it" |
+| D-03 | 2026-10-04 | Photo recognition is a must-have in the first release (moved to P2, before the pilot), and Google Gemini does it | Aly, Claude session 2026-10-04: "Photo recognition is must we can have gemini do it for us" |
+| D-09 | 2026-10-04 | The app shows recipes from current stock, tracks what is cooked and what can be cooked, keeps a database of cooked meals to analyse how often each dish is cooked (F79), and every dish shows a recipe from the internet (F78) | Aly, same session: "every dish should pop up a recipe from the internet" |

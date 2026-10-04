@@ -1,6 +1,6 @@
 ---
 id: 01M43TFDJFMJ0GATE2CTDJAZ09
-title: "P2: plan the week and one shopping basket"
+title: "P3: plan the week and one shopping basket"
 status: backlog
 ready: false
 creator: Aly Jafferani
@@ -14,7 +14,8 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T16:03:14Z
+updated-at: 2026-10-04T17:19:20Z
+updated-by: Aly Jafferani
 ---
 
 # P2: plan the week and one shopping basket

@@ -1,6 +1,6 @@
 ---
 id: 01M43TFDSZ5VYKXJF97JAFKHDS
-title: "P3: photo pantry and receipts"
+title: "P2: photo pantry and receipts (Gemini)"
 status: backlog
 ready: false
 creator: Aly Jafferani
@@ -10,11 +10,15 @@ definition-of-done: "Test: a receipt and a grocery photo of the same shop change
 tags:
   - p3
 blocked-by:
-  - 01M43TFDAQXR2EE2D5TTP2MYBJ
+  - 01M43TEV902MGP88SF35823HWF
+  - 01M43TETSY6WV1M9SPVF54N99P
+  - 01M43TEV1ABBQ0T3RHJVE4434X
+  - 01M43TE2G1C88AC7MNEJYCTCKZ
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T16:03:14Z
+updated-at: 2026-10-04T17:19:14Z
+updated-by: Aly Jafferani
 ---
 
 # P3: photo pantry and receipts
@@ -22,6 +26,7 @@ updated-at: 2026-10-04T16:03:14Z
 ## Definition of Done
 
 - [ ] Test: a receipt and a grocery photo of the same shop change stock once
+- [ ] Gemini key held only by the server function; not in the app or the repo (D-08)
 
 ## Options
 
@@ -33,4 +38,4 @@ updated-at: 2026-10-04T16:03:14Z
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-04 17:19 · Aly Jafferani** — 2026-10-04: Aly made photo recognition a must-have and chose Gemini (D-03). Moved from P3 to P2, before the pilot. Can be built alongside P1 once P0 is done; needs the hosting decision (YCTCKZ) because Gemini needs a server function.
