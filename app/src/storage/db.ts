@@ -9,14 +9,18 @@ import {
   SCHEMA_VERSION,
   type Ingredient,
   type KitchenData,
+  type Batch,
+  type Favourite,
   type KitchenEvent,
+  type Leftover,
+  type PlannedMeal,
   type Recipe,
 } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
 
 export const DB_NAME = 'noors-kitchen';
 /** Version of the IndexedDB layout (object stores). Not the same as the data SCHEMA_VERSION. */
-const DB_LAYOUT_VERSION = 2; // 2 adds the 'shopping' store (F36)
+const DB_LAYOUT_VERSION = 3; // 2 adds 'shopping' (F36); 3 adds plan, leftovers, batches, favourites
 /** The one record in the 'shopping' store. */
 const SHOPPING_KEY = 'list';
 
@@ -42,6 +46,10 @@ interface KitchenDbSchema extends DBSchema {
   events: { key: string; value: KitchenEvent };
   meta: { key: MetaKey; value: MetaValues[MetaKey] };
   shopping: { key: string; value: ShoppingList };
+  plan: { key: string; value: PlannedMeal };
+  leftovers: { key: string; value: Leftover };
+  batches: { key: string; value: Batch };
+  favourites: { key: string; value: Favourite };
 }
 
 type StoreName = StoreNames<KitchenDbSchema>;
@@ -49,7 +57,7 @@ export type KitchenDb = IDBPDatabase<KitchenDbSchema>;
 type KitchenTx<Mode extends IDBTransactionMode> = IDBPTransaction<KitchenDbSchema, StoreName[], Mode>;
 
 // The shopping list is not part of KitchenData (backups, restore), so replaceAll leaves it alone.
-const ALL_STORES: StoreName[] = ['ingredients', 'recipes', 'events', 'meta'];
+const ALL_STORES: StoreName[] = ['ingredients', 'recipes', 'events', 'meta', 'plan', 'leftovers', 'batches', 'favourites'];
 
 export function openKitchenDb(name: string = DB_NAME): Promise<KitchenDb> {
   return openDB<KitchenDbSchema>(name, DB_LAYOUT_VERSION, {
@@ -61,6 +69,10 @@ export function openKitchenDb(name: string = DB_NAME): Promise<KitchenDb> {
       // v1 -> v2: add the shopping list store. Every store is created only if missing, so
       // existing ingredients, recipes, events and settings are never touched.
       if (!db.objectStoreNames.contains('shopping')) db.createObjectStore('shopping');
+      // v2 -> v3: plan, leftovers, batches and favourites, again only if missing.
+      for (const store of ['plan', 'leftovers', 'batches', 'favourites'] as const) {
+        if (!db.objectStoreNames.contains(store)) db.createObjectStore(store, { keyPath: 'id' });
+      }
     },
   });
 }
@@ -133,6 +145,19 @@ export function saveIngredient(db: KitchenDb, ingredient: Ingredient): Promise<v
   });
 }
 
+type Collection = 'plan' | 'leftovers' | 'batches' | 'favourites';
+
+/** Saves one item of a collection; a retry with the same id replaces it, never duplicates it. */
+export function saveItem<S extends Collection>(db: KitchenDb, store: S, item: KitchenDbSchema[S]['value']): Promise<void> {
+  const tx = writeTransaction(db, [store]);
+  return commit(tx, queued => { queued.push(tx.objectStore(store).put(item as never)); });
+}
+
+export function deleteItem(db: KitchenDb, store: Collection, id: string): Promise<void> {
+  const tx = writeTransaction(db, [store]);
+  return commit(tx, queued => { queued.push(tx.objectStore(store).delete(id)); });
+}
+
 export function saveSettings(db: KitchenDb, settings: KitchenSettings): Promise<void> {
   return writeToSetUpKitchen(db, 'meta', (tx, queued) => {
     queued.push(tx.objectStore('meta').put(settings, 'settings'));
@@ -181,7 +206,15 @@ export type KitchenWrite =
   | { type: 'ingredient'; ingredient: Ingredient }
   | { type: 'settings'; settings: KitchenSettings }
   | { type: 'shopping'; list: ShoppingList }
-  | { type: 'purchase'; event: KitchenEvent; list: ShoppingList };
+  | { type: 'purchase'; event: KitchenEvent; list: ShoppingList }
+  | { type: 'plan'; meal: PlannedMeal }
+  | { type: 'deletePlan'; id: string }
+  | { type: 'leftover'; item: Leftover }
+  | { type: 'deleteLeftover'; id: string }
+  | { type: 'batch'; item: Batch }
+  | { type: 'deleteBatch'; id: string }
+  | { type: 'favourite'; item: Favourite }
+  | { type: 'deleteFavourite'; id: string };
 
 /** The writer to hand to createSaveQueue for this database. */
 export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<void> {
@@ -194,16 +227,28 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
       case 'settings': return saveSettings(db, write.settings);
       case 'shopping': return saveShopping(db, write.list);
       case 'purchase': return savePurchase(db, write.event, write.list);
+      case 'plan': return saveItem(db, 'plan', write.meal);
+      case 'deletePlan': return deleteItem(db, 'plan', write.id);
+      case 'leftover': return saveItem(db, 'leftovers', write.item);
+      case 'deleteLeftover': return deleteItem(db, 'leftovers', write.id);
+      case 'batch': return saveItem(db, 'batches', write.item);
+      case 'deleteBatch': return deleteItem(db, 'batches', write.id);
+      case 'favourite': return saveItem(db, 'favourites', write.item);
+      case 'deleteFavourite': return deleteItem(db, 'favourites', write.id);
     }
   };
 }
 
 async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>): Promise<KitchenData | null> {
   const meta = tx.objectStore('meta');
-  const [ingredients, recipes, events, schemaVersion, settings] = await Promise.all([
+  const [ingredients, recipes, events, plan, leftovers, batches, favourites, schemaVersion, settings] = await Promise.all([
     tx.objectStore('ingredients').getAll(),
     tx.objectStore('recipes').getAll(),
     tx.objectStore('events').getAll(),
+    tx.objectStore('plan').getAll(),
+    tx.objectStore('leftovers').getAll(),
+    tx.objectStore('batches').getAll(),
+    tx.objectStore('favourites').getAll(),
     meta.get('schemaVersion') as Promise<number | undefined>,
     meta.get('settings') as Promise<KitchenSettings | undefined>,
   ]);
@@ -218,7 +263,14 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
     throw new Error(`The saved kitchen uses schema version ${schemaVersion}; this app reads version ${SCHEMA_VERSION}.`);
   }
   events.sort(byTime);
-  return { schemaVersion, ingredients, recipes, events, settings };
+  plan.sort((a, b) => (a.localDate + a.slot < b.localDate + b.slot ? -1 : 1));
+  return {
+    schemaVersion, ingredients, recipes, events, settings,
+    ...(plan.length ? { plan } : {}),
+    ...(leftovers.length ? { leftovers } : {}),
+    ...(batches.length ? { batches } : {}),
+    ...(favourites.length ? { favourites } : {}),
+  };
 }
 
 function byTime(a: KitchenEvent, b: KitchenEvent): number {
@@ -309,6 +361,11 @@ function queueReplacement(tx: KitchenTx<'readwrite'>, data: KitchenData, queued:
   const events = tx.objectStore('events');
   const meta = tx.objectStore('meta');
   queued.push(ingredients.clear(), recipes.clear(), events.clear());
+  for (const store of ['plan', 'leftovers', 'batches', 'favourites'] as const) queued.push(tx.objectStore(store).clear());
+  for (const item of data.plan ?? []) queued.push(tx.objectStore('plan').put(item));
+  for (const item of data.leftovers ?? []) queued.push(tx.objectStore('leftovers').put(item));
+  for (const item of data.batches ?? []) queued.push(tx.objectStore('batches').put(item));
+  for (const item of data.favourites ?? []) queued.push(tx.objectStore('favourites').put(item));
   for (const ingredient of data.ingredients) queued.push(ingredients.put(ingredient));
   for (const recipe of data.recipes) queued.push(recipes.put(recipe));
   for (const event of data.events) queued.push(events.put(event));
