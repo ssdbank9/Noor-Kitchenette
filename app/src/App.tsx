@@ -30,6 +30,10 @@ import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
 import { appendEventOnce } from './domain/photoDraft'; // F52
 import { AddDishScreen } from './ui/AddDishScreen'; // F80
 import type { Availability } from './domain/suggest'; // F80
+import { batchesUseSoon, upsertById } from './domain/batches'; // F65
+import { leftoverFromCook, leftoversUseSoon } from './domain/leftoverUse'; // F65
+import type { Batch, Leftover } from './domain/types'; // F65
+import type { PantryView } from './ui/kitchenDepth'; // F65
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -86,7 +90,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
   const [dishDrafts, setDishDrafts] = useState<Recipe[]>([]); // F80: names of found dishes whose shopping lines are not saved as recipes yet
-  const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
+  const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[]; undo?: () => void } | null>(null); // settings: undoIds; F65: undo
   // Messages close themselves after 8 seconds; Undo stays available in History.
   useEffect(() => {
     if (!toast) return;
@@ -95,6 +99,9 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }, [toast]);
 
   const snapSaved = useRef(new Set<string>()); // F52
+  const [pantryView, setPantryView] = useState<PantryView>('items'); // F65
+  const leftovers = base.leftovers ?? []; // F65
+  const batches = base.batches ?? []; // F65
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -141,9 +148,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }, tz);
     setEvents(prev => [...prev, event]);
     void store.queue.enqueue({ type: 'events', events: [event] }); // KR4RJP
+    const made = choice.leftover ? leftoverFromCook(event, recipe, choice.leftover.portions, choice.leftover.location) : null; // F65: same render, id derived from the cook event
+    if (made) { setBase(b => ({ ...b, leftovers: upsertById(b.leftovers ?? [], made) })); void store.queue.enqueue({ type: 'leftover', item: made }); } // F65
     setView({ name: 'tab', tab: 'today' });
     setToast({
-      text: `Saved ${recipe.name}. Pantry updated.`,
+      text: `Saved ${recipe.name}. Pantry updated.${made ? ' Leftovers kept.' : ''}`,
       undoId: event.id,
     });
   }
@@ -155,11 +164,39 @@ function Kitchen({ store }: { store: KitchenStore }) {
       const r = reverse(target, events, new Date());
       setEvents(prev => [...prev, r]);
       void store.queue.enqueue({ type: 'events', events: [r] }); // KR4RJP
+      for (const l of leftovers.filter(x => x.fromEventId === eventId)) deleteLeftover(l.id); // F65: what this entry made goes with it
+      for (const b of batches.filter(x => x.fromEventId === eventId)) removeBatch(b.id); // F65
       setToast({ text: 'Undone. Stock and history are back as they were.' });
     } catch (e) {
       setToast({ text: (e as Error).message });
     }
   }
+
+  // F65 to F68: leftovers and batches. Each change is queued for the database AND applied to the screen's copy.
+  function putLeftover(item: Leftover) {
+    setBase(b => ({ ...b, leftovers: upsertById(b.leftovers ?? [], item) }));
+    void store.queue.enqueue({ type: 'leftover', item });
+  }
+  function deleteLeftover(id: string) {
+    setBase(b => ({ ...b, leftovers: (b.leftovers ?? []).filter(l => l.id !== id) }));
+    void store.queue.enqueue({ type: 'deleteLeftover', id });
+  }
+  function changeLeftover(next: Leftover, previous: Leftover | null, text: string) {
+    putLeftover(next);
+    setToast({ text, undo: () => { if (previous) putLeftover(previous); else deleteLeftover(next.id); setToast({ text: 'Undone.' }); } });
+  }
+  function putBatch(item: Batch) {
+    setBase(b => ({ ...b, batches: upsertById(b.batches ?? [], item) }));
+    void store.queue.enqueue({ type: 'batch', item });
+  }
+  function removeBatch(id: string) {
+    setBase(b => ({ ...b, batches: (b.batches ?? []).filter(x => x.id !== id) }));
+    void store.queue.enqueue({ type: 'deleteBatch', id });
+  }
+  const useSoonNames = useMemo(() => [
+    ...leftoversUseSoon(leftovers, today).map(x => x.leftover.name),
+    ...batchesUseSoon(batches, stock, today).filter(x => x.status.state !== 'may-be-used-up').map(x => byId.get(x.status.batch.ingredientId)?.name ?? ''),
+  ].filter(Boolean), [leftovers, batches, stock, today, byId]); // F67
 
   // F52: Snap pantry. One event per confirmed draft; the same event id is never saved twice.
   function saveSnap(r: SnapSaveResult) {
@@ -417,6 +454,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
         onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
+        useSoon={useSoonNames} // F67
+        onUseSoon={() => { setPantryView('soon'); setView({ name: 'tab', tab: 'pantry' }); }} // F67
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
@@ -442,7 +481,14 @@ function Kitchen({ store }: { store: KitchenStore }) {
         stock={stock}
         format={formatAmount}
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'pantry' }); }} // F52
-        onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
+        onAction={(event, text, batch) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); if (batch) putBatch(batch); /* F66 */ setToast({ text, undoId: event.id }); }}
+        depth={{ // F65 to F68
+          view: pantryView, onView: setPantryView, today, yesWord: YES, noWord: NO, leftovers, batches, events,
+          onChangeLeftover: changeLeftover,
+          onSaveBatch: (batch, text) => { putBatch(batch); setToast({ text }); },
+          onDeleteBatch: batch => { removeBatch(batch.id); setToast({ text: 'Batch deleted.', undo: () => { putBatch(batch); setToast({ text: 'Batch put back.' }); } }); },
+          onUndoEvent: undo,
+        }}
       />
     );
   } else if (view.tab === 'shop') {
@@ -475,7 +521,9 @@ function Kitchen({ store }: { store: KitchenStore }) {
       {toast && (
         <div className="toast" role="status">
           <span>{toast.text}</span>
-          {toast.undoIds ? ( // settings
+          {toast.undo ? ( // F65
+            <button type="button" onClick={() => { const f = toast.undo!; setToast(null); f(); }}>Undo</button>
+          ) : toast.undoIds ? ( // settings
             <button type="button" onClick={() => { const ids = new Set(toast.undoIds); removeSample(ids); }}>Undo</button>
           ) : toast.undoId ? (
             <button type="button" onClick={() => { const id = toast.undoId!; setToast(null); undo(id); }}>Undo</button>

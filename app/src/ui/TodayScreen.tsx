@@ -22,6 +22,9 @@ export interface TodayProps {
   onSettings: () => void; // settings
   onOpenPantry: () => void; // settings
   onLoadSample: () => void; // settings
+  /** F67: names of things to use soon (leftovers and ingredients); the row is hidden when empty. */
+  useSoon?: string[];
+  onUseSoon?: () => void;
 }
 
 const TILE_COLOURS = ['tile--cyan', 'tile--rust', 'tile--lilac'];
@@ -81,6 +84,18 @@ export function TodayScreen(p: TodayProps) {
       ) : (
         <section className="hero" aria-label="Suggested next meal">
           <div className="hero__name">Add some pantry items to get suggestions</div>
+        </section>
+      )}
+
+      {p.useSoon && p.useSoon.length > 0 && ( // F67
+        <section className="usesoon-row" aria-label="Use soon">
+          <span className="usesoon-row__label">Use soon</span>
+          <div className="usesoon-row__chips">
+            {p.useSoon.slice(0, 4).map(n => (
+              <button key={n} type="button" className="usesoon-chip" onClick={p.onUseSoon}>{n}</button>
+            ))}
+            {p.useSoon.length > 4 && <button type="button" className="usesoon-chip" onClick={p.onUseSoon}>+{p.useSoon.length - 4} more</button>}
+          </div>
         </section>
       )}
 

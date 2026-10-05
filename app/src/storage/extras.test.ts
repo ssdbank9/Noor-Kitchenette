@@ -104,3 +104,20 @@ describe('backups with the new collections', () => {
     expect(text).toContain('favourites[0].url');
   });
 });
+
+describe('a kitchen with leftovers and batches (F65, F66)', () => {
+  it('round-trips through backup, restore and the database unchanged', async () => {
+    const full: KitchenData = { ...seed, leftovers: [leftover], batches: [batch] };
+    const parsed = parseBackup(exportBackup(full));
+    expect(parsed.ok ? [] : parsed.errors).toEqual([]);
+    if (!parsed.ok) return;
+    expect(parsed.data.leftovers).toEqual([leftover]);
+    expect(parsed.data.batches).toEqual([batch]);
+    const db = await open();
+    await replaceAll(db, parsed.data);
+    const loaded = (await loadKitchen(db))!;
+    expect(loaded.leftovers).toEqual([leftover]);
+    expect(loaded.batches).toEqual([batch]);
+    expect(parseBackup(exportBackup(loaded)).ok).toBe(true);
+  });
+});

@@ -785,3 +785,51 @@ button.button-primary.snapbig { background: var(--glass-rust); }
 /* Recipes header holds two add buttons */
 .recipes__head { flex-wrap: wrap; row-gap: 8px; }
 .recipes__head .title { flex: 1; min-width: 0; }
+
+/* ---------- Kitchen depth: leftovers, use soon, waste, places and dates (F65 to F68, F76) ---------- */
+.depth { display: flex; flex-direction: column; gap: 12px; }
+.depth__note { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.depth-group { display: flex; flex-direction: column; gap: 8px; }
+.depth-group__title { margin: 6px 0 0; font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+.depth-count { margin: 0; font-size: 16px; font-weight: 700; }
+.depth-card {
+  list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 20px;
+  background: rgba(255,255,255,.82); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(109, 40, 217, .07);
+}
+.depth-card--row { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+.depth-card__top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.depth-card__name { margin: 0; font-family: var(--font-display); font-size: 22px; line-height: 1.1; font-weight: 800; }
+.depth-card__big { font-weight: 800; color: var(--muted); white-space: nowrap; }
+.depth-card__big strong { font-family: var(--font-display); font-size: 30px; color: #d61f69; }
+.depth-card__meta { margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.depth-card__guide { margin: 0; font-size: 14px; font-weight: 800; color: var(--cyan-text); }
+.depth-card__guide span { font-weight: 700; color: var(--muted); }
+.depth-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.depth-actions { display: flex; gap: 8px; }
+.depth-actions > button { flex: 1; min-height: 44px; }
+.depth-actions--wrap { flex-wrap: wrap; }
+.depth-actions--wrap > button { flex: 1 1 40%; }
+.depth-entry { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.depth-entry__prompt { margin: 0; font-weight: 800; }
+.depth-add { align-self: stretch; }
+.depth-due { font-size: 14px; font-weight: 800; color: var(--cyan-text); }
+.depth-due--late { color: var(--rust-text); }
+.depth-flag {
+  align-self: flex-start; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 800;
+  background: var(--cyan-tint); color: var(--cyan-text);
+}
+.depth-flag--may-be-used-up { background: var(--rust-tint); color: var(--rust-text); }
+.depth-flag--check, .depth-flag--partly { background: var(--lilac-tint); color: var(--lilac); }
+.depth-toggle { width: 100%; }
+.depth-toggle[aria-pressed='true'] { background: var(--lilac-tint); border-color: var(--lilac); color: var(--lilac); }
+.depth-pkg { display: grid; grid-template-columns: 1fr 96px; gap: 8px; align-items: end; }
+.depth-pkg select { min-height: 48px; border: 2px solid var(--border); border-radius: 14px; background: var(--surface); font: inherit; font-weight: 700; }
+.pantry-item__place { font-weight: 700; color: var(--muted); font-size: 13px; }
+.psheet__action--where { background: var(--lilac-tint); color: var(--lilac); }
+.usesoon-row { display: flex; align-items: center; gap: 10px; padding: 0 20px; }
+.usesoon-row__label { font-size: 13px; font-weight: 800; color: var(--rust-text); text-transform: uppercase; letter-spacing: .04em; flex: none; }
+.usesoon-row__chips { display: flex; gap: 6px; overflow-x: auto; }
+.usesoon-chip {
+  flex: none; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 0; background: var(--rust-tint);
+  color: var(--rust-text); font-weight: 800; font-size: 14px;
+}
