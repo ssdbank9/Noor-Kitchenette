@@ -278,3 +278,16 @@ describe('restoreBackup', () => {
     expect(await loadKitchen(db)).toEqual(testKitchen());
   });
 });
+
+import { seed as starter } from '../data/seed';
+import { demoPantry as samplePantry } from '../data/demoPantry';
+import { exportBackup as exportStarter, parseBackup as parseStarter } from './backup';
+
+describe('a backup of the real starter data round-trips', () => {
+  it('accepts every field the imported recipes and the sample pantry use (meals, setTo, category, links)', () => {
+    const data = { ...starter, events: samplePantry };
+    const parsed = parseStarter(exportStarter(data));
+    expect(parsed.ok ? [] : parsed.errors).toEqual([]);
+    if (parsed.ok) expect(parsed.data.recipes.find(r => r.id === 'R016')?.meals).toEqual(['breakfast', 'lunch', 'dinner']);
+  });
+});

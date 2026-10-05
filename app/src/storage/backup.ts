@@ -141,7 +141,7 @@ const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'conversions'] as const;
 const RECIPE_FIELDS = [
   'id', 'name', 'serves', 'time', 'notes', 'category', 'writtenUrl', 'videoUrl', 'recommendedWrittenUrl',
-  'recommendedVideoUrl', 'ingredients', 'steps', 'version', 'personal',
+  'recommendedVideoUrl', 'meals', 'ingredients', 'steps', 'version', 'personal',
 ] as const;
 const RECIPE_INGREDIENT_FIELDS = ['ingredientId', 'amount', 'unit', 'optional'] as const;
 const EVENT_FIELDS = [
@@ -234,6 +234,7 @@ function readRecipe(c: Checker, value: unknown, path: string): Recipe {
     videoUrl: optional(o.videoUrl, v => c.webLink(v, `${path}.videoUrl`)),
     recommendedWrittenUrl: optional(o.recommendedWrittenUrl, v => c.webLink(v, `${path}.recommendedWrittenUrl`)),
     recommendedVideoUrl: optional(o.recommendedVideoUrl, v => c.webLink(v, `${path}.recommendedVideoUrl`)),
+    meals: optional(o.meals, v => c.list(v, `${path}.meals`).map((m, i) => c.oneOf(m, `${path}.meals[${i}]`, MEAL_SLOTS))),
     ingredients: c.list(o.ingredients, `${path}.ingredients`)
       .map((v, i) => readRecipeIngredient(c, v, `${path}.ingredients[${i}]`)),
     steps: optional(o.steps, v => c.list(v, `${path}.steps`).map((s, i) => c.text(s, `${path}.steps[${i}]`))),

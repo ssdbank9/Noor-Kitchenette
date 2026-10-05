@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
 import { balances, cookingHistory, makeEvent, monthSummary, reverse } from './domain/ledger';
-import { availability, cookableNow, suggestNextMeals } from './domain/suggest';
+import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
 import type { Ingredient, KitchenEvent, MealSlot, Movement } from './domain/types';
 import { fromBase, toBase } from './domain/units';
 import { formatHouseholdDay, householdDate, householdTime, instantFromHousehold, nextSlot } from './lib/localDate';
@@ -75,10 +75,21 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
   const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
+  // Messages close themselves after 8 seconds; Undo stays available in History.
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 8000);
+    return () => clearTimeout(t);
+  }, [toast]);
 
   const now = new Date();
   const today = householdDate(now, tz);
-  const slot = nextSlot(householdTime(now, tz), settings.slotTimes) as MealSlot;
+  // The next meal that has dishes suiting it (no biryani suggested for breakfast).
+  const firstSlot = nextSlot(householdTime(now, tz), settings.slotTimes) as MealSlot;
+  const slotOrder = (Object.keys(settings.slotTimes) as MealSlot[])
+    .sort((a, b) => settings.slotTimes[a].localeCompare(settings.slotTimes[b]));
+  const rotated = [...slotOrder.slice(slotOrder.indexOf(firstSlot)), ...slotOrder.slice(0, slotOrder.indexOf(firstSlot))];
+  const slot = rotated.find(s => recipes.some(r => suitsSlot(r, s))) ?? firstSlot;
   const servings = settings.defaultServings;
 
   const byId = useMemo(() => new Map(ingredients.map(i => [i.id, i])), [ingredients]);
@@ -86,8 +97,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const stock = useMemo(() => balances(events), [events]);
   const ranked = useMemo(() => cookableNow(recipes, servings, events, ingredients, toBase), [recipes, servings, events, ingredients]);
   const suggestions = useMemo(
-    () => suggestNextMeals(recipes, servings, events, ingredients, toBase, today),
-    [recipes, servings, events, ingredients, today],
+    () => suggestNextMeals(recipes, servings, events, ingredients, toBase, today, new Set(), slot),
+    [recipes, servings, events, ingredients, today, slot],
   );
 
   const ready = ranked.filter(a => a.status === 'ready').map(a => ({ recipe: recipesById.get(a.recipeId)!, availability: a }));

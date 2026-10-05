@@ -54,6 +54,8 @@ export interface Recipe {
   time: string;
   notes: string;
   category?: string;
+  /** Meal slots this dish suits; missing means any slot. */
+  meals?: MealSlot[];
   /** Links kept from the workbooks (F13, F14). */
   writtenUrl?: string;
   videoUrl?: string;

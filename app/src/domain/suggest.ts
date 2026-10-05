@@ -3,7 +3,7 @@
 // shows "ready" in one place and "missing" in another. Amounts are compared in base units;
 // the unit conversion is passed in (units.ts) so this file stays free of unit rules.
 import { balances, cookingHistory, lastCooked, type Balance } from './ledger';
-import type { Ingredient, KitchenEvent, MealRating, Recipe } from './types';
+import type { Ingredient, KitchenEvent, MealRating, MealSlot, Recipe } from './types';
 
 export type ToBase = (
   amount: number,
@@ -121,6 +121,7 @@ export function suggestNextMeals(
   toBase: ToBase,
   today: string,
   favourites: Set<string> = new Set(),
+  slot?: MealSlot,
 ): Suggestion[] {
   const ratings = latestRatings(events);
   const last = lastCooked(events);
@@ -128,6 +129,7 @@ export function suggestNextMeals(
 
   return recipes
     .filter(r => ratings.get(r.id) !== 'not-again')
+    .filter(r => !slot || !r.meals || r.meals.includes(slot))
     .map(recipe => {
       const a = avail.get(recipe.id)!;
       const reasons: string[] = [];
@@ -155,4 +157,9 @@ export function suggestNextMeals(
       return { recipe, availability: a, score, reasons };
     })
     .sort((x, y) => y.score - x.score || x.recipe.id.localeCompare(y.recipe.id));
+}
+
+/** Dishes that suit a slot; when none does, the slot is skipped in favour of the next one. */
+export function suitsSlot(recipe: Recipe, slot: MealSlot): boolean {
+  return !recipe.meals || recipe.meals.includes(slot);
 }

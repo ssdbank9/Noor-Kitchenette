@@ -5,6 +5,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { seed } from '../data/seed';
+import { refreshStarter } from './refreshStarter';
 import type { KitchenData, KitchenEvent } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
 import { kitchenWriter, loadKitchen, loadShopping, openKitchenDb, type KitchenDb, replaceAll, type KitchenWrite } from './db';
@@ -32,6 +33,11 @@ async function boot(): Promise<KitchenStore> {
     data = seed;
   }
   const queue = createSaveQueue<KitchenWrite>(kitchenWriter(db));
+  // Starter recipes improved by an app update reach Noor's saved copy (never her edits).
+  const refreshed = refreshStarter(data, seed);
+  data = refreshed.data;
+  for (const recipe of refreshed.recipes) void queue.enqueue({ type: 'recipe', recipe });
+  for (const ingredient of refreshed.ingredients) void queue.enqueue({ type: 'ingredient', ingredient });
   let shopping = await loadShopping(db);
   const pending = queue.getPending();
   // Unsaved changes from last time: a 'purchase' carries its event AND the list after it,

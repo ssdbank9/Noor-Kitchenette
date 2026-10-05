@@ -838,6 +838,10 @@
       "time": "1 hr 15 min",
       "notes": "Medium-hot, layered dum biryani. Use aged basmati; kewra at the end.",
       "category": "Rice",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/extreme-chicken-biryani/",
       "videoUrl": "https://www.youtube.com/watch?v=40VJanswaAQ",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-biryani/",
@@ -928,6 +932,10 @@
       "time": "1 hr",
       "notes": "Mild, whole-spice yakhni. Strain stock well for clear grains.",
       "category": "Rice",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/chicken-yakhni-pulao/",
       "videoUrl": "https://www.youtube.com/watch?v=QaZWOGs82Nw",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-pulao-yakhni-pulao/",
@@ -1002,6 +1010,10 @@
       "time": "1 hr 10 min",
       "notes": "Soak beans overnight; boil 45-50 min until tender. Protein-packed.",
       "category": "Daal & Beans",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/lal-lobia-masala/",
       "videoUrl": "https://www.youtube.com/watch?v=mFfYhYCzyVg",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/rajma-recipe/",
@@ -1077,6 +1089,10 @@
       "time": "45 min",
       "notes": "Hot & spicy. Authentic karahi = tomatoes and ginger, no onion.",
       "category": "Salan & Meat",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/fire-chicken-karahi/",
       "videoUrl": "https://www.youtube.com/watch?v=T3pQmbC1GW4",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-karahi/",
@@ -1162,6 +1178,10 @@
       "time": "1 hr",
       "notes": "Shadi-style qorma; fried onion + kewra finish. Ghee makes it.",
       "category": "Salan & Meat",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/chicken-korma/",
       "videoUrl": "https://www.youtube.com/watch?v=9jOH3TEB-NI",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/authentic-chicken-korma/",
@@ -1236,6 +1256,10 @@
       "time": "50 min",
       "notes": "Soak 30 min. Finish with cumin + curry leaf tarka.",
       "category": "Daal & Beans",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/masala-chana-daal/",
       "videoUrl": "https://www.youtube.com/watch?v=72Sy9j7DLVk",
       "recommendedWrittenUrl": "https://foodfusion.com/recipe/chana-daal-dhaba-style/",
@@ -1311,6 +1335,10 @@
       "time": "45 min",
       "notes": "Dry-style mash daal; ginger julienne + butter tadka on top.",
       "category": "Daal & Beans",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/mash-daal-with-tadka/",
       "videoUrl": "https://www.youtube.com/watch?v=iyO-3eD_fs8",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/maash-ki-daal-urad-dal/",
@@ -1385,6 +1413,10 @@
       "time": "40 min",
       "notes": "Everyday comfort daal; squeeze of lemon lifts it.",
       "category": "Daal & Beans",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/malka-masoor-daal-with-quick-achaar/",
       "videoUrl": "https://www.youtube.com/watch?v=s1rA4kd1Wfg",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/masoor-dal/",
@@ -1460,6 +1492,10 @@
       "time": "1 hr 30 min",
       "notes": "Classic shorba-wala salan; slow-cook beef till tender.",
       "category": "Salan & Meat",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/aloo-ghosht-delhi-style-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=cbzmggwKZbw",
       "recommendedWrittenUrl": "https://www.flourandspiceblog.com/aalu-gosht/",
@@ -1544,6 +1580,11 @@
       "time": "1 hr",
       "notes": "Makes 12-14; freeze extras. Wash daal, don't soak it.",
       "category": "Salan & Meat",
+      "meals": [
+        "chai",
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/shami-kabab-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=vhXMVKd1OGI",
       "recommendedWrittenUrl": "https://www.flourandspiceblog.com/shami-kabab/",
@@ -1634,6 +1675,10 @@
       "time": "40 min",
       "notes": "Desi-Chinese; sweet, hot & sour. Pair with fried rice (R010).",
       "category": "Desi-Chinese & Pasta",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/chicken-manchurian/",
       "videoUrl": "https://www.youtube.com/watch?v=WM-i9wGT4zk",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/chicken-manchurian/",
@@ -1718,6 +1763,10 @@
       "time": "30 min",
       "notes": "Day-old boiled rice gives the best texture.",
       "category": "Rice",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/chinese-fried-rice/",
       "videoUrl": "https://www.youtube.com/watch?v=P2tIt4bZNmI",
       "recommendedWrittenUrl": "https://www.foodfusion.com/recipe/restaurant-style-chicken-fried-rice/",
@@ -1788,6 +1837,10 @@
       "time": "35 min",
       "notes": "Weeknight one-pot; dial chilli up or down.",
       "category": "Desi-Chinese & Pasta",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/one-pot-spicy-pasta/",
       "videoUrl": "https://www.youtube.com/watch?v=a6nYTLyi6sU",
       "ingredients": [
@@ -1861,6 +1914,10 @@
       "time": "45 min",
       "notes": "Food Fusion's korma masala served over boiled macaroni - desi twist.",
       "category": "Desi-Chinese & Pasta",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/chicken-korma-masala/",
       "videoUrl": "https://www.youtube.com/watch?v=1epkIJdJCds",
       "ingredients": [
@@ -1929,6 +1986,10 @@
       "time": "30 min",
       "notes": "Dry bhindi; lemon at the end keeps it crisp, not slimy.",
       "category": "Sabzi",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/masala-aloo-bhindi/",
       "videoUrl": "https://www.youtube.com/watch?v=NZwQExS8u9k",
       "recommendedVideoUrl": "https://www.youtube.com/watch?v=FpXwvBHKJHA",
@@ -2003,6 +2064,10 @@
       "time": "35 min",
       "notes": "Dhaba-style gobi with aloo & carrot; don't overcook the florets.",
       "category": "Sabzi",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/dhaba-style-mix-vegetable/",
       "videoUrl": "https://www.youtube.com/watch?v=L7LXJ7FiRPA",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/aloo-gobi/",
@@ -2088,6 +2153,10 @@
       "time": "1 hr (+1-2 hr salting)",
       "notes": "Salt & rest karela 1-2 hrs, then wash well to tame bitterness.",
       "category": "Salan & Meat",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/qeema-karaley/",
       "videoUrl": "https://www.youtube.com/watch?v=C2p7idVXhE8",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/pakistani-keema-kareley-ground-beef-and-bitter-melon/",
@@ -2163,6 +2232,11 @@
       "time": "25 min",
       "notes": "Quick potato bhujia; lovely with puri, daal-chawal or paratha.",
       "category": "Sabzi",
+      "meals": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/masala-aloo-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=cwps_0u-vPQ",
       "recommendedWrittenUrl": "https://www.bbc.co.uk/food/recipes/pakistani_spicy_potatoes_93471",
@@ -2233,6 +2307,11 @@
       "time": "1 hr",
       "notes": "Dhaba-style; methi (fenugreek) finish is the secret.",
       "category": "Salan & Meat",
+      "meals": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://foodfusion.com/recipe/dhaba-style-aloo-qeema/",
       "videoUrl": "https://www.youtube.com/shorts/qVQCbXiU7_A",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/aloo-keema/",
@@ -2323,6 +2402,11 @@
       "time": "3 hr 30 min",
       "notes": "Slow-cooked shank; serve with ginger julienne, green chilli, lemon & naan.",
       "category": "Salan & Meat",
+      "meals": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/perfect-beef-nihari-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=mZOXDAvMCM4",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/easy-slow-cooker-nihari-beef-stew/",
@@ -2398,6 +2482,10 @@
       "time": "40 min",
       "notes": "Comfort in a bowl; serve with raita and achar.",
       "category": "Rice",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/spicy-fried-khichdi-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=H71MWbyhO0E",
       "ingredients": [
@@ -2471,6 +2559,10 @@
       "time": "3 hr slow cook",
       "notes": "Slow-cook 2-3 hrs; serve with makai ki roti & white butter.",
       "category": "Sabzi",
+      "meals": [
+        "lunch",
+        "dinner"
+      ],
       "writtenUrl": "https://www.foodfusion.com/recipe/sarson-ka-saag-recipe/",
       "videoUrl": "https://www.youtube.com/watch?v=XH2_pWrguvI",
       "recommendedWrittenUrl": "https://www.teaforturmeric.com/easy-sarson-ka-saag/",

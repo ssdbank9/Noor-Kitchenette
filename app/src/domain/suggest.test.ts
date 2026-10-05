@@ -82,3 +82,15 @@ describe('suggested next meal (F81)', () => {
     expect(ids).toEqual(['R004', 'R006b']);
   });
 });
+
+describe('suggestions suit the meal (no biryani for breakfast)', () => {
+  it('only suggests dishes that suit the slot', () => {
+    const pantry = stockEvent('s', { Chicken: 2000, Tomato: 12, Daal: 1000, Egg: 12 });
+    const breakfastEggs: Recipe = { ...omelette, meals: ['breakfast'] };
+    const lunchKarahi: Recipe = { ...karahi, meals: ['lunch', 'dinner'] };
+    const ids = (slot: 'breakfast' | 'lunch') =>
+      suggestNextMeals([lunchKarahi, breakfastEggs], 4, [pantry], ingredients, toBase, '2026-10-04', new Set(), slot).map(s => s.recipe.id);
+    expect(ids('breakfast')).toEqual(['X1']);
+    expect(ids('lunch')).toEqual(['R004']);
+  });
+});

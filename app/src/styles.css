@@ -104,10 +104,10 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
   background: var(--warm-pink); display: flex; flex-direction: column; gap: 12px;
 }
 .hero > *:not(.hero__motif) { position: relative; }
-.hero__motif { position: absolute; right: -54px; top: -58px; width: 190px; height: 190px; pointer-events: none; }
+.hero__motif { position: absolute; right: -50px; top: -50px; width: 150px; height: 150px; pointer-events: none; }
 .hero__label {
   font-size: 13px; font-weight: 800; color: var(--rust-text); letter-spacing: 0.04em;
-  text-transform: uppercase; padding-right: 72px;
+  text-transform: uppercase; padding-right: 96px;
 }
 .hero__dish { display: flex; gap: 14px; align-items: center; }
 .hero__tile {
@@ -470,3 +470,9 @@ button.pantry-item { width: 100%; min-height: 48px; text-align: left; color: var
 .settings__error ul { margin: 6px 0 0; padding-left: 18px; }
 .settings__confirm { background: var(--lilac-tint); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 .settings__confirm p { margin: 0; font-weight: 700; }
+
+/* ---------- Polish: messages never cover what Noor is tapping ---------- */
+.toast { bottom: calc(92px + env(safe-area-inset-bottom)); }
+.app:has(.toast) .snap { display: none; }
+.hero__name { padding-right: 24px; }
+.app .screen:not(.recipe):not(.form-screen) { padding-bottom: 96px; }

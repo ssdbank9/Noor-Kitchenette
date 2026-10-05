@@ -52,6 +52,14 @@
 // Order: ingredients, recipes and events keep the source order; output is 2-space JSON
 // with a trailing newline, so the same inputs always give the same bytes.
 'use strict';
+// Which meal slots each dish suits, so Today never suggests biryani for breakfast.
+// Everything is lunch or dinner unless listed here (household judgement, editable later).
+const MEALS_OF = {
+  R016: ['breakfast', 'lunch', 'dinner'], // Masala Aloo: with puri or paratha at breakfast
+  R008: ['chai', 'lunch', 'dinner'],      // Shami Kabab: with chai too
+  R017: ['breakfast', 'lunch', 'dinner'], // Aloo Qeema: with paratha at breakfast
+  R018: ['breakfast', 'lunch', 'dinner'], // Nihari: a weekend breakfast classic
+};
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -240,6 +248,7 @@ function buildAll() {
       time: r.time,
       notes: r.notes,
       category: categoryOf[r.id],
+      meals: MEALS_OF[r.id] ?? ['lunch', 'dinner'],
       writtenUrl: r.url,
       videoUrl: db.VIDEO[r.id],
     };
