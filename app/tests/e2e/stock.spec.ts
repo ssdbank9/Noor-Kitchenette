@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
+import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
+import { openWithSamplePantry } from './helpers';
 import { balances, makeEvent, type Balance } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
 import { fromBase, toBase } from '../../src/domain/units';
@@ -28,9 +30,9 @@ async function openSuggested(page: Page): Promise<Recipe> {
 }
 
 test('cooking deducts exactly the recipe amounts, and undo puts every one back', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   const recipe = await openSuggested(page);
-  const before = balances(seed.events);
+  const before = balances(demoPantry);
   const servings = 4;
   const needs = availability(recipe, servings, before, byId, toBase).needs.filter(n => n.need !== null && n.need > 0);
   expect(needs.length).toBeGreaterThan(0);
@@ -40,7 +42,7 @@ test('cooking deducts exactly the recipe amounts, and undo puts every one back',
   await page.getByRole('button', { name: 'Save' }).click();
 
   const cook = makeEvent('cook', needs.map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const })), new Date());
-  const after = balances([...seed.events, cook]);
+  const after = balances([...demoPantry, cook]);
 
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
   for (const n of needs) {
@@ -61,7 +63,7 @@ test('cooking deducts exactly the recipe amounts, and undo puts every one back',
 });
 
 test('opening another recipe shows that recipe\'s own ingredients, and the people count rescales them', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   const first = await openSuggested(page);
   const names = (r: Recipe) => r.ingredients.slice(0, 4).map(ri => byId.get(ri.ingredientId)!.name);
   await expect(page.locator('.ingredient__name')).toHaveText(names(first));

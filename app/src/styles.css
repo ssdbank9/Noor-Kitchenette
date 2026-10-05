@@ -438,3 +438,27 @@ button.pantry-item { width: 100%; min-height: 48px; text-align: left; color: var
 .buy__unit { font-weight: 800; }
 .buy__save { padding: 0 16px; white-space: nowrap; }
 .buy__error { margin: 0; color: var(--rust-text); font-weight: 700; }
+
+/* ---------- Settings ---------- */
+.today-header { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.empty-pantry__text { margin: 0; font-weight: 700; color: var(--ink); }
+.settings { gap: 14px; }
+.settings__header { padding: 0 20px; display: flex; align-items: center; gap: 12px; }
+.settings__header .title { margin: 0; }
+.settings__panel { margin: 0 20px; }
+.settings__hint { margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.settings__note { margin: 0; font-size: 14px; font-weight: 800; color: var(--cyan-text); }
+.settings__keyrow { display: flex; gap: 8px; align-items: center; }
+.settings__keyrow .input { flex: 1; min-width: 0; }
+.settings__buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.settings__buttons .button-primary { font-size: 16px; }
+.settings__buttons button:disabled { opacity: 0.45; cursor: not-allowed; }
+.settings__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.settings__time { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.settings__time-label { font-weight: 800; font-size: 16px; }
+.settings__time .stepper output { min-width: 84px; font-size: 20px; }
+.settings__file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+.settings__error { background: var(--rust-tint); color: var(--rust-text); border-radius: 14px; padding: 10px 12px; font-weight: 700; font-size: 14px; }
+.settings__error ul { margin: 6px 0 0; padding-left: 18px; }
+.settings__confirm { background: var(--lilac-tint); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.settings__confirm p { margin: 0; font-weight: 700; }

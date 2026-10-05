@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { openWithSamplePantry } from './helpers';
 
 // F44, D6: a cooked meal must still be in History after the page is reloaded.
 test('a cooked meal is still in History after a reload', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   await page.getByRole('button', { name: /let's cook/ }).click();
   const name = (await page.getByRole('heading', { level: 1 }).innerText()).trim();
   await page.getByRole('button', { name: 'I cooked this' }).click();

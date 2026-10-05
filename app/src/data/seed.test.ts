@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SCHEMA_VERSION, type Dimension, type Ingredient } from '../domain/types';
+import { demoPantry } from './demoPantry';
 import { seed } from './seed';
 
 // The app has no @types/node, so Node built-ins are loaded untyped.
@@ -10,7 +11,7 @@ const resolvable = (ing: Ingredient, unit: string) =>
   METRIC[ing.dimension].includes(unit) || ing.conversions?.[unit] !== undefined;
 
 const byId = new Map(seed.ingredients.map(i => [i.id, i]));
-const eventFor = (id: string) => seed.events.find(e => e.movements.some(m => m.ingredientId === id));
+const eventFor = (id: string) => demoPantry.find(e => e.movements.some(m => m.ingredientId === id));
 const unique = (xs: string[]) => new Set(xs).size === xs.length;
 
 describe('starter collection seed (F9, F38)', () => {
@@ -25,7 +26,7 @@ describe('starter collection seed (F9, F38)', () => {
   it('keeps ids unique and unchanged, including the daal variants', () => {
     expect(unique(seed.ingredients.map(i => i.id))).toBe(true);
     expect(unique(seed.recipes.map(r => r.id))).toBe(true);
-    expect(unique(seed.events.map(e => e.id))).toBe(true);
+    expect(unique(demoPantry.map(e => e.id))).toBe(true);
     const ids = seed.recipes.map(r => r.id);
     expect(ids).toEqual(expect.arrayContaining(['R001', 'R006a', 'R006b', 'R006c', 'R020']));
     expect(seed.recipes.find(r => r.id === 'R006c')?.name).toBe('Daal Masoor (Malka)');
@@ -84,12 +85,15 @@ describe('starter collection seed (F9, F38)', () => {
     expect(byId.get('Yogurt')?.aliases).toEqual(expect.arrayContaining(['yoghurt', 'dahi']));
   });
 
-  it('records starting stock only as estimated set-stock events with positive amounts', () => {
-    for (const e of seed.events) {
+  it('keeps no starting stock in the seed (D-18); the sample pantry is only estimated set-stock events with positive amounts', () => {
+    expect(seed.events).toEqual([]);
+    expect(demoPantry).toHaveLength(46);
+    for (const e of demoPantry) {
+      expect(e.note, e.id).toBe('Sample pantry for trying the app');
       expect(e.kind, e.id).toBe('set-stock');
       expect(e.movements, e.id).toHaveLength(1);
       const [m] = e.movements;
-      expect(e.id).toBe(`seed-${m.ingredientId}`);
+      expect(e.id).toBe(`sample-${m.ingredientId}`);
       expect(byId.has(m.ingredientId), e.id).toBe(true);
       expect(m.delta, e.id).toBeGreaterThan(0);
       expect(m.setTo, e.id).toBe(m.delta);
@@ -99,7 +103,7 @@ describe('starter collection seed (F9, F38)', () => {
         timeZone: 'Asia/Karachi', source: 'typed',
       });
     }
-    expect(unique(seed.events.map(e => e.movements[0].ingredientId))).toBe(true);
+    expect(unique(demoPantry.map(e => e.movements[0].ingredientId))).toBe(true);
   });
 
   it('reads v3 tuples as [unit, aisle, minimum, starting stock]', () => {
@@ -131,5 +135,7 @@ describe('starter collection seed (F9, F38)', () => {
     const tool = requireCjs('../../../tools/build_seed.cjs');
     const onDisk: string = readFileSync(tool.SEED_PATH, 'utf8').replace(/\r\n/g, '\n');
     expect(onDisk).toBe(tool.serializeSeed(tool.buildSeed()));
+    const demoOnDisk: string = readFileSync(tool.DEMO_PATH, 'utf8').replace(/\r\n/g, '\n');
+    expect(demoOnDisk).toBe(tool.serializeSeed(tool.buildDemoPantry()));
   });
 });

@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
+import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
+import { openWithSamplePantry } from './helpers';
 import { balances, makeEvent, type Balance } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
 import { fromBase, toBase } from '../../src/domain/units';
@@ -21,11 +23,11 @@ function pantryRow(page: Page, name: string) {
 }
 
 test('Nahi: adjust one ingredient to None and another to more, stock follows, undo restores', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   await page.getByRole('button', { name: /let's cook/ }).click();
   const name = (await page.getByRole('heading', { level: 1 }).innerText()).trim();
   const r = seed.recipes.find(x => x.name === name)!;
-  const before = balances(seed.events);
+  const before = balances(demoPantry);
   const lines = buildUsage(availability(r, 4, before, byId, toBase), r, byId);
   expect(lines[0].editable && lines[1].editable, 'first two ingredients can be adjusted').toBe(true);
 
@@ -43,7 +45,7 @@ test('Nahi: adjust one ingredient to None and another to more, stock follows, un
   used[lines[1].ingredientId] = stepUsed(lines[1], used[lines[1].ingredientId], 1);
   const expected = usageMovements(lines, used);
   const cook = makeEvent('cook', expected, new Date());
-  const after = balances([...seed.events, cook]);
+  const after = balances([...demoPantry, cook]);
 
   await page.getByRole('button', { name: 'Save' }).click();
   await expect(page.getByRole('status')).toContainText('Pantry updated');
@@ -70,7 +72,7 @@ test('Nahi: adjust one ingredient to None and another to more, stock follows, un
 });
 
 test('Exact amount rejects blanks and negatives and blocks Save', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   await page.getByRole('button', { name: /let's cook/ }).click();
   await page.getByRole('button', { name: 'I cooked this' }).click();
   await page.getByRole('button', { name: 'Nahi', exact: true }).click();

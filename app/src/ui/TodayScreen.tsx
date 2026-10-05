@@ -1,6 +1,6 @@
 import type { Availability, Suggestion } from '../domain/suggest';
 import type { Recipe } from '../domain/types';
-import { CameraIcon, ForkKnifeIcon, PotIcon } from './Icons';
+import { CameraIcon, ForkKnifeIcon, GearIcon, PotIcon } from './Icons';
 
 export interface TodayProps {
   dateLabel: string;
@@ -17,6 +17,10 @@ export interface TodayProps {
   onSeeAll: () => void;
   onEatOut: () => void;
   onSnap: () => void;
+  pantryEmpty: boolean; // settings
+  onSettings: () => void; // settings
+  onOpenPantry: () => void; // settings
+  onLoadSample: () => void; // settings
 }
 
 const TILE_COLOURS = ['tile--cyan', 'tile--rust', 'tile--lilac'];
@@ -24,12 +28,26 @@ const TILE_COLOURS = ['tile--cyan', 'tile--rust', 'tile--lilac'];
 export function TodayScreen(p: TodayProps) {
   return (
     <div className="screen">
-      <header className="screen__header">
-        <div className="eyebrow">{p.dateLabel}</div>
-        <h1 className="title">Assalam-o-alaikum, Noor</h1>
+      <header className="screen__header today-header">
+        <div>
+          <div className="eyebrow">{p.dateLabel}</div>
+          <h1 className="title">Assalam-o-alaikum, Noor</h1>
+        </div>
+        <button type="button" className="icon-button icon-button--outlined" aria-label="Settings" onClick={p.onSettings}><GearIcon /></button>
       </header>
 
-      {p.suggestion ? (
+      {p.pantryEmpty && ( // settings
+        <section className="hero empty-pantry" aria-label="Empty pantry">
+          <div className="hero__name">Your pantry is empty.</div>
+          <p className="empty-pantry__text">Snap or add what you have, or try the sample pantry.</p>
+          <div className="hero__actions">
+            <button type="button" className="button-primary" onClick={p.onOpenPantry}>Go to Pantry</button>
+            <button type="button" className="button-outline" onClick={p.onLoadSample}>Load sample pantry</button>
+          </div>
+        </section>
+      )}
+
+      {p.pantryEmpty ? null : p.suggestion ? (
         <section className="hero" aria-label="Suggested next meal">
           <svg className="hero__motif" aria-hidden="true" viewBox="0 0 190 190">
             <circle cx="95" cy="95" r="94" fill="var(--cyan)" />
@@ -71,7 +89,7 @@ export function TodayScreen(p: TodayProps) {
           <button type="button" className="section__see-all" onClick={p.onSeeAll}>See all</button>
         </div>
         {p.ready.length === 0 ? (
-          <p className="empty">Nothing is fully ready yet. Check "Almost there".</p>
+          <p className="empty">{p.pantryEmpty ? 'Dishes you can cook will show here.' : 'Nothing is fully ready yet. Check "Almost there".'}</p>
         ) : (
           <ul className="tiles">
             {p.ready.map(({ recipe }, i) => (
@@ -87,7 +105,7 @@ export function TodayScreen(p: TodayProps) {
         )}
       </section>
 
-      {p.almost.length > 0 && (
+      {!p.pantryEmpty && p.almost.length > 0 && (
         <section className="section section--padded">
           <h2 className="section__title">Almost there</h2>
           <ul className="rows">

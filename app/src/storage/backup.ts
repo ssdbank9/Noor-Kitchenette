@@ -120,8 +120,12 @@ export function parseBackup(text: string): ParseResult {
 export async function restoreBackup(db: KitchenDb, text: string, now: Date = new Date()): Promise<RestoreResult> {
   const parsed = parseBackup(text);
   if (!parsed.ok) return parsed;
-  const previous = await replaceAllKeepingCopy(db, parsed.data, now);
-  return { ok: true, data: parsed.data, previous };
+  // The Gemini key lives only on this phone and is never in a backup (D-08): keep the current one.
+  const current = await db.get('meta', 'settings');
+  const geminiKey = (current as KitchenSettings | undefined)?.geminiKey;
+  const data = geminiKey ? { ...parsed.data, settings: { ...parsed.data.settings, geminiKey } } : parsed.data;
+  const previous = await replaceAllKeepingCopy(db, data, now);
+  return { ok: true, data, previous };
 }
 
 const DIMENSIONS: readonly Dimension[] = ['mass', 'volume', 'count'];
@@ -132,7 +136,8 @@ const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
 const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events'] as const;
-const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes'] as const;
+const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words'] as const;
+const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'conversions'] as const;
 const RECIPE_FIELDS = [
   'id', 'name', 'serves', 'time', 'notes', 'category', 'writtenUrl', 'videoUrl', 'recommendedWrittenUrl',
@@ -142,7 +147,7 @@ const RECIPE_INGREDIENT_FIELDS = ['ingredientId', 'amount', 'unit', 'optional'] 
 const EVENT_FIELDS = [
   'id', 'kind', 'at', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
 ] as const;
-const MOVEMENT_FIELDS = ['ingredientId', 'delta', 'basis'] as const;
+const MOVEMENT_FIELDS = ['ingredientId', 'delta', 'basis', 'setTo'] as const;
 const MEAL_FIELDS = ['recipeId', 'recipeVersion', 'slot', 'servings', 'rating'] as const;
 
 function validate(file: Fields): ParseResult {
@@ -190,7 +195,8 @@ function validate(file: Fields): ParseResult {
 }
 
 function readSettings(c: Checker, value: unknown, path: string): KitchenSettings {
-  return c.record(value, path, SETTINGS_FIELDS, o => ({
+  return c.record(value, path, SETTINGS_FIELDS, o => withoutUndefined({
+    words: optional(o.words, v => c.oneOf(v, `${path}.words`, WORD_CHOICES)),
     householdName: c.text(o.householdName, `${path}.householdName`),
     timeZone: c.timeZone(o.timeZone, `${path}.timeZone`),
     defaultServings: c.number(o.defaultServings, `${path}.defaultServings`, { above: 0 }),
@@ -273,10 +279,12 @@ function readEvent(c: Checker, value: unknown, path: string): KitchenEvent {
 }
 
 function readMovement(c: Checker, value: unknown, path: string): Movement {
-  return c.record(value, path, MOVEMENT_FIELDS, o => ({
+  return c.record(value, path, MOVEMENT_FIELDS, o => withoutUndefined({
     ingredientId: c.text(o.ingredientId, `${path}.ingredientId`, { nonEmpty: true }),
     delta: c.number(o.delta, `${path}.delta`),
     basis: c.oneOf(o.basis, `${path}.basis`, BASES),
+    // set-stock events: the amount Noor said is there (null = not sure).
+    setTo: o.setTo === null ? null : optional(o.setTo, v => c.number(v, `${path}.setTo`, { min: 0 })),
   }));
 }
 

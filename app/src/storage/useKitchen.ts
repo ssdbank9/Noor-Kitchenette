@@ -6,12 +6,14 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { seed } from '../data/seed';
 import type { KitchenData, KitchenEvent } from '../domain/types';
-import { kitchenWriter, loadKitchen, openKitchenDb, replaceAll, type KitchenWrite } from './db';
+import { kitchenWriter, loadKitchen, openKitchenDb, type KitchenDb, replaceAll, type KitchenWrite } from './db';
 import { createSaveQueue, describeError, type SaveQueue, type SaveState } from './saveQueue';
 
 export interface KitchenStore {
   data: KitchenData;
   queue: SaveQueue<KitchenWrite>;
+  /** For restoring a backup (settings screen). */
+  db: KitchenDb;
 }
 
 export type KitchenLoad =
@@ -35,7 +37,7 @@ async function boot(): Promise<KitchenStore> {
     data = { ...data, events };
   }
   if (queue.getPending().length > 0) void queue.retry();
-  return { data, queue };
+  return { data, queue, db };
 }
 
 // One boot per page load, so React StrictMode's second effect run does not open twice.
