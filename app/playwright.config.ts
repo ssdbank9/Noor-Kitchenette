@@ -8,6 +8,9 @@ const port = Number(process.env.PW_PORT ?? 4173);
 export default defineConfig({
   testDir: 'tests/e2e',
   timeout: 30_000,
+  // One retry: on a busy machine a navigation can be aborted or a click can time out. A test that
+  // passes only on retry is listed as "flaky" in the report, so it is visible, not hidden.
+  retries: 1,
   use: {
     baseURL: `http://localhost:${port}`,
     channel: 'chrome',

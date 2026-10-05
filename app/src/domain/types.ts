@@ -30,6 +30,8 @@ export interface Ingredient {
   aisle: string;
   /** Restock below this many base units (F23). */
   minStock?: number;
+  /** The usual amount to buy when it runs low, in base units ("always keep" staples, D-22). */
+  buyAmount?: number;
   /**
    * Household units that are not plain metric for this ingredient, as base units per one
    * of that unit: { cup: 200 } for rice in grams, { packet: 400 }, { bunch: 1 } in pieces.
@@ -216,12 +218,65 @@ export interface Favourite {
   note?: string;
 }
 
+// ---------- Where to buy and shopping trips (D-22) ----------
+
+/**
+ * How Noor gets things from a store. No live prices or stock are ever claimed.
+ * - online-search: a link that searches the store's website for an item ({q} is the item name).
+ * - copy-list: the store has no per-item link; copy the list, then open the store.
+ * - maps-only: go there; the app opens directions.
+ */
+export type StoreKind = 'online-search' | 'copy-list' | 'maps-only';
+
+export interface Store {
+  id: string;
+  name: string;
+  kind: StoreKind;
+  /** online-search: https link with {q} where the item name goes. */
+  searchUrl?: string;
+  /** copy-list: https link to open after copying. */
+  openUrl?: string;
+  /** Google Maps search for the nearest branch or shop. */
+  mapsQuery?: string;
+  /** The link shape was not confirmed to return results; the button says so and falls back. */
+  unverified?: boolean;
+  note?: string;
+}
+
+/** An item taken off the To-buy list for now. It comes back by itself when it runs lower. */
+export interface Dismissal {
+  ingredientId: string;
+  kind: 'snooze' | 'removed';
+  /** snooze: household-local date (YYYY-MM-DD) it comes back on. */
+  until?: string;
+  /** removed: the stock (base units) when removed; it returns once stock is below this. */
+  atAmount?: number | null;
+}
+
+/** A shopping trip in progress: what has been picked up so far, so a reload loses nothing. */
+export interface Trip {
+  /** Stable id; the trip's one purchase event uses it, so saving twice changes stock once. */
+  id: string;
+  startedAt: string;
+  /** Base units picked up so far per ingredient. */
+  got: Record<string, number>;
+}
+
+export interface ShopPrefs {
+  stores: Store[];
+  /** ingredientId -> storeId. */
+  preferred: Record<string, string>;
+  dismissed: Dismissal[];
+  trip?: Trip;
+}
+
 export interface KitchenData {
   schemaVersion: number;
   ingredients: Ingredient[];
   recipes: Recipe[];
   events: KitchenEvent[];
   /** Optional so older saves and backups keep working; treat missing as empty. */
+  shopPrefs?: ShopPrefs;
   plan?: PlannedMeal[];
   leftovers?: Leftover[];
   batches?: Batch[];
@@ -235,6 +290,8 @@ export interface KitchenData {
     words?: 'haan' | 'jee' | 'yes';
     /** Gemini key (D-08): stays on this phone, never exported in a backup. */
     geminiKey?: string;
+    /** Where the household is, for "nearest first" eat-out. A named area, e.g. I-8 Markaz (D-22). */
+    homeArea?: { label: string; lat: number; lng: number };
   };
 }
 

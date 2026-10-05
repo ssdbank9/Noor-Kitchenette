@@ -19,7 +19,9 @@ describe('starter collection seed (F9, F38)', () => {
     expect(seed.schemaVersion).toBe(SCHEMA_VERSION);
     expect(seed.schemaVersion).toBe(1);
     expect(seed.recipes).toHaveLength(22);
-    expect(seed.ingredients).toHaveLength(62);
+    // 62 from the workbooks plus the owner's extra staples (Buldak noodles, D-22).
+    expect(seed.ingredients).toHaveLength(63);
+    expect(seed.ingredients.filter(i => !i.id.includes('_') || i.id === 'Buldak_Noodles').length).toBeGreaterThan(0);
     expect(seed.recipes.reduce((n, r) => n + r.ingredients.length, 0)).toBe(276);
   });
 
@@ -137,5 +139,14 @@ describe('starter collection seed (F9, F38)', () => {
     expect(onDisk).toBe(tool.serializeSeed(tool.buildSeed()));
     const demoOnDisk: string = readFileSync(tool.DEMO_PATH, 'utf8').replace(/\r\n/g, '\n');
     expect(demoOnDisk).toBe(tool.serializeSeed(tool.buildDemoPantry()));
+  });
+});
+
+describe('extra staples', () => {
+  it('Buldak noodles: a count item in packs, kept at 5, matched by its other names', () => {
+    const b = seed.ingredients.find(i => i.id === 'Buldak_Noodles')!;
+    expect(b).toMatchObject({ dimension: 'count', displayUnit: 'pack', aisle: 'Snacks & noodles', minStock: 5, buyAmount: 5, conversions: { pack: 1 } });
+    expect(b.aliases).toContain('samyang');
+    expect(seed.recipes.some(r => r.ingredients.some(x => x.ingredientId === 'Buldak_Noodles'))).toBe(false);
   });
 });

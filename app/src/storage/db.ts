@@ -15,6 +15,7 @@ import {
   type Leftover,
   type PlannedMeal,
   type Recipe,
+  type ShopPrefs,
 } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
 
@@ -37,6 +38,7 @@ interface MetaValues {
   settings: KitchenSettings;
   schemaVersion: number;
   'pre-restore-backup': PreRestoreBackup;
+  shopPrefs: ShopPrefs;
 }
 type MetaKey = keyof MetaValues;
 
@@ -158,6 +160,22 @@ export function deleteItem(db: KitchenDb, store: Collection, id: string): Promis
   return commit(tx, queued => { queued.push(tx.objectStore(store).delete(id)); });
 }
 
+export function saveShopPrefs(db: KitchenDb, prefs: ShopPrefs): Promise<void> {
+  const tx = writeTransaction(db, ['meta']);
+  return commit(tx, queued => { queued.push(tx.objectStore('meta').put(prefs, 'shopPrefs')); });
+}
+
+/**
+ * Finishing a shopping trip: the trip's ONE purchase event and the cleared trip are saved in
+ * one transaction. The event id comes from the trip id, so a retry replaces it, never doubles it.
+ */
+export function saveTripDone(db: KitchenDb, event: KitchenEvent, prefs: ShopPrefs): Promise<void> {
+  const tx = writeTransaction(db, ['events', 'meta']);
+  return commit(tx, queued => {
+    queued.push(tx.objectStore('events').put(event), tx.objectStore('meta').put(prefs, 'shopPrefs'));
+  });
+}
+
 export function saveSettings(db: KitchenDb, settings: KitchenSettings): Promise<void> {
   return writeToSetUpKitchen(db, 'meta', (tx, queued) => {
     queued.push(tx.objectStore('meta').put(settings, 'settings'));
@@ -207,6 +225,8 @@ export type KitchenWrite =
   | { type: 'settings'; settings: KitchenSettings }
   | { type: 'shopping'; list: ShoppingList }
   | { type: 'purchase'; event: KitchenEvent; list: ShoppingList }
+  | { type: 'shopPrefs'; prefs: ShopPrefs }
+  | { type: 'tripDone'; event: KitchenEvent; prefs: ShopPrefs }
   | { type: 'plan'; meal: PlannedMeal }
   | { type: 'deletePlan'; id: string }
   | { type: 'leftover'; item: Leftover }
@@ -227,6 +247,8 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
       case 'settings': return saveSettings(db, write.settings);
       case 'shopping': return saveShopping(db, write.list);
       case 'purchase': return savePurchase(db, write.event, write.list);
+      case 'shopPrefs': return saveShopPrefs(db, write.prefs);
+      case 'tripDone': return saveTripDone(db, write.event, write.prefs);
       case 'plan': return saveItem(db, 'plan', write.meal);
       case 'deletePlan': return deleteItem(db, 'plan', write.id);
       case 'leftover': return saveItem(db, 'leftovers', write.item);
@@ -241,7 +263,7 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
 
 async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>): Promise<KitchenData | null> {
   const meta = tx.objectStore('meta');
-  const [ingredients, recipes, events, plan, leftovers, batches, favourites, schemaVersion, settings] = await Promise.all([
+  const [ingredients, recipes, events, plan, leftovers, batches, favourites, schemaVersion, settings, shopPrefs] = await Promise.all([
     tx.objectStore('ingredients').getAll(),
     tx.objectStore('recipes').getAll(),
     tx.objectStore('events').getAll(),
@@ -251,6 +273,7 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
     tx.objectStore('favourites').getAll(),
     meta.get('schemaVersion') as Promise<number | undefined>,
     meta.get('settings') as Promise<KitchenSettings | undefined>,
+    meta.get('shopPrefs') as Promise<ShopPrefs | undefined>,
   ]);
   const empty = ingredients.length === 0 && recipes.length === 0 && events.length === 0;
   if (schemaVersion === undefined && settings === undefined && empty) return null;
@@ -266,6 +289,7 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
   plan.sort((a, b) => (a.localDate + a.slot < b.localDate + b.slot ? -1 : 1));
   return {
     schemaVersion, ingredients, recipes, events, settings,
+    ...(shopPrefs ? { shopPrefs } : {}),
     ...(plan.length ? { plan } : {}),
     ...(leftovers.length ? { leftovers } : {}),
     ...(batches.length ? { batches } : {}),
@@ -361,6 +385,7 @@ function queueReplacement(tx: KitchenTx<'readwrite'>, data: KitchenData, queued:
   const events = tx.objectStore('events');
   const meta = tx.objectStore('meta');
   queued.push(ingredients.clear(), recipes.clear(), events.clear());
+  queued.push(data.shopPrefs ? meta.put(data.shopPrefs, 'shopPrefs') : meta.delete('shopPrefs'));
   for (const store of ['plan', 'leftovers', 'batches', 'favourites'] as const) queued.push(tx.objectStore(store).clear());
   for (const item of data.plan ?? []) queued.push(tx.objectStore('plan').put(item));
   for (const item of data.leftovers ?? []) queued.push(tx.objectStore('leftovers').put(item));

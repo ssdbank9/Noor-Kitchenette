@@ -121,3 +121,66 @@ describe('a kitchen with leftovers and batches (F65, F66)', () => {
     expect(parseBackup(exportBackup(loaded)).ok).toBe(true);
   });
 });
+
+import { defaultShopPrefs } from '../domain/shopPrefs';
+import type { ShopPrefs } from '../domain/types';
+import { makeEvent } from '../domain/ledger';
+
+describe('shopping preferences and trips (D-22)', () => {
+  const prefs: ShopPrefs = {
+    ...defaultShopPrefs(),
+    preferred: { Buldak_Noodles: 'alfatah' },
+    dismissed: [
+      { ingredientId: 'Onion', kind: 'snooze', until: '2026-10-12' },
+      { ingredientId: 'Tomato', kind: 'removed', atAmount: 2 },
+    ],
+    trip: { id: 'trip1', startedAt: '2026-10-06T10:00:00.000Z', got: { Onion: 3 } },
+  };
+
+  it('are saved, loaded and cleared with restore', async () => {
+    const db = await open();
+    await replaceAll(db, seed);
+    await kitchenWriter(db)({ type: 'shopPrefs', prefs });
+    expect((await loadKitchen(db))!.shopPrefs).toEqual(prefs);
+    await replaceAll(db, seed);
+    expect((await loadKitchen(db))!.shopPrefs).toBeUndefined();
+  });
+
+  it('finishing a trip saves ONE purchase and the cleared trip together, and a retry changes nothing', async () => {
+    const db = await open();
+    await replaceAll(db, seed);
+    const write = kitchenWriter(db);
+    const event = makeEvent('purchase', [{ ingredientId: 'Onion', delta: 3, basis: 'measured' }], new Date('2026-10-06T11:00:00Z'), { id: 'trip-trip1' });
+    const done = { ...prefs, trip: undefined };
+    await write({ type: 'tripDone', event, prefs: done });
+    await write({ type: 'tripDone', event, prefs: done });
+    const data = (await loadKitchen(db))!;
+    expect(data.events.filter(e => e.id === 'trip-trip1')).toHaveLength(1);
+    expect(data.shopPrefs?.trip).toBeUndefined();
+  });
+
+  it('round-trip through a backup; a store with an unsafe link is refused', () => {
+    const full: KitchenData = { ...seed, shopPrefs: prefs };
+    const ok = parseBackup(exportBackup(full));
+    expect(ok.ok ? ok.data.shopPrefs : ok.errors).toEqual(prefs);
+    const bad = JSON.parse(exportBackup(full));
+    bad.shopPrefs.stores[0].searchUrl = 'javascript:alert(1)';
+    const refused = parseBackup(JSON.stringify(bad));
+    expect(refused.ok).toBe(false);
+    expect(refused.ok ? '' : refused.errors.join(' ')).toContain('shopPrefs.stores[0].searchUrl');
+  });
+
+  it('home area and the usual buy amount round-trip', () => {
+    const data: KitchenData = {
+      ...seed,
+      settings: { ...seed.settings, homeArea: { label: 'I-8 Markaz', lat: 33.668, lng: 73.075 } },
+    };
+    const parsed = parseBackup(exportBackup(data));
+    expect(parsed.ok ? parsed.data.settings.homeArea : parsed.errors).toEqual({ label: 'I-8 Markaz', lat: 33.668, lng: 73.075 });
+    const bad = JSON.parse(exportBackup(data));
+    bad.settings.homeArea.lat = 123;
+    expect(parseBackup(JSON.stringify(bad)).ok).toBe(false);
+    const buldak = parseBackup(exportBackup(seed));
+    expect(buldak.ok && buldak.data.ingredients.find(i => i.id === 'Buldak_Noodles')?.buyAmount).toBe(5);
+  });
+});

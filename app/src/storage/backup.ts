@@ -17,6 +17,8 @@ import {
   type Leftover,
   type PlanItem,
   type PlannedMeal,
+  type ShopPrefs,
+  type Store,
   type MealRating,
   type MealRecord,
   type MealSlot,
@@ -58,6 +60,7 @@ export function exportBackup(data: KitchenData, exportedAt: Date = new Date()): 
       ingredients: data.ingredients,
       recipes: data.recipes,
       events: data.events,
+      ...(data.shopPrefs ? { shopPrefs: data.shopPrefs } : {}),
       ...(data.plan?.length ? { plan: data.plan } : {}),
       ...(data.leftovers?.length ? { leftovers: data.leftovers } : {}),
       ...(data.batches?.length ? { batches: data.batches } : {}),
@@ -144,10 +147,10 @@ const MEAL_SLOTS: readonly MealSlot[] = ['breakfast', 'lunch', 'dinner', 'chai']
 const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
-const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'plan', 'leftovers', 'batches', 'favourites'] as const;
-const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words'] as const;
+const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'plan', 'leftovers', 'batches', 'favourites'] as const;
+const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
-const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'conversions'] as const;
+const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'buyAmount', 'conversions'] as const;
 const RECIPE_FIELDS = [
   'id', 'name', 'serves', 'time', 'notes', 'category', 'writtenUrl', 'videoUrl', 'recommendedWrittenUrl',
   'recommendedVideoUrl', 'meals', 'aliases', 'source', 'ingredients', 'steps', 'version', 'personal',
@@ -169,6 +172,7 @@ function validate(file: Fields): ParseResult {
   const recipes = c.list(file.recipes, 'recipes').map((v, i) => readRecipe(c, v, `recipes[${i}]`));
   const events = c.list(file.events, 'events').map((v, i) => readEvent(c, v, `events[${i}]`));
   // New in updates 2: optional, so backups made before them still restore.
+  const shopPrefs = optional(file.shopPrefs, v => readShopPrefs(c, v, 'shopPrefs'));
   const plan = optional(file.plan, v => c.list(v, 'plan').map((m, i) => readPlannedMeal(c, m, `plan[${i}]`)));
   const leftovers = optional(file.leftovers, v => c.list(v, 'leftovers').map((m, i) => readLeftover(c, m, `leftovers[${i}]`)));
   const batches = optional(file.batches, v => c.list(v, 'batches').map((m, i) => readBatch(c, m, `batches[${i}]`)));
@@ -220,6 +224,7 @@ function validate(file: Fields): ParseResult {
     ok: true,
     data: {
       schemaVersion: SCHEMA_VERSION, ingredients, recipes, events, settings,
+      ...(shopPrefs ? { shopPrefs } : {}),
       ...(plan?.length ? { plan } : {}),
       ...(leftovers?.length ? { leftovers } : {}),
       ...(batches?.length ? { batches } : {}),
@@ -231,6 +236,11 @@ function validate(file: Fields): ParseResult {
 function readSettings(c: Checker, value: unknown, path: string): KitchenSettings {
   return c.record(value, path, SETTINGS_FIELDS, o => withoutUndefined({
     words: optional(o.words, v => c.oneOf(v, `${path}.words`, WORD_CHOICES)),
+    homeArea: optional(o.homeArea, v => c.record(v, `${path}.homeArea`, ['label', 'lat', 'lng'] as const, h => ({
+      label: c.text(h.label, `${path}.homeArea.label`, { nonEmpty: true }),
+      lat: c.number(h.lat, `${path}.homeArea.lat`, { min: -90, max: 90 }),
+      lng: c.number(h.lng, `${path}.homeArea.lng`, { min: -180, max: 180 }),
+    }))),
     householdName: c.text(o.householdName, `${path}.householdName`),
     timeZone: c.timeZone(o.timeZone, `${path}.timeZone`),
     defaultServings: c.number(o.defaultServings, `${path}.defaultServings`, { above: 0 }),
@@ -252,6 +262,7 @@ function readIngredient(c: Checker, value: unknown, path: string): Ingredient {
     displayUnit: c.text(o.displayUnit, `${path}.displayUnit`, { nonEmpty: true }),
     aisle: c.text(o.aisle, `${path}.aisle`),
     minStock: optional(o.minStock, v => c.number(v, `${path}.minStock`, { min: 0 })),
+    buyAmount: optional(o.buyAmount, v => c.number(v, `${path}.buyAmount`, { above: 0 })),
     conversions: optional(o.conversions, v => c.conversions(v, `${path}.conversions`)),
   }));
 }
@@ -427,6 +438,41 @@ function readFavourite(c: Checker, value: unknown, path: string): Favourite {
   }));
 }
 
+const STORE_KINDS = ['online-search', 'copy-list', 'maps-only'] as const;
+
+function readStore(c: Checker, value: unknown, path: string): Store {
+  return c.record(value, path, ['id', 'name', 'kind', 'searchUrl', 'openUrl', 'mapsQuery', 'unverified', 'note'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    name: c.text(o.name, `${path}.name`, { nonEmpty: true }),
+    kind: c.oneOf(o.kind, `${path}.kind`, STORE_KINDS),
+    searchUrl: optional(o.searchUrl, v => c.webLink(v, `${path}.searchUrl`)),
+    openUrl: optional(o.openUrl, v => c.webLink(v, `${path}.openUrl`)),
+    mapsQuery: optional(o.mapsQuery, v => c.text(v, `${path}.mapsQuery`)),
+    unverified: optional(o.unverified, v => c.flag(v, `${path}.unverified`)),
+    note: optional(o.note, v => c.text(v, `${path}.note`)),
+  }));
+}
+
+function readShopPrefs(c: Checker, value: unknown, path: string): ShopPrefs {
+  return c.record(value, path, ['stores', 'preferred', 'dismissed', 'trip'] as const, o => withoutUndefined({
+    stores: c.list(o.stores, `${path}.stores`).map((v, i) => readStore(c, v, `${path}.stores[${i}]`)),
+    preferred: Object.fromEntries(Object.entries((o.preferred ?? {}) as Record<string, unknown>)
+      .map(([k, v]) => [k, c.text(v, `${path}.preferred.${k}`, { nonEmpty: true })])),
+    dismissed: c.list(o.dismissed, `${path}.dismissed`).map((v, i) => c.record(v, `${path}.dismissed[${i}]`, ['ingredientId', 'kind', 'until', 'atAmount'] as const, d => withoutUndefined({
+      ingredientId: c.text(d.ingredientId, `${path}.dismissed[${i}].ingredientId`, { nonEmpty: true }),
+      kind: c.oneOf(d.kind, `${path}.dismissed[${i}].kind`, ['snooze', 'removed'] as const),
+      until: optional(d.until, x => c.calendarDate(x, `${path}.dismissed[${i}].until`)),
+      atAmount: d.atAmount === null ? null : optional(d.atAmount, x => c.number(x, `${path}.dismissed[${i}].atAmount`, { min: 0 })),
+    }))),
+    trip: optional(o.trip, v => c.record(v, `${path}.trip`, ['id', 'startedAt', 'got'] as const, t => ({
+      id: c.text(t.id, `${path}.trip.id`, { nonEmpty: true }),
+      startedAt: c.instant(t.startedAt, `${path}.trip.startedAt`),
+      got: Object.fromEntries(Object.entries((t.got ?? {}) as Record<string, unknown>)
+        .map(([k, v2]) => [k, c.number(v2, `${path}.trip.got.${k}`, { min: 0 })])),
+    }))),
+  }));
+}
+
 function readMeal(c: Checker, value: unknown, path: string): MealRecord {
   return c.record(value, path, MEAL_FIELDS, o => withoutUndefined({
     recipeId: c.text(o.recipeId, `${path}.recipeId`, { nonEmpty: true }),
@@ -487,7 +533,7 @@ class Checker {
     return value;
   }
 
-  number(value: unknown, path: string, rule: { integer?: boolean; min?: number; above?: number } = {}): number {
+  number(value: unknown, path: string, rule: { integer?: boolean; min?: number; max?: number; above?: number } = {}): number {
     if (typeof value !== 'number') {
       this.report(path, value === undefined ? 'is missing.' : `must be a number, got ${show(value)}.`);
       return 0;
@@ -495,6 +541,7 @@ class Checker {
     if (!Number.isFinite(value)) this.report(path, `must be a finite number, got ${show(value)}.`);
     else if (rule.integer && !Number.isInteger(value)) this.report(path, `must be a whole number, got ${value}.`);
     else if (rule.min !== undefined && value < rule.min) this.report(path, `must be ${rule.min} or more, got ${value}.`);
+    else if (rule.max !== undefined && value > rule.max) this.report(path, `must be ${rule.max} or less, got ${value}.`);
     else if (rule.above !== undefined && value <= rule.above) this.report(path, `must be more than ${rule.above}, got ${value}.`);
     return value;
   }

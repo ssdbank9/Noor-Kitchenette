@@ -828,6 +828,26 @@
       "displayUnit": "g",
       "aisle": "Canned/Legumes",
       "minStock": 250
+    },
+    {
+      "id": "Buldak_Noodles",
+      "name": "Buldak noodles",
+      "aliases": [
+        "buldak",
+        "samyang",
+        "samyang buldak",
+        "fire noodles",
+        "korean noodles",
+        "korean ramen"
+      ],
+      "dimension": "count",
+      "displayUnit": "pack",
+      "aisle": "Snacks & noodles",
+      "minStock": 5,
+      "buyAmount": 5,
+      "conversions": {
+        "pack": 1
+      }
     }
   ],
   "recipes": [

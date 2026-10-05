@@ -77,6 +77,22 @@ const TIME_ZONE = 'Asia/Karachi';
 
 const EXPECTED = { recipes: 22, ingredients: 62 };
 
+// Staples added by the owner on top of the workbooks (D-22). They are not in any recipe; they
+// exist so they appear on the To-buy list when they run low. Noor loves Buldak noodles: keep 5.
+const EXTRA_INGREDIENTS = [
+  {
+    id: 'Buldak_Noodles',
+    name: 'Buldak noodles',
+    aliases: ['buldak', 'samyang', 'samyang buldak', 'fire noodles', 'korean noodles', 'korean ramen'],
+    dimension: 'count',
+    displayUnit: 'pack',
+    aisle: 'Snacks & noodles',
+    minStock: 5,
+    buyAmount: 5,
+    conversions: { pack: 1 },
+  },
+];
+
 const METRIC = { g: ['mass', 1], kg: ['mass', 1000], ml: ['volume', 1], L: ['volume', 1000] };
 const SPOON_ML = { tbsp: 15, tsp: 5 };
 const COUNT_UNITS = new Set(['unit', 'pc', 'bunch', 'sprig', 'inch', 'clove', 'cloves', 'cup', 'tsp', 'tbsp']);
@@ -233,6 +249,7 @@ function buildAll() {
       });
     }
   }
+  ingredients.push(...EXTRA_INGREDIENTS.map(e => ({ ...e })));
 
   const recipes = db.R.map(r => {
     assert.ok(Number.isFinite(r.serves) && r.serves > 0, `${r.id}: serves`);
