@@ -91,7 +91,16 @@ const EXTRA_INGREDIENTS = [
     buyAmount: 5,
     conversions: { pack: 1 },
   },
+  ...[
+    ['Instant_Noodles', 'Instant noodles', ['noodles', 'maggi', 'ramen', 'indomie'], 'pack'],
+    ['Chips', 'Chips', ['crisps', 'lays', 'potato chips'], 'pack'],
+    ['Biscuits', 'Biscuits', ['cookies', 'biscuit'], 'pack'],
+    ['Chocolate', 'Chocolate', ['chocolates', 'candy', 'sweets'], 'bar'],
+  ].map(([id, name, aliases, unit]) => ({
+    id, name, aliases, dimension: 'count', displayUnit: unit, aisle: 'Snacks & noodles', minStock: 0, conversions: { [unit]: 1 },
+  })),
 ];
+
 
 const METRIC = { g: ['mass', 1], kg: ['mass', 1000], ml: ['volume', 1], L: ['volume', 1000] };
 const SPOON_ML = { tbsp: 15, tsp: 5 };

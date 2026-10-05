@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
-import { CalendarIcon, CartIcon, ChartIcon, HomeIcon, PantryIcon } from './Icons';
+import { SnackIcon, CalendarIcon, CartIcon, ChartIcon, HomeIcon, PantryIcon } from './Icons';
 
-export type Tab = 'today' | 'plan' | 'pantry' | 'shop' | 'history';
+export type Tab = 'today' | 'plan' | 'pantry' | 'snacks' | 'shop' | 'history';
 
 const TABS: { id: Tab; label: string; icon: ReactNode }[] = [
   { id: 'today', label: 'Today', icon: <HomeIcon /> },
   { id: 'plan', label: 'Plan', icon: <CalendarIcon /> },
   { id: 'pantry', label: 'Pantry', icon: <PantryIcon /> },
+  { id: 'snacks', label: 'Snacks', icon: <SnackIcon /> },
   { id: 'shop', label: 'Shop', icon: <CartIcon /> },
   { id: 'history', label: 'History', icon: <ChartIcon /> },
 ];

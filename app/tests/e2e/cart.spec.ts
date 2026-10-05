@@ -167,6 +167,26 @@ test('+ Add item: browse the Snacks & noodles aisle and add Buldak without typin
   await expect(cartRow(page, 'Buldak noodles')).toBeVisible();
 });
 
+test('Snacks tab: lists noodles and treats, searches, adds a new snack to the To-buy list', async ({ page }) => {
+  await start(page);
+  await nav(page, 'Snacks');
+  await expect(page.getByRole('region', { name: 'Snack list' })).toContainText('Buldak noodles');
+  await expect(page.getByRole('region', { name: 'Snack list' })).toContainText('Instant noodles');
+  await page.getByRole('searchbox', { name: 'Search snacks' }).fill('chip');
+  await expect(page.getByRole('region', { name: 'Snack list' })).toContainText('Chips');
+  await page.getByRole('button', { name: 'Add Chips to the list' }).click();
+  await page.getByRole('searchbox', { name: 'Search snacks' }).fill('');
+  await page.getByRole('button', { name: '+ Add a snack' }).click();
+  await page.getByRole('searchbox', { name: 'Search items' }).fill('Popcorn');
+  await page.getByRole('button', { name: 'Add "Popcorn" as a new item' }).click();
+  await page.getByRole('dialog').getByLabel('Exact amount').fill('2');
+  await page.getByRole('button', { name: 'Add to list' }).click();
+  await expect(page.getByRole('region', { name: 'Snack list' })).toContainText('Popcorn');
+  await nav(page, 'Shop');
+  await expect(cartRow(page, 'Chips')).toBeVisible();
+  await expect(cartRow(page, 'Popcorn')).toBeVisible();
+});
+
 test('Store grouping puts lines under "Any store" by default, and Share list copies the whole cart', async ({ page }) => {
   await start(page);
   await nav(page, 'Shop');

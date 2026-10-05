@@ -848,6 +848,70 @@
       "conversions": {
         "pack": 1
       }
+    },
+    {
+      "id": "Instant_Noodles",
+      "name": "Instant noodles",
+      "aliases": [
+        "noodles",
+        "maggi",
+        "ramen",
+        "indomie"
+      ],
+      "dimension": "count",
+      "displayUnit": "pack",
+      "aisle": "Snacks & noodles",
+      "minStock": 0,
+      "conversions": {
+        "pack": 1
+      }
+    },
+    {
+      "id": "Chips",
+      "name": "Chips",
+      "aliases": [
+        "crisps",
+        "lays",
+        "potato chips"
+      ],
+      "dimension": "count",
+      "displayUnit": "pack",
+      "aisle": "Snacks & noodles",
+      "minStock": 0,
+      "conversions": {
+        "pack": 1
+      }
+    },
+    {
+      "id": "Biscuits",
+      "name": "Biscuits",
+      "aliases": [
+        "cookies",
+        "biscuit"
+      ],
+      "dimension": "count",
+      "displayUnit": "pack",
+      "aisle": "Snacks & noodles",
+      "minStock": 0,
+      "conversions": {
+        "pack": 1
+      }
+    },
+    {
+      "id": "Chocolate",
+      "name": "Chocolate",
+      "aliases": [
+        "chocolates",
+        "candy",
+        "sweets"
+      ],
+      "dimension": "count",
+      "displayUnit": "bar",
+      "aisle": "Snacks & noodles",
+      "minStock": 0,
+      "conversions": {
+        "bar": 1
+      }
     }
   ],
   "recipes": [

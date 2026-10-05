@@ -14,6 +14,7 @@ import { buildUsage } from './domain/usage';
 import { CookedScreen, type CookedChoice } from './ui/CookedScreen';
 import { HistoryScreen } from './ui/HistoryScreen';
 import { PantryScreen } from './ui/PantryScreen';
+import { SnacksScreen } from './ui/SnacksScreen';
 import { RecipesScreen } from './ui/RecipesScreen'; // F33
 import { ShopScreen } from './ui/ShopScreen'; // F33
 import { addDishShortfall, type ShoppingItem, type ShoppingList } from './domain/shopping'; // F33
@@ -626,6 +627,16 @@ function Kitchen({ store }: { store: KitchenStore }) {
           onDeleteBatch: batch => { removeBatch(batch.id); setToast({ text: 'Batch deleted.', undo: () => { putBatch(batch); setToast({ text: 'Batch put back.' }); } }); },
           onUndoEvent: undo,
         }}
+      />
+    );
+  } else if (view.tab === 'snacks') {
+    screen = (
+      <SnacksScreen
+        ingredients={ingredients}
+        stock={stock}
+        format={formatAmount}
+        onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
+        onAddItem={addCartItem}
       />
     );
   } else if (view.tab === 'shop') {

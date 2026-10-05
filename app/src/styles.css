@@ -174,7 +174,7 @@ button:focus-visible { outline: 3px solid var(--lilac); outline-offset: 2px; }
 .bottom-nav {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--surface);
   border-top: 1px solid var(--border); padding: 6px 4px calc(10px + env(safe-area-inset-bottom));
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 .bottom-nav__item {
   min-height: 56px; border: 0; background: none; color: var(--muted); font-size: 12px; font-weight: 700;
@@ -1011,3 +1011,8 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .fold--card { background: rgba(255, 255, 255, 0.82); border: 1px solid var(--border); border-radius: 18px; padding: 0 16px; }
 .fold--card[open] { padding-bottom: 12px; }
 .line-stores .store-chip { align-self: flex-start; }
+
+/* Snacks tab */
+.snack-row { display: flex; align-items: stretch; gap: 8px; }
+.snack-row .pantry-item { flex: 1; }
+.snack-row__list { align-self: center; white-space: nowrap; }

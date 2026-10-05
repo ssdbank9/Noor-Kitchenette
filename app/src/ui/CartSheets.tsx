@@ -64,9 +64,12 @@ export interface AddItemSheetProps {
   ingredients: Ingredient[];
   onAdd: (ingredient: Ingredient, isNew: boolean, amountBase: number) => void;
   onClose: () => void;
+  /** Opens browsing this aisle, and a new item starts in it (the Snacks tab). */
+  initialAisle?: string;
 }
 
-const SNACKS = 'Snacks & noodles';
+export const SNACKS_AISLE = 'Snacks & noodles';
+const SNACKS = SNACKS_AISLE;
 
 /** "+ Add item": search what Noor already has on record, or make a new item. Saves one manual line. */
 export function AddItemSheet(p: AddItemSheetProps) {
@@ -75,11 +78,11 @@ export function AddItemSheet(p: AddItemSheetProps) {
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState('');
   const [unit, setUnit] = useState<string>('pc');
-  const [aisle, setAisle] = useState('');
+  const [aisle, setAisle] = useState(p.initialAisle ?? '');
   const [amount, setAmount] = useState<AmountValue>({ text: '1', unit: 'pc' });
   const [error, setError] = useState('');
   const aisles = [...new Set([...DEFAULT_AISLES, SNACKS, ...p.ingredients.map(i => i.aisle)])];
-  const [browse, setBrowse] = useState('');
+  const [browse, setBrowse] = useState(p.initialAisle ?? '');
   const found = searchIngredients(query, p.ingredients, new Set(), browse ? 200 : 8);
   const matches = browse ? found.filter(i => i.aisle === browse) : found;
   const typed = query.trim();
