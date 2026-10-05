@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import type { KitchenData, MealSlot } from '../domain/types';
 import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
+import { useGemini } from '../gemini/GeminiContext'; // F52
+import { testKey } from '../gemini/photo'; // F52
 
 type Settings = KitchenData['settings'];
 
@@ -48,6 +50,9 @@ export function SettingsScreen(p: SettingsProps) {
   const [restoreNote, setRestoreNote] = useState('');
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const { client } = useGemini(); // F52
+  const [testing, setTesting] = useState(false); // F52
+  const [testNote, setTestNote] = useState(''); // F52
 
   const hasKey = Boolean(p.settings.geminiKey);
 
@@ -58,6 +63,14 @@ export function SettingsScreen(p: SettingsProps) {
     setKeyText('');
     setShowKey(false);
     setKeyNote('Key saved on this phone.');
+  }
+  // F52: one tiny text request; the key is never shown or logged.
+  async function runKeyTest() {
+    setTesting(true);
+    setTestNote('');
+    const r = await testKey(client);
+    setTesting(false);
+    setTestNote(r.ok ? 'Key works' : r.message);
   }
   function removeKey() {
     p.onChange({ geminiKey: undefined });
@@ -138,6 +151,11 @@ export function SettingsScreen(p: SettingsProps) {
           <button type="button" className="button-outline" disabled={!hasKey} onClick={removeKey}>Remove key</button>
         </div>
         {keyNote && <p className="settings__note" role="status">{keyNote}</p>}
+        <div className="settings__buttons">
+          <button type="button" className="button-tint" disabled={testing} onClick={() => void runKeyTest()}>{testing ? 'Testing...' : 'Test my key'}</button>
+        </div>
+        {testNote && <p className="settings__note" role="status">{testNote}</p>}
+        <p className="settings__hint">Photos are sent to Google to be read and are not saved in the app.</p>
       </section>
 
       <section className="panel settings__panel" aria-labelledby="set-words">
