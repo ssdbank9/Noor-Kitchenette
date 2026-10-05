@@ -13,6 +13,7 @@ import {
 import { formatDistance } from '../domain/geo';
 import type { Favourite } from '../domain/types';
 import { cleanText } from '../gemini/sanitize';
+import { copyThenOpen } from './storeHandoff';
 
 export interface EatOutScreenProps {
   favourites: Favourite[];
@@ -63,15 +64,12 @@ export function EatOutScreen(p: EatOutScreenProps) {
     return () => { live = false; };
   }, []);
 
-  // Opens foodpanda first (inside the tap, so it is not blocked), then copies the name.
+  // Starts the copy first (the page must still have focus), then opens foodpanda in the same tap.
   async function copyAndOpen(text: string) {
-    window.open(FOODPANDA_HOME, '_blank', 'noopener');
-    try {
-      await navigator.clipboard.writeText(text);
-      setNote(`Copied "${text}". Paste it into foodpanda's search.`);
-    } catch {
-      setNote(`Could not copy. Type this into foodpanda's search: ${text}`);
-    }
+    const copied = await copyThenOpen(text, FOODPANDA_HOME);
+    setNote(copied
+      ? `Copied "${text}". Paste it into foodpanda's search.`
+      : `Could not copy. Type this into foodpanda's search: ${text}`);
   }
 
   if (form) {

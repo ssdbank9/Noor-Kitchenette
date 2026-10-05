@@ -940,3 +940,20 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .eatout__order-by { display: flex; flex-direction: column; gap: 8px; }
 .eatout__distance { margin: 0; font-size: 14px; font-weight: 800; color: var(--cyan-text); }
 .eatout__setarea { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; font-weight: 800; color: var(--lilac); text-decoration: underline; background: none; border: 0; padding: 0 4px; font-family: inherit; font-size: 14px; }
+
+/* ---------- Stores (D-22) ---------- */
+.store-chip { min-height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--lilac-tint); color: var(--lilac); font-weight: 800; font-size: 14px; }
+.store-sheet__list { display: flex; flex-direction: column; gap: 8px; }
+.store-sheet__option { min-height: 52px; text-align: left; padding: 0 18px; font-size: 16px; }
+.find-store { display: flex; flex-direction: column; gap: 8px; }
+.find-store__row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.find-store__btn, .store-actions__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 14px; text-decoration: none; text-align: center; }
+.find-store__note, .store-actions__note { margin: 0; color: var(--muted); font-size: 13px; font-weight: 700; white-space: pre-wrap; }
+.store-actions { display: flex; flex-direction: column; gap: 10px; }
+.store-actions__btn { width: 100%; min-height: 52px; }
+.stores-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.stores-list__item { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.stores-list__text { display: flex; flex-direction: column; min-width: 0; }
+.stores-list__kind { color: var(--muted); font-size: 13px; font-weight: 700; }
+.stores-list__buttons { display: flex; gap: 8px; }
+.store-form { display: flex; flex-direction: column; gap: 12px; }
