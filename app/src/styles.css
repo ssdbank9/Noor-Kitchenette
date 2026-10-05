@@ -917,3 +917,15 @@ button.button-primary.snapbig { background: var(--glass-rust); }
 .basket__toggle input { width: 24px; height: 24px; accent-color: var(--lilac); }
 .basket-item { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 6px 12px 6px 6px; list-style: none; }
 .shop-item__text .shop-item__why { display: block; }
+
+/* ---------- Host badge safe space ----------
+   Netlify can add a "Powered by Netlify" badge to this site: a fixed 197 x 64 box in the
+   bottom-right corner, above everything, that blocks taps under it (the Shop and History tabs,
+   half of every full-width button). We do not hide what the host adds; instead, whenever the
+   badge is present, everything pinned to the bottom lifts above it. */
+body:has(#nl-badge-frame) { --badge-safe: 68px; }
+.bottom-nav, .action-bar { bottom: var(--badge-safe, 0px); }
+.snap { bottom: calc(96px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); }
+.toast { bottom: calc(92px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); }
+.psheet { padding-bottom: var(--badge-safe, 0px); }
+.app { padding-bottom: calc(84px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); }
