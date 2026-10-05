@@ -79,7 +79,9 @@ export function AddItemSheet(p: AddItemSheetProps) {
   const [amount, setAmount] = useState<AmountValue>({ text: '1', unit: 'pc' });
   const [error, setError] = useState('');
   const aisles = [...new Set([...DEFAULT_AISLES, SNACKS, ...p.ingredients.map(i => i.aisle)])];
-  const matches = searchIngredients(query, p.ingredients, new Set());
+  const [browse, setBrowse] = useState('');
+  const found = searchIngredients(query, p.ingredients, new Set(), browse ? 200 : 8);
+  const matches = browse ? found.filter(i => i.aisle === browse) : found;
   const typed = query.trim();
 
   function pick(ing: Ingredient) {
@@ -109,6 +111,12 @@ export function AddItemSheet(p: AddItemSheetProps) {
         <>
           <input className="input" type="search" role="searchbox" aria-label="Search items" placeholder="Search items" autoFocus
             value={query} onChange={e => setQuery(e.target.value)} />
+          <div role="group" aria-label="Browse by aisle" className="own-chips">
+            {aisles.map(a => (
+              <button key={a} type="button" className="choice-chip" aria-pressed={browse === a}
+                onClick={() => setBrowse(browse === a ? '' : a)}>{a}</button>
+            ))}
+          </div>
           <ul className="rows plan-picks">
             {matches.map(i => (
               <li key={i.id}>
@@ -119,7 +127,7 @@ export function AddItemSheet(p: AddItemSheetProps) {
             ))}
           </ul>
           {matches.length === 0 && typed && <p className="empty empty--flush">Nothing called "{typed}" yet.</p>}
-          <button type="button" className="button-outline plan-wide" onClick={() => { setCreating(true); setName(typed); setError(''); }}>
+          <button type="button" className="button-outline plan-wide" onClick={() => { setCreating(true); setName(typed); setAisle(browse); setError(''); }}>
             {typed ? `Add "${typed}" as a new item` : 'A new item'}
           </button>
         </>

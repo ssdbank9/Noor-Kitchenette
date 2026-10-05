@@ -157,6 +157,16 @@ test('+ Add item: search keeps focus, a chosen item and a new item become manual
   await expect(pantryRow(page, 'Mango pickle')).toBeVisible();
 });
 
+test('+ Add item: browse the Snacks & noodles aisle and add Buldak without typing', async ({ page }) => {
+  await start(page);
+  await nav(page, 'Shop');
+  await page.getByRole('button', { name: '+ Add item' }).click();
+  await page.getByRole('group', { name: 'Browse by aisle' }).getByRole('button', { name: 'Snacks & noodles' }).click();
+  await page.getByRole('button', { name: 'Choose Buldak noodles', exact: true }).click();
+  await page.getByRole('button', { name: 'Add to list' }).click();
+  await expect(cartRow(page, 'Buldak noodles')).toBeVisible();
+});
+
 test('Store grouping puts lines under "Any store" by default, and Share list copies the whole cart', async ({ page }) => {
   await start(page);
   await nav(page, 'Shop');
