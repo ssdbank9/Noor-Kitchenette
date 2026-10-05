@@ -653,15 +653,23 @@ function Kitchen({ store }: { store: KitchenStore }) {
           return ing ? (
             <div className="line-stores">
               <StoreChip ingredientId={ing.id} ingredientName={ing.name} prefs={prefs} onChange={savePrefs} />
-              <FindOnStore
-                itemName={ing.name}
-                prefs={prefs}
-                copyTextFor={id => { const st = prefs.stores.find(x => x.id === id); return st ? copyListText(cart, ingredients, st, prefs) : ing.name; }}
-              />
+              <details className="fold">
+                <summary>Where to buy</summary>
+                <FindOnStore
+                  itemName={ing.name}
+                  prefs={prefs}
+                  copyTextFor={id => { const st = prefs.stores.find(x => x.id === id); return st ? copyListText(cart, ingredients, st, prefs) : ing.name; }}
+                />
+              </details>
             </div>
           ) : null;
         }}
-        listExtras={<StoreActions lines={cart} ingredients={ingredients} prefs={prefs} />} // D22 stores
+        listExtras={(
+          <details className="fold fold--card">
+            <summary>Stores and directions</summary>
+            <StoreActions lines={cart} ingredients={ingredients} prefs={prefs} />
+          </details>
+        )} // D22 stores
       />
     );
   } else {

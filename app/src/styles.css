@@ -1002,3 +1002,12 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 
 /* Store choice and links under each To-buy line */
 .line-stores { display: flex; flex-direction: column; gap: 8px; padding: 4px 16px 12px; }
+
+/* Store tools stay folded away until asked for (the Shop screen is used standing in a shop) */
+.fold > summary { min-height: 44px; display: flex; align-items: center; font-weight: 800; color: var(--lilac); cursor: pointer; list-style: none; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::after { content: '▾'; margin-left: 8px; font-size: 14px; }
+.fold[open] > summary::after { content: '▴'; }
+.fold--card { background: rgba(255, 255, 255, 0.82); border: 1px solid var(--border); border-radius: 18px; padding: 0 16px; }
+.fold--card[open] { padding-bottom: 12px; }
+.line-stores .store-chip { align-self: flex-start; }

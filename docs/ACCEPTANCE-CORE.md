@@ -100,3 +100,22 @@ cooking; Use soon row on Today; Waste report. No restaurant list exists yet: run
 
 Deferred (D-21): custom and Ramadan meal slots; menu-level matching for Korean wings and
 Donuts; shared household access; family recipe photos.
+
+## Shopping extension (branch `claude/shopping-1`, D-22; not yet on the live site)
+
+To-buy cart that fills itself (low stock, plan, dishes, manual items) with snooze, remove,
+"always keep" and add item; shopping trip mode (one purchase per trip, survives a reload);
+stores (Al-Fatah, pandamart, Carrefour, local I-8 shops) with a per-item store, search links,
+copy-list handoff, directions and a Settings panel; eat out sorted nearest-first from a home
+area (I-8 Markaz preset or "Use my location"); Buldak noodles as an always-keep staple.
+No live prices or stock anywhere.
+
+Status 2026-10-06: logic tests 693/693, browser tests 94/94 (no flaky), typecheck clean.
+Found and fixed on the way: starter minimums would have flooded the cart with ~60 items after
+the first purchase; "copy and open" opened the store before copying, which a browser can refuse;
+units read "5 packs"; the Shop screen is folded so store links are one tap away, not a wall.
+
+Still to check on a real phone: Find on Al-Fatah (does the search show results?), Carrefour
+search (unconfirmed), the pandamart copy-and-open handoff, directions in Maps, a real shopping
+trip offline, Use my location. No restaurant list exists yet: run `npm run refresh:eatout`
+with the I-8 Markaz coordinates (README, "Eat out list").
