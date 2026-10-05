@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
-import { balances, cookingHistory, makeEvent, monthSummary, reverse } from './domain/ledger';
+import { balances, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
+import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
+import { RecipeEditor } from './ui/RecipeEditor'; // F40
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
-import type { Ingredient, KitchenEvent, MealSlot, Movement } from './domain/types';
+import type { Ingredient, KitchenEvent, MealSlot, Movement, Recipe } from './domain/types'; // F40: Recipe
 import { fromBase, toBase } from './domain/units';
 import { formatHouseholdDay, householdDate, householdTime, instantFromHousehold, nextSlot } from './lib/localDate';
 import { BottomNav, type Tab } from './ui/BottomNav';
@@ -29,6 +31,7 @@ type View =
   | { name: 'recipe'; recipeId: string; back: Tab | 'recipes' }
   | { name: 'settings' } // settings
   | { name: 'recipes' } // F33
+  | { name: 'editor'; recipeId: string | null; back: Tab | 'recipes' } // F40
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
@@ -182,6 +185,22 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }
   }
 
+  // F40: own recipes. Each change is queued for the database AND applied to the screen's copy.
+  function saveOwnRecipe(recipe: Recipe, newIngredients: Ingredient[], back: Tab | 'recipes') {
+    for (const ingredient of newIngredients) void store.queue.enqueue({ type: 'ingredient', ingredient });
+    void store.queue.enqueue({ type: 'recipe', recipe });
+    setBase(b => withRecipe(b, recipe, newIngredients));
+    setToast({ text: `Saved ${recipe.name}.` });
+    setView({ name: 'recipe', recipeId: recipe.id, back });
+  }
+  function deleteOwnRecipe(recipeId: string) {
+    const name = recipesById.get(recipeId)?.name ?? 'The recipe';
+    void store.queue.enqueue({ type: 'deleteRecipe', recipeId });
+    setBase(b => withoutRecipe(b, recipeId));
+    setToast({ text: `Deleted ${name}. Cooking history keeps its name.` });
+    setView({ name: 'recipes' });
+  }
+
   // F33: recipes and shopping list
   function addToList(recipeId: string) {
     const recipe = recipesById.get(recipeId)!;
@@ -228,6 +247,24 @@ function Kitchen({ store }: { store: KitchenStore }) {
         servings={servings}
         onOpen={id => open(id, 'recipes')}
         onBack={() => setView({ name: 'tab', tab: 'today' })}
+        onAdd={() => setView({ name: 'editor', recipeId: null, back: 'recipes' })} // F40
+      />
+    );
+  } else if (view.name === 'editor') { // F40
+    const editing = view.recipeId ? recipesById.get(view.recipeId) : undefined;
+    const goBack = () => (editing ? open(editing.id, view.back) : setView(view.back === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: view.back }));
+    screen = (
+      <RecipeEditor
+        key={editing?.id ?? 'new'}
+        recipe={editing}
+        ingredients={ingredients}
+        categories={[...new Set(recipes.map(r => r.category).filter((c): c is string => Boolean(c)))]}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        onSave={(recipe, fresh) => saveOwnRecipe(recipe, fresh, view.back)}
+        onDelete={editing?.personal ? deleteOwnRecipe : undefined}
+        onBack={goBack}
       />
     );
   } else if (view.name === 'recipe') {
@@ -245,6 +282,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         timesThisMonth={times}
         onBack={() => setView(view.back === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: view.back })}
         onCooked={n => setView({ name: 'cooked', recipeId: recipe.id, servings: n, back: view.back })}
+        onEdit={() => setView({ name: 'editor', recipeId: recipe.id, back: view.back })} // F40
       />
     );
   } else if (view.name === 'cooked') {
@@ -300,14 +338,13 @@ function Kitchen({ store }: { store: KitchenStore }) {
       />
     );
   } else if (view.tab === 'history') {
-    const month = today.slice(0, 7);
     screen = (
       <HistoryScreen
-        monthLabel={new Intl.DateTimeFormat('en-GB', { month: 'long', timeZone: 'UTC' }).format(new Date(month + '-01T00:00:00Z'))}
-        summary={monthSummary(events, month)}
-        meals={cookingHistory(events)}
+        events={events} // F40: the screen works out the range, names and "not cooked in a while"
+        today={today}
         recipesById={recipesById}
         onUndo={undo}
+        onOpenRecipe={id => open(id, 'history')}
       />
     );
   } else if (view.tab === 'pantry') {

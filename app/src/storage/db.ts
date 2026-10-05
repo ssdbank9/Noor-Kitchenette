@@ -120,6 +120,13 @@ export function saveRecipe(db: KitchenDb, recipe: Recipe): Promise<void> {
   });
 }
 
+/** Removes one recipe (F40: only Noor's own). Deleting one that is not there changes nothing, so replay is safe. */
+export function deleteRecipe(db: KitchenDb, recipeId: string): Promise<void> {
+  return writeToSetUpKitchen(db, 'recipes', (tx, queued) => {
+    queued.push(tx.objectStore('recipes').delete(recipeId));
+  });
+}
+
 export function saveIngredient(db: KitchenDb, ingredient: Ingredient): Promise<void> {
   return writeToSetUpKitchen(db, 'ingredients', (tx, queued) => {
     queued.push(tx.objectStore('ingredients').put(ingredient));
@@ -170,6 +177,7 @@ export async function replaceAllKeepingCopy(
 export type KitchenWrite =
   | { type: 'events'; events: KitchenEvent[] }
   | { type: 'recipe'; recipe: Recipe }
+  | { type: 'deleteRecipe'; recipeId: string }
   | { type: 'ingredient'; ingredient: Ingredient }
   | { type: 'settings'; settings: KitchenSettings }
   | { type: 'shopping'; list: ShoppingList }
@@ -181,6 +189,7 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
     switch (write.type) {
       case 'events': return saveEvents(db, write.events);
       case 'recipe': return saveRecipe(db, write.recipe);
+      case 'deleteRecipe': return deleteRecipe(db, write.recipeId);
       case 'ingredient': return saveIngredient(db, write.ingredient);
       case 'settings': return saveSettings(db, write.settings);
       case 'shopping': return saveShopping(db, write.list);
