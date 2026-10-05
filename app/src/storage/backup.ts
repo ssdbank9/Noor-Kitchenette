@@ -145,7 +145,7 @@ const RECIPE_FIELDS = [
 ] as const;
 const RECIPE_INGREDIENT_FIELDS = ['ingredientId', 'amount', 'unit', 'optional'] as const;
 const EVENT_FIELDS = [
-  'id', 'kind', 'at', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
+  'id', 'kind', 'at', 'recordedAt', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
 ] as const;
 const MOVEMENT_FIELDS = ['ingredientId', 'delta', 'basis', 'setTo'] as const;
 const MEAL_FIELDS = ['recipeId', 'recipeName', 'recipeVersion', 'slot', 'servings', 'rating'] as const;
@@ -272,6 +272,7 @@ function readEvent(c: Checker, value: unknown, path: string): KitchenEvent {
       id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
       kind: c.oneOf(o.kind, `${path}.kind`, EVENT_KINDS),
       at: c.instant(o.at, `${path}.at`),
+      recordedAt: optional(o.recordedAt, v => c.instant(v, `${path}.recordedAt`)),
       localDate: c.calendarDate(o.localDate, `${path}.localDate`),
       localTime: c.clock(o.localTime, `${path}.localTime`),
       timeZone: c.timeZone(o.timeZone, `${path}.timeZone`),

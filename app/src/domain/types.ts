@@ -111,8 +111,14 @@ export interface MealRecord {
 export interface KitchenEvent {
   id: string;
   kind: EventKind;
-  /** UTC instant, for ordering. */
+  /** UTC instant it happened (a meal's time). History is ordered by this. */
   at: string;
+  /**
+   * UTC instant the entry was made. Stock is applied in the order entries were recorded, so a
+   * meal saved now but dated earlier (a backdated or default slot time) is never lost behind a
+   * stock check made in between. Missing on older entries and means "same as at".
+   */
+  recordedAt?: string;
   /** Household-local calendar date, YYYY-MM-DD (D5). */
   localDate: string;
   /** Household-local time, HH:MM. */

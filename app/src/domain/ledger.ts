@@ -34,6 +34,13 @@ const weaker = (a: QuantityBasis, b: QuantityBasis): QuantityBasis =>
 const byTime = (a: KitchenEvent, b: KitchenEvent) =>
   a.at < b.at ? -1 : a.at > b.at ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 
+/** The order entries were made in: what stock follows (a check always beats earlier entries). */
+const byRecorded = (a: KitchenEvent, b: KitchenEvent) => {
+  const x = a.recordedAt ?? a.at;
+  const y = b.recordedAt ?? b.at;
+  return x < y ? -1 : x > y ? 1 : byTime(a, b);
+};
+
 export function newEventId(): string {
   return globalThis.crypto.randomUUID();
 }
@@ -43,7 +50,7 @@ export function makeEvent(
   kind: EventKind,
   movements: Movement[],
   instant: Date,
-  extra: Partial<Pick<KitchenEvent, 'meal' | 'reverses' | 'source' | 'note' | 'priceRs' | 'id'>> = {},
+  extra: Partial<Pick<KitchenEvent, 'meal' | 'reverses' | 'source' | 'note' | 'priceRs' | 'id' | 'recordedAt'>> = {},
   timeZone: string = HOUSEHOLD_TIME_ZONE,
 ): KitchenEvent {
   return {
@@ -53,6 +60,7 @@ export function makeEvent(
     localDate: householdDate(instant, timeZone),
     localTime: householdTime(instant, timeZone),
     timeZone,
+    ...(extra.recordedAt ? { recordedAt: extra.recordedAt } : {}),
     movements,
     ...(extra.meal ? { meal: extra.meal } : {}),
     ...(extra.reverses ? { reverses: extra.reverses } : {}),
@@ -88,15 +96,18 @@ export function effectiveIds(events: KitchenEvent[]): Set<string> {
 }
 
 /** Events that change stock or history: in effect and not reversals themselves. */
-export function activeEvents(events: KitchenEvent[]): KitchenEvent[] {
+export function activeEvents(
+  events: KitchenEvent[],
+  order: (a: KitchenEvent, b: KitchenEvent) => number = byTime,
+): KitchenEvent[] {
   const live = effectiveIds(events);
-  return events.filter(e => e.kind !== 'reversal' && live.has(e.id)).sort(byTime);
+  return events.filter(e => e.kind !== 'reversal' && live.has(e.id)).sort(order);
 }
 
 /** Current stock per ingredient, from the events in effect. */
 export function balances(events: KitchenEvent[]): Map<string, Balance> {
   const result = new Map<string, Balance>();
-  for (const e of activeEvents(events)) {
+  for (const e of activeEvents(events, byRecorded)) {
     for (const m of e.movements) {
       const prev = result.get(m.ingredientId);
       let next: Balance;

@@ -122,6 +122,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
       ? a.needs.filter(n => n.need !== null && n.need > 0).map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const }))
       : []);
     const event = makeEvent('cook', movements, instantFromHousehold(choice.localDate, choice.localTime, tz), {
+      recordedAt: new Date().toISOString(), // stock follows when it was recorded, not the meal time
       meal: { recipeId, recipeName: recipe.name, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
       source: 'recipe',
     }, tz);
