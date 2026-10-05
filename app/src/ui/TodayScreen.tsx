@@ -1,3 +1,5 @@
+import { useState } from 'react'; // F54
+import type { PlannedHero } from '../domain/plan'; // F54
 import type { Availability, Suggestion } from '../domain/suggest';
 import type { Recipe } from '../domain/types';
 import { CameraIcon, ForkKnifeIcon, GearIcon, PotIcon } from './Icons';
@@ -22,11 +24,15 @@ export interface TodayProps {
   onSettings: () => void; // settings
   onOpenPantry: () => void; // settings
   onLoadSample: () => void; // settings
+  planned?: PlannedHero | null; // F54: what the plan says for the next meal
+  onCookPlanned?: (mealId: string, itemIndex: number) => void; // F54
 }
 
 const TILE_COLOURS = ['tile--cyan', 'tile--rust', 'tile--lilac'];
 
 export function TodayScreen(p: TodayProps) {
+  const [showSuggestions, setShowSuggestions] = useState(false); // F54
+  const planned = showSuggestions ? null : (p.planned ?? null); // F54
   return (
     <div className="screen">
       <header className="screen__header today-header">
@@ -48,7 +54,34 @@ export function TodayScreen(p: TodayProps) {
         </section>
       )}
 
-      {p.pantryEmpty ? null : p.suggestion ? (
+      {planned ? ( // F54
+        <section className="hero hero--planned" aria-label="Planned next meal">
+          <div className="hero__label">Next meal · {p.slotLabel}</div>
+          {planned.kind === 'eatout' ? (
+            <div className="hero__dish">
+              <div className="hero__tile"><ForkKnifeIcon /></div>
+              <div><div className="hero__name">{planned.label ? `Eating out: ${planned.label}` : 'Eating out'}</div><div className="hero__meta">No cooking planned</div></div>
+            </div>
+          ) : (
+            <div className="hero__dish">
+              <div className="hero__tile"><PotIcon /></div>
+              <div>
+                <div className="hero__name">{planned.dishes.map(d => d.recipeName).join(' + ')}</div>
+                <div className="hero__meta">For {planned.meal.servings}</div>
+              </div>
+            </div>
+          )}
+          <ul className="chips" aria-label="Plan"><li className="chip chip--good">Planned</li></ul>
+          <div className="hero__actions">
+            {planned.kind === 'dish' && (
+              <button type="button" className="button-primary" onClick={() => p.onCookPlanned?.(planned.meal.id, planned.dishes[0].index)}>
+                {p.yesWord}, let's cook
+              </button>
+            )}
+            <button type="button" className="button-outline" onClick={() => setShowSuggestions(true)}>Show suggestions instead</button>
+          </div>
+        </section>
+      ) : p.pantryEmpty ? null : p.suggestion ? (
         <section className="hero" aria-label="Suggested next meal">
           <svg className="hero__motif" aria-hidden="true" viewBox="0 0 190 190">
             <circle cx="95" cy="95" r="94" fill="var(--cyan)" />

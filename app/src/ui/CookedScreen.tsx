@@ -19,6 +19,8 @@ export interface CookedScreenProps {
   today: string;
   slotTimes: Record<MealSlot, string>;
   initialSlot: MealSlot;
+  /** F54: the planned date; used when it is within the last 7 days. */
+  initialDate?: string;
   initialServings: number;
   yesWord: string;
   noWord: string;
@@ -59,7 +61,7 @@ const to12h = (hhmm: string) => {
 
 export function CookedScreen(p: CookedScreenProps) {
   const days = useMemo(() => lastSevenDays(p.today), [p.today]);
-  const [date, setDate] = useState(p.today);
+  const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54
   const [slot, setSlot] = useState<MealSlot>(p.initialSlot);
   const [time, setTime] = useState(p.slotTimes[p.initialSlot]);
   const [servings, setServings] = useState(p.initialServings);
