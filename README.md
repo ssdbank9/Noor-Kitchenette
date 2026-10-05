@@ -40,9 +40,11 @@ The Eat out screen shows restaurants per mood (Pizza, Karahi, ...) from a list r
 
 Weekly steps, on Aly's computer (about once a week; Node 24):
 
-1. Set the home location for this session only: `NOOR_HOME_LAT=... NOOR_HOME_LNG=...` (never commit it).
-2. From `app/`: `npm run refresh:eatout`. This writes `data/eatout/moods.json` (gitignored; keeps distance and delivery time for Aly's own use) and, because of `--publish`, the app's copy `app/public/eatout/moods.json`. To keep the list private, run `node tools/eatout/refresh_moods.mjs` from the repo root instead (no `--publish`).
+1. Set the search centre for this PowerShell session: `$env:NOOR_HOME_LAT = "33.668"` and `$env:NOOR_HOME_LNG = "73.075"` (I-8 Markaz, a public place). Use I-8 Markaz, never the house's own location: the publish step refuses to write a list that contains these values anywhere.
+2. From `app/`: `npm run refresh:eatout`. This writes `data/eatout/moods.json` (gitignored; also keeps distance and delivery time for Aly's own use) and, because of `--publish`, the app's copy `app/public/eatout/moods.json`. To keep the list private, run `node tools/eatout/refresh_moods.mjs` from the repo root instead (no `--publish`).
 3. If foodpanda refuses (an HTTP error or a challenge page), the script stops. Do not work around it.
 4. Aly decides whether to publish: commit `app/public/eatout/moods.json` and push, and Netlify ships it with the app (it is also cached for offline use). Otherwise load `data/eatout/moods.json` on a phone through Settings, "Load a restaurant list file". Whichever list is newer is the one used. The app shows "Updated <date>" and says "This list is old" after 30 days.
 
-Privacy: this repository is public. The published copy drops distance (it is measured from the home address), delivery time, and any coordinates, and strips query strings from links. Even so it lists foodpanda restaurants near the home area, so look at the file before committing it. Never commit `data/eatout/`.
+Nearest first (D-22): every restaurant keeps its own `lat` and `lng` (rounded to 4 decimals), in both files. These are public business locations, not private data. The phone works out the distance from the area chosen in Settings, "Where we live", which is stored only on the phone.
+
+Privacy: this repository is public. The published copy drops distance (it is measured from the search centre), delivery time and the search centre itself, and strips query strings from links. It does show that the household is near I-8 Markaz (Aly accepted publishing this, D-22), and nothing finer. Look at the file before committing it. Never commit `data/eatout/`.

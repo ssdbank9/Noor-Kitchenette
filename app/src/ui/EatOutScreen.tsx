@@ -7,9 +7,10 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   allMoods, buildFavourite, directionsUrl, favouritesForMood, FOODPANDA_HOME, formatListDate, isOld, loadEatOutList,
-  MAX_MOOD_CHARS, placesForMood, priceLevelText, ratingText, suggestFavourite, suggestionReason,
-  type EatOutList, type EatOutPlace,
+  MAX_MOOD_CHARS, placesForMood, type PlaceOrder, priceLevelText, ratingText, suggestFavourite, suggestionReason,
+  type EatOutList, type ShownPlace,
 } from '../domain/eatout';
+import { formatDistance } from '../domain/geo';
 import type { Favourite } from '../domain/types';
 import { cleanText } from '../gemini/sanitize';
 
@@ -20,6 +21,9 @@ export interface EatOutScreenProps {
   timeZone: string;
   yesWord: string;
   noWord: string;
+  /** The household's area from Settings (kept on the phone), if chosen. */
+  homeArea?: { label: string; lat: number; lng: number };
+  onOpenSettings?: () => void;
   onSave: (favourite: Favourite) => void;
   onDelete: (id: string) => void;
   onToast: (text: string) => void;
@@ -50,6 +54,7 @@ export function EatOutScreen(p: EatOutScreenProps) {
   const [form, setForm] = useState<FormState | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [note, setNote] = useState('');
+  const [order, setOrder] = useState<PlaceOrder>('nearest');
   const now = new Date();
 
   useEffect(() => {
@@ -88,7 +93,7 @@ export function EatOutScreen(p: EatOutScreenProps) {
   const moods = allMoods(p.favourites);
   const suggestion = suggestFavourite(p.favourites, mood, skip);
   const moodFavs = mood ? favouritesForMood(p.favourites, mood) : [];
-  const places = mood ? placesForMood(list, mood) : [];
+  const places = mood ? placesForMood(list, mood, order, p.homeArea) : [];
   const stale = list ? isOld(list.generatedAt, now) : false;
 
   function ordered(f: Favourite) {
@@ -164,9 +169,22 @@ export function EatOutScreen(p: EatOutScreenProps) {
               {favActions(f, true)}
             </article>
           ))}
-          {mode === 'order' && places.map((pl: EatOutPlace) => (
+          {mode === 'order' && (
+            <div className="eatout__order-by">
+              {p.homeArea ? (
+                <div className="choice-grid choice-grid--2" role="group" aria-label="Sort places">
+                  <button type="button" className="choice" aria-pressed={order === 'rating'} onClick={() => setOrder('rating')}>Best rated</button>
+                  <button type="button" className="choice" aria-pressed={order === 'nearest'} onClick={() => setOrder('nearest')}>Nearest first</button>
+                </div>
+              ) : (
+                p.onOpenSettings && <button type="button" className="eatout__setarea" onClick={p.onOpenSettings}>Set where you live in Settings to see the nearest</button>
+              )}
+            </div>
+          )}
+          {mode === 'order' && places.map(({ place: pl, km }: ShownPlace) => (
             <article key={pl.name} className="eatout__card" aria-label={pl.name}>
               <div className="eatout__name">{pl.name}</div>
+              {km !== null && <p className="eatout__distance">{formatDistance(km)} away</p>}
               <div className="eatout__meta">{ratingText(pl)}</div>
               {pl.budget !== null && <div className="eatout__meta">{priceLevelText(pl.budget)}</div>}
               <div className="eatout__actions"><OrderLink name={pl.name} url={pl.url} onCopy={n => void copyAndOpen(n)} /></div>

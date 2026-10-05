@@ -5,6 +5,7 @@ import { parseBackup } from '../storage/backup';
 import { useGemini } from '../gemini/GeminiContext'; // F52
 import { testKey } from '../gemini/photo'; // F52
 import { EatOutListPanel } from './EatOutListPanel'; // F83
+import { HomeAreaPanel } from './HomeAreaPanel'; // D22 geo
 
 type Settings = KitchenData['settings'];
 
@@ -209,6 +210,8 @@ export function SettingsScreen(p: SettingsProps) {
           <button type="button" className="button-outline" disabled={!p.sampleLoaded} onClick={p.onRemoveSample}>Remove sample pantry</button>
         </div>
       </section>
+
+      <HomeAreaPanel homeArea={p.settings.homeArea} onChange={p.onChange} /> {/* D22 geo */}
 
       <EatOutListPanel timeZone={p.settings.timeZone} /> {/* F83 */}
 
