@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useRef } from 'react'; // F52
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
-import { balances, cookingHistory, makeEvent, monthSummary, reverse } from './domain/ledger';
+import { balances, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
+import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
+import { RecipeEditor } from './ui/RecipeEditor'; // F40
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
-import type { Ingredient, KitchenEvent, MealSlot, Movement } from './domain/types';
+import type { Ingredient, KitchenEvent, MealSlot, Movement, Recipe } from './domain/types'; // F40: Recipe
 import { fromBase, toBase } from './domain/units';
 import { formatHouseholdDay, householdDate, householdTime, instantFromHousehold, nextSlot } from './lib/localDate';
 import { BottomNav, type Tab } from './ui/BottomNav';
@@ -18,16 +21,24 @@ import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 import { UpdateBanner } from './ui/UpdateBanner'; // updates
 import { SettingsScreen } from './ui/SettingsScreen'; // settings
+import { GeminiProvider } from './gemini/GeminiContext'; // gemini
 import { demoPantry } from './data/demoPantry'; // settings
 import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
 import { wordsFor } from './domain/words'; // settings
 import { exportBackup, restoreBackup } from './storage/backup'; // settings
+import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
+import { appendEventOnce } from './domain/photoDraft'; // F52
+import { AddDishScreen } from './ui/AddDishScreen'; // F80
+import type { Availability } from './domain/suggest'; // F80
 
 type View =
   | { name: 'tab'; tab: Tab }
   | { name: 'recipe'; recipeId: string; back: Tab | 'recipes' }
   | { name: 'settings' } // settings
+  | { name: 'snap'; back: Tab } // F52
   | { name: 'recipes' } // F33
+  | { name: 'editor'; recipeId: string | null; back: Tab | 'recipes' } // F40
+  | { name: 'adddish'; back: Tab | 'recipes' } // F80
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
@@ -74,6 +85,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
+  const [dishDrafts, setDishDrafts] = useState<Recipe[]>([]); // F80: names of found dishes whose shopping lines are not saved as recipes yet
   const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
   // Messages close themselves after 8 seconds; Undo stays available in History.
   useEffect(() => {
@@ -81,6 +93,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
     const t = setTimeout(() => setToast(null), 8000);
     return () => clearTimeout(t);
   }, [toast]);
+
+  const snapSaved = useRef(new Set<string>()); // F52
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -121,7 +135,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
       ? a.needs.filter(n => n.need !== null && n.need > 0).map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const }))
       : []);
     const event = makeEvent('cook', movements, instantFromHousehold(choice.localDate, choice.localTime, tz), {
-      meal: { recipeId, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
+      recordedAt: new Date().toISOString(), // stock follows when it was recorded, not the meal time
+      meal: { recipeId, recipeName: recipe.name, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
       source: 'recipe',
     }, tz);
     setEvents(prev => [...prev, event]);
@@ -144,6 +159,20 @@ function Kitchen({ store }: { store: KitchenStore }) {
     } catch (e) {
       setToast({ text: (e as Error).message });
     }
+  }
+
+  // F52: Snap pantry. One event per confirmed draft; the same event id is never saved twice.
+  function saveSnap(r: SnapSaveResult) {
+    if (snapSaved.current.has(r.event.id)) return;
+    snapSaved.current.add(r.event.id);
+    const fresh = r.newIngredients.filter(i => !base.ingredients.some(x => x.id === i.id));
+    if (fresh.length) {
+      setBase(b => ({ ...b, ingredients: [...b.ingredients, ...fresh.filter(i => !b.ingredients.some(x => x.id === i.id))] }));
+      for (const ingredient of fresh) void store.queue.enqueue({ type: 'ingredient', ingredient });
+    }
+    setEvents(prev => appendEventOnce(prev, r.event));
+    void store.queue.enqueue({ type: 'events', events: [r.event] });
+    setToast({ text: r.toast, undoId: r.event.id });
   }
 
   // settings: saved settings, sample pantry, backup and restore
@@ -181,6 +210,22 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }
   }
 
+  // F40: own recipes. Each change is queued for the database AND applied to the screen's copy.
+  function saveOwnRecipe(recipe: Recipe, newIngredients: Ingredient[], back: Tab | 'recipes') {
+    for (const ingredient of newIngredients) void store.queue.enqueue({ type: 'ingredient', ingredient });
+    void store.queue.enqueue({ type: 'recipe', recipe });
+    setBase(b => withRecipe(b, recipe, newIngredients));
+    setToast({ text: `Saved ${recipe.name}.` });
+    setView({ name: 'recipe', recipeId: recipe.id, back });
+  }
+  function deleteOwnRecipe(recipeId: string) {
+    const name = recipesById.get(recipeId)?.name ?? 'The recipe';
+    void store.queue.enqueue({ type: 'deleteRecipe', recipeId });
+    setBase(b => withoutRecipe(b, recipeId));
+    setToast({ text: `Deleted ${name}. Cooking history keeps its name.` });
+    setView({ name: 'recipes' });
+  }
+
   // F33: recipes and shopping list
   function addToList(recipeId: string) {
     const recipe = recipesById.get(recipeId)!;
@@ -206,6 +251,31 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setToast({ text: `Bought ${ing ? `${formatAmount(amountBase, ing)} ${ing.name}` : 'item'}. Pantry updated.` });
   }
 
+  // F80: add a new dish by name. Saved only when Noor taps Save; always a NEW personal recipe.
+  function keepIngredients(list: Ingredient[]) {
+    const fresh = list.filter(i => !byId.has(i.id));
+    if (fresh.length === 0) return;
+    setBase(b => ({ ...b, ingredients: [...b.ingredients, ...fresh.filter(i => !b.ingredients.some(x => x.id === i.id))] }));
+    for (const ingredient of fresh) void store.queue.enqueue({ type: 'ingredient', ingredient });
+  }
+  function saveDish(recipe: Recipe, newIngredients: Ingredient[]) {
+    keepIngredients(newIngredients);
+    setBase(b => ({ ...b, recipes: [...b.recipes, recipe] }));
+    void store.queue.enqueue({ type: 'recipe', recipe });
+    setDishDrafts(prev => prev.filter(r => r.id !== recipe.id));
+    setToast({ text: `Saved ${recipe.name} to your recipes.` });
+    open(recipe.id, 'recipes');
+  }
+  function addDishToList(a: Availability, newIngredients: Ingredient[], dishName: string) {
+    keepIngredients(newIngredients);
+    const next = addDishShortfall(shopList, a);
+    if (next === shopList) { setToast({ text: `Nothing new to add for ${dishName}.` }); return; }
+    setDishDrafts(prev => [...prev.filter(r => r.id !== a.recipeId), { id: a.recipeId, name: dishName, serves: a.servings, time: '', notes: '', ingredients: [], version: 1 }]);
+    changeList(next);
+    setToast({ text: 'Added to Shop' });
+  }
+  const shopRecipes = useMemo(() => new Map([...dishDrafts.map(r => [r.id, r] as const), ...recipesById]), [dishDrafts, recipesById]); // F80
+
   let screen: React.ReactNode;
   if (view.name === 'settings') { // settings
     screen = (
@@ -220,13 +290,67 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onBack={() => setView({ name: 'tab', tab: 'today' })}
       />
     );
+  } else if (view.name === 'snap') { // F52
+    const backTab = view.back;
+    screen = (
+      <SnapPantry
+        ingredients={ingredients}
+        stock={stock}
+        format={formatAmount}
+        yesWord={YES}
+        noWord={NO}
+        today={today}
+        timeZone={tz}
+        onSave={saveSnap}
+        onSettings={() => { setToast(null); setView({ name: 'settings' }); }}
+        onClose={() => setView({ name: 'tab', tab: backTab })}
+      />
+    );
+  } else if (view.name === 'adddish') { // F80
+    const backTo = view.back;
+    screen = (
+      <AddDishScreen
+        recipes={recipes}
+        ingredients={ingredients}
+        stock={stock}
+        today={today}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        format={formatAmount}
+        onBack={() => setView(backTo === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: backTo })}
+        onOpenRecipe={id => open(id, backTo)}
+        onOpenSettings={() => { setToast(null); setView({ name: 'settings' }); }}
+        onAddMissing={addDishToList}
+        onSave={saveDish}
+      />
+    );
   } else if (view.name === 'recipes') {
     screen = (
       <RecipesScreen
         items={ranked.map(a => ({ recipe: recipesById.get(a.recipeId)!, availability: a }))}
         servings={servings}
         onOpen={id => open(id, 'recipes')}
+        onAddDish={() => setView({ name: 'adddish', back: 'recipes' })} // F80
         onBack={() => setView({ name: 'tab', tab: 'today' })}
+        onAdd={() => setView({ name: 'editor', recipeId: null, back: 'recipes' })} // F40
+      />
+    );
+  } else if (view.name === 'editor') { // F40
+    const editing = view.recipeId ? recipesById.get(view.recipeId) : undefined;
+    const goBack = () => (editing ? open(editing.id, view.back) : setView(view.back === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: view.back }));
+    screen = (
+      <RecipeEditor
+        key={editing?.id ?? 'new'}
+        recipe={editing}
+        ingredients={ingredients}
+        categories={[...new Set(recipes.map(r => r.category).filter((c): c is string => Boolean(c)))]}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        onSave={(recipe, fresh) => saveOwnRecipe(recipe, fresh, view.back)}
+        onDelete={editing?.personal ? deleteOwnRecipe : undefined}
+        onBack={goBack}
       />
     );
   } else if (view.name === 'recipe') {
@@ -244,6 +368,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         timesThisMonth={times}
         onBack={() => setView(view.back === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: view.back })}
         onCooked={n => setView({ name: 'cooked', recipeId: recipe.id, servings: n, back: view.back })}
+        onEdit={() => setView({ name: 'editor', recipeId: recipe.id, back: view.back })} // F40
       />
     );
   } else if (view.name === 'cooked') {
@@ -291,7 +416,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onAddToList={addToList}
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
-        onSnap={() => setToast({ text: 'Photo pantry arrives with Gemini (Phase 2).' })}
+        onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
+        onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
         onOpenPantry={() => setView({ name: 'tab', tab: 'pantry' })} // settings
@@ -299,14 +425,13 @@ function Kitchen({ store }: { store: KitchenStore }) {
       />
     );
   } else if (view.tab === 'history') {
-    const month = today.slice(0, 7);
     screen = (
       <HistoryScreen
-        monthLabel={new Intl.DateTimeFormat('en-GB', { month: 'long', timeZone: 'UTC' }).format(new Date(month + '-01T00:00:00Z'))}
-        summary={monthSummary(events, month)}
-        meals={cookingHistory(events)}
+        events={events} // F40: the screen works out the range, names and "not cooked in a while"
+        today={today}
         recipesById={recipesById}
         onUndo={undo}
+        onOpenRecipe={id => open(id, 'history')}
       />
     );
   } else if (view.tab === 'pantry') {
@@ -316,6 +441,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         ingredients={ingredients}
         stock={stock}
         format={formatAmount}
+        onSnap={() => { setToast(null); setView({ name: 'snap', back: 'pantry' }); }} // F52
         onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
       />
     );
@@ -324,7 +450,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
       <ShopScreen
         list={shopList}
         ingredients={ingredients}
-        recipesById={recipesById}
+        recipesById={shopRecipes} // F80
         format={formatAmount}
         onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}
@@ -336,6 +462,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   return (
+    <GeminiProvider apiKey={settings.geminiKey}> {/* gemini */}
     <div className="app">
       {save.status === 'error' && ( // KR4RJP
         <div className="save-banner" role="alert">
@@ -359,5 +486,6 @@ function Kitchen({ store }: { store: KitchenStore }) {
       )}
       {view.name === 'tab' && <BottomNav current={currentTab} onChange={tab => { setToast(null); setView({ name: 'tab', tab }); }} />}
     </div>
+    </GeminiProvider>
   );
 }

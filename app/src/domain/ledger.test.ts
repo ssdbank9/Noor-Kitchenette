@@ -144,3 +144,26 @@ describe('household-local dates in history (D5)', () => {
     expect(lastCooked(events).get('R006b')).toBe('2026-10-02');
   });
 });
+
+describe('stock follows the order entries were recorded, not the meal time', () => {
+  it('a meal dated earlier than a stock check is still deducted when it is recorded after the check', () => {
+    const check = makeEvent('set-stock', [{ ingredientId: 'Chicken', delta: 0, basis: 'measured', setTo: 1500 }], at('2026-10-05T08:15:00+05:00'), { id: 'check' });
+    // Cooked "at 8:00" but saved at 8:21, after the check at 8:15.
+    const cook = makeEvent('cook', [{ ingredientId: 'Chicken', delta: -1000, basis: 'measured' }], at('2026-10-05T08:00:00+05:00'),
+      { id: 'cook', recordedAt: '2026-10-05T03:21:00.000Z', meal: karahi });
+    expect(balances([check, cook]).get('Chicken')?.amount).toBe(500);
+  });
+
+  it('history still follows the meal time, newest first', () => {
+    const late = makeEvent('cook', [], at('2026-10-05T20:00:00+05:00'), { id: 'late', recordedAt: '2026-10-05T03:00:00.000Z', meal: karahi });
+    const early = makeEvent('cook', [], at('2026-10-05T08:00:00+05:00'), { id: 'early', recordedAt: '2026-10-05T04:00:00.000Z', meal: karahi });
+    expect(cookingHistory([late, early]).map(c => c.eventId)).toEqual(['late', 'early']);
+  });
+
+  it('entries without recordedAt keep their old order', () => {
+    const buy = buyChicken(1500, '2026-10-02T10:00:00+05:00');
+    const set = makeEvent('set-stock', [{ ingredientId: 'Chicken', delta: 0, basis: 'measured', setTo: 300 }], at('2026-10-03T09:00:00+05:00'));
+    const cook = cookKarahi('2026-10-04T13:30:00+05:00');
+    expect(balances([buy, set, cook]).get('Chicken')?.amount).toBe(0);
+  });
+});

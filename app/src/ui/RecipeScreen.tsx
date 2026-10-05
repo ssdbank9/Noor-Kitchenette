@@ -14,6 +14,8 @@ export interface RecipeScreenProps {
   timesThisMonth: number;
   onBack: () => void;
   onCooked: (servings: number) => void;
+  /** F40: open the recipe editor. */
+  onEdit: () => void;
 }
 
 export function RecipeScreen(p: RecipeScreenProps) {
@@ -41,12 +43,15 @@ export function RecipeScreen(p: RecipeScreenProps) {
         <button type="button" className="icon-button recipe__back" aria-label="Back" onClick={p.onBack}>‹</button>
       </div>
       <div className="recipe__sheet">
-        <div>
-          <h1 className="title">{p.recipe.name}</h1>
-          <div className="eyebrow">
-            {p.recipe.time}
-            {p.timesThisMonth > 0 ? ` · cooked ${p.timesThisMonth} ${p.timesThisMonth === 1 ? 'time' : 'times'} this month` : ''}
+        <div className="own-head"> {/* F40: Edit button */}
+          <div>
+            <h1 className="title">{p.recipe.name}</h1>
+            <div className="eyebrow">
+              {p.recipe.time}
+              {p.timesThisMonth > 0 ? ` · cooked ${p.timesThisMonth} ${p.timesThisMonth === 1 ? 'time' : 'times'} this month` : ''}
+            </div>
           </div>
+          <button type="button" className="button-outline own-edit" onClick={p.onEdit}>Edit</button>
         </div>
 
         <div className="stepper-row">
@@ -81,6 +86,15 @@ export function RecipeScreen(p: RecipeScreenProps) {
           <button type="button" className="link-button" onClick={() => setShowAll(v => !v)}>
             {showAll ? 'Show fewer' : `See all ${a.needs.length} ingredients`}
           </button>
+        )}
+
+        {p.recipe.steps && p.recipe.steps.length > 0 && ( // F40
+          <section className="own-method" aria-labelledby="own-method-h">
+            <h2 id="own-method-h" className="own-method__title">Steps</h2>
+            <ol className="own-method__list">
+              {p.recipe.steps.map((step, i) => <li key={i}>{step}</li>)}
+            </ol>
+          </section>
         )}
 
         <div className="sources">

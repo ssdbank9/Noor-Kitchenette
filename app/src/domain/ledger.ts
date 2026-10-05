@@ -34,6 +34,13 @@ const weaker = (a: QuantityBasis, b: QuantityBasis): QuantityBasis =>
 const byTime = (a: KitchenEvent, b: KitchenEvent) =>
   a.at < b.at ? -1 : a.at > b.at ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 
+/** The order entries were made in: what stock follows (a check always beats earlier entries). */
+const byRecorded = (a: KitchenEvent, b: KitchenEvent) => {
+  const x = a.recordedAt ?? a.at;
+  const y = b.recordedAt ?? b.at;
+  return x < y ? -1 : x > y ? 1 : byTime(a, b);
+};
+
 export function newEventId(): string {
   return globalThis.crypto.randomUUID();
 }
@@ -43,7 +50,7 @@ export function makeEvent(
   kind: EventKind,
   movements: Movement[],
   instant: Date,
-  extra: Partial<Pick<KitchenEvent, 'meal' | 'reverses' | 'source' | 'note' | 'priceRs' | 'id'>> = {},
+  extra: Partial<Pick<KitchenEvent, 'meal' | 'reverses' | 'source' | 'note' | 'priceRs' | 'id' | 'recordedAt'>> = {},
   timeZone: string = HOUSEHOLD_TIME_ZONE,
 ): KitchenEvent {
   return {
@@ -53,6 +60,7 @@ export function makeEvent(
     localDate: householdDate(instant, timeZone),
     localTime: householdTime(instant, timeZone),
     timeZone,
+    ...(extra.recordedAt ? { recordedAt: extra.recordedAt } : {}),
     movements,
     ...(extra.meal ? { meal: extra.meal } : {}),
     ...(extra.reverses ? { reverses: extra.reverses } : {}),
@@ -88,15 +96,18 @@ export function effectiveIds(events: KitchenEvent[]): Set<string> {
 }
 
 /** Events that change stock or history: in effect and not reversals themselves. */
-export function activeEvents(events: KitchenEvent[]): KitchenEvent[] {
+export function activeEvents(
+  events: KitchenEvent[],
+  order: (a: KitchenEvent, b: KitchenEvent) => number = byTime,
+): KitchenEvent[] {
   const live = effectiveIds(events);
-  return events.filter(e => e.kind !== 'reversal' && live.has(e.id)).sort(byTime);
+  return events.filter(e => e.kind !== 'reversal' && live.has(e.id)).sort(order);
 }
 
 /** Current stock per ingredient, from the events in effect. */
 export function balances(events: KitchenEvent[]): Map<string, Balance> {
   const result = new Map<string, Balance>();
-  for (const e of activeEvents(events)) {
+  for (const e of activeEvents(events, byRecorded)) {
     for (const m of e.movements) {
       const prev = result.get(m.ingredientId);
       let next: Balance;
@@ -157,29 +168,62 @@ export function cookingHistory(events: KitchenEvent[]): CookedMeal[] {
     .reverse();
 }
 
-export interface MonthSummary {
-  month: string;
+export interface PeriodSummary {
+  /** First and last household-local date counted, YYYY-MM-DD, both included. */
+  startDate: string;
+  endDate: string;
   meals: number;
   servings: number;
   bySlot: Record<MealSlot, number>;
-  byRecipe: { recipeId: string; count: number }[];
+  /** recipeName is the name written on the newest meal, so a renamed or deleted dish keeps its words (F77). */
+  byRecipe: { recipeId: string; count: number; recipeName?: string }[];
+}
+
+/** Totals for meals cooked between two household-local dates, both included (F47). */
+export function periodSummary(events: KitchenEvent[], startDate: string, endDate: string): PeriodSummary {
+  const meals = cookingHistory(events).filter(c => c.localDate >= startDate && c.localDate <= endDate);
+  const bySlot: Record<MealSlot, number> = { breakfast: 0, lunch: 0, chai: 0, dinner: 0 };
+  const counts = new Map<string, number>();
+  const names = new Map<string, string>();
+  let servings = 0;
+  for (const c of meals) { // newest first, so the first name seen is the latest
+    bySlot[c.meal.slot] += 1;
+    servings += c.meal.servings;
+    counts.set(c.meal.recipeId, (counts.get(c.meal.recipeId) ?? 0) + 1);
+    if (c.meal.recipeName && !names.has(c.meal.recipeId)) names.set(c.meal.recipeId, c.meal.recipeName);
+  }
+  const byRecipe = [...counts.entries()]
+    .map(([recipeId, count]) => ({ recipeId, count, ...(names.has(recipeId) ? { recipeName: names.get(recipeId)! } : {}) }))
+    .sort((a, b) => b.count - a.count || a.recipeId.localeCompare(b.recipeId));
+  return { startDate, endDate, meals: meals.length, servings, bySlot, byRecipe };
+}
+
+export interface MonthSummary extends PeriodSummary {
+  month: string;
 }
 
 /** Totals for a household-local month, YYYY-MM (D5): local dates, not UTC. */
 export function monthSummary(events: KitchenEvent[], month: string): MonthSummary {
-  const meals = cookingHistory(events).filter(c => c.localDate.startsWith(month + '-'));
-  const bySlot: Record<MealSlot, number> = { breakfast: 0, lunch: 0, chai: 0, dinner: 0 };
-  const counts = new Map<string, number>();
-  let servings = 0;
-  for (const c of meals) {
-    bySlot[c.meal.slot] += 1;
-    servings += c.meal.servings;
-    counts.set(c.meal.recipeId, (counts.get(c.meal.recipeId) ?? 0) + 1);
-  }
-  const byRecipe = [...counts.entries()]
-    .map(([recipeId, count]) => ({ recipeId, count }))
-    .sort((a, b) => b.count - a.count || a.recipeId.localeCompare(b.recipeId));
-  return { month, meals: meals.length, servings, bySlot, byRecipe };
+  return { month, ...periodSummary(events, `${month}-01`, `${month}-31`) };
+}
+
+export type HistoryRange = 'week' | 'month' | 'year';
+
+/** `date` (YYYY-MM-DD) moved by a whole number of days, with no time zone in the way. */
+export function addDays(date: string, days: number): string {
+  const [y, m, d] = date.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+/**
+ * The household-local dates a History range covers, ending today or at the end of its
+ * calendar period: week = the last 7 days ending today, month = this calendar month,
+ * year = this calendar year.
+ */
+export function rangeDates(range: HistoryRange, today: string): { startDate: string; endDate: string } {
+  if (range === 'week') return { startDate: addDays(today, -6), endDate: today };
+  if (range === 'month') return { startDate: `${today.slice(0, 7)}-01`, endDate: `${today.slice(0, 7)}-31` };
+  return { startDate: `${today.slice(0, 4)}-01-01`, endDate: `${today.slice(0, 4)}-12-31` };
 }
 
 /** Local date each recipe was last cooked, for "not cooked in a while" (F79, F81). */
@@ -189,4 +233,28 @@ export function lastCooked(events: KitchenEvent[]): Map<string, string> {
     if (!result.has(c.meal.recipeId)) result.set(c.meal.recipeId, c.localDate);
   }
   return result;
+}
+
+/**
+ * Dishes cooked before but not in the last `days` days (today and the days before it),
+ * oldest first, at most `max` (F79). `exists` leaves out dishes that can no longer be opened.
+ */
+export function notCookedInAWhile(
+  events: KitchenEvent[],
+  today: string,
+  exists: (recipeId: string) => boolean = () => true,
+  days = 14,
+  max = 5,
+): { recipeId: string; lastDate: string }[] {
+  const lastAllowed = addDays(today, -days);
+  return [...lastCooked(events)]
+    .filter(([id, date]) => date <= lastAllowed && exists(id))
+    .map(([recipeId, lastDate]) => ({ recipeId, lastDate }))
+    .sort((a, b) => a.lastDate.localeCompare(b.lastDate) || a.recipeId.localeCompare(b.recipeId))
+    .slice(0, max);
+}
+
+/** The dish's name for History: the name written on the meal, then the current recipe, then its id (F77). */
+export function dishName(meal: Pick<MealRecord, 'recipeId' | 'recipeName'>, recipesById: Map<string, { name: string }>): string {
+  return meal.recipeName ?? recipesById.get(meal.recipeId)?.name ?? meal.recipeId;
 }

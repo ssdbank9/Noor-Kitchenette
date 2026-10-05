@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import type { Availability } from '../domain/suggest';
 import type { Recipe } from '../domain/types';
+import { MY_RECIPES } from '../domain/recipeForm';
 
 export interface RecipesScreenProps {
   /** Already sorted: ready first, then by coverage (cookableNow). */
   items: { recipe: Recipe; availability: Availability }[];
   servings: number;
   onOpen: (recipeId: string) => void;
+  onAddDish: () => void; // F80
   onBack: () => void;
+  /** F40: start a new recipe. */
+  onAdd: () => void;
 }
 
 function status(a: Availability): { text: string; cls: string } {
@@ -19,10 +23,14 @@ function status(a: Availability): { text: string; cls: string } {
 export function RecipesScreen(p: RecipesScreenProps) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(null);
-  const categories = [...new Set(p.items.map(i => i.recipe.category).filter((c): c is string => Boolean(c)))];
+  const [mine, setMine] = useState(false); // F40: "My recipes" filter
+  const categories = [...new Set(p.items.map(i => i.recipe.category).filter((c): c is string => Boolean(c) && c !== MY_RECIPES))];
   const q = query.trim().toLowerCase();
   const shown = p.items.filter(
-    i => (!category || i.recipe.category === category) && (!q || i.recipe.name.toLowerCase().includes(q)),
+    i =>
+      (!mine || i.recipe.personal) &&
+      (!category || i.recipe.category === category) &&
+      (!q || i.recipe.name.toLowerCase().includes(q) || (i.recipe.aliases ?? []).some(a => a.toLowerCase().includes(q))),
   );
 
   return (
@@ -30,6 +38,8 @@ export function RecipesScreen(p: RecipesScreenProps) {
       <div className="recipes__head">
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={p.onBack}>‹</button>
         <h1 className="title title--sm">Recipes</h1>
+        <button type="button" className="button-tint own-add" onClick={p.onAdd}>+ Write my own</button> {/* F40 */}
+        <button type="button" className="button-tint recipes__add" onClick={p.onAddDish}>+ Add dish</button> {/* F80 */}
       </div>
 
       <input
@@ -42,7 +52,8 @@ export function RecipesScreen(p: RecipesScreenProps) {
       />
 
       <div className="filter-chips" role="group" aria-label="Category">
-        <button type="button" className="choice-chip" aria-pressed={category === null} onClick={() => setCategory(null)}>All</button>
+        <button type="button" className="choice-chip" aria-pressed={category === null && !mine} onClick={() => { setCategory(null); setMine(false); }}>All</button>
+        <button type="button" className="choice-chip" aria-pressed={mine} onClick={() => setMine(m => !m)}>{MY_RECIPES}</button> {/* F40 */}
         {categories.map(c => (
           <button key={c} type="button" className="choice-chip" aria-pressed={category === c} onClick={() => setCategory(category === c ? null : c)}>{c}</button>
         ))}

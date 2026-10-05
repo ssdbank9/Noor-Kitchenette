@@ -17,6 +17,7 @@ export interface TodayProps {
   onSeeAll: () => void;
   onEatOut: () => void;
   onSnap: () => void;
+  onAddDish: () => void; // F80
   pantryEmpty: boolean; // settings
   onSettings: () => void; // settings
   onOpenPantry: () => void; // settings
@@ -88,21 +89,27 @@ export function TodayScreen(p: TodayProps) {
           <h2 className="section__title">Ready now · {p.ready.length}</h2>
           <button type="button" className="section__see-all" onClick={p.onSeeAll}>See all</button>
         </div>
-        {p.ready.length === 0 ? (
+        {p.ready.length === 0 && (
           <p className="empty">{p.pantryEmpty ? 'Dishes you can cook will show here.' : 'Nothing is fully ready yet. Check "Almost there".'}</p>
-        ) : (
-          <ul className="tiles">
-            {p.ready.map(({ recipe }, i) => (
-              <li key={recipe.id}>
-                <button type="button" className="tile" onClick={() => p.onOpenRecipe(recipe.id)}>
-                  <span className={`tile__art ${TILE_COLOURS[i % TILE_COLOURS.length]}`}><PotIcon size={40} /></span>
-                  <span className="tile__name">{recipe.name}</span>
-                  <span className="tile__meta">{recipe.time}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
         )}
+        <ul className="tiles">
+          {p.ready.map(({ recipe }, i) => (
+            <li key={recipe.id}>
+              <button type="button" className="tile" onClick={() => p.onOpenRecipe(recipe.id)}>
+                <span className={`tile__art ${TILE_COLOURS[i % TILE_COLOURS.length]}`}><PotIcon size={40} /></span>
+                <span className="tile__name">{recipe.name}</span>
+                <span className="tile__meta">{recipe.time}</span>
+              </button>
+            </li>
+          ))}
+          <li>{/* F80 */}
+            <button type="button" className="tile tile--add" onClick={p.onAddDish}>
+              <span className="tile__art tile__art--add" aria-hidden="true">+</span>
+              <span className="tile__name">Add a new dish</span>
+              <span className="tile__meta">Look it up by name</span>
+            </button>
+          </li>
+        </ul>
       </section>
 
       {!p.pantryEmpty && p.almost.length > 0 && (

@@ -5,6 +5,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { seed } from '../data/seed';
+import { withRecipe, withoutRecipe } from '../domain/recipeForm';
 import { refreshStarter } from './refreshStarter';
 import type { KitchenData, KitchenEvent } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
@@ -33,6 +34,13 @@ async function boot(): Promise<KitchenStore> {
     data = seed;
   }
   const queue = createSaveQueue<KitchenWrite>(kitchenWriter(db));
+  // F40: recipe and ingredient changes that were not saved yet (the page closed first) are
+  // applied to what is shown, before the starter refresh, so they are neither hidden nor overwritten.
+  for (const op of queue.getPending()) {
+    if (op.type === 'recipe') data = withRecipe(data, op.recipe, []);
+    else if (op.type === 'deleteRecipe') data = withoutRecipe(data, op.recipeId);
+    else if (op.type === 'ingredient') data = { ...data, ingredients: [...data.ingredients.filter(i => i.id !== op.ingredient.id), op.ingredient] };
+  }
   // Starter recipes improved by an app update reach Noor's saved copy (never her edits).
   const refreshed = refreshStarter(data, seed);
   data = refreshed.data;

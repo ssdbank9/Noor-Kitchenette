@@ -64,6 +64,10 @@ export interface Recipe {
   recommendedVideoUrl?: string;
   ingredients: RecipeIngredient[];
   steps?: string[];
+  /** Other names and spellings, e.g. 'korma' for Qorma, so a lookup finds this dish first (F80). */
+  aliases?: string[];
+  /** Where a recipe found online came from, and when it was checked (F78, F80). */
+  source?: { url: string; name?: string; checkedOn: string };
   /** Bumped on every edit; cooking events keep the version they used (F63). */
   version: number;
   /** true for recipes Noor added herself. */
@@ -96,6 +100,8 @@ export type MealRating = 'loved' | 'ok' | 'not-again';
 
 export interface MealRecord {
   recipeId: string;
+  /** The dish's name when it was cooked, so renaming or deleting the recipe never rewrites history. */
+  recipeName?: string;
   recipeVersion: number;
   slot: MealSlot;
   servings: number;
@@ -105,8 +111,14 @@ export interface MealRecord {
 export interface KitchenEvent {
   id: string;
   kind: EventKind;
-  /** UTC instant, for ordering. */
+  /** UTC instant it happened (a meal's time). History is ordered by this. */
   at: string;
+  /**
+   * UTC instant the entry was made. Stock is applied in the order entries were recorded, so a
+   * meal saved now but dated earlier (a backdated or default slot time) is never lost behind a
+   * stock check made in between. Missing on older entries and means "same as at".
+   */
+  recordedAt?: string;
   /** Household-local calendar date, YYYY-MM-DD (D5). */
   localDate: string;
   /** Household-local time, HH:MM. */
