@@ -1,11 +1,13 @@
+import { formatAmount } from '../../src/lib/formatAmount';
 import { expect, test, type Page } from '@playwright/test';
 import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
-import { basketAmountText, basketFromPlan } from '../../src/domain/basket';
+import { basketFromPlan } from '../../src/domain/basket';
+import { cartOf, cartRow } from './cartKit';
 import { balances, makeEvent } from '../../src/domain/ledger';
 import { addDish, cancelMeal, competition, newMeal, setCooked } from '../../src/domain/plan';
-import { fromBase, toBase } from '../../src/domain/units';
-import type { Ingredient, PlannedMeal, Recipe } from '../../src/domain/types';
+import { toBase } from '../../src/domain/units';
+import type { PlannedMeal, Recipe } from '../../src/domain/types';
 import { openWithSamplePantry } from './helpers';
 
 // Every date here is relative to a fixed clock, never the real one: Monday 5 October 2026, 10:00 in Karachi.
@@ -15,7 +17,7 @@ const recipe = (id: string): Recipe => seed.recipes.find(r => r.id === id)!;
 const KARAHI = recipe('R004'); // Chicken Karahi (Fire): 800 g chicken for 5, so 640 g for 4
 const PULAO = recipe('R002'); // Chicken Yakhni Pulao: 800 g chicken for 5
 const DAAL = recipe('R006a'); // Daal Chana (Masala)
-const fmt = (base: number, i: Ingredient) => { const { amount, unit } = fromBase(base, i); return `${amount} ${unit}`; };
+const fmt = formatAmount;
 const SERVINGS = seed.settings.defaultServings;
 
 function mealOf(id: string, slot: PlannedMeal['slot'], ...recipes: Recipe[]): PlannedMeal {
@@ -58,7 +60,7 @@ async function pantryChicken(page: Page): Promise<string> {
   return text;
 }
 
-test('two meals sharing chicken warn, fill the basket exactly, survive a partial buy, and shrink when one is cancelled', async ({ page }) => {
+test('two meals sharing chicken warn, fill the cart exactly, survive a partial buy, and shrink when one is cancelled', async ({ page }) => {
   await start(page);
   const pantryBefore = await pantrySnapshot(page);
 
@@ -79,32 +81,34 @@ test('two meals sharing chicken warn, fill the basket exactly, survive a partial
   await expect(page.getByRole('region', { name: 'Heads up this week' })).toContainText(warning);
   await expect(page.getByRole('region', { name: 'Heads up this week' })).toContainText('Chicken Karahi (Fire)');
 
-  // The basket: every line is the combined need minus stock, counted once.
+  // The cart: every planned line is the combined need minus stock, counted once; low stock joins it.
   await nav(page, 'Shop');
-  const basket = page.getByRole('region', { name: "This week's basket" });
   const lines = basketFromPlan(plan, seed.recipes, stock, seed.ingredients, toBase, TODAY, demoPantry);
+  const cart = cartOf({ plan });
   const chickenLine = lines.find(l => l.ingredientId === 'Chicken')!;
   expect(chickenLine.amountBase).toBe(chicken.need - chicken.have);
-  await expect(basket.locator('.basket-item')).toHaveCount(lines.length);
-  for (const l of lines) {
+  expect(cart.find(l => l.ingredientId === 'Chicken')!.amountBase).toBe(chickenLine.amountBase);
+  await expect(page.locator('.shop-item')).toHaveCount(cart.length);
+  const planned = cart.filter(l => l.reasons.plan);
+  expect(planned.length).toBeGreaterThanOrEqual(lines.length);
+  for (const l of planned) {
     const ing = byId.get(l.ingredientId)!;
-    await expect(basket.locator('.basket-item').filter({ has: page.getByRole('button', { name: `Bought ${ing.name} (basket)`, exact: true }) }))
-      .toContainText(basketAmountText(l, ing, fmt));
+    await expect(cartRow(page, ing.name)).toContainText(l.amountBase === null ? 'Check' : fmt(l.amountBase, ing));
   }
+  await expect(cartRow(page, 'Chicken')).toContainText('For Chicken Karahi (Fire) Mon');
 
   // A partial purchase raises the pantry and leaves the remainder.
   const half = chickenLine.amountBase! / 2;
-  await basket.getByRole('button', { name: 'Bought Chicken (basket)', exact: true }).click();
-  await basket.getByRole('button', { name: `Half · ${fmt(half, byId.get('Chicken')!)}`, exact: true }).click();
+  await cartRow(page, 'Chicken').getByRole('button', { name: 'Got it: Chicken', exact: true }).click();
+  await page.getByRole('button', { name: `Half · ${fmt(half, byId.get('Chicken')!)}`, exact: true }).click();
   const bought = makeEvent('purchase', [{ ingredientId: 'Chicken', delta: half, basis: 'measured' }], new Date('2026-10-05T10:01:00+05:00'));
   const afterBuy = [...demoPantry, bought];
   const rest = basketFromPlan(plan, seed.recipes, balances(afterBuy), seed.ingredients, toBase, TODAY, afterBuy).find(l => l.ingredientId === 'Chicken')!;
   expect(rest.amountBase).toBe(chickenLine.amountBase! - half);
-  await expect(basket.locator('.basket-item').filter({ has: page.getByRole('button', { name: 'Bought Chicken (basket)', exact: true }) }))
-    .toContainText(`Still need ${fmt(rest.amountBase!, byId.get('Chicken')!)}`);
+  await expect(cartRow(page, 'Chicken')).toContainText(fmt(rest.amountBase!, byId.get('Chicken')!));
   expect(await pantryChicken(page)).toContain(fmt((balances(afterBuy).get('Chicken')!.amount as number), byId.get('Chicken')!));
 
-  // Cancel the dinner (Haan): its needs leave the basket.
+  // Cancel the dinner (Haan): its needs leave the cart.
   await nav(page, 'Plan');
   await slot(page, 'Dinner').getByRole('button', { name: 'Cancel Dinner', exact: true }).click();
   await page.getByRole('group', { name: 'Cancel Dinner?' }).getByRole('button', { name: 'Haan', exact: true }).click();
@@ -113,15 +117,16 @@ test('two meals sharing chicken warn, fill the basket exactly, survive a partial
   const linesAfterCancel = basketFromPlan(planAfterCancel, seed.recipes, balances(afterBuy), seed.ingredients, toBase, TODAY, afterBuy);
   expect(linesAfterCancel.length).toBeLessThan(lines.length);
   expect(linesAfterCancel.find(l => l.ingredientId === 'Chicken')).toBeUndefined();
+  const cartAfterCancel = cartOf({ plan: planAfterCancel, events: afterBuy });
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(linesAfterCancel.length);
-  await expect(basket.getByRole('button', { name: 'Bought Chicken (basket)', exact: true })).toHaveCount(0);
+  await expect(page.locator('.shop-item')).toHaveCount(cartAfterCancel.length);
+  await expect(page.getByRole('button', { name: 'Got it: Chicken', exact: true })).toHaveCount(0);
 
   // Restoring brings the dinner back.
   await nav(page, 'Plan');
   await slot(page, 'Dinner').getByRole('button', { name: 'Restore Dinner', exact: true }).click();
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(basketFromPlan(plan, seed.recipes, balances(afterBuy), seed.ingredients, toBase, TODAY, afterBuy).length);
+  await expect(page.locator('.shop-item')).toHaveCount(cartOf({ plan, events: afterBuy }).length);
 });
 
 test('a meal can hold several dishes, a dish can be swapped, and the plan survives a reload', async ({ page }) => {
@@ -152,7 +157,7 @@ test('a meal can hold several dishes, a dish can be swapped, and the plan surviv
   await expect(slot(page, 'Lunch').getByRole('status', { name: 'People eating Lunch' })).toHaveText(String(SERVINGS + 1));
 });
 
-test('cooking from the plan prefills the flow, marks the item cooked, empties the basket, and undo brings it back', async ({ page }) => {
+test('cooking from the plan prefills the flow, marks the item cooked, empties the planned part of the cart, and undo brings it back', async ({ page }) => {
   await start(page);
   await nav(page, 'Plan');
   await addDishTo(page, 'Lunch', KARAHI);
@@ -175,8 +180,9 @@ test('cooking from the plan prefills the flow, marks the item cooked, empties th
   const lines = basketFromPlan(plan, seed.recipes, stock, seed.ingredients, toBase, TODAY, demoPantry);
   expect(lines.length).toBeGreaterThan(0);
   await nav(page, 'Shop');
-  const basket = page.getByRole('region', { name: "This week's basket" });
-  await expect(basket.locator('.basket-item')).toHaveCount(lines.length);
+  const plannedRows = page.locator('.shop-item').filter({ has: page.locator('.chip', { hasText: /^For / }) });
+  await expect(plannedRows).toHaveCount(cartOf({ plan }).filter(l => l.reasons.plan).length);
+  expect(cartOf({ plan }).filter(l => l.reasons.plan).length).toBeGreaterThanOrEqual(lines.length);
 
   // Cook it: servings, meal and date come from the plan.
   await nav(page, 'Plan');
@@ -199,9 +205,9 @@ test('cooking from the plan prefills the flow, marks the item cooked, empties th
   await expect(slot(page, 'Lunch').getByRole('button', { name: `Cook ${KARAHI.name}`, exact: true })).toBeVisible();
   await expect(slot(page, 'Lunch')).not.toContainText('Cooked');
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(lines.length);
+  await expect(plannedRows).toHaveCount(cartOf({ plan }).filter(l => l.reasons.plan).length);
 
-  // Cook again and keep it: the item shows Cooked and the basket is empty.
+  // Cook again and keep it: the item shows Cooked and nothing in the cart is for a planned dish.
   await nav(page, 'Plan');
   await slot(page, 'Lunch').getByRole('button', { name: `Cook ${KARAHI.name}`, exact: true }).click();
   await page.getByRole('button', { name: 'I cooked this' }).click();
@@ -212,11 +218,12 @@ test('cooking from the plan prefills the flow, marks the item cooked, empties th
   await expect(slot(page, 'Lunch')).toContainText('Cooked');
   await expect(slot(page, 'Lunch').getByRole('button', { name: `Cook ${KARAHI.name}`, exact: true })).toHaveCount(0);
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'To buy' })).toBeVisible();
+  await expect(plannedRows).toHaveCount(0);
   await expect(page.locator('.save-banner')).toHaveCount(0);
 });
 
-test('eating out and planned leftovers add nothing to the basket or the pantry', async ({ page }) => {
+test('eating out and planned leftovers add nothing to the cart or the pantry', async ({ page }) => {
   await start(page);
   // Keep one portion-bearing leftover in the saved kitchen (the Leftovers screen arrives separately).
   await page.evaluate(async () => {
@@ -238,8 +245,8 @@ test('eating out and planned leftovers add nothing to the basket or the pantry',
   // Empty state first: nothing to choose when no leftover exists is covered by the sheet text; here one exists.
   await addDishTo(page, 'Lunch', KARAHI);
   await nav(page, 'Shop');
-  const basket = page.getByRole('region', { name: "This week's basket" });
-  await expect(basket.locator('.basket-item').first()).toBeVisible();
+  const plannedRows = page.locator('.shop-item').filter({ has: page.locator('.chip', { hasText: /^For / }) });
+  await expect(plannedRows.first()).toBeVisible();
 
   // Eating out at that meal: no cooking, nothing to buy.
   await nav(page, 'Plan');
@@ -250,7 +257,7 @@ test('eating out and planned leftovers add nothing to the basket or the pantry',
   await nav(page, 'Today');
   await expect(page.getByRole('region', { name: 'Planned next meal' })).toContainText('Eating out: Kolachi <b>tonight</b>');
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(0);
+  await expect(plannedRows).toHaveCount(0);
 
   // Leftovers for dinner: portions stepper, then "Ate it" uses the leftover, never raw stock.
   await nav(page, 'Plan');
@@ -262,7 +269,7 @@ test('eating out and planned leftovers add nothing to the basket or the pantry',
   await sheet.getByRole('button', { name: 'Add to this meal' }).click();
   await expect(slot(page, 'Dinner')).toContainText('Leftovers: Daal Chana · 2 portions');
   await nav(page, 'Shop');
-  await expect(basket.locator('.basket-item')).toHaveCount(0);
+  await expect(plannedRows).toHaveCount(0);
 
   await nav(page, 'Plan');
   await slot(page, 'Dinner').getByRole('button', { name: 'Ate Daal Chana', exact: true }).click();

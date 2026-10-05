@@ -1,15 +1,16 @@
+import { formatAmount } from '../../src/lib/formatAmount';
 import { expect, test, type Page } from '@playwright/test';
 import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
 import { openWithSamplePantry } from './helpers';
 import { balances, makeEvent, type Balance } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
-import { fromBase, toBase } from '../../src/domain/units';
+import { toBase } from '../../src/domain/units';
 import type { Ingredient, Recipe } from '../../src/domain/types';
 
 const byId = new Map(seed.ingredients.map(i => [i.id, i]));
 const recipeNamed = (name: string): Recipe => seed.recipes.find(r => r.name === name)!;
-const fmt = (base: number, i: Ingredient) => { const { amount, unit } = fromBase(base, i); return `${amount} ${unit}`; };
+const fmt = formatAmount;
 
 /** What the Pantry screen should say for a balance. */
 function pantryText(b: Balance | undefined, i: Ingredient): string {

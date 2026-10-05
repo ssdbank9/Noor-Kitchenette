@@ -27,6 +27,9 @@ export interface TodayProps {
   /** F67: names of things to use soon (leftovers and ingredients); the row is hidden when empty. */
   useSoon?: string[];
   onUseSoon?: () => void;
+  /** D22: how many things are on the To-buy list; the chip is hidden when zero. */
+  toBuy?: number;
+  onOpenShop?: () => void;
   planned?: PlannedHero | null; // F54: what the plan says for the next meal
   onCookPlanned?: (mealId: string, itemIndex: number) => void; // F54
 }
@@ -122,6 +125,12 @@ export function TodayScreen(p: TodayProps) {
           <div className="hero__name">Add some pantry items to get suggestions</div>
         </section>
       )}
+
+      {p.toBuy ? ( // D22
+        <button type="button" className="tobuy-chip" onClick={p.onOpenShop}>
+          {p.toBuy} {p.toBuy === 1 ? 'thing' : 'things'} to buy
+        </button>
+      ) : null}
 
       {p.useSoon && p.useSoon.length > 0 && ( // F67
         <section className="usesoon-row" aria-label="Use soon">

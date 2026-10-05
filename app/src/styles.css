@@ -957,3 +957,48 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .stores-list__kind { color: var(--muted); font-size: 13px; font-weight: 700; }
 .stores-list__buttons { display: flex; gap: 8px; }
 .store-form { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- To-buy cart and shopping trip (D22) ---------- */
+.shop__actions .shop__start { padding: 0 18px; min-height: 48px; font-size: 18px; }
+.shop__group-label { align-self: center; font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.cart-line { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; list-style: none; background: rgba(255,255,255,.82); box-shadow: 0 4px 14px rgba(109, 40, 217, .07); }
+.cart-line__top { display: flex; align-items: flex-start; gap: 10px; }
+.cart-line__top .shop-item__amount { padding-top: 2px; }
+.cart-line__chips { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.cart-line__chips .chip { background: var(--lilac-tint); color: var(--lilac); }
+.cart-line__actions { display: flex; gap: 8px; }
+.cart-line__got { flex: 1 1 auto; min-height: 44px; font-size: 17px; }
+.cart-line__more { min-height: 44px; padding: 0 16px; }
+.cart-line__menu { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.cart-line__menu .button-outline { min-height: 44px; padding: 0 14px; }
+.cart-line__menu .plan-note { flex-basis: 100%; margin: 0; }
+.cart-amount { display: flex; flex-direction: column; gap: 10px; }
+.tobuy-chip { align-self: flex-start; margin: 0 20px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--glass-lilac, var(--lilac)); color: #fff; font-weight: 800; font-size: 14px; box-shadow: var(--glass-shadow, none); }
+
+.trip__bar { height: 8px; border-radius: 999px; background: var(--lilac-tint); overflow: hidden; margin-top: 6px; }
+.trip__bar span { display: block; height: 100%; background: var(--glass-cyan, var(--cyan)); border-radius: 999px; transition: width .2s; }
+.trip-lines { gap: 10px; }
+.trip-line { list-style: none; background: rgba(255,255,255,.82); border: 2px solid var(--border); border-radius: 18px; box-shadow: 0 4px 14px rgba(109, 40, 217, .07); display: flex; flex-direction: column; }
+.trip-line--part { border-color: var(--lilac); }
+.trip-line--done { border-color: var(--cyan); background: var(--cyan-tint); }
+.trip-line__main { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 8px 14px; border: 0; background: none; color: var(--ink); text-align: left; font: inherit; }
+.trip-line__box { flex: none; width: 36px; height: 36px; border-radius: 10px; border: 3px solid var(--cyan); background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: var(--cyan-text); }
+.trip-line--done .trip-line__box { background: var(--cyan); color: #fff; }
+.trip-line--part .trip-line__box { border-color: var(--lilac); color: var(--lilac); }
+.trip-line__name { flex: 1; min-width: 0; font-family: var(--font-display); font-size: 22px; font-weight: 800; line-height: 1.1; }
+.trip-line--done .trip-line__name { text-decoration: line-through; text-decoration-thickness: 2px; }
+.trip-line__qty { flex: none; max-width: 40%; text-align: right; font-weight: 800; font-size: 16px; }
+.trip-line__step { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px 10px; }
+.trip-line__step button { width: 56px; height: 52px; border: 0; border-radius: 14px; background: var(--lilac-tint); color: var(--lilac); font-size: 28px; font-weight: 800; }
+.trip-line__step output { flex: 1; text-align: center; font-family: var(--font-display); font-size: 22px; font-weight: 800; }
+.trip__actions { position: sticky; bottom: calc(84px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); display: flex; flex-direction: column; gap: 8px; padding: 10px 0; background: linear-gradient(to top, var(--ground) 70%, transparent); }
+.trip__done { min-height: 56px; }
+.trip__done:disabled { opacity: .45; box-shadow: none; }
+.trip__actions .button-outline { min-height: 48px; }
+.trip__cancel { display: flex; flex-direction: column; gap: 8px; background: var(--surface); border-radius: 18px; padding: 12px; border: 2px solid var(--rust); }
+.trip__cancel .button-primary, .trip__cancel .button-outline { min-height: 48px; }
+.trip-summary { gap: 8px; }
+.trip-summary__row { list-style: none; display: flex; justify-content: space-between; gap: 12px; background: rgba(255,255,255,.82); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; }
+
+/* Store choice and links under each To-buy line */
+.line-stores { display: flex; flex-direction: column; gap: 8px; padding: 4px 16px 12px; }

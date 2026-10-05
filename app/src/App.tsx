@@ -6,7 +6,7 @@ import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
 import { RecipeEditor } from './ui/RecipeEditor'; // F40
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
 import type { Ingredient, KitchenEvent, MealSlot, Movement, Recipe } from './domain/types'; // F40: Recipe
-import { fromBase, toBase } from './domain/units';
+import { toBase } from './domain/units';
 import { formatHouseholdDay, householdDate, householdTime, instantFromHousehold, nextSlot } from './lib/localDate';
 import { BottomNav, type Tab } from './ui/BottomNav';
 import { AdjustUsageScreen } from './ui/AdjustUsageScreen';
@@ -16,14 +16,17 @@ import { HistoryScreen } from './ui/HistoryScreen';
 import { PantryScreen } from './ui/PantryScreen';
 import { RecipesScreen } from './ui/RecipesScreen'; // F33
 import { ShopScreen } from './ui/ShopScreen'; // F33
-import { addDishShortfall, addLowStock, removeItem, type ShoppingItem, type ShoppingList } from './domain/shopping'; // F33
+import { addDishShortfall, type ShoppingItem, type ShoppingList } from './domain/shopping'; // F33
 import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 import { UpdateBanner } from './ui/UpdateBanner'; // updates
 import { SettingsScreen } from './ui/SettingsScreen'; // settings
-import { shopPrefsOf } from './domain/shopPrefs'; // D22 stores
-import type { ShopPrefs } from './domain/types'; // D22 stores
 import { GeminiProvider } from './gemini/GeminiContext'; // gemini
+import { formatAmount } from './lib/formatAmount';
+import { StoreChip } from './ui/StoreChip'; // D22 stores
+import { FindOnStore } from './ui/FindOnStore'; // D22 stores
+import { StoreActions } from './ui/StoreActions'; // D22 stores
+import { copyListText } from './domain/stores'; // D22 stores
 import { demoPantry } from './data/demoPantry'; // settings
 import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
 import { wordsFor } from './domain/words'; // settings
@@ -41,6 +44,10 @@ import type { PantryView } from './ui/kitchenDepth'; // F65
 import { PlanScreen } from './ui/PlanScreen'; // F54
 import { basketFromPlan } from './domain/basket'; // F54
 import { plannedHero, setCooked, slotStillToday } from './domain/plan'; // F54
+import { addManualItem, cartLines, clearDismissals } from './domain/cart'; // D22
+import { shopPrefsOf } from './domain/shopPrefs'; // D22
+import { finishTrip, takeFromList } from './domain/trip'; // D22
+import type { ShopPrefs } from './domain/types'; // D22
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -61,10 +68,6 @@ const to12h = (hhmm: string) => {
   return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'am' : 'pm'}`;
 };
 
-export function formatAmount(baseAmount: number, ingredient: Ingredient): string {
-  const { amount, unit } = fromBase(baseAmount, ingredient);
-  return `${amount} ${unit}`;
-}
 
 // --- KR4RJP persistence: load from IndexedDB, then hand the kitchen to the screens ---
 export function App() {
@@ -107,6 +110,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }, [toast]);
 
   const snapSaved = useRef(new Set<string>()); // F52
+  const tripSaved = useRef(new Set<string>()); // D22: a trip is saved once, however many times Done is tapped
   const [pantryView, setPantryView] = useState<PantryView>('items'); // F65
   const leftovers = base.leftovers ?? []; // F65
   const batches = base.batches ?? []; // F65
@@ -239,11 +243,6 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setBase(b => ({ ...b, settings: next }));
     void store.queue.enqueue({ type: 'settings', settings: next });
   }
-  // D22 stores: saved shop preferences (stores, preferred store per item).
-  function saveShopPrefs(prefs: ShopPrefs) {
-    setBase(b => ({ ...b, shopPrefs: prefs }));
-    void store.queue.enqueue({ type: 'shopPrefs', prefs });
-  }
   const sampleLoaded = useMemo(() => removeSampleEvents(events, new Date()).length > 0, [events]);
   function loadSample() {
     const added = sampleEvents(demoPantry, new Date(), tz);
@@ -333,14 +332,47 @@ function Kitchen({ store }: { store: KitchenStore }) {
     // transaction), so a reload never shows one without the other. If it fails it stays
     // queued as a single op and is retried whole; replay is safe (event put by id, list is
     // a snapshot), so the purchase is never applied twice.
-    const next = fromBasket ? shopList : removeItem(shopList, item.ingredientId); // F54
+    const next = fromBasket ? shopList : takeFromList(shopList, { [item.ingredientId]: amountBase }); // F54, D22: a part-bought manual line keeps the rest
     setEvents(prev => [...prev, event]);
     setShopList(next);
     void store.queue.enqueue({ type: 'purchase', event, list: next });
+    const cleared = clearDismissals(prefs, [item.ingredientId]); // D22: bought, so an old "not this week" / "remove" no longer applies
+    if (cleared !== prefs) savePrefs(cleared); // D22
     const ing = byId.get(item.ingredientId);
     setToast({ text: `Bought ${ing ? `${formatAmount(amountBase, ing)} ${ing.name}` : 'item'}. Pantry updated.` });
   }
 
+  // D22: the To-buy cart. Shop preferences (snoozes, removals, the trip) live in base.shopPrefs;
+  // every change is queued for the database AND applied to the screen's copy.
+  const prefs = shopPrefsOf(base.shopPrefs);
+  function savePrefs(next: ShopPrefs) {
+    setBase(b => ({ ...b, shopPrefs: next }));
+    void store.queue.enqueue({ type: 'shopPrefs', prefs: next });
+  }
+  function saveIngredient(ingredient: Ingredient) {
+    setBase(b => ({ ...b, ingredients: b.ingredients.some(i => i.id === ingredient.id) ? b.ingredients.map(i => (i.id === ingredient.id ? ingredient : i)) : [...b.ingredients, ingredient] }));
+    void store.queue.enqueue({ type: 'ingredient', ingredient });
+  }
+  function addCartItem(ingredient: Ingredient, isNew: boolean, amountBase: number) {
+    if (isNew) saveIngredient(ingredient);
+    changeList(addManualItem(shopList, ingredient.id, amountBase));
+    setToast({ text: `Added ${formatAmount(amountBase, ingredient)} ${ingredient.name} to the list.` });
+  }
+  function doneShopping(priceRs?: number) {
+    const trip = prefs.trip;
+    if (!trip || tripSaved.current.has(trip.id)) return; // a double tap saves once
+    const r = finishTrip(prefs, shopList, new Date(), tz, priceRs);
+    if (!r.ok) { setToast({ text: r.message }); return; }
+    tripSaved.current.add(trip.id);
+    setEvents(prev => appendEventOnce(prev, r.event));
+    setBase(b => ({ ...b, shopPrefs: r.prefs }));
+    setShopList(r.list);
+    // One purchase with a stable id (trip-<id>), the cleared trip and the shorter manual list, in the same tick.
+    void store.queue.enqueue({ type: 'tripDone', event: r.event, prefs: r.prefs });
+    void store.queue.enqueue({ type: 'shopping', list: r.list });
+    // Undo reverses the purchase (the usual undo). The trip is NOT restored: it is finished. Start a new one to shop again.
+    setToast({ text: 'Saved your shopping. Pantry updated.', undoId: r.event.id });
+  }
   // F80: add a new dish by name. Saved only when Noor taps Save; always a NEW personal recipe.
   function keepIngredients(list: Ingredient[]) {
     const fresh = list.filter(i => !byId.has(i.id));
@@ -366,6 +398,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
   const shopRecipes = useMemo(() => new Map([...dishDrafts.map(r => [r.id, r] as const), ...recipesById]), [dishDrafts, recipesById]); // F80
 
+  const cart = cartLines({ manual: shopList, basket: basketFor(false), ingredients, stock, today, prefs }); // D22
   let screen: React.ReactNode;
   if (view.name === 'settings') { // settings
     screen = (
@@ -379,7 +412,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onRestore={restore}
         onBack={() => setView({ name: 'tab', tab: 'today' })}
         shopPrefs={shopPrefsOf(base.shopPrefs)} // D22 stores
-        onShopPrefs={saveShopPrefs} // D22 stores
+        onShopPrefs={savePrefs} // D22 stores
       />
     );
   } else if (view.name === 'snap') { // F52
@@ -532,6 +565,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => { setToast(null); setView({ name: 'eatout' }); }} // F83
         onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
+        toBuy={cart.length} // D22
+        onOpenShop={() => setView({ name: 'tab', tab: 'shop' })} // D22
         useSoon={useSoonNames} // F67
         onUseSoon={() => { setPantryView('soon'); setView({ name: 'tab', tab: 'pantry' }); }} // F67
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
@@ -597,13 +632,36 @@ function Kitchen({ store }: { store: KitchenStore }) {
     screen = (
       <ShopScreen
         list={shopList}
+        lines={cart} // D22
         ingredients={ingredients}
         recipesById={shopRecipes} // F80
         format={formatAmount}
-        onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}
-        basketFor={basketFor} // F54
-        onToast={text => setToast({ text })}
+        onToast={(text, undo) => setToast({ text, undo })} // D22
+        prefs={prefs} // D22
+        stock={stock} // D22
+        today={today} // D22
+        yesWord={YES} // D22
+        noWord={NO} // D22
+        onPrefs={savePrefs} // D22
+        onChangeList={changeList} // D22
+        onSaveIngredient={saveIngredient} // D22
+        onAddItem={addCartItem} // D22
+        onTripDone={doneShopping} // D22
+        extras={line => { // D22 stores: per-line store choice and where-to-buy links
+          const ing = ingredients.find(i => i.id === line.ingredientId);
+          return ing ? (
+            <div className="line-stores">
+              <StoreChip ingredientId={ing.id} ingredientName={ing.name} prefs={prefs} onChange={savePrefs} />
+              <FindOnStore
+                itemName={ing.name}
+                prefs={prefs}
+                copyTextFor={id => { const st = prefs.stores.find(x => x.id === id); return st ? copyListText(cart, ingredients, st, prefs) : ing.name; }}
+              />
+            </div>
+          ) : null;
+        }}
+        listExtras={<StoreActions lines={cart} ingredients={ingredients} prefs={prefs} />} // D22 stores
       />
     );
   } else {

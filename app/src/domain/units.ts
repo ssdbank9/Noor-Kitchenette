@@ -113,7 +113,8 @@ export function fromBase(value: number, ingredient: Ingredient): { amount: numbe
       // Count-type ingredients (oil in cups, spices in teaspoons) have no metric unit to fall
       // back to, and "pc" would be meaningless, so they always show in their own unit. Others
       // (mass/volume) prefer a tidy quarter-unit and otherwise show grams or millilitres.
-      if (ingredient.dimension === 'count' || Number.isInteger(amount * 4)) return { amount, unit: preferred };
+      // Show the word the household uses ("pack"), not the table's canonical one ("packet").
+      if (ingredient.dimension === 'count' || Number.isInteger(amount * 4)) return { amount, unit: ingredient.displayUnit.trim() || preferred };
     }
   }
   const rounded = round2(value);
