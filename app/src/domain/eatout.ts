@@ -2,8 +2,11 @@
 // The restaurant list is UNTRUSTED (a shipped file, or a file Noor imported): every field is
 // checked and capped here, and only https links survive. foodpanda's "budget" is a price
 // CATEGORY (1 to 3), never an exact price, and the list's delivery time and distance are
-// never read or shown (the delivery time was always 45, and distance reveals the home area).
+// never read or shown (the delivery time was always 45, and a distance in the file would be
+// measured from the home address). A place MAY carry its own public lat/lng (business location,
+// D-22); the phone works out the distance from the home area itself.
 import { boundedNumber, cleanText, safeHttpUrl } from '../gemini/sanitize';
+import { distanceKm, validLatLng, type LatLng } from './geo';
 import type { Favourite } from './types';
 
 export const BASE_MOODS = ['Pasta', 'Pizza', 'BBQ', 'Karahi', 'Chinese', 'Korean wings', 'Handi', 'Burgers', 'Donuts', 'Croissants', 'Desserts'] as const;
@@ -28,6 +31,9 @@ export interface EatOutPlace {
   cuisines: string[];
   /** https only. */
   url: string | null;
+  /** The restaurant's public location, or null when the list has none (or an invalid one). */
+  lat: number | null;
+  lng: number | null;
 }
 
 export interface EatOutList {
@@ -51,6 +57,7 @@ function parsePlace(raw: unknown): EatOutPlace | null {
   const rating = boundedNumber(r.rating, 0, 5);
   const reviews = boundedNumber(r.reviews, 0, 10_000_000);
   const budget = boundedNumber(r.budget, 1, 3);
+  const at = validLatLng(r.lat, r.lng); // numbers only; a bad or half pair is ignored, the place stays
   return {
     name,
     rating: rating === null ? null : Math.round(rating * 10) / 10,
@@ -58,6 +65,8 @@ function parsePlace(raw: unknown): EatOutPlace | null {
     budget: budget === null ? null : (Math.round(budget) as 1 | 2 | 3),
     cuisines: Array.isArray(r.cuisines) ? r.cuisines.slice(0, 6).map(c => cleanText(c, 30)).filter(Boolean) : [],
     url: httpsUrl(r.url),
+    lat: at ? at.lat : null,
+    lng: at ? at.lng : null,
   };
 }
 
@@ -175,11 +184,33 @@ export function ratingText(p: Pick<EatOutPlace, 'rating' | 'reviews'>): string {
 
 const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
 
-/** Up to 10 places for ONE mood, and nothing from any other mood. */
-export function placesForMood(list: EatOutList | null, mood: string): EatOutPlace[] {
+export type PlaceOrder = 'rating' | 'nearest';
+
+export interface ShownPlace { place: EatOutPlace; km: number | null }
+
+const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);
+
+/**
+ * Up to 10 places for ONE mood, and nothing from any other mood. "rating" keeps the list's own
+ * order (best rated first). "nearest" needs a home area: places with coordinates by distance
+ * (ties by rating), then places without coordinates, with no distance. The cut to 10 comes after
+ * the sort, so the nearest ten of the whole mood are shown.
+ */
+export function placesForMood(list: EatOutList | null, mood: string, order: PlaceOrder = 'rating', home?: LatLng | null): ShownPlace[] {
   if (!list) return [];
   const key = Object.keys(list.moods).find(k => same(k, mood));
-  return key ? list.moods[key].slice(0, PLACES_SHOWN) : [];
+  if (!key) return [];
+  const all = list.moods[key];
+  if (order !== 'nearest' || !home) return all.slice(0, PLACES_SHOWN).map(place => ({ place, km: null }));
+  const withKm: ShownPlace[] = [];
+  const without: ShownPlace[] = [];
+  for (const place of all) {
+    if (place.lat !== null && place.lng !== null) withKm.push({ place, km: distanceKm(home, { lat: place.lat, lng: place.lng }) });
+    else without.push({ place, km: null });
+  }
+  withKm.sort((a, b) => (a.km as number) - (b.km as number) || byRating(a.place, b.place));
+  without.sort((a, b) => byRating(a.place, b.place));
+  return [...withKm, ...without].slice(0, PLACES_SHOWN);
 }
 
 export function favouritesForMood(favs: Favourite[], mood: string): Favourite[] {

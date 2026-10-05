@@ -929,3 +929,14 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .toast { bottom: calc(92px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); }
 .psheet { padding-bottom: var(--badge-safe, 0px); }
 .app { padding-bottom: calc(84px + env(safe-area-inset-bottom) + var(--badge-safe, 0px)); }
+
+/* ---------- Home area (D22 geo) ---------- */
+.homearea { display: flex; flex-direction: column; gap: 10px; }
+.homearea__now, .homearea__why, .homearea__note { margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.homearea__now strong { color: var(--ink); }
+.homearea__big { width: 100%; min-height: 56px; font-size: 18px; }
+.homearea .choice-grid button { min-height: 48px; }
+.homearea__note { color: var(--cyan-text); }
+.eatout__order-by { display: flex; flex-direction: column; gap: 8px; }
+.eatout__distance { margin: 0; font-size: 14px; font-weight: 800; color: var(--cyan-text); }
+.eatout__setarea { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; font-weight: 800; color: var(--lilac); text-decoration: underline; background: none; border: 0; padding: 0 4px; font-family: inherit; font-size: 14px; }

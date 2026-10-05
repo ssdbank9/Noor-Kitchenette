@@ -77,8 +77,8 @@ describe('merge and loading', () => {
 describe('mood filtering and text', () => {
   const l = list('2026-10-01T00:00:00Z', { Pizza: ['p1', 'p2'], Karahi: ['k1'], BBQ: [] });
   it('shows only that mood, at most 10', () => {
-    expect(placesForMood(l, 'pizza').map(p => p.name)).toEqual(['p1', 'p2']);
-    expect(placesForMood(l, 'Karahi').map(p => p.name)).toEqual(['k1']);
+    expect(placesForMood(l, 'pizza').map(s => s.place.name)).toEqual(['p1', 'p2']);
+    expect(placesForMood(l, 'Karahi').map(s => s.place.name)).toEqual(['k1']);
     expect(placesForMood(l, 'BBQ')).toEqual([]);
     expect(placesForMood(l, 'Pasta')).toEqual([]);
     expect(placesForMood(null, 'Pizza')).toEqual([]);

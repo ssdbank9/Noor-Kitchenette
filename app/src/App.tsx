@@ -397,6 +397,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         timeZone={tz}
         yesWord={YES}
         noWord={NO}
+        homeArea={settings.homeArea} // D22 geo
+        onOpenSettings={() => setView({ name: 'settings' })} // D22 geo
         onSave={(item: Favourite) => {
           setBase(b => ({ ...b, favourites: [...(b.favourites ?? []).filter(f => f.id !== item.id), item] }));
           void store.queue.enqueue({ type: 'favourite', item });
