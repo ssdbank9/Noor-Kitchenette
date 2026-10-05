@@ -7,6 +7,7 @@ export interface RecipesScreenProps {
   items: { recipe: Recipe; availability: Availability }[];
   servings: number;
   onOpen: (recipeId: string) => void;
+  onAddDish: () => void; // F80
   onBack: () => void;
 }
 
@@ -30,6 +31,7 @@ export function RecipesScreen(p: RecipesScreenProps) {
       <div className="recipes__head">
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={p.onBack}>‹</button>
         <h1 className="title title--sm">Recipes</h1>
+        <button type="button" className="button-tint recipes__add" onClick={p.onAddDish}>+ Add dish</button> {/* F80 */}
       </div>
 
       <input
