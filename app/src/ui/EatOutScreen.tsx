@@ -11,7 +11,8 @@ import {
   type EatOutList, type ShownPlace,
 } from '../domain/eatout';
 import { formatDistance } from '../domain/geo';
-import type { Favourite } from '../domain/types';
+import type { Favourite, OrderCost } from '../domain/types';
+import { OrderCostsPanel } from './OrderCostsPanel'; // D23
 import { cleanText } from '../gemini/sanitize';
 import { copyThenOpen } from './storeHandoff';
 
@@ -25,6 +26,9 @@ export interface EatOutScreenProps {
   /** The household's area from Settings (kept on the phone), if chosen. */
   homeArea?: { label: string; lat: number; lng: number };
   onOpenSettings?: () => void;
+  /** Orders Aly paid for, and how Noor pays them back (D-23). */
+  orderCosts?: OrderCost[];
+  onOrderCosts?: (list: OrderCost[]) => void;
   onSave: (favourite: Favourite) => void;
   onDelete: (id: string) => void;
   onToast: (text: string) => void;
@@ -230,6 +234,8 @@ export function EatOutScreen(p: EatOutScreenProps) {
           </article>
         ))}
       </section>
+
+      {p.onOrderCosts && <OrderCostsPanel orders={p.orderCosts ?? []} today={p.today} onChange={p.onOrderCosts} onToast={p.onToast} />}
 
       <p className="eatout__pad eatout__meta">
         {!loaded ? 'Checking for a restaurant list...' : list ? `Restaurant list updated ${formatListDate(list.generatedAt, p.timeZone)}.` : 'No restaurant list loaded.'} Prices are on foodpanda.

@@ -16,6 +16,7 @@ import {
   type PlannedMeal,
   type Recipe,
   type ShopPrefs,
+  type OrderCost,
 } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
 
@@ -39,6 +40,7 @@ interface MetaValues {
   schemaVersion: number;
   'pre-restore-backup': PreRestoreBackup;
   shopPrefs: ShopPrefs;
+  orderCosts: OrderCost[];
 }
 type MetaKey = keyof MetaValues;
 
@@ -160,6 +162,11 @@ export function deleteItem(db: KitchenDb, store: Collection, id: string): Promis
   return commit(tx, queued => { queued.push(tx.objectStore(store).delete(id)); });
 }
 
+export function saveOrderCosts(db: KitchenDb, list: OrderCost[]): Promise<void> {
+  const tx = writeTransaction(db, ['meta']);
+  return commit(tx, queued => { queued.push(tx.objectStore('meta').put(list, 'orderCosts')); });
+}
+
 export function saveShopPrefs(db: KitchenDb, prefs: ShopPrefs): Promise<void> {
   const tx = writeTransaction(db, ['meta']);
   return commit(tx, queued => { queued.push(tx.objectStore('meta').put(prefs, 'shopPrefs')); });
@@ -226,6 +233,7 @@ export type KitchenWrite =
   | { type: 'shopping'; list: ShoppingList }
   | { type: 'purchase'; event: KitchenEvent; list: ShoppingList }
   | { type: 'shopPrefs'; prefs: ShopPrefs }
+  | { type: 'orderCosts'; list: OrderCost[] }
   | { type: 'tripDone'; event: KitchenEvent; prefs: ShopPrefs }
   | { type: 'plan'; meal: PlannedMeal }
   | { type: 'deletePlan'; id: string }
@@ -248,6 +256,7 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
       case 'shopping': return saveShopping(db, write.list);
       case 'purchase': return savePurchase(db, write.event, write.list);
       case 'shopPrefs': return saveShopPrefs(db, write.prefs);
+      case 'orderCosts': return saveOrderCosts(db, write.list);
       case 'tripDone': return saveTripDone(db, write.event, write.prefs);
       case 'plan': return saveItem(db, 'plan', write.meal);
       case 'deletePlan': return deleteItem(db, 'plan', write.id);
@@ -263,7 +272,7 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
 
 async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>): Promise<KitchenData | null> {
   const meta = tx.objectStore('meta');
-  const [ingredients, recipes, events, plan, leftovers, batches, favourites, schemaVersion, settings, shopPrefs] = await Promise.all([
+  const [ingredients, recipes, events, plan, leftovers, batches, favourites, schemaVersion, settings, shopPrefs, orderCosts] = await Promise.all([
     tx.objectStore('ingredients').getAll(),
     tx.objectStore('recipes').getAll(),
     tx.objectStore('events').getAll(),
@@ -274,6 +283,7 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
     meta.get('schemaVersion') as Promise<number | undefined>,
     meta.get('settings') as Promise<KitchenSettings | undefined>,
     meta.get('shopPrefs') as Promise<ShopPrefs | undefined>,
+    meta.get('orderCosts') as Promise<OrderCost[] | undefined>,
   ]);
   const empty = ingredients.length === 0 && recipes.length === 0 && events.length === 0;
   if (schemaVersion === undefined && settings === undefined && empty) return null;
@@ -290,6 +300,7 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
   return {
     schemaVersion, ingredients, recipes, events, settings,
     ...(shopPrefs ? { shopPrefs } : {}),
+    ...(orderCosts?.length ? { orderCosts } : {}),
     ...(plan.length ? { plan } : {}),
     ...(leftovers.length ? { leftovers } : {}),
     ...(batches.length ? { batches } : {}),
@@ -386,6 +397,7 @@ function queueReplacement(tx: KitchenTx<'readwrite'>, data: KitchenData, queued:
   const meta = tx.objectStore('meta');
   queued.push(ingredients.clear(), recipes.clear(), events.clear());
   queued.push(data.shopPrefs ? meta.put(data.shopPrefs, 'shopPrefs') : meta.delete('shopPrefs'));
+  queued.push(data.orderCosts?.length ? meta.put(data.orderCosts, 'orderCosts') : meta.delete('orderCosts'));
   for (const store of ['plan', 'leftovers', 'batches', 'favourites'] as const) queued.push(tx.objectStore(store).clear());
   for (const item of data.plan ?? []) queued.push(tx.objectStore('plan').put(item));
   for (const item of data.leftovers ?? []) queued.push(tx.objectStore('leftovers').put(item));

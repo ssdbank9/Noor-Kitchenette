@@ -40,6 +40,7 @@ async function boot(): Promise<KitchenStore> {
     if (op.type === 'recipe') data = withRecipe(data, op.recipe, []);
     else if (op.type === 'deleteRecipe') data = withoutRecipe(data, op.recipeId);
     else if (op.type === 'ingredient') data = { ...data, ingredients: [...data.ingredients.filter(i => i.id !== op.ingredient.id), op.ingredient] };
+    else if (op.type === 'orderCosts') data = { ...data, orderCosts: op.list };
     else if (op.type === 'shopPrefs') data = { ...data, shopPrefs: op.prefs };
     else if (op.type === 'tripDone') data = { ...data, shopPrefs: op.prefs, events: [...data.events.filter(e => e.id !== op.event.id), op.event] };
     else if (op.type === 'plan') data = { ...data, plan: [...(data.plan ?? []).filter(m => m.id !== op.meal.id), op.meal] };

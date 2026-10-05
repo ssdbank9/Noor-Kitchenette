@@ -18,6 +18,7 @@ import {
   type PlanItem,
   type PlannedMeal,
   type ShopPrefs,
+  type OrderCost,
   type Store,
   type MealRating,
   type MealRecord,
@@ -61,6 +62,7 @@ export function exportBackup(data: KitchenData, exportedAt: Date = new Date()): 
       recipes: data.recipes,
       events: data.events,
       ...(data.shopPrefs ? { shopPrefs: data.shopPrefs } : {}),
+      ...(data.orderCosts?.length ? { orderCosts: data.orderCosts } : {}),
       ...(data.plan?.length ? { plan: data.plan } : {}),
       ...(data.leftovers?.length ? { leftovers: data.leftovers } : {}),
       ...(data.batches?.length ? { batches: data.batches } : {}),
@@ -147,7 +149,7 @@ const MEAL_SLOTS: readonly MealSlot[] = ['breakfast', 'lunch', 'dinner', 'chai']
 const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
-const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'plan', 'leftovers', 'batches', 'favourites'] as const;
+const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'orderCosts', 'plan', 'leftovers', 'batches', 'favourites'] as const;
 const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'buyAmount', 'conversions'] as const;
@@ -173,6 +175,7 @@ function validate(file: Fields): ParseResult {
   const events = c.list(file.events, 'events').map((v, i) => readEvent(c, v, `events[${i}]`));
   // New in updates 2: optional, so backups made before them still restore.
   const shopPrefs = optional(file.shopPrefs, v => readShopPrefs(c, v, 'shopPrefs'));
+  const orderCosts = optional(file.orderCosts, v => c.list(v, 'orderCosts').map((m, i) => readOrderCost(c, m, `orderCosts[${i}]`)));
   const plan = optional(file.plan, v => c.list(v, 'plan').map((m, i) => readPlannedMeal(c, m, `plan[${i}]`)));
   const leftovers = optional(file.leftovers, v => c.list(v, 'leftovers').map((m, i) => readLeftover(c, m, `leftovers[${i}]`)));
   const batches = optional(file.batches, v => c.list(v, 'batches').map((m, i) => readBatch(c, m, `batches[${i}]`)));
@@ -225,6 +228,7 @@ function validate(file: Fields): ParseResult {
     data: {
       schemaVersion: SCHEMA_VERSION, ingredients, recipes, events, settings,
       ...(shopPrefs ? { shopPrefs } : {}),
+      ...(orderCosts?.length ? { orderCosts } : {}),
       ...(plan?.length ? { plan } : {}),
       ...(leftovers?.length ? { leftovers } : {}),
       ...(batches?.length ? { batches } : {}),
@@ -450,6 +454,20 @@ function readStore(c: Checker, value: unknown, path: string): Store {
     mapsQuery: optional(o.mapsQuery, v => c.text(v, `${path}.mapsQuery`)),
     unverified: optional(o.unverified, v => c.flag(v, `${path}.unverified`)),
     note: optional(o.note, v => c.text(v, `${path}.note`)),
+  }));
+}
+
+function readOrderCost(c: Checker, value: unknown, path: string): OrderCost {
+  return c.record(value, path, ['id', 'place', 'amount', 'localDate', 'repay'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    place: c.text(o.place, `${path}.place`, { nonEmpty: true }),
+    amount: c.number(o.amount, `${path}.amount`, { integer: true, min: 1 }),
+    localDate: c.calendarDate(o.localDate, `${path}.localDate`),
+    repay: optional(o.repay, v => c.record(v, `${path}.repay`, ['option', 'amount', 'paidOn'] as const, r => withoutUndefined({
+      option: c.oneOf(r.option, `${path}.repay.option`, ['all', 'half'] as const),
+      amount: c.number(r.amount, `${path}.repay.amount`, { integer: true, min: 0 }),
+      paidOn: optional(r.paidOn, x => c.calendarDate(x, `${path}.repay.paidOn`)),
+    }))),
   }));
 }
 

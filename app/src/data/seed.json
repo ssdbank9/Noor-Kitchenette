@@ -912,6 +912,21 @@
       "conversions": {
         "bar": 1
       }
+    },
+    {
+      "id": "Frisky",
+      "name": "Frisky",
+      "aliases": [
+        "firstky",
+        "frisky snack"
+      ],
+      "dimension": "count",
+      "displayUnit": "pack",
+      "aisle": "Snacks & noodles",
+      "minStock": 0,
+      "conversions": {
+        "pack": 1
+      }
     }
   ],
   "recipes": [

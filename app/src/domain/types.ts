@@ -270,6 +270,18 @@ export interface ShopPrefs {
   trip?: Trip;
 }
 
+/** A restaurant order Aly paid for. Noor logs the cost and chooses to pay back all or half. */
+export interface OrderCost {
+  id: string;
+  place: string;
+  /** Rupees, whole. */
+  amount: number;
+  /** Household-local date, YYYY-MM-DD. */
+  localDate: string;
+  /** What Noor chose to pay back. Absent until she chooses. */
+  repay?: { option: 'all' | 'half'; amount: number; paidOn?: string };
+}
+
 export interface KitchenData {
   schemaVersion: number;
   ingredients: Ingredient[];
@@ -277,6 +289,7 @@ export interface KitchenData {
   events: KitchenEvent[];
   /** Optional so older saves and backups keep working; treat missing as empty. */
   shopPrefs?: ShopPrefs;
+  orderCosts?: OrderCost[];
   plan?: PlannedMeal[];
   leftovers?: Leftover[];
   batches?: Batch[];

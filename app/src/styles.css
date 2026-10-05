@@ -1012,6 +1012,13 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .fold--card[open] { padding-bottom: 12px; }
 .line-stores .store-chip { align-self: flex-start; }
 
+/* Order costs (D-23) */
+.ordercost__owed { margin: 0 0 8px; font-weight: 700; }
+.ordercost__top { display: flex; justify-content: space-between; gap: 12px; font-weight: 800; }
+.ordercost__date, .ordercost__status { margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.ordercost__status--done { color: var(--ink); }
+.ordercost__item .eatout__actions, .ordercost__form .eatout__actions { flex-wrap: wrap; }
+
 /* Snacks tab */
 .snack-row { display: flex; align-items: stretch; gap: 8px; }
 .snack-row .pantry-item { flex: 1; }

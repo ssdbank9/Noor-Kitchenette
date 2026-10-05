@@ -96,6 +96,7 @@ const EXTRA_INGREDIENTS = [
     ['Chips', 'Chips', ['crisps', 'lays', 'potato chips'], 'pack'],
     ['Biscuits', 'Biscuits', ['cookies', 'biscuit'], 'pack'],
     ['Chocolate', 'Chocolate', ['chocolates', 'candy', 'sweets'], 'bar'],
+    ['Frisky', 'Frisky', ['firstky', 'frisky snack'], 'pack'],
   ].map(([id, name, aliases, unit]) => ({
     id, name, aliases, dimension: 'count', displayUnit: unit, aisle: 'Snacks & noodles', minStock: 0, conversions: { [unit]: 1 },
   })),

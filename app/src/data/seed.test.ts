@@ -20,7 +20,7 @@ describe('starter collection seed (F9, F38)', () => {
     expect(seed.schemaVersion).toBe(1);
     expect(seed.recipes).toHaveLength(22);
     // 62 from the workbooks plus the owner's extra staples (Buldak noodles and four snacks, D-22).
-    expect(seed.ingredients).toHaveLength(67);
+    expect(seed.ingredients).toHaveLength(68);
     expect(seed.ingredients.filter(i => !i.id.includes('_') || i.id === 'Buldak_Noodles').length).toBeGreaterThan(0);
     expect(seed.recipes.reduce((n, r) => n + r.ingredients.length, 0)).toBe(276);
   });

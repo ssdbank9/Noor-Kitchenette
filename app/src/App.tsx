@@ -441,6 +441,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         yesWord={YES}
         noWord={NO}
         homeArea={settings.homeArea} // D22 geo
+        orderCosts={base.orderCosts ?? []} // D23
+        onOrderCosts={list => { setBase(b => ({ ...b, orderCosts: list })); void store.queue.enqueue({ type: 'orderCosts', list }); }} // D23
         onOpenSettings={() => setView({ name: 'settings' })} // D22 geo
         onSave={(item: Favourite) => {
           setBase(b => ({ ...b, favourites: [...(b.favourites ?? []).filter(f => f.id !== item.id), item] }));
