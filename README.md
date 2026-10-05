@@ -3,7 +3,7 @@
 A phone app for Noor's kitchen: what can I cook now, what should we cook this week,
 what do we need to buy, and what is in the pantry.
 
-Status (2026-10-04): Phase 0 started. The app skeleton is in `app/`.
+Status (2026-10-05): the core app is live at https://endearing-zabaione-6c6cc1.netlify.app (Netlify builds `main`). Real-phone checks are next: docs/ACCEPTANCE-CORE.md.
 
 | Start here | |
 |---|---|
