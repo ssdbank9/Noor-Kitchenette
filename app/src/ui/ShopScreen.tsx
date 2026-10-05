@@ -106,7 +106,7 @@ export function ShopScreen(p: ShopScreenProps) {
       </div>
 
       {p.list.length === 0 && (
-        <p className="empty">Use "+ List" on a dish, or add low-stock items, and what to buy shows up here.</p>
+        <p className="empty">Nothing on the list. Tap + List on a dish or add low-stock items.</p>
       )}
 
       {groups.map(g => (

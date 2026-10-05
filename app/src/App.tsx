@@ -16,6 +16,7 @@ import { ShopScreen } from './ui/ShopScreen'; // F33
 import { addDishShortfall, addLowStock, removeItem, type ShoppingItem, type ShoppingList } from './domain/shopping'; // F33
 import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
+import { UpdateBanner } from './ui/UpdateBanner'; // updates
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -66,7 +67,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [events, setEvents] = useState<KitchenEvent[]>(store.data.events);
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
-  const [shopList, setShopList] = useState<ShoppingList>([]); // F33
+  const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
   const [toast, setToast] = useState<{ text: string; undoId?: string } | null>(null);
 
   const now = new Date();
@@ -131,15 +132,26 @@ function Kitchen({ store }: { store: KitchenStore }) {
   // F33: recipes and shopping list
   function addToList(recipeId: string) {
     const recipe = recipesById.get(recipeId)!;
-    setShopList(prev => addDishShortfall(prev, availability(recipe, servings, stock, byId, toBase)));
+    changeList(addDishShortfall(shopList, availability(recipe, servings, stock, byId, toBase))); // shoplist
     setToast({ text: 'Added to Shop' });
+  }
+  // shoplist: every list change is saved as a whole-list snapshot through the save queue.
+  function changeList(next: ShoppingList) {
+    setShopList(next);
+    void store.queue.enqueue({ type: 'shopping', list: next });
   }
   function boughtItem(item: ShoppingItem, amountBase: number) {
     const event = makeEvent('purchase', [{ ingredientId: item.ingredientId, delta: amountBase, basis: 'measured' }], new Date(), { source: 'typed' }, tz);
+    // shoplist: the purchase and the shorter list are ONE queued write (one IndexedDB
+    // transaction), so a reload never shows one without the other. If it fails it stays
+    // queued as a single op and is retried whole; replay is safe (event put by id, list is
+    // a snapshot), so the purchase is never applied twice.
+    const next = removeItem(shopList, item.ingredientId);
     setEvents(prev => [...prev, event]);
-    void store.queue.enqueue({ type: 'events', events: [event] });
-    setShopList(prev => removeItem(prev, item.ingredientId));
-    setToast({ text: `Bought ${byId.get(item.ingredientId)?.name ?? 'item'}. Pantry updated.` });
+    setShopList(next);
+    void store.queue.enqueue({ type: 'purchase', event, list: next });
+    const ing = byId.get(item.ingredientId);
+    setToast({ text: `Bought ${ing ? `${formatAmount(amountBase, ing)} ${ing.name}` : 'item'}. Pantry updated.` });
   }
 
   let screen: React.ReactNode;
@@ -245,7 +257,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         ingredients={ingredients}
         recipesById={recipesById}
         format={formatAmount}
-        onAddLowStock={() => setShopList(prev => addLowStock(prev, ingredients, stock))}
+        onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}
         onToast={text => setToast({ text })}
       />
@@ -262,6 +274,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
           <button type="button" onClick={() => void store.queue.retry()}>Retry</button>
         </div>
       )}
+      <UpdateBanner queue={store.queue} /> {/* updates */}
       <main>{screen}</main>
       {toast && (
         <div className="toast" role="status">
