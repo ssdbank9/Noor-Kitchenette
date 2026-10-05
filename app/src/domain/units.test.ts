@@ -391,3 +391,12 @@ describe('from a pasted line to base units', () => {
     expect(baseValue(quantity.amount!, quantity.unit, match!)).toBe(base);
   });
 });
+
+describe('fromBase for count ingredients with a household unit', () => {
+  const oil = { id: 'Oil', name: 'Cooking Oil', aliases: [], dimension: 'count', displayUnit: 'cup', aisle: 'Pantry', conversions: { cup: 1 } } as const;
+  it('always shows its own unit, never pc', () => {
+    expect(fromBase(5, oil as never)).toEqual({ amount: 5, unit: 'cup' });
+    expect(fromBase(6.53, oil as never)).toEqual({ amount: 6.53, unit: 'cup' });
+    expect(fromBase(0.67, oil as never)).toEqual({ amount: 0.67, unit: 'cup' });
+  });
+});

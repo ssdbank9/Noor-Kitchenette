@@ -40,6 +40,14 @@ async function boot(): Promise<KitchenStore> {
     if (op.type === 'recipe') data = withRecipe(data, op.recipe, []);
     else if (op.type === 'deleteRecipe') data = withoutRecipe(data, op.recipeId);
     else if (op.type === 'ingredient') data = { ...data, ingredients: [...data.ingredients.filter(i => i.id !== op.ingredient.id), op.ingredient] };
+    else if (op.type === 'plan') data = { ...data, plan: [...(data.plan ?? []).filter(m => m.id !== op.meal.id), op.meal] };
+    else if (op.type === 'deletePlan') data = { ...data, plan: (data.plan ?? []).filter(m => m.id !== op.id) };
+    else if (op.type === 'leftover') data = { ...data, leftovers: [...(data.leftovers ?? []).filter(l => l.id !== op.item.id), op.item] };
+    else if (op.type === 'deleteLeftover') data = { ...data, leftovers: (data.leftovers ?? []).filter(l => l.id !== op.id) };
+    else if (op.type === 'batch') data = { ...data, batches: [...(data.batches ?? []).filter(b => b.id !== op.item.id), op.item] };
+    else if (op.type === 'deleteBatch') data = { ...data, batches: (data.batches ?? []).filter(b => b.id !== op.id) };
+    else if (op.type === 'favourite') data = { ...data, favourites: [...(data.favourites ?? []).filter(f => f.id !== op.item.id), op.item] };
+    else if (op.type === 'deleteFavourite') data = { ...data, favourites: (data.favourites ?? []).filter(f => f.id !== op.id) };
   }
   // Starter recipes improved by an app update reach Noor's saved copy (never her edits).
   const refreshed = refreshStarter(data, seed);

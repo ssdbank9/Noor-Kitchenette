@@ -84,3 +84,19 @@ page link is accepted when its site matches a returned source.
 
 Gemini behaviour (the request shape for search, JSON output, photos) is checked against
 mocked responses only. The first real-key check is part of acceptance: use Settings, Test my key.
+
+## Updates 2 (branch `claude/updates-2`, not yet on the live site)
+
+Plan tab and weekly basket (F54, F55, F60), eat out with foodpanda moods and favourites
+(F83, F84), leftovers, places, expiry dates and a waste report (F65-F68, F76).
+Status 2026-10-05: logic tests 579/579, browser tests 72/72, typecheck clean. Found and fixed
+in review: oil and spices showed "pc" instead of their own unit in the basket; the planned
+card on Today had lost the Eat out button.
+
+Still to check on a real phone: the Plan tab with the phone keyboard; the basket after
+a partial purchase; Order opening the foodpanda app; copy-name fallback; Leftovers after
+cooking; Use soon row on Today; Waste report. No restaurant list exists yet: run
+`npm run refresh:eatout` (README, "Eat out list") and decide how to ship it.
+
+Deferred (D-21): custom and Ramadan meal slots; menu-level matching for Korean wings and
+Donuts; shared household access; family recipe photos.

@@ -136,11 +136,96 @@ export interface KitchenEvent {
   priceRs?: number;
 }
 
+// ---------- Planning, leftovers, storage and eating out (updates 2) ----------
+
+/** Where food is kept (F66). */
+export type StorageLocation = 'fridge' | 'freezer' | 'shelf' | 'counter';
+
+/**
+ * One thing on a planned meal. Planning never changes stock; only cooking or using it does.
+ * - dish: cooked at home from a recipe; `cookedEventId` links to the cook event once done.
+ * - eatout: eating out replaces cooking, so nothing is deducted.
+ * - leftover: eating prepared food, so the raw ingredients are NOT deducted again.
+ */
+export type PlanItem =
+  | { kind: 'dish'; recipeId: string; recipeName: string; cookedEventId?: string }
+  | { kind: 'eatout'; label: string; favouriteId?: string }
+  | { kind: 'leftover'; leftoverId: string; label: string; portions: number; usedOn?: string };
+
+export interface PlannedMeal {
+  id: string;
+  /** Household-local date, YYYY-MM-DD. */
+  localDate: string;
+  slot: MealSlot;
+  /** People eating; each dish is scaled to this. */
+  servings: number;
+  /** Several dishes can share one meal. */
+  items: PlanItem[];
+  status: 'planned' | 'cancelled';
+  note?: string;
+}
+
+/** Prepared food kept for later (F65). Using it never deducts raw ingredients again. */
+export interface Leftover {
+  id: string;
+  name: string;
+  recipeId?: string;
+  /** The cook event it came from, when known. */
+  fromEventId?: string;
+  portionsMade: number;
+  portionsLeft: number;
+  /** Household-local dates, YYYY-MM-DD. */
+  madeOn: string;
+  location: StorageLocation;
+  frozenOn?: string;
+  useBy?: string;
+  log: { at: string; localDate: string; kind: 'made' | 'used' | 'wasted' | 'frozen' | 'moved'; portions: number; note?: string }[];
+  note?: string;
+}
+
+/**
+ * A bought package or batch of one ingredient with its own place and dates (F66, F67, F76).
+ * Amounts are in base units. Stock totals still come from the event log; batches only say
+ * where things are and what to use first (oldest consumed first).
+ */
+export interface Batch {
+  id: string;
+  ingredientId: string;
+  amount: number;
+  location: StorageLocation;
+  boughtOn?: string;
+  expiresOn?: string;
+  frozenOn?: string;
+  /** The size printed on the package, never "what remains" (F28). */
+  packageSize?: { amount: number; unit: string };
+  fromEventId?: string;
+  note?: string;
+}
+
+/** A dine-out favourite: a dish at a place (F83). */
+export interface Favourite {
+  id: string;
+  dish: string;
+  place: string;
+  area?: string;
+  /** The restaurant's foodpanda link, when saved. */
+  url?: string;
+  /** Mood words it fits, e.g. 'Pizza', 'Karahi'. */
+  moods: string[];
+  lastOrderedOn?: string;
+  note?: string;
+}
+
 export interface KitchenData {
   schemaVersion: number;
   ingredients: Ingredient[];
   recipes: Recipe[];
   events: KitchenEvent[];
+  /** Optional so older saves and backups keep working; treat missing as empty. */
+  plan?: PlannedMeal[];
+  leftovers?: Leftover[];
+  batches?: Batch[];
+  favourites?: Favourite[];
   settings: {
     householdName: string;
     timeZone: string;

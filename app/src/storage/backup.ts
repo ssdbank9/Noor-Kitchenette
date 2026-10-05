@@ -7,11 +7,16 @@
 
 import {
   SCHEMA_VERSION,
+  type Batch,
   type Dimension,
   type EventKind,
+  type Favourite,
   type Ingredient,
   type KitchenData,
   type KitchenEvent,
+  type Leftover,
+  type PlanItem,
+  type PlannedMeal,
   type MealRating,
   type MealRecord,
   type MealSlot,
@@ -53,6 +58,10 @@ export function exportBackup(data: KitchenData, exportedAt: Date = new Date()): 
       ingredients: data.ingredients,
       recipes: data.recipes,
       events: data.events,
+      ...(data.plan?.length ? { plan: data.plan } : {}),
+      ...(data.leftovers?.length ? { leftovers: data.leftovers } : {}),
+      ...(data.batches?.length ? { batches: data.batches } : {}),
+      ...(data.favourites?.length ? { favourites: data.favourites } : {}),
     },
     null,
     2,
@@ -135,7 +144,7 @@ const MEAL_SLOTS: readonly MealSlot[] = ['breakfast', 'lunch', 'dinner', 'chai']
 const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
-const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events'] as const;
+const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'plan', 'leftovers', 'batches', 'favourites'] as const;
 const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'conversions'] as const;
@@ -159,10 +168,26 @@ function validate(file: Fields): ParseResult {
   const ingredients = c.list(file.ingredients, 'ingredients').map((v, i) => readIngredient(c, v, `ingredients[${i}]`));
   const recipes = c.list(file.recipes, 'recipes').map((v, i) => readRecipe(c, v, `recipes[${i}]`));
   const events = c.list(file.events, 'events').map((v, i) => readEvent(c, v, `events[${i}]`));
+  // New in updates 2: optional, so backups made before them still restore.
+  const plan = optional(file.plan, v => c.list(v, 'plan').map((m, i) => readPlannedMeal(c, m, `plan[${i}]`)));
+  const leftovers = optional(file.leftovers, v => c.list(v, 'leftovers').map((m, i) => readLeftover(c, m, `leftovers[${i}]`)));
+  const batches = optional(file.batches, v => c.list(v, 'batches').map((m, i) => readBatch(c, m, `batches[${i}]`)));
+  const favourites = optional(file.favourites, v => c.list(v, 'favourites').map((m, i) => readFavourite(c, m, `favourites[${i}]`)));
 
   const ingredientIds = c.uniqueIds(ingredients, 'ingredients');
   const recipeIds = c.uniqueIds(recipes, 'recipes');
   const eventIds = c.uniqueIds(events, 'events');
+  c.uniqueIds(plan ?? [], 'plan');
+  const leftoverIds = c.uniqueIds(leftovers ?? [], 'leftovers');
+  c.uniqueIds(batches ?? [], 'batches');
+  c.uniqueIds(favourites ?? [], 'favourites');
+  (plan ?? []).forEach((meal, i) => meal.items.forEach((item, j) => {
+    if (item.kind === 'dish' && !recipeIds.has(item.recipeId)) c.report(`plan[${i}].items[${j}].recipeId`, `"${item.recipeId}" is not a recipe in this backup.`);
+    if (item.kind === 'leftover' && !leftoverIds.has(item.leftoverId)) c.report(`plan[${i}].items[${j}].leftoverId`, `"${item.leftoverId}" is not a leftover in this backup.`);
+  }));
+  (batches ?? []).forEach((batch, i) => {
+    if (!ingredientIds.has(batch.ingredientId)) c.report(`batches[${i}].ingredientId`, `"${batch.ingredientId}" is not an ingredient in this backup.`);
+  });
 
   recipes.forEach((recipe, i) => recipe.ingredients.forEach((line, j) => {
     if (line.ingredientId && !ingredientIds.has(line.ingredientId)) {
@@ -191,7 +216,16 @@ function validate(file: Fields): ParseResult {
       : c.errors;
     return { ok: false, errors };
   }
-  return { ok: true, data: { schemaVersion: SCHEMA_VERSION, ingredients, recipes, events, settings } };
+  return {
+    ok: true,
+    data: {
+      schemaVersion: SCHEMA_VERSION, ingredients, recipes, events, settings,
+      ...(plan?.length ? { plan } : {}),
+      ...(leftovers?.length ? { leftovers } : {}),
+      ...(batches?.length ? { batches } : {}),
+      ...(favourites?.length ? { favourites } : {}),
+    },
+  };
 }
 
 function readSettings(c: Checker, value: unknown, path: string): KitchenSettings {
@@ -293,6 +327,103 @@ function readMovement(c: Checker, value: unknown, path: string): Movement {
     basis: c.oneOf(o.basis, `${path}.basis`, BASES),
     // set-stock events: the amount Noor said is there (null = not sure).
     setTo: o.setTo === null ? null : optional(o.setTo, v => c.number(v, `${path}.setTo`, { min: 0 })),
+  }));
+}
+
+
+const LOCATIONS = ['fridge', 'freezer', 'shelf', 'counter'] as const;
+const PLAN_STATUSES = ['planned', 'cancelled'] as const;
+const LEFTOVER_LOG_KINDS = ['made', 'used', 'wasted', 'frozen', 'moved'] as const;
+
+function readPlanItem(c: Checker, value: unknown, path: string): PlanItem {
+  const kind = c.oneOf((value as Fields | null)?.kind, `${path}.kind`, ['dish', 'eatout', 'leftover'] as const);
+  if (kind === 'dish') {
+    return c.record(value, path, ['kind', 'recipeId', 'recipeName', 'cookedEventId'] as const, o => withoutUndefined({
+      kind: 'dish' as const,
+      recipeId: c.text(o.recipeId, `${path}.recipeId`, { nonEmpty: true }),
+      recipeName: c.text(o.recipeName, `${path}.recipeName`),
+      cookedEventId: optional(o.cookedEventId, v => c.text(v, `${path}.cookedEventId`, { nonEmpty: true })),
+    }));
+  }
+  if (kind === 'eatout') {
+    return c.record(value, path, ['kind', 'label', 'favouriteId'] as const, o => withoutUndefined({
+      kind: 'eatout' as const,
+      label: c.text(o.label, `${path}.label`),
+      favouriteId: optional(o.favouriteId, v => c.text(v, `${path}.favouriteId`, { nonEmpty: true })),
+    }));
+  }
+  return c.record(value, path, ['kind', 'leftoverId', 'label', 'portions', 'usedOn'] as const, o => withoutUndefined({
+    kind: 'leftover' as const,
+    leftoverId: c.text(o.leftoverId, `${path}.leftoverId`, { nonEmpty: true }),
+    label: c.text(o.label, `${path}.label`),
+    portions: c.number(o.portions, `${path}.portions`, { above: 0 }),
+    usedOn: optional(o.usedOn, v => c.calendarDate(v, `${path}.usedOn`)),
+  }));
+}
+
+function readPlannedMeal(c: Checker, value: unknown, path: string): PlannedMeal {
+  return c.record(value, path, ['id', 'localDate', 'slot', 'servings', 'items', 'status', 'note'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    localDate: c.calendarDate(o.localDate, `${path}.localDate`),
+    slot: c.oneOf(o.slot, `${path}.slot`, MEAL_SLOTS),
+    servings: c.number(o.servings, `${path}.servings`, { above: 0 }),
+    items: c.list(o.items, `${path}.items`).map((v, i) => readPlanItem(c, v, `${path}.items[${i}]`)),
+    status: c.oneOf(o.status, `${path}.status`, PLAN_STATUSES),
+    note: optional(o.note, v => c.text(v, `${path}.note`)),
+  }));
+}
+
+function readLeftover(c: Checker, value: unknown, path: string): Leftover {
+  return c.record(value, path, ['id', 'name', 'recipeId', 'fromEventId', 'portionsMade', 'portionsLeft', 'madeOn', 'location', 'frozenOn', 'useBy', 'log', 'note'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    name: c.text(o.name, `${path}.name`, { nonEmpty: true }),
+    recipeId: optional(o.recipeId, v => c.text(v, `${path}.recipeId`, { nonEmpty: true })),
+    fromEventId: optional(o.fromEventId, v => c.text(v, `${path}.fromEventId`, { nonEmpty: true })),
+    portionsMade: c.number(o.portionsMade, `${path}.portionsMade`, { min: 0 }),
+    portionsLeft: c.number(o.portionsLeft, `${path}.portionsLeft`, { min: 0 }),
+    madeOn: c.calendarDate(o.madeOn, `${path}.madeOn`),
+    location: c.oneOf(o.location, `${path}.location`, LOCATIONS),
+    frozenOn: optional(o.frozenOn, v => c.calendarDate(v, `${path}.frozenOn`)),
+    useBy: optional(o.useBy, v => c.calendarDate(v, `${path}.useBy`)),
+    log: c.list(o.log, `${path}.log`).map((v, i) => c.record(v, `${path}.log[${i}]`, ['at', 'localDate', 'kind', 'portions', 'note'] as const, l => withoutUndefined({
+      at: c.instant(l.at, `${path}.log[${i}].at`),
+      localDate: c.calendarDate(l.localDate, `${path}.log[${i}].localDate`),
+      kind: c.oneOf(l.kind, `${path}.log[${i}].kind`, LEFTOVER_LOG_KINDS),
+      portions: c.number(l.portions, `${path}.log[${i}].portions`, { min: 0 }),
+      note: optional(l.note, n => c.text(n, `${path}.log[${i}].note`)),
+    }))),
+    note: optional(o.note, v => c.text(v, `${path}.note`)),
+  }));
+}
+
+function readBatch(c: Checker, value: unknown, path: string): Batch {
+  return c.record(value, path, ['id', 'ingredientId', 'amount', 'location', 'boughtOn', 'expiresOn', 'frozenOn', 'packageSize', 'fromEventId', 'note'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    ingredientId: c.text(o.ingredientId, `${path}.ingredientId`, { nonEmpty: true }),
+    amount: c.number(o.amount, `${path}.amount`, { min: 0 }),
+    location: c.oneOf(o.location, `${path}.location`, LOCATIONS),
+    boughtOn: optional(o.boughtOn, v => c.calendarDate(v, `${path}.boughtOn`)),
+    expiresOn: optional(o.expiresOn, v => c.calendarDate(v, `${path}.expiresOn`)),
+    frozenOn: optional(o.frozenOn, v => c.calendarDate(v, `${path}.frozenOn`)),
+    packageSize: optional(o.packageSize, v => c.record(v, `${path}.packageSize`, ['amount', 'unit'] as const, p => ({
+      amount: c.number(p.amount, `${path}.packageSize.amount`, { above: 0 }),
+      unit: c.text(p.unit, `${path}.packageSize.unit`, { nonEmpty: true }),
+    }))),
+    fromEventId: optional(o.fromEventId, v => c.text(v, `${path}.fromEventId`, { nonEmpty: true })),
+    note: optional(o.note, v => c.text(v, `${path}.note`)),
+  }));
+}
+
+function readFavourite(c: Checker, value: unknown, path: string): Favourite {
+  return c.record(value, path, ['id', 'dish', 'place', 'area', 'url', 'moods', 'lastOrderedOn', 'note'] as const, o => withoutUndefined({
+    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+    dish: c.text(o.dish, `${path}.dish`, { nonEmpty: true }),
+    place: c.text(o.place, `${path}.place`, { nonEmpty: true }),
+    area: optional(o.area, v => c.text(v, `${path}.area`)),
+    url: optional(o.url, v => c.webLink(v, `${path}.url`)),
+    moods: c.list(o.moods, `${path}.moods`).map((m, i) => c.text(m, `${path}.moods[${i}]`)),
+    lastOrderedOn: optional(o.lastOrderedOn, v => c.calendarDate(v, `${path}.lastOrderedOn`)),
+    note: optional(o.note, v => c.text(v, `${path}.note`)),
   }));
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRef } from 'react'; // F52
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
-import { balances, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
+import { balances, effectiveIds, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
 import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
 import { RecipeEditor } from './ui/RecipeEditor'; // F40
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
@@ -30,6 +30,15 @@ import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
 import { appendEventOnce } from './domain/photoDraft'; // F52
 import { AddDishScreen } from './ui/AddDishScreen'; // F80
 import type { Availability } from './domain/suggest'; // F80
+import { EatOutScreen } from './ui/EatOutScreen'; // F83
+import type { Favourite } from './domain/types'; // F83
+import { batchesUseSoon, upsertById } from './domain/batches'; // F65
+import { leftoverFromCook, leftoversUseSoon } from './domain/leftoverUse'; // F65
+import type { Batch, Leftover, PlannedMeal } from './domain/types'; // F65, F54
+import type { PantryView } from './ui/kitchenDepth'; // F65
+import { PlanScreen } from './ui/PlanScreen'; // F54
+import { basketFromPlan } from './domain/basket'; // F54
+import { plannedHero, setCooked, slotStillToday } from './domain/plan'; // F54
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -39,6 +48,7 @@ type View =
   | { name: 'recipes' } // F33
   | { name: 'editor'; recipeId: string | null; back: Tab | 'recipes' } // F40
   | { name: 'adddish'; back: Tab | 'recipes' } // F80
+  | { name: 'eatout' } // F83
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
@@ -86,7 +96,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
   const [dishDrafts, setDishDrafts] = useState<Recipe[]>([]); // F80: names of found dishes whose shopping lines are not saved as recipes yet
-  const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
+  const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[]; undo?: () => void } | null>(null); // settings: undoIds; F65: undo
   // Messages close themselves after 8 seconds; Undo stays available in History.
   useEffect(() => {
     if (!toast) return;
@@ -95,6 +105,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }, [toast]);
 
   const snapSaved = useRef(new Set<string>()); // F52
+  const [pantryView, setPantryView] = useState<PantryView>('items'); // F65
+  const leftovers = base.leftovers ?? []; // F65
+  const batches = base.batches ?? []; // F65
+  const [planCook, setPlanCook] = useState<{ mealId: string; index: number } | null>(null); // F54: the planned dish being cooked
+  useEffect(() => { if (view.name === 'tab') setPlanCook(null); }, [view]); // F54
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -109,6 +124,15 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const byId = useMemo(() => new Map(ingredients.map(i => [i.id, i])), [ingredients]);
   const recipesById = useMemo(() => new Map(recipes.map(r => [r.id, r])), [recipes]);
   const stock = useMemo(() => balances(events), [events]);
+  const plan = base.plan ?? []; // F54
+  const live = useMemo(() => effectiveIds(events), [events]); // F54
+  const plannedNext = slotStillToday(settings.slotTimes[slot], householdTime(now, tz)) ? plannedHero(plan, today, slot, live) : null; // F54
+  // F54: the planned dish being cooked, when the open recipe is that dish
+  const planLink = (recipeId: string) => {
+    const meal = planCook ? plan.find(m => m.id === planCook.mealId) : undefined;
+    const item = meal && planCook ? meal.items[planCook.index] : undefined;
+    return meal && planCook && item?.kind === 'dish' && item.recipeId === recipeId ? { meal, index: planCook.index } : null;
+  };
   const ranked = useMemo(() => cookableNow(recipes, servings, events, ingredients, toBase), [recipes, servings, events, ingredients]);
   const suggestions = useMemo(
     () => suggestNextMeals(recipes, servings, events, ingredients, toBase, today, new Set(), slot),
@@ -141,9 +165,13 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }, tz);
     setEvents(prev => [...prev, event]);
     void store.queue.enqueue({ type: 'events', events: [event] }); // KR4RJP
+    const made = choice.leftover ? leftoverFromCook(event, recipe, choice.leftover.portions, choice.leftover.location) : null; // F65: same render, id derived from the cook event
+    if (made) { setBase(b => ({ ...b, leftovers: upsertById(b.leftovers ?? [], made) })); void store.queue.enqueue({ type: 'leftover', item: made }); } // F65
+    const pl = planLink(recipeId); // F54
+    if (pl) savePlanMeal(setCooked(pl.meal, pl.index, event.id)); // F54
     setView({ name: 'tab', tab: 'today' });
     setToast({
-      text: `Saved ${recipe.name}. Pantry updated.`,
+      text: `Saved ${recipe.name}. Pantry updated.${made ? ' Leftovers kept.' : ''}`,
       undoId: event.id,
     });
   }
@@ -155,11 +183,39 @@ function Kitchen({ store }: { store: KitchenStore }) {
       const r = reverse(target, events, new Date());
       setEvents(prev => [...prev, r]);
       void store.queue.enqueue({ type: 'events', events: [r] }); // KR4RJP
+      for (const l of leftovers.filter(x => x.fromEventId === eventId)) deleteLeftover(l.id); // F65: what this entry made goes with it
+      for (const b of batches.filter(x => x.fromEventId === eventId)) removeBatch(b.id); // F65
       setToast({ text: 'Undone. Stock and history are back as they were.' });
     } catch (e) {
       setToast({ text: (e as Error).message });
     }
   }
+
+  // F65 to F68: leftovers and batches. Each change is queued for the database AND applied to the screen's copy.
+  function putLeftover(item: Leftover) {
+    setBase(b => ({ ...b, leftovers: upsertById(b.leftovers ?? [], item) }));
+    void store.queue.enqueue({ type: 'leftover', item });
+  }
+  function deleteLeftover(id: string) {
+    setBase(b => ({ ...b, leftovers: (b.leftovers ?? []).filter(l => l.id !== id) }));
+    void store.queue.enqueue({ type: 'deleteLeftover', id });
+  }
+  function changeLeftover(next: Leftover, previous: Leftover | null, text: string) {
+    putLeftover(next);
+    setToast({ text, undo: () => { if (previous) putLeftover(previous); else deleteLeftover(next.id); setToast({ text: 'Undone.' }); } });
+  }
+  function putBatch(item: Batch) {
+    setBase(b => ({ ...b, batches: upsertById(b.batches ?? [], item) }));
+    void store.queue.enqueue({ type: 'batch', item });
+  }
+  function removeBatch(id: string) {
+    setBase(b => ({ ...b, batches: (b.batches ?? []).filter(x => x.id !== id) }));
+    void store.queue.enqueue({ type: 'deleteBatch', id });
+  }
+  const useSoonNames = useMemo(() => [
+    ...leftoversUseSoon(leftovers, today).map(x => x.leftover.name),
+    ...batchesUseSoon(batches, stock, today).filter(x => x.status.state !== 'may-be-used-up').map(x => byId.get(x.status.batch.ingredientId)?.name ?? ''),
+  ].filter(Boolean), [leftovers, batches, stock, today, byId]); // F67
 
   // F52: Snap pantry. One event per confirmed draft; the same event id is never saved twice.
   function saveSnap(r: SnapSaveResult) {
@@ -237,13 +293,40 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setShopList(next);
     void store.queue.enqueue({ type: 'shopping', list: next });
   }
-  function boughtItem(item: ShoppingItem, amountBase: number) {
+  // F54: plan changes. Every change is queued for the database AND applied to the screen's copy.
+  function savePlanMeal(meal: PlannedMeal) {
+    void store.queue.enqueue({ type: 'plan', meal });
+    setBase(b => {
+      const list = b.plan ?? [];
+      return { ...b, plan: list.some(m => m.id === meal.id) ? list.map(m => (m.id === meal.id ? meal : m)) : [...list, meal] };
+    });
+  }
+  function deletePlanMeal(id: string) {
+    void store.queue.enqueue({ type: 'deletePlan', id });
+    setBase(b => ({ ...b, plan: (b.plan ?? []).filter(m => m.id !== id) }));
+  }
+  function saveLeftoverItem(item: Leftover) {
+    void store.queue.enqueue({ type: 'leftover', item });
+    setBase(b => {
+      const list = b.leftovers ?? [];
+      return { ...b, leftovers: list.some(l => l.id === item.id) ? list.map(l => (l.id === item.id ? item : l)) : [...list, item] };
+    });
+  }
+  function cookFromPlan(meal: PlannedMeal, index: number) {
+    const item = meal.items[index];
+    if (!item || item.kind !== 'dish' || !recipesById.has(item.recipeId)) { setToast({ text: 'That dish is no longer in your recipes.' }); return; }
+    setPlanCook({ mealId: meal.id, index });
+    open(item.recipeId, 'plan');
+  }
+  const basketFor = (topUps: boolean) => basketFromPlan(plan, recipes, stock, ingredients, toBase, today, live, { topUps });
+
+  function boughtItem(item: ShoppingItem, amountBase: number, fromBasket = false) { // F54: fromBasket keeps the manual list as it is
     const event = makeEvent('purchase', [{ ingredientId: item.ingredientId, delta: amountBase, basis: 'measured' }], new Date(), { source: 'typed' }, tz);
     // shoplist: the purchase and the shorter list are ONE queued write (one IndexedDB
     // transaction), so a reload never shows one without the other. If it fails it stays
     // queued as a single op and is retried whole; replay is safe (event put by id, list is
     // a snapshot), so the purchase is never applied twice.
-    const next = removeItem(shopList, item.ingredientId);
+    const next = fromBasket ? shopList : removeItem(shopList, item.ingredientId); // F54
     setEvents(prev => [...prev, event]);
     setShopList(next);
     void store.queue.enqueue({ type: 'purchase', event, list: next });
@@ -306,6 +389,26 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onClose={() => setView({ name: 'tab', tab: backTab })}
       />
     );
+  } else if (view.name === 'eatout') { // F83
+    screen = (
+      <EatOutScreen
+        favourites={base.favourites ?? []}
+        today={today}
+        timeZone={tz}
+        yesWord={YES}
+        noWord={NO}
+        onSave={(item: Favourite) => {
+          setBase(b => ({ ...b, favourites: [...(b.favourites ?? []).filter(f => f.id !== item.id), item] }));
+          void store.queue.enqueue({ type: 'favourite', item });
+        }}
+        onDelete={id => {
+          setBase(b => ({ ...b, favourites: (b.favourites ?? []).filter(f => f.id !== id) }));
+          void store.queue.enqueue({ type: 'deleteFavourite', id });
+        }}
+        onToast={text => setToast({ text })}
+        onBack={() => setView({ name: 'tab', tab: 'today' })}
+      />
+    );
   } else if (view.name === 'adddish') { // F80
     const backTo = view.back;
     screen = (
@@ -362,7 +465,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         key={recipe.id}
         recipe={recipe}
         ingredientsById={byId}
-        initialServings={servings}
+        initialServings={planLink(recipe.id)?.meal.servings ?? servings} // F54
         availabilityFor={n => availability(recipe, n, stock, byId, toBase)}
         format={formatAmount}
         timesThisMonth={times}
@@ -378,7 +481,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         recipeName={recipe.name}
         today={today}
         slotTimes={settings.slotTimes}
-        initialSlot={slot}
+        initialSlot={planLink(recipe.id)?.meal.slot ?? slot} // F54
+        initialDate={planLink(recipe.id)?.meal.localDate} // F54
         initialServings={view.servings}
         yesWord={YES}
         noWord={NO}
@@ -415,13 +519,39 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onOpenRecipe={id => open(id, 'today')}
         onAddToList={addToList}
         onSeeAll={() => setView({ name: 'recipes' })}
-        onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
+        onEatOut={() => { setToast(null); setView({ name: 'eatout' }); }} // F83
         onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
+        useSoon={useSoonNames} // F67
+        onUseSoon={() => { setPantryView('soon'); setView({ name: 'tab', tab: 'pantry' }); }} // F67
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
         onOpenPantry={() => setView({ name: 'tab', tab: 'pantry' })} // settings
         onLoadSample={loadSample} // settings
+        planned={plannedNext} // F54
+        onCookPlanned={(mealId, index) => { const m = plan.find(x => x.id === mealId); if (m) cookFromPlan(m, index); }} // F54
+      />
+    );
+  } else if (view.tab === 'plan') { // F54
+    screen = (
+      <PlanScreen
+        today={today}
+        plan={plan}
+        recipes={recipes}
+        ingredients={ingredients}
+        stock={stock}
+        events={events}
+        leftovers={base.leftovers ?? []}
+        slotTimes={settings.slotTimes}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        format={formatAmount}
+        onSaveMeal={savePlanMeal}
+        onDeleteMeal={deletePlanMeal}
+        onSaveLeftover={saveLeftoverItem}
+        onCook={cookFromPlan}
+        onToast={text => setToast({ text })}
       />
     );
   } else if (view.tab === 'history') {
@@ -442,7 +572,14 @@ function Kitchen({ store }: { store: KitchenStore }) {
         stock={stock}
         format={formatAmount}
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'pantry' }); }} // F52
-        onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
+        onAction={(event, text, batch) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); if (batch) putBatch(batch); /* F66 */ setToast({ text, undoId: event.id }); }}
+        depth={{ // F65 to F68
+          view: pantryView, onView: setPantryView, today, yesWord: YES, noWord: NO, leftovers, batches, events,
+          onChangeLeftover: changeLeftover,
+          onSaveBatch: (batch, text) => { putBatch(batch); setToast({ text }); },
+          onDeleteBatch: batch => { removeBatch(batch.id); setToast({ text: 'Batch deleted.', undo: () => { putBatch(batch); setToast({ text: 'Batch put back.' }); } }); },
+          onUndoEvent: undo,
+        }}
       />
     );
   } else if (view.tab === 'shop') {
@@ -454,6 +591,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         format={formatAmount}
         onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}
+        basketFor={basketFor} // F54
         onToast={text => setToast({ text })}
       />
     );
@@ -475,7 +613,9 @@ function Kitchen({ store }: { store: KitchenStore }) {
       {toast && (
         <div className="toast" role="status">
           <span>{toast.text}</span>
-          {toast.undoIds ? ( // settings
+          {toast.undo ? ( // F65
+            <button type="button" onClick={() => { const f = toast.undo!; setToast(null); f(); }}>Undo</button>
+          ) : toast.undoIds ? ( // settings
             <button type="button" onClick={() => { const ids = new Set(toast.undoIds); removeSample(ids); }}>Undo</button>
           ) : toast.undoId ? (
             <button type="button" onClick={() => { const id = toast.undoId!; setToast(null); undo(id); }}>Undo</button>

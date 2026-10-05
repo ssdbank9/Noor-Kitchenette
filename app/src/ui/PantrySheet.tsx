@@ -9,7 +9,10 @@ import {
   unitsFor,
   type PantryActionKind,
 } from '../domain/pantryActions';
-import type { Ingredient, KitchenEvent } from '../domain/types';
+import { batchIdForPurchase, buildBatch } from '../domain/batches'; // F66
+import type { Batch, Ingredient, KitchenEvent } from '../domain/types';
+import { BatchesPanel, PlaceDatesFields, type PlaceDatesValue } from './BatchesPanel'; // F66
+import type { KitchenDepth } from './kitchenDepth'; // F66
 
 export interface PantrySheetProps {
   ingredient: Ingredient;
@@ -17,7 +20,10 @@ export interface PantrySheetProps {
   /** Text for the current amount: "2 kg", "not sure", "check stock", "none"... */
   currentText: string;
   onClose: () => void;
-  onApply: (event: KitchenEvent, toast: string) => void;
+  /** `batch` is set when Bought more also recorded a place and date (F66). */
+  onApply: (event: KitchenEvent, toast: string, batch?: Batch) => void;
+  /** F66: batches, places and dates; leave out for the plain sheet. */
+  depth?: Pick<KitchenDepth, 'batches' | 'today' | 'yesWord' | 'noWord' | 'onSaveBatch' | 'onDeleteBatch'> & { format: (n: number, i: Ingredient) => string };
 }
 
 const ACTIONS: PantryActionKind[] = ['bought', 'checked', 'used', 'finished', 'threw'];
@@ -32,8 +38,11 @@ const PROMPT: Record<PantryActionKind, string> = {
 const trim = (n: number) => String(Math.round(n * 1000) / 1000);
 
 /** Bottom sheet with the five pantry actions for one ingredient (F56). */
-export function PantrySheet({ ingredient, balance, currentText, onClose, onApply }: PantrySheetProps) {
+export function PantrySheet({ ingredient, balance, currentText, onClose, onApply, depth }: PantrySheetProps) {
   const [action, setAction] = useState<PantryActionKind | null>(null);
+  const [where, setWhere] = useState(false); // F66: the "Where and when" panel
+  const [withPlace, setWithPlace] = useState(false); // F66: Bought more with a place and date
+  const [place, setPlace] = useState<PlaceDatesValue>({ location: 'fridge', expiresOn: '', frozenOn: '' });
   const units = unitsFor(ingredient);
   const chips = quickAmounts(ingredient);
   const [unit, setUnit] = useState(chips[0]?.unit ?? units[0] ?? '');
@@ -59,7 +68,16 @@ export function PantrySheet({ ingredient, balance, currentText, onClose, onApply
     }
     const result = buildPantryEvent({ action, ingredient, amount, unit, instant: new Date(), priceRs, current: balance });
     if (!result.ok) { setError(result.message); return; }
-    onApply(result.event, result.toast);
+    let batch: Batch | undefined;
+    if (action === 'bought' && withPlace && depth) { // F66: optional, linked to this purchase
+      const made = buildBatch({
+        id: batchIdForPurchase(result.event.id), ingredient, amount, unit, location: place.location,
+        expiresOn: place.expiresOn, frozenOn: place.frozenOn, boughtOn: depth.today, fromEventId: result.event.id,
+      });
+      if (!made.ok) { setError(made.message); return; }
+      batch = made.batch;
+    }
+    onApply(result.event, result.toast, batch);
   }
 
   const parsed = parseAmountText(text);
@@ -77,14 +95,30 @@ export function PantrySheet({ ingredient, balance, currentText, onClose, onApply
           <button type="button" className="psheet__close" onClick={onClose}>Close</button>
         </div>
 
-        {!action && (
+        {!action && !where && (
           <div className="psheet__actions">
             {ACTIONS.map(a => (
               <button key={a} type="button" className={`psheet__action psheet__action--${a}`} onClick={() => choose(a)}>
                 {ACTION_LABEL[a]}
               </button>
             ))}
+            {depth && <button type="button" className="psheet__action psheet__action--where" onClick={() => setWhere(true)}>Where and when</button>}
           </div>
+        )}
+
+        {where && depth && (
+          <BatchesPanel
+            ingredient={ingredient}
+            balance={balance}
+            batches={depth.batches.filter(b => b.ingredientId === ingredient.id)}
+            today={depth.today}
+            yesWord={depth.yesWord}
+            noWord={depth.noWord}
+            format={depth.format}
+            onSave={depth.onSaveBatch}
+            onDelete={depth.onDeleteBatch}
+            onBack={() => setWhere(false)}
+          />
         )}
 
         {action && (
@@ -134,6 +168,15 @@ export function PantrySheet({ ingredient, balance, currentText, onClose, onApply
                     <span>Price in Rs (optional)</span>
                     <input type="text" inputMode="decimal" autoComplete="off" value={price} onChange={e => { setPrice(e.target.value); setError(''); }} />
                   </label>
+                )}
+
+                {action === 'bought' && depth && ( // F66
+                  <>
+                    <button type="button" className="button-outline depth-toggle" aria-pressed={withPlace} onClick={() => setWithPlace(v => !v)}>
+                      Add place and date
+                    </button>
+                    {withPlace && <PlaceDatesFields value={place} onChange={setPlace} today={depth.today} />}
+                  </>
                 )}
               </>
             )}

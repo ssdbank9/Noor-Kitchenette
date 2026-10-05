@@ -4,6 +4,7 @@ import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
 import { useGemini } from '../gemini/GeminiContext'; // F52
 import { testKey } from '../gemini/photo'; // F52
+import { EatOutListPanel } from './EatOutListPanel'; // F83
 
 type Settings = KitchenData['settings'];
 
@@ -208,6 +209,8 @@ export function SettingsScreen(p: SettingsProps) {
           <button type="button" className="button-outline" disabled={!p.sampleLoaded} onClick={p.onRemoveSample}>Remove sample pantry</button>
         </div>
       </section>
+
+      <EatOutListPanel timeZone={p.settings.timeZone} /> {/* F83 */}
 
       <section className="panel settings__panel" aria-labelledby="set-backup">
         <h2 id="set-backup" className="panel__title">Backup</h2>

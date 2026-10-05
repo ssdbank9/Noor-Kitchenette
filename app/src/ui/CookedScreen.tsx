@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { MealRating, MealSlot } from '../domain/types';
+import type { MealRating, MealSlot, StorageLocation } from '../domain/types';
 
 export interface CookedChoice {
   /** Household-local date, YYYY-MM-DD. */
@@ -11,6 +11,8 @@ export interface CookedChoice {
   rating?: MealRating;
   /** true: deduct the recipe amounts; false: Noor adjusts each amount next. */
   usedRecipeAmounts: boolean;
+  /** F65: portions left over, and where they are kept. Missing or 0 means none. */
+  leftover?: { portions: number; location: StorageLocation };
 }
 
 export interface CookedScreenProps {
@@ -19,6 +21,8 @@ export interface CookedScreenProps {
   today: string;
   slotTimes: Record<MealSlot, string>;
   initialSlot: MealSlot;
+  /** F54: the planned date; used when it is within the last 7 days. */
+  initialDate?: string;
   initialServings: number;
   yesWord: string;
   noWord: string;
@@ -59,12 +63,14 @@ const to12h = (hhmm: string) => {
 
 export function CookedScreen(p: CookedScreenProps) {
   const days = useMemo(() => lastSevenDays(p.today), [p.today]);
-  const [date, setDate] = useState(p.today);
+  const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54
   const [slot, setSlot] = useState<MealSlot>(p.initialSlot);
   const [time, setTime] = useState(p.slotTimes[p.initialSlot]);
   const [servings, setServings] = useState(p.initialServings);
   const [rating, setRating] = useState<MealRating | undefined>();
   const [used, setUsed] = useState<boolean | undefined>();
+  const [left, setLeft] = useState(0); // F65
+  const [where, setWhere] = useState<StorageLocation>('fridge'); // F65
 
   const pickSlot = (s: MealSlot) => { setSlot(s); setTime(p.slotTimes[s]); };
   const times = SLOTS.map(s => p.slotTimes[s.id]);
@@ -123,6 +129,25 @@ export function CookedScreen(p: CookedScreenProps) {
         </div>
       </section>
 
+      <section className="panel" aria-labelledby="leftover">{/* F65 */}
+        <h2 id="leftover" className="panel__title">Anything left over?</h2>
+        <div className="stepper-row panel--inline" aria-label="Portions left over">
+          <span className="stepper-row__label">Portions left</span>
+          <div className="stepper">
+            <button type="button" aria-label="Fewer portions left" onClick={() => setLeft(n => Math.max(0, n - 1))}>−</button>
+            <output aria-live="polite">{left}</output>
+            <button type="button" aria-label="More portions left" onClick={() => setLeft(n => Math.min(30, n + 1))}>+</button>
+          </div>
+        </div>
+        {left > 0 && (
+          <div className="choice-grid choice-grid--2" role="group" aria-label="Where it is kept">
+            {(['fridge', 'freezer'] as const).map(l => (
+              <button key={l} type="button" className="choice" aria-pressed={where === l} onClick={() => setWhere(l)}>{l === 'fridge' ? 'Fridge' : 'Freezer'}</button>
+            ))}
+          </div>
+        )}
+      </section>
+
       <section className="question" aria-labelledby="amounts">
         <h2 id="amounts" className="question__title">Did you use the amounts in the recipe?</h2>
         <div className="choice-grid choice-grid--2">
@@ -136,7 +161,7 @@ export function CookedScreen(p: CookedScreenProps) {
           type="button"
           className="button-save action-bar__main"
           disabled={used === undefined}
-          onClick={() => p.onSave({ localDate: date, localTime: time, slot, servings, rating, usedRecipeAmounts: used! })}
+          onClick={() => p.onSave({ localDate: date, localTime: time, slot, servings, rating, usedRecipeAmounts: used!, ...(left > 0 ? { leftover: { portions: left, location: where } } : {}) })}
         >
           Save
         </button>
