@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useRef } from 'react'; // F52
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
 import { balances, cookingHistory, makeEvent, monthSummary, reverse } from './domain/ledger';
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
@@ -23,11 +24,14 @@ import { demoPantry } from './data/demoPantry'; // settings
 import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
 import { wordsFor } from './domain/words'; // settings
 import { exportBackup, restoreBackup } from './storage/backup'; // settings
+import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
+import { appendEventOnce } from './domain/photoDraft'; // F52
 
 type View =
   | { name: 'tab'; tab: Tab }
   | { name: 'recipe'; recipeId: string; back: Tab | 'recipes' }
   | { name: 'settings' } // settings
+  | { name: 'snap'; back: Tab } // F52
   | { name: 'recipes' } // F33
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
@@ -82,6 +86,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
     const t = setTimeout(() => setToast(null), 8000);
     return () => clearTimeout(t);
   }, [toast]);
+
+  const snapSaved = useRef(new Set<string>()); // F52
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -145,6 +151,20 @@ function Kitchen({ store }: { store: KitchenStore }) {
     } catch (e) {
       setToast({ text: (e as Error).message });
     }
+  }
+
+  // F52: Snap pantry. One event per confirmed draft; the same event id is never saved twice.
+  function saveSnap(r: SnapSaveResult) {
+    if (snapSaved.current.has(r.event.id)) return;
+    snapSaved.current.add(r.event.id);
+    const fresh = r.newIngredients.filter(i => !base.ingredients.some(x => x.id === i.id));
+    if (fresh.length) {
+      setBase(b => ({ ...b, ingredients: [...b.ingredients, ...fresh.filter(i => !b.ingredients.some(x => x.id === i.id))] }));
+      for (const ingredient of fresh) void store.queue.enqueue({ type: 'ingredient', ingredient });
+    }
+    setEvents(prev => appendEventOnce(prev, r.event));
+    void store.queue.enqueue({ type: 'events', events: [r.event] });
+    setToast({ text: r.toast, undoId: r.event.id });
   }
 
   // settings: saved settings, sample pantry, backup and restore
@@ -221,6 +241,22 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onBack={() => setView({ name: 'tab', tab: 'today' })}
       />
     );
+  } else if (view.name === 'snap') { // F52
+    const backTab = view.back;
+    screen = (
+      <SnapPantry
+        ingredients={ingredients}
+        stock={stock}
+        format={formatAmount}
+        yesWord={YES}
+        noWord={NO}
+        today={today}
+        timeZone={tz}
+        onSave={saveSnap}
+        onSettings={() => { setToast(null); setView({ name: 'settings' }); }}
+        onClose={() => setView({ name: 'tab', tab: backTab })}
+      />
+    );
   } else if (view.name === 'recipes') {
     screen = (
       <RecipesScreen
@@ -292,7 +328,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onAddToList={addToList}
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
-        onSnap={() => setToast({ text: 'Photo pantry arrives with Gemini (Phase 2).' })}
+        onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
         onOpenPantry={() => setView({ name: 'tab', tab: 'pantry' })} // settings
@@ -317,6 +353,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         ingredients={ingredients}
         stock={stock}
         format={formatAmount}
+        onSnap={() => { setToast(null); setView({ name: 'snap', back: 'pantry' }); }} // F52
         onAction={(event, text) => { setEvents(prev => [...prev, event]); void store.queue.enqueue({ type: 'events', events: [event] }); setToast({ text, undoId: event.id }); }}
       />
     );

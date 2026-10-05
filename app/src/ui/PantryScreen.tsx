@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Balance } from '../domain/ledger';
 import type { Ingredient, KitchenEvent } from '../domain/types';
+import { CameraIcon } from './Icons'; // F52
 import { PantrySheet } from './PantrySheet';
 
 export interface PantryScreenProps {
@@ -9,6 +10,8 @@ export interface PantryScreenProps {
   format: (baseAmount: number, ingredient: Ingredient) => string;
   /** Called with the event a pantry action built, and the text for its toast. */
   onAction: (event: KitchenEvent, toast: string) => void;
+  /** Opens Snap pantry (F52). */
+  onSnap?: () => void;
 }
 
 function describe(i: Ingredient, b: Balance | undefined, format: PantryScreenProps['format']) {
@@ -38,7 +41,12 @@ export function PantryScreen(p: PantryScreenProps) {
 
   return (
     <div className="screen form-screen">
-      <h1 className="title">Pantry</h1>
+      <div className="pantry-head">
+        <h1 className="title">Pantry</h1>
+        {p.onSnap && (
+          <button type="button" className="button-tint pantry-snap" onClick={p.onSnap}><CameraIcon size={20} /> Snap pantry</button>
+        )}
+      </div>
       <p className="eyebrow">Amounts marked "not confirmed" came from the old app and have not been checked.</p>
       <div className="pantry-tools">
         <input
