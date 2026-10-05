@@ -36,7 +36,7 @@ test('cooking deducts exactly the recipe amounts, and undo puts every one back',
   expect(needs.length).toBeGreaterThan(0);
 
   await page.getByRole('button', { name: 'I cooked this' }).click();
-  await page.getByRole('button', { name: 'Jee', exact: true }).click();
+  await page.getByRole('button', { name: 'Haan', exact: true }).click();
   await page.getByRole('button', { name: 'Save' }).click();
 
   const cook = makeEvent('cook', needs.map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const })), new Date());

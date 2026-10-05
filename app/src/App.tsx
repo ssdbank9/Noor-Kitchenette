@@ -25,7 +25,7 @@ type View =
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
 const SLOT_LABEL: Record<MealSlot, string> = { breakfast: 'Breakfast', lunch: 'Lunch', chai: 'Chai', dinner: 'Dinner' };
-const YES = 'Jee';
+const YES = 'Haan';
 const NO = 'Nahi';
 
 const to12h = (hhmm: string) => {

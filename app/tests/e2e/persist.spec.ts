@@ -6,7 +6,7 @@ test('a cooked meal is still in History after a reload', async ({ page }) => {
   await page.getByRole('button', { name: /let's cook/ }).click();
   const name = (await page.getByRole('heading', { level: 1 }).innerText()).trim();
   await page.getByRole('button', { name: 'I cooked this' }).click();
-  await page.getByRole('button', { name: 'Jee', exact: true }).click();
+  await page.getByRole('button', { name: 'Haan', exact: true }).click();
   await page.getByRole('button', { name: 'Save' }).click();
   await expect(page.getByRole('status')).toContainText(`Saved ${name}`);
   await expect(page.locator('.save-banner')).toHaveCount(0);
