@@ -6,11 +6,14 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { seed } from '../data/seed';
 import type { KitchenData, KitchenEvent } from '../domain/types';
-import { kitchenWriter, loadKitchen, openKitchenDb, replaceAll, type KitchenWrite } from './db';
+import type { ShoppingList } from '../domain/shopping';
+import { kitchenWriter, loadKitchen, loadShopping, openKitchenDb, replaceAll, type KitchenWrite } from './db';
 import { createSaveQueue, describeError, type SaveQueue, type SaveState } from './saveQueue';
 
 export interface KitchenStore {
   data: KitchenData;
+  /** The saved shopping list (F36), with any unsaved change from last time applied. */
+  shopping: ShoppingList;
   queue: SaveQueue<KitchenWrite>;
 }
 
@@ -27,7 +30,12 @@ async function boot(): Promise<KitchenStore> {
     data = seed;
   }
   const queue = createSaveQueue<KitchenWrite>(kitchenWriter(db));
-  const waiting = queue.getPending().flatMap(op => (op.type === 'events' ? op.events : []));
+  let shopping = await loadShopping(db);
+  const pending = queue.getPending();
+  // Unsaved changes from last time: a 'purchase' carries its event AND the list after it,
+  // so replaying it later (idempotent: event put by id, list is a snapshot) cannot double-apply.
+  for (const op of pending) if (op.type === 'shopping' || op.type === 'purchase') shopping = op.list;
+  const waiting = pending.flatMap(op => (op.type === 'events' ? op.events : op.type === 'purchase' ? [op.event] : []));
   if (waiting.length > 0) {
     const known = new Set(data.events.map(e => e.id));
     const events: KitchenEvent[] = [...data.events, ...waiting.filter(e => !known.has(e.id))];
@@ -35,7 +43,7 @@ async function boot(): Promise<KitchenStore> {
     data = { ...data, events };
   }
   if (queue.getPending().length > 0) void queue.retry();
-  return { data, queue };
+  return { data, shopping, queue };
 }
 
 // One boot per page load, so React StrictMode's second effect run does not open twice.

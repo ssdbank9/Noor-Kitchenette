@@ -12,10 +12,13 @@ import {
   type KitchenEvent,
   type Recipe,
 } from '../domain/types';
+import type { ShoppingList } from '../domain/shopping';
 
 export const DB_NAME = 'noors-kitchen';
 /** Version of the IndexedDB layout (object stores). Not the same as the data SCHEMA_VERSION. */
-const DB_LAYOUT_VERSION = 1;
+const DB_LAYOUT_VERSION = 2; // 2 adds the 'shopping' store (F36)
+/** The one record in the 'shopping' store. */
+const SHOPPING_KEY = 'list';
 
 export type KitchenSettings = KitchenData['settings'];
 
@@ -38,12 +41,14 @@ interface KitchenDbSchema extends DBSchema {
   recipes: { key: string; value: Recipe };
   events: { key: string; value: KitchenEvent };
   meta: { key: MetaKey; value: MetaValues[MetaKey] };
+  shopping: { key: string; value: ShoppingList };
 }
 
 type StoreName = StoreNames<KitchenDbSchema>;
 export type KitchenDb = IDBPDatabase<KitchenDbSchema>;
 type KitchenTx<Mode extends IDBTransactionMode> = IDBPTransaction<KitchenDbSchema, StoreName[], Mode>;
 
+// The shopping list is not part of KitchenData (backups, restore), so replaceAll leaves it alone.
 const ALL_STORES: StoreName[] = ['ingredients', 'recipes', 'events', 'meta'];
 
 export function openKitchenDb(name: string = DB_NAME): Promise<KitchenDb> {
@@ -53,6 +58,9 @@ export function openKitchenDb(name: string = DB_NAME): Promise<KitchenDb> {
         if (!db.objectStoreNames.contains(store)) db.createObjectStore(store, { keyPath: 'id' });
       }
       if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta');
+      // v1 -> v2: add the shopping list store. Every store is created only if missing, so
+      // existing ingredients, recipes, events and settings are never touched.
+      if (!db.objectStoreNames.contains('shopping')) db.createObjectStore('shopping');
     },
   });
 }
@@ -72,6 +80,28 @@ export async function loadKitchen(db: KitchenDb): Promise<KitchenData | null> {
 export async function loadPreRestoreBackup(db: KitchenDb): Promise<PreRestoreBackup | null> {
   const copy = await db.get('meta', 'pre-restore-backup');
   return (copy as PreRestoreBackup | undefined) ?? null;
+}
+
+/** The saved shopping list; empty when none was saved yet. */
+export async function loadShopping(db: KitchenDb): Promise<ShoppingList> {
+  return (await db.get('shopping', SHOPPING_KEY)) ?? [];
+}
+
+/** Replaces the saved shopping list (a whole-list snapshot, so replaying it is harmless). */
+export function saveShopping(db: KitchenDb, list: ShoppingList): Promise<void> {
+  return writeToSetUpKitchen(db, 'shopping', (tx, queued) => {
+    queued.push(tx.objectStore('shopping').put(list, SHOPPING_KEY));
+  });
+}
+
+/**
+ * A purchase from the Shop list: the purchase event and the new list (item removed) in ONE
+ * transaction, so a reload can never show the purchase without the list change or the reverse.
+ */
+export function savePurchase(db: KitchenDb, event: KitchenEvent, list: ShoppingList): Promise<void> {
+  return writeToSetUpKitchen(db, 'events', (tx, queued) => {
+    queued.push(tx.objectStore('events').put(event), tx.objectStore('shopping').put(list, SHOPPING_KEY));
+  }, ['shopping']);
 }
 
 /**
@@ -141,7 +171,9 @@ export type KitchenWrite =
   | { type: 'events'; events: KitchenEvent[] }
   | { type: 'recipe'; recipe: Recipe }
   | { type: 'ingredient'; ingredient: Ingredient }
-  | { type: 'settings'; settings: KitchenSettings };
+  | { type: 'settings'; settings: KitchenSettings }
+  | { type: 'shopping'; list: ShoppingList }
+  | { type: 'purchase'; event: KitchenEvent; list: ShoppingList };
 
 /** The writer to hand to createSaveQueue for this database. */
 export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<void> {
@@ -151,6 +183,8 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
       case 'recipe': return saveRecipe(db, write.recipe);
       case 'ingredient': return saveIngredient(db, write.ingredient);
       case 'settings': return saveSettings(db, write.settings);
+      case 'shopping': return saveShopping(db, write.list);
+      case 'purchase': return savePurchase(db, write.event, write.list);
     }
   };
 }
@@ -192,8 +226,9 @@ async function writeToSetUpKitchen(
   db: KitchenDb,
   store: StoreName,
   queue: (tx: KitchenTx<'readwrite'>, queued: Promise<unknown>[]) => void,
+  alsoStores: StoreName[] = [],
 ): Promise<void> {
-  const tx = writeTransaction(db, store === 'meta' ? ['meta'] : [store, 'meta']);
+  const tx = writeTransaction(db, [...new Set<StoreName>([store, 'meta', ...alsoStores])]);
   const version = await tx.objectStore('meta').get('schemaVersion');
   if (version !== SCHEMA_VERSION) {
     // Nothing has been queued, so the transaction commits empty.
