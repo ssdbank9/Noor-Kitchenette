@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRef } from 'react'; // F52
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
-import { balances, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
+import { balances, effectiveIds, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
 import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
 import { RecipeEditor } from './ui/RecipeEditor'; // F40
 import { availability, cookableNow, suggestNextMeals, suitsSlot } from './domain/suggest';
@@ -34,8 +34,11 @@ import { EatOutScreen } from './ui/EatOutScreen'; // F83
 import type { Favourite } from './domain/types'; // F83
 import { batchesUseSoon, upsertById } from './domain/batches'; // F65
 import { leftoverFromCook, leftoversUseSoon } from './domain/leftoverUse'; // F65
-import type { Batch, Leftover } from './domain/types'; // F65
+import type { Batch, Leftover, PlannedMeal } from './domain/types'; // F65, F54
 import type { PantryView } from './ui/kitchenDepth'; // F65
+import { PlanScreen } from './ui/PlanScreen'; // F54
+import { basketFromPlan } from './domain/basket'; // F54
+import { plannedHero, setCooked, slotStillToday } from './domain/plan'; // F54
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -105,6 +108,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [pantryView, setPantryView] = useState<PantryView>('items'); // F65
   const leftovers = base.leftovers ?? []; // F65
   const batches = base.batches ?? []; // F65
+  const [planCook, setPlanCook] = useState<{ mealId: string; index: number } | null>(null); // F54: the planned dish being cooked
+  useEffect(() => { if (view.name === 'tab') setPlanCook(null); }, [view]); // F54
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -119,6 +124,15 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const byId = useMemo(() => new Map(ingredients.map(i => [i.id, i])), [ingredients]);
   const recipesById = useMemo(() => new Map(recipes.map(r => [r.id, r])), [recipes]);
   const stock = useMemo(() => balances(events), [events]);
+  const plan = base.plan ?? []; // F54
+  const live = useMemo(() => effectiveIds(events), [events]); // F54
+  const plannedNext = slotStillToday(settings.slotTimes[slot], householdTime(now, tz)) ? plannedHero(plan, today, slot, live) : null; // F54
+  // F54: the planned dish being cooked, when the open recipe is that dish
+  const planLink = (recipeId: string) => {
+    const meal = planCook ? plan.find(m => m.id === planCook.mealId) : undefined;
+    const item = meal && planCook ? meal.items[planCook.index] : undefined;
+    return meal && planCook && item?.kind === 'dish' && item.recipeId === recipeId ? { meal, index: planCook.index } : null;
+  };
   const ranked = useMemo(() => cookableNow(recipes, servings, events, ingredients, toBase), [recipes, servings, events, ingredients]);
   const suggestions = useMemo(
     () => suggestNextMeals(recipes, servings, events, ingredients, toBase, today, new Set(), slot),
@@ -153,6 +167,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
     void store.queue.enqueue({ type: 'events', events: [event] }); // KR4RJP
     const made = choice.leftover ? leftoverFromCook(event, recipe, choice.leftover.portions, choice.leftover.location) : null; // F65: same render, id derived from the cook event
     if (made) { setBase(b => ({ ...b, leftovers: upsertById(b.leftovers ?? [], made) })); void store.queue.enqueue({ type: 'leftover', item: made }); } // F65
+    const pl = planLink(recipeId); // F54
+    if (pl) savePlanMeal(setCooked(pl.meal, pl.index, event.id)); // F54
     setView({ name: 'tab', tab: 'today' });
     setToast({
       text: `Saved ${recipe.name}. Pantry updated.${made ? ' Leftovers kept.' : ''}`,
@@ -277,13 +293,40 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setShopList(next);
     void store.queue.enqueue({ type: 'shopping', list: next });
   }
-  function boughtItem(item: ShoppingItem, amountBase: number) {
+  // F54: plan changes. Every change is queued for the database AND applied to the screen's copy.
+  function savePlanMeal(meal: PlannedMeal) {
+    void store.queue.enqueue({ type: 'plan', meal });
+    setBase(b => {
+      const list = b.plan ?? [];
+      return { ...b, plan: list.some(m => m.id === meal.id) ? list.map(m => (m.id === meal.id ? meal : m)) : [...list, meal] };
+    });
+  }
+  function deletePlanMeal(id: string) {
+    void store.queue.enqueue({ type: 'deletePlan', id });
+    setBase(b => ({ ...b, plan: (b.plan ?? []).filter(m => m.id !== id) }));
+  }
+  function saveLeftoverItem(item: Leftover) {
+    void store.queue.enqueue({ type: 'leftover', item });
+    setBase(b => {
+      const list = b.leftovers ?? [];
+      return { ...b, leftovers: list.some(l => l.id === item.id) ? list.map(l => (l.id === item.id ? item : l)) : [...list, item] };
+    });
+  }
+  function cookFromPlan(meal: PlannedMeal, index: number) {
+    const item = meal.items[index];
+    if (!item || item.kind !== 'dish' || !recipesById.has(item.recipeId)) { setToast({ text: 'That dish is no longer in your recipes.' }); return; }
+    setPlanCook({ mealId: meal.id, index });
+    open(item.recipeId, 'plan');
+  }
+  const basketFor = (topUps: boolean) => basketFromPlan(plan, recipes, stock, ingredients, toBase, today, live, { topUps });
+
+  function boughtItem(item: ShoppingItem, amountBase: number, fromBasket = false) { // F54: fromBasket keeps the manual list as it is
     const event = makeEvent('purchase', [{ ingredientId: item.ingredientId, delta: amountBase, basis: 'measured' }], new Date(), { source: 'typed' }, tz);
     // shoplist: the purchase and the shorter list are ONE queued write (one IndexedDB
     // transaction), so a reload never shows one without the other. If it fails it stays
     // queued as a single op and is retried whole; replay is safe (event put by id, list is
     // a snapshot), so the purchase is never applied twice.
-    const next = removeItem(shopList, item.ingredientId);
+    const next = fromBasket ? shopList : removeItem(shopList, item.ingredientId); // F54
     setEvents(prev => [...prev, event]);
     setShopList(next);
     void store.queue.enqueue({ type: 'purchase', event, list: next });
@@ -422,7 +465,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         key={recipe.id}
         recipe={recipe}
         ingredientsById={byId}
-        initialServings={servings}
+        initialServings={planLink(recipe.id)?.meal.servings ?? servings} // F54
         availabilityFor={n => availability(recipe, n, stock, byId, toBase)}
         format={formatAmount}
         timesThisMonth={times}
@@ -438,7 +481,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         recipeName={recipe.name}
         today={today}
         slotTimes={settings.slotTimes}
-        initialSlot={slot}
+        initialSlot={planLink(recipe.id)?.meal.slot ?? slot} // F54
+        initialDate={planLink(recipe.id)?.meal.localDate} // F54
         initialServings={view.servings}
         yesWord={YES}
         noWord={NO}
@@ -484,6 +528,30 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
         onOpenPantry={() => setView({ name: 'tab', tab: 'pantry' })} // settings
         onLoadSample={loadSample} // settings
+        planned={plannedNext} // F54
+        onCookPlanned={(mealId, index) => { const m = plan.find(x => x.id === mealId); if (m) cookFromPlan(m, index); }} // F54
+      />
+    );
+  } else if (view.tab === 'plan') { // F54
+    screen = (
+      <PlanScreen
+        today={today}
+        plan={plan}
+        recipes={recipes}
+        ingredients={ingredients}
+        stock={stock}
+        events={events}
+        leftovers={base.leftovers ?? []}
+        slotTimes={settings.slotTimes}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        format={formatAmount}
+        onSaveMeal={savePlanMeal}
+        onDeleteMeal={deletePlanMeal}
+        onSaveLeftover={saveLeftoverItem}
+        onCook={cookFromPlan}
+        onToast={text => setToast({ text })}
       />
     );
   } else if (view.tab === 'history') {
@@ -523,6 +591,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         format={formatAmount}
         onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}
+        basketFor={basketFor} // F54
         onToast={text => setToast({ text })}
       />
     );

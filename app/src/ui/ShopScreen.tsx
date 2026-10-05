@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { basketAmountText, basketShareText, basketWhy, groupBasketByAisle, type BasketLine } from '../domain/basket'; // F54
 import { groupByAisle, shareText, type ShoppingItem, type ShoppingList } from '../domain/shopping';
 import type { Ingredient, Recipe } from '../domain/types';
 import { fromBase, toBase } from '../domain/units';
@@ -10,7 +11,9 @@ export interface ShopScreenProps {
   format: (baseAmount: number, ingredient: Ingredient) => string;
   onAddLowStock: () => void;
   /** Noor bought this much (base units) of an item; it leaves the list and the pantry grows. */
-  onBought: (item: ShoppingItem, amountBase: number) => void;
+  onBought: (item: ShoppingItem, amountBase: number, fromBasket?: boolean) => void;
+  /** F54: this week's basket, derived from the plan; recalculated on every render. */
+  basketFor?: (topUps: boolean) => BasketLine[];
   onToast: (text: string) => void;
 }
 
@@ -76,11 +79,14 @@ function BuyPanel(p: { item: ShoppingItem; ingredient: Ingredient; format: ShopS
 
 export function ShopScreen(p: ShopScreenProps) {
   const [buying, setBuying] = useState<string | null>(null);
+  const [topUps, setTopUps] = useState(false); // F54
+  const [buyingBasket, setBuyingBasket] = useState<string | null>(null); // F54
+  const basket = p.basketFor ? p.basketFor(topUps) : []; // F54
   const byId = new Map(p.ingredients.map(i => [i.id, i]));
   const groups = groupByAisle(p.list, p.ingredients);
 
   async function share() {
-    const text = shareText(p.list, p.ingredients, p.format);
+    const text = [basketShareText(basket, p.ingredients, p.format), p.list.length > 0 ? shareText(p.list, p.ingredients, p.format) : ''].filter(Boolean).join('\n\n'); // F54
     try {
       if (typeof navigator.share === 'function') {
         await navigator.share({ title: 'Shopping list', text });
@@ -102,8 +108,53 @@ export function ShopScreen(p: ShopScreenProps) {
 
       <div className="shop__actions">
         <button type="button" className="button-outline" onClick={p.onAddLowStock}>Add low-stock items</button>
-        {p.list.length > 0 && <button type="button" className="button-outline" onClick={share}>Share list</button>}
+        {(p.list.length > 0 || basket.length > 0) && <button type="button" className="button-outline" onClick={share}>Share list</button>}
       </div>
+
+      {p.basketFor && ( // F54: This week's basket
+        <section className="basket" aria-label="This week's basket">
+          <h2 className="section__title">This week's basket</h2>
+          <label className="basket__toggle">
+            <input type="checkbox" checked={topUps} onChange={e => setTopUps(e.target.checked)} />
+            <span>Also top up staples</span>
+          </label>
+          {basket.length === 0 && (
+            <p className="empty">{topUps ? 'Nothing to buy for your planned meals or staples.' : 'Nothing to buy for your planned meals. Plan meals in the Plan tab and what you need shows here.'}</p>
+          )}
+          {groupBasketByAisle(basket, p.ingredients).map(g => (
+            <div key={g.aisle} className="shop__group" role="group" aria-label={`Basket, ${g.aisle}`}>
+              <h3 className="shop__aisle">{g.aisle}</h3>
+              <ul className="rows">
+                {g.lines.map(line => {
+                  const ing = byId.get(line.ingredientId);
+                  if (!ing) return null;
+                  const item: ShoppingItem = { ingredientId: line.ingredientId, amountBase: line.amountBase, reason: 'dish', recipeIds: [] };
+                  return (
+                    <li key={line.ingredientId} className="basket-item">
+                      <div className="shop-item__line">
+                        <button type="button" className="tick" aria-label={`Bought ${ing.name} (basket)`}
+                          aria-expanded={buyingBasket === line.ingredientId}
+                          onClick={() => setBuyingBasket(buyingBasket === line.ingredientId ? null : line.ingredientId)} />
+                        <div className="shop-item__text">
+                          <span className="row__name">{ing.name}</span>
+                          {basketWhy(line, ing, p.format).map(w => <span key={w} className="shop-item__why">{w}</span>)}
+                        </div>
+                        <span className={line.amountBase === null ? 'shop-item__amount shop-item__amount--check' : 'shop-item__amount'}>
+                          {basketAmountText(line, ing, p.format)}
+                        </span>
+                      </div>
+                      {buyingBasket === line.ingredientId && (
+                        <BuyPanel item={item} ingredient={ing} format={p.format} onCancel={() => setBuyingBasket(null)}
+                          onPick={base => { setBuyingBasket(null); p.onBought(item, base, true); }} />
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </section>
+      )}
 
       {p.list.length === 0 && (
         <p className="empty">Nothing on the list. Tap + List on a dish or add low-stock items.</p>
