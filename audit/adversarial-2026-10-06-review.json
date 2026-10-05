@@ -1,0 +1,339 @@
+{
+  "reviewStarted": "2026-10-05",
+  "reviewCompleted": "2026-10-06",
+  "timeZone": "Asia/Karachi",
+  "sourceCommit": "264de9b2c855a4daaf88c22c32dfe1b9d8c97225",
+  "branch": "codex/adversarial-review",
+  "scope": "Independent review of the supplied main snapshot. Production implementation and decisions unchanged; regression and verification tests added.",
+  "verdict": {
+    "safeToHandToNoor": false,
+    "reason": "Own backups can become unrestorable and pending settings recover incorrectly on screen. Fix the confirmed failures, review the fixes, rerun acceptance, and finish internal phone/live-service checks before final handover."
+  },
+  "requirements": [
+    {
+      "requirement": "Checkout main and pull fast-forward; isolate review branch",
+      "status": "Proven",
+      "evidence": "Source commit and review branch recorded; pull reported already current."
+    },
+    {
+      "requirement": "Read owner rules, HANDOVER, DECISIONS, project/global mistake logs",
+      "status": "Proven",
+      "evidence": "Read at start; D-08 phone-local Gemini key and deliberate D-21 deferrals respected."
+    },
+    {
+      "requirement": "Install and independently run typecheck, logic and browser suites",
+      "status": "Proven",
+      "evidence": "Baseline typecheck clean; 697 logic and 97 browser passed. Final totals recorded below."
+    },
+    {
+      "requirement": "Review each requested functionality and branch",
+      "status": "Partial",
+      "evidence": "Every named area reviewed and tested through existing and new cases; 85.96% of instrumented logic branches covered. All branches and physical-device paths are not proven."
+    },
+    {
+      "requirement": "Severity-ranked findings with exact locations, reproduction and suggested fix",
+      "status": "Proven",
+      "evidence": "findings array below, 12 confirmed issues."
+    },
+    {
+      "requirement": "Add failing tests for each confirmed bug",
+      "status": "Proven",
+      "evidence": "Each finding maps to an AR regression; 12 failing logic cases and 3 failing browser cases, including repeat verification on browser retry."
+    },
+    {
+      "requirement": "No new features, implementation fixes, decision changes or merge",
+      "status": "Proven",
+      "evidence": "Only tests and a new dated review record staged; pre-existing .claude and pending-log changes preserved."
+    },
+    {
+      "requirement": "Label unrun checks and give a short handover verdict",
+      "status": "Proven",
+      "evidence": "notVerified array and verdict above."
+    }
+  ],
+  "testResults": {
+    "baseline": {
+      "typecheck": "passed",
+      "logic": {
+        "passed": 697,
+        "files": 39
+      },
+      "browser": {
+        "passed": 97,
+        "failed": 0,
+        "flaky": 0
+      }
+    },
+    "final": {
+      "typecheck": "passed",
+      "logic": {
+        "total": 719,
+        "passed": 707,
+        "failed": 12,
+        "files": 45
+      },
+      "browser": {
+        "total": 101,
+        "passed": 98,
+        "failed": 3,
+        "flaky": 0,
+        "retries": "The three new failures reproduce on both attempts."
+      }
+    },
+    "newTests": {
+      "total": 26,
+      "passing": 11,
+      "failing": 15,
+      "confirmedIssues": 12
+    },
+    "coverage": {
+      "scope": "V8 coverage of modules instrumented during the logic suite; not combined browser/UI coverage.",
+      "linesPercent": 95.11,
+      "statementsPercent": 93.41,
+      "functionsPercent": 91.35,
+      "branchesPercent": 85.96,
+      "branchesCovered": 2199,
+      "branchesTotal": 2558,
+      "branchesUncovered": 359
+    },
+    "environment": "System npm.ps1 launcher was broken; npm.cmd used. Sandboxed Chrome test runs hung at teardown; complete reports came from escalated runs. Temporary matching coverage package installed without changing package.json or package-lock.json."
+  },
+  "functionalityReview": [
+    {
+      "area": "Ledger",
+      "verified": "Purchase/cook deduction; cook/purchase reversals and redo tests; unknown remains null; over-use flag persists; set-stock anchors and backdated recording order; independent exact arithmetic.",
+      "gaps": "AR03 equal timestamp ordering. Real concurrent tabs and OS process-kill recovery not verified."
+    },
+    {
+      "area": "Cart and trips",
+      "verified": "Max merge across manual, plan and low stock; snooze expiry and removal; partial quantities; trip reload/cancel; stable event ID and duplicate write idempotency.",
+      "gaps": "AR02 manual cart backup/restore omission. Trip event+prefs are atomic, while the reduced manual list is a separate queued write; not claiming all-three transaction atomicity."
+    },
+    {
+      "area": "Storage/backup",
+      "verified": "Ordered failed-write queue, retention/retry, local mirror tests; normal backup/restore for settings, ingredients, recipes, events, shopPrefs, orderCosts, plan, leftovers, batches and favourites; pre-restore copy and clearing optional collections.",
+      "gaps": "AR01 deleted recipe invalidates export; AR07 boot settings projection missing; AR02 shopping list omitted; AR11 repayment invariants not validated. Real browser quota exhaustion and force-kill power-loss behavior not verified."
+    },
+    {
+      "area": "Units/amounts",
+      "verified": "Count versus mass/volume refusals, explicit household conversions, pasted quantities, measured/estimate/unknown entry, rescaling and cooking adjustments.",
+      "gaps": "AR13 overflow result accepted."
+    },
+    {
+      "area": "Dates",
+      "verified": "Stored events across Karachi midnight/month boundaries; household date/time conversion and fixed-clock UI tests; independent before/after-midnight example.",
+      "gaps": "AR08 idle open UI does not advance the day."
+    },
+    {
+      "area": "Gemini/photo/dish",
+      "verified": "Stubbed key/no-key/bad-key/offline/server/blocked responses; draft-only confirmation; sanitised model draft text/units/numbers/links; package size versus remaining stock; same-haul photo merge; manual fallback and duplicate-save prevention.",
+      "gaps": "AR04, AR05, AR06, AR09. Live model, real images and actual key/quota/billing not verified."
+    },
+    {
+      "area": "Order costs",
+      "verified": "Whole rupees, ceil half of an odd amount, all/half switching, unchosen exclusions, paid locking, due totals, undo paid, persistence and ordinary backups.",
+      "gaps": "AR11 contradictory imported repayment amount accepted. Normal UI arithmetic passed."
+    },
+    {
+      "area": "Phone UI/PWA",
+      "verified": "All six tabs clicked at 390x844; >=44px tab targets; no page horizontal overflow; toast positioned above nav; screenshots inspected; host badge simulation; desktop Chrome offline/cache/manifest checks.",
+      "gaps": "Physical phone, installation, camera, keyboard, safe-area behavior and live host overlay not verified."
+    }
+  ],
+  "findings": [
+    {
+      "id": "AR01",
+      "priority": "P1",
+      "file": "app/src/storage/backup.ts",
+      "line": 211,
+      "title": "Deleting a cooked personal recipe makes the kitchen's own backup unrestorable",
+      "input": "Create/cook a personal recipe R002, delete it, export, then restore the exported file.",
+      "actual": "parseBackup returns ok:false because the preserved cook event references a recipe removed from the active book. A recipeName snapshot does not satisfy the validator.",
+      "fix": "Keep a historical recipe tombstone/version, or explicitly validate historical references with their snapshots while resolving active plan references on deletion.",
+      "test": "app/src/storage/adversarial-review.test.ts"
+    },
+    {
+      "id": "AR07",
+      "priority": "P1",
+      "file": "app/src/storage/useKitchen.ts",
+      "line": 39,
+      "title": "Recovered pending settings are saved but never applied to the booted UI",
+      "input": "Persist a pending settings operation with defaultServings:7 while the saved database has 4; reopen the app.",
+      "actual": "IndexedDB becomes 7, but Settings shows 4. A subsequent whole-settings write built from the stale UI can overwrite recovered values.",
+      "fix": "Apply settings operations in the pending-state reducer before creating KitchenStore; cover all KitchenWrite variants and preserve operation order.",
+      "test": "app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR02",
+      "priority": "P2",
+      "file": "app/src/storage/db.ts",
+      "line": 64,
+      "title": "Restore clears the cart only on screen; old manual items return after reload",
+      "relatedLocations": [
+        "app/src/App.tsx:268",
+        "app/src/storage/backup.ts:153"
+      ],
+      "input": "Save a manual six-egg shopping line, restore a backup, open Shop (line gone), reload, open Shop again.",
+      "actual": "The six-egg line reappears. The shopping store is absent from backup data and replacement transactions; App only calls setShopList([]).",
+      "fix": "Include the manual shopping list in backup/pre-restore-copy/replacement state. If restore intentionally clears it, at minimum clear it durably in the replacement transaction.",
+      "test": "app/src/storage/adversarial-review.test.ts; app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR10",
+      "priority": "P2",
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 252,
+      "title": "Editing a recipe silently turns optional ingredients into required ingredients",
+      "relatedLocations": [
+        "app/src/domain/recipeForm.ts:93"
+      ],
+      "input": "Open a recipe containing an optional ingredient, change only its name, and save.",
+      "actual": "The saved ingredient no longer has optional:true. Availability and the shopping basket now treat it as required.",
+      "fix": "Carry the optional flag through the editor form and reconstruction, including rows that were not otherwise changed.",
+      "test": "app/src/domain/recipeForm.adversarial.test.ts"
+    },
+    {
+      "id": "AR08",
+      "priority": "P2",
+      "file": "app/src/App.tsx",
+      "line": 121,
+      "title": "The open app does not refresh its household day at midnight",
+      "input": "Leave Today open at Karachi 2026-10-05 23:59; advance to 2026-10-06 00:01 without another interaction.",
+      "actual": "The header stays Monday · 5 October. Day/time-derived plan and recommendation state has no clock-triggered refresh.",
+      "fix": "Use a household clock state that updates at relevant boundaries and on visibility/focus resume, with deterministic midnight tests.",
+      "test": "app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR04",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 95,
+      "title": "The Gemini timeout stops when headers arrive, leaving a stalled response body unbounded",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:137"
+      ],
+      "input": "Fetch returns HTTP 200 headers immediately, but its JSON body never completes.",
+      "actual": "The abort timer is cleared before res.json(). A configured 10 ms timeout has not aborted the request after 50 ms.",
+      "fix": "Keep the timeout and abort handling alive through body consumption/parsing; return a timeout GeminiError for a body abort.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR06",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 126,
+      "title": "Automatic retries bypass the advertised physical-request rate limit",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:133"
+      ],
+      "input": "maxPerMinute:1, retries:1; first response is HTTP 503, second is HTTP 200.",
+      "actual": "Two HTTP requests are made inside the one-request window. At the default configuration, 12 calls can issue up to 24 HTTP requests.",
+      "fix": "Reserve/check a rate-limit slot for every physical attempt, including retries, using the current time.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR09",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 137,
+      "title": "Malformed response envelopes bypass the structured error boundary",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:148",
+        "app/src/gemini/client.ts:152",
+        "app/src/gemini/client.ts:163"
+      ],
+      "input": "Return valid JSON null, content.parts:'invalid', or groundingChunks:{}.",
+      "actual": "The client throws raw TypeError values instead of GeminiError('bad-response'). The UI's generic catch prevents a demonstrated whole-app crash; structured classification/retry handling is lost.",
+      "fix": "Runtime-validate the response object and each accessed array/entry before reading fields; reject malformed envelopes with a controlled error.",
+      "test": "app/src/gemini/client.adversarial.test.ts (three failing cases)"
+    },
+    {
+      "id": "AR11",
+      "priority": "P2",
+      "file": "app/src/storage/backup.ts",
+      "line": 468,
+      "title": "Restore accepts a repayment amount that contradicts the all/half rule",
+      "input": "Import an order of Rs 2401 with repay:{option:'half',amount:1}.",
+      "actual": "Validation accepts it; owedTotal trusts the stored amount, so a restored half repayment is Rs 1 rather than Rs 1201.",
+      "fix": "Validate repayment amount against the order cost and option using the same whole-rupee rule; reject contradictory backup values.",
+      "test": "app/src/storage/adversarial-review.test.ts"
+    },
+    {
+      "id": "AR03",
+      "priority": "P3",
+      "file": "app/src/domain/ledger.ts",
+      "line": 41,
+      "title": "Equal timestamp stock checks are ordered by random ID rather than recorded sequence",
+      "relatedLocations": [
+        "app/src/domain/ledger.ts:34"
+      ],
+      "input": "At the same millisecond, record set-stock 5 with id z-first, then set-stock 2 with id a-second.",
+      "actual": "balances([first,second]) returns 5. ID ordering reverses which stock check wins. Production frequency is not established; the existing browser helpers avoid equal timestamps.",
+      "fix": "Persist an explicit recording sequence (including legacy/import migration) so equal-time stock anchors have an authoritative order.",
+      "test": "app/src/domain/ledger.adversarial.test.ts"
+    },
+    {
+      "id": "AR05",
+      "priority": "P3",
+      "file": "app/src/gemini/client.ts",
+      "line": 117,
+      "title": "The request byte limit counts UTF-16 characters",
+      "input": "Set maxRequestBytes:500 and send 'نور'.repeat(100). The text alone is 600 UTF-8 bytes; the serialized request is 391 characters and 691 bytes.",
+      "actual": "The request is sent despite exceeding the byte cap. The corrected regression independently checks the UTF-8 payload size.",
+      "fix": "Measure the serialized body with TextEncoder().encode(body).byteLength before sending.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR13",
+      "priority": "P3",
+      "file": "app/src/domain/units.ts",
+      "line": 248,
+      "title": "A finite quantity can overflow during conversion and poison saved stock",
+      "relatedLocations": [
+        "app/src/domain/units.ts:75",
+        "app/src/domain/pantryActions.ts:59"
+      ],
+      "input": "toBase(1e308,'kg',rice), or Bought more with the equivalent plain decimal input.",
+      "actual": "Conversion and the pantry event builder both return ok:true, with an Infinity movement. JSON serialization turns Infinity into null, which is not a valid saved movement delta.",
+      "fix": "Reject non-finite converted/rounded results and impose a reasonable pantry input bound before event creation.",
+      "test": "app/src/domain/units.adversarial.test.ts"
+    }
+  ],
+  "rejectedOrUnconfirmedCandidates": [
+    {
+      "id": "AR12",
+      "topic": "Cookability with needsCheck after a later measured purchase",
+      "status": "Not a confirmed arithmetic bug",
+      "reason": "The current ledger intentionally retains a guaranteed lower bound after a measured purchase while its total requires checking (ledger.test.ts:48). Availability can use that minimum, whereas the basket asks for a check. No business-policy change made; an overly broad failing expectation was removed."
+    },
+    {
+      "topic": "Trip completion split across two queued writes",
+      "status": "Verified transaction structure, unresolved resilience risk",
+      "reason": "Purchase+cleared trip share a transaction; shopping snapshot is separate. Normal mirrored replay and trip idempotency passed. No demonstrated normal-replay failure, so not promoted into the confirmed findings."
+    },
+    {
+      "topic": "Old server-only Gemini recommendation",
+      "status": "Superseded",
+      "reason": "Aly approved the phone-local key in D-08. This review does not override that decision."
+    }
+  ],
+  "notVerified": [
+    "100% logical branch/function coverage or combined browser coverage (359 instrumented logic branches remain uncovered).",
+    "Physical Android/iPhone installation, camera permissions/capture, keyboard/safe areas, background/foreground and real-device offline behavior.",
+    "Live Gemini calls, model availability, actual key validation, quotas, billing and accuracy on Noor's photos.",
+    "Live store search/app handoffs, foodpanda order links/search quality, Maps/directions/geolocation.",
+    "The deployed Netlify build/production cache/update behavior.",
+    "Real browser storage exhaustion, OS force-kill/power-loss recovery, simultaneous tabs and cloud/multi-user sync.",
+    "Restaurant list generation/distribution: handover already states public/eatout/moods.json is not bundled."
+  ],
+  "rawEvidenceLocalOnly": [
+    "audit/adversarial-2026-10-05-baseline-e2e.json",
+    "audit/adversarial-2026-10-05-logic.json",
+    "audit/adversarial-2026-10-05-full-e2e.json",
+    "audit/adversarial-2026-10-05-regressions-e2e.json",
+    "audit/adversarial-2026-10-05-coverage/coverage-summary.json",
+    "audit/adversarial-2026-10-05-coverage/coverage-final.json",
+    "audit/adversarial-2026-10-05-phone-toast.png",
+    "audit/adversarial-2026-10-05-restored-cart.png"
+  ]
+}
