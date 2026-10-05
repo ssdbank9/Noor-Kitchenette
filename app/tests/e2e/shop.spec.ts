@@ -2,6 +2,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
 import { openWithSamplePantry } from './helpers';
+import { cartOf, cartRow } from './cartKit';
+import { addDishShortfall } from '../../src/domain/shopping';
 import { balances } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
 import { fromBase, toBase } from '../../src/domain/units';
@@ -48,23 +50,26 @@ test('+ List puts an almost-there dish\'s missing items in Shop, and buying them
   await row.getByRole('button', { name: `Add what ${dish} needs to the shopping list` }).click();
   await expect(page.getByRole('status')).toContainText('Added to Shop');
 
+  // The cart is the manual list combined with low stock: the larger need, one line per item.
+  const cart = cartOf({ manual: addDishShortfall([], a) });
+  const need = (id: string) => cart.find(l => l.ingredientId === id)!.amountBase!;
   await nav(page, 'Shop');
   for (const m of a.missing) {
     const ing = byId.get(m.ingredientId)!;
-    await expect(page.locator('.shop-item').filter({ hasText: ing.name }).first()).toContainText(fmt(m.short!, ing));
+    await expect(cartRow(page, ing.name)).toContainText(fmt(need(m.ingredientId), ing));
+    await expect(cartRow(page, ing.name)).toContainText(`For ${dish}`);
   }
 
-  // Tick the first missing item and say we bought the listed amount.
+  // Tap Got it on the first missing item and say we bought the listed amount.
   const target = a.missing[0];
   const ing = byId.get(target.ingredientId)!;
-  const item = page.locator('.shop-item').filter({ has: page.getByRole('button', { name: `Bought ${ing.name}`, exact: true }) });
-  await item.getByRole('button', { name: `Bought ${ing.name}`, exact: true }).click();
+  await cartRow(page, ing.name).getByRole('button', { name: `Got it: ${ing.name}`, exact: true }).click();
   await expect(page.getByText('How much did you buy?')).toBeVisible();
-  await page.getByRole('button', { name: fmt(target.short!, ing), exact: true }).click();
-  await expect(page.getByRole('button', { name: `Bought ${ing.name}`, exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: fmt(need(target.ingredientId), ing), exact: true }).click();
+  await expect(page.getByRole('status')).toContainText(`Bought ${fmt(need(target.ingredientId), ing)} ${ing.name}`);
 
-  const now = (before.get(ing.id)?.amount ?? 0) + target.short!;
+  const now = (before.get(ing.id)?.amount ?? 0) + need(target.ingredientId);
   await nav(page, 'Pantry');
-  const pantryRow = page.locator('.pantry-item').filter({ has: page.locator('span', { hasText: new RegExp(`^${ing.name.replace(/[()]/g, '\\$&')}$`) }) });
+  const pantryRow = page.locator('.pantry-item').filter({ has: page.locator('span', { hasText: new RegExp(`^${ing.name.replace(/[()]/g, '\$&')}$`) }) });
   await expect(pantryRow).toContainText(fmt(now, ing));
 });
