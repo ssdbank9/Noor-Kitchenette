@@ -3,6 +3,10 @@
 //
 //   NOOR_HOME_LAT=33.70 NOOR_HOME_LNG=73.04 node tools/eatout/refresh_moods.mjs
 //   node tools/eatout/refresh_moods.mjs --list-cuisines   (prints cuisine ids near home)
+//   npm run refresh:eatout   (from app/; same as adding --publish, see below)
+//
+// --publish ALSO writes app/public/eatout/moods.json, the copy the app ships and reads
+// offline. Aly decides whether to commit and publish it (README, "Eat out list").
 //
 // Home coordinates come from the environment, never from the repo (the repo is public).
 // Output goes to data/eatout/moods.json, which is gitignored.
@@ -93,6 +97,40 @@ for (const m of config.moods) {
   moods[m.mood] = places.slice(0, KEEP);
 }
 
+// PRIVACY: the repo is public. The published copy keeps only what the app shows (name, rating,
+// reviews, budget category, cuisines, link). Distance and delivery time are dropped (distance
+// is measured from the home address, so a list of distances narrows down where the household
+// lives), any home coordinates are never written, and the link loses its query string and
+// fragment, because foodpanda links can carry the latitude and longitude of the search.
+const COORD_KEY = /^(lat|lng|lon|latitude|longitude)/i;
+function publicUrl(u) {
+  if (typeof u !== 'string') return null;
+  try {
+    const x = new URL(u);
+    if (x.protocol !== 'https:') return null;
+    x.search = '';
+    x.hash = '';
+    return x.toString();
+  } catch { return null; }
+}
+function publicList(list) {
+  const moods = {};
+  for (const [mood, places] of Object.entries(list.moods)) {
+    moods[mood] = places.map(p => ({
+      name: p.name, rating: p.rating, reviews: p.reviews, budget: p.budget,
+      cuisines: p.cuisines, url: publicUrl(p.url),
+    }));
+  }
+  const out = { generatedAt: list.generatedAt, source: list.source, minReviews: list.minReviews, moods };
+  // Belt and braces: refuse to write if a coordinate-like key slipped in.
+  const text = JSON.stringify(out);
+  const keys = [...text.matchAll(/"([A-Za-z_]+)":/g)].map(m => m[1]);
+  if (keys.some(k => COORD_KEY.test(k))) {
+    throw new Error('the public list would contain location data; not writing it');
+  }
+  return out;
+}
+
 const out = {
   generatedAt: new Date().toISOString(),
   source: 'foodpanda.pk restaurant listing (Aly accepted the terms risk, D-13)',
@@ -104,3 +142,10 @@ fs.mkdirSync(path.dirname(file), { recursive: true });
 fs.writeFileSync(file, JSON.stringify(out, null, 2) + '\n');
 for (const [mood, list] of Object.entries(moods)) console.log(`${mood}: ${list.length} places`);
 console.log(`Wrote ${path.relative(root, file)}`);
+
+if (process.argv.includes('--publish')) {
+  const pub = path.join(root, 'app', 'public', 'eatout', 'moods.json');
+  fs.mkdirSync(path.dirname(pub), { recursive: true });
+  fs.writeFileSync(pub, JSON.stringify(publicList(out), null, 2) + '\n');
+  console.log(`Wrote ${path.relative(root, pub)} (distance, delivery time and coordinates stripped). Review it before committing.`);
+}

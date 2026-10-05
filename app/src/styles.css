@@ -785,3 +785,31 @@ button.button-primary.snapbig { background: var(--glass-rust); }
 /* Recipes header holds two add buttons */
 .recipes__head { flex-wrap: wrap; row-gap: 8px; }
 .recipes__head .title { flex: 1; min-width: 0; }
+
+/* ---------- Eat out (F83) ---------- */
+.eatout { gap: 16px; }
+.eatout__pad { margin: 0 20px; }
+.eatout__section { display: flex; flex-direction: column; gap: 10px; }
+.eatout__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.eatout__moods { display: flex; flex-wrap: wrap; gap: 8px; }
+.eatout__more { border-style: dashed; border-color: var(--lilac); color: var(--lilac); }
+.eatout__card {
+  position: relative; display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: var(--radius-card);
+  background: rgba(255,255,255,.82); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(109, 40, 217, .07);
+}
+.eatout__card--hero { background: linear-gradient(135deg, #ffe1ee 0%, #f3e8ff 100%); border-color: rgba(255,255,255,.8); }
+.eatout__card--empty { background: var(--lilac-tint); }
+.eatout__name { font-family: var(--font-display); font-size: 20px; line-height: 1.2; font-weight: 800; }
+.eatout__meta { margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.eatout__empty { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+.eatout__note { margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--cyan-tint); color: var(--cyan-text); font-weight: 800; font-size: 14px; overflow-wrap: anywhere; }
+.eatout__old { color: var(--rust-text); }
+.eatout__fav { align-self: flex-start; background: var(--lilac-tint); color: var(--lilac); }
+.eatout__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.eatout__actions > * { flex: 1 1 120px; }
+.eatout__order, .eatout__link { display: inline-flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 0 14px; }
+.eatout__link { color: var(--ink); }
+.eatout__order { color: #fff; font-size: 17px; }
+.eatout__form { display: flex; flex-direction: column; gap: 14px; }
+.eatout__field { display: flex; flex-direction: column; gap: 6px; font-weight: 800; font-size: 14px; }
+.eatout__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
