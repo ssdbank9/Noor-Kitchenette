@@ -62,7 +62,7 @@ On Noor's phone model and browser, from the Netlify address:
 Gemini photo pantry and new-dish lookup (P2), eat-out and order by mood (F83, F84),
 weekly planner and basket (P3), kitchen depth (P4), shared household (P5).
 
-## Updates in progress (branch `claude/updates-1`, not yet on the live site)
+## Updates 1 (merged to `main`)
 
 Built by parallel builders and reviewed before merging. Each needs its own row filled in
 with test evidence and a real-phone check before it is called done.
@@ -85,7 +85,7 @@ page link is accepted when its site matches a returned source.
 Gemini behaviour (the request shape for search, JSON output, photos) is checked against
 mocked responses only. The first real-key check is part of acceptance: use Settings, Test my key.
 
-## Updates 2 (branch `claude/updates-2`, not yet on the live site)
+## Updates 2 (merged to `main`)
 
 Plan tab and weekly basket (F54, F55, F60), eat out with foodpanda moods and favourites
 (F83, F84), leftovers, places, expiry dates and a waste report (F65-F68, F76).
@@ -101,7 +101,7 @@ cooking; Use soon row on Today; Waste report. No restaurant list exists yet: run
 Deferred (D-21): custom and Ramadan meal slots; menu-level matching for Korean wings and
 Donuts; shared household access; family recipe photos.
 
-## Shopping extension (branch `claude/shopping-1`, D-22; not yet on the live site)
+## Shopping extension (merged to `main`, D-22)
 
 To-buy cart that fills itself (low stock, plan, dishes, manual items) with snooze, remove,
 "always keep" and add item; shopping trip mode (one purchase per trip, survives a reload);
@@ -119,3 +119,11 @@ Still to check on a real phone: Find on Al-Fatah (does the search show results?)
 search (unconfirmed), the pandamart copy-and-open handoff, directions in Maps, a real shopping
 trip offline, Use my location. No restaurant list exists yet: run `npm run refresh:eatout`
 with the I-8 Markaz coordinates (README, "Eat out list").
+
+## Snacks tab and order costs (merged to `main`, D-23)
+
+Snacks tab with search-and-add and starter snacks; Eat out "Orders Aly paid for" with Pay back
+all / half and a Paid button that keeps the log. Final status 2026-10-06: typecheck clean,
+logic tests 697/697, browser tests 97/97 (one clipboard test is occasionally flaky under
+parallel load and passes on its automatic retry). Real-phone checks still open: see
+docs/HANDOVER.md, section "Not verified".
