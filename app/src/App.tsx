@@ -30,6 +30,8 @@ import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
 import { appendEventOnce } from './domain/photoDraft'; // F52
 import { AddDishScreen } from './ui/AddDishScreen'; // F80
 import type { Availability } from './domain/suggest'; // F80
+import { EatOutScreen } from './ui/EatOutScreen'; // F83
+import type { Favourite } from './domain/types'; // F83
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -39,6 +41,7 @@ type View =
   | { name: 'recipes' } // F33
   | { name: 'editor'; recipeId: string | null; back: Tab | 'recipes' } // F40
   | { name: 'adddish'; back: Tab | 'recipes' } // F80
+  | { name: 'eatout' } // F83
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
@@ -306,6 +309,26 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onClose={() => setView({ name: 'tab', tab: backTab })}
       />
     );
+  } else if (view.name === 'eatout') { // F83
+    screen = (
+      <EatOutScreen
+        favourites={base.favourites ?? []}
+        today={today}
+        timeZone={tz}
+        yesWord={YES}
+        noWord={NO}
+        onSave={(item: Favourite) => {
+          setBase(b => ({ ...b, favourites: [...(b.favourites ?? []).filter(f => f.id !== item.id), item] }));
+          void store.queue.enqueue({ type: 'favourite', item });
+        }}
+        onDelete={id => {
+          setBase(b => ({ ...b, favourites: (b.favourites ?? []).filter(f => f.id !== id) }));
+          void store.queue.enqueue({ type: 'deleteFavourite', id });
+        }}
+        onToast={text => setToast({ text })}
+        onBack={() => setView({ name: 'tab', tab: 'today' })}
+      />
+    );
   } else if (view.name === 'adddish') { // F80
     const backTo = view.back;
     screen = (
@@ -415,7 +438,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onOpenRecipe={id => open(id, 'today')}
         onAddToList={addToList}
         onSeeAll={() => setView({ name: 'recipes' })}
-        onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
+        onEatOut={() => { setToast(null); setView({ name: 'eatout' }); }} // F83
         onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
