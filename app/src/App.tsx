@@ -21,6 +21,8 @@ import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 import { UpdateBanner } from './ui/UpdateBanner'; // updates
 import { SettingsScreen } from './ui/SettingsScreen'; // settings
+import { shopPrefsOf } from './domain/shopPrefs'; // D22 stores
+import type { ShopPrefs } from './domain/types'; // D22 stores
 import { GeminiProvider } from './gemini/GeminiContext'; // gemini
 import { demoPantry } from './data/demoPantry'; // settings
 import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
@@ -237,6 +239,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setBase(b => ({ ...b, settings: next }));
     void store.queue.enqueue({ type: 'settings', settings: next });
   }
+  // D22 stores: saved shop preferences (stores, preferred store per item).
+  function saveShopPrefs(prefs: ShopPrefs) {
+    setBase(b => ({ ...b, shopPrefs: prefs }));
+    void store.queue.enqueue({ type: 'shopPrefs', prefs });
+  }
   const sampleLoaded = useMemo(() => removeSampleEvents(events, new Date()).length > 0, [events]);
   function loadSample() {
     const added = sampleEvents(demoPantry, new Date(), tz);
@@ -371,6 +378,8 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onExport={() => exportBackup({ ...base, events })}
         onRestore={restore}
         onBack={() => setView({ name: 'tab', tab: 'today' })}
+        shopPrefs={shopPrefsOf(base.shopPrefs)} // D22 stores
+        onShopPrefs={saveShopPrefs} // D22 stores
       />
     );
   } else if (view.name === 'snap') { // F52

@@ -5,6 +5,8 @@ import { parseBackup } from '../storage/backup';
 import { useGemini } from '../gemini/GeminiContext'; // F52
 import { testKey } from '../gemini/photo'; // F52
 import { EatOutListPanel } from './EatOutListPanel'; // F83
+import { StoresPanel } from './StoresPanel'; // D22 stores
+import type { ShopPrefs } from '../domain/types'; // D22 stores
 
 type Settings = KitchenData['settings'];
 
@@ -20,6 +22,8 @@ export interface SettingsProps {
   /** Replaces the kitchen with a backup already checked by parseBackup. */
   onRestore: (text: string) => Promise<{ ok: true } | { ok: false; errors: string[] }>;
   onBack: () => void;
+  shopPrefs: ShopPrefs; // D22 stores
+  onShopPrefs: (prefs: ShopPrefs) => void; // D22 stores
 }
 
 const SLOTS: { id: MealSlot; label: string }[] = [
@@ -211,6 +215,7 @@ export function SettingsScreen(p: SettingsProps) {
       </section>
 
       <EatOutListPanel timeZone={p.settings.timeZone} /> {/* F83 */}
+      <StoresPanel prefs={p.shopPrefs} words={p.settings.words} onChange={p.onShopPrefs} /> {/* D22 stores */}
 
       <section className="panel settings__panel" aria-labelledby="set-backup">
         <h2 id="set-backup" className="panel__title">Backup</h2>
