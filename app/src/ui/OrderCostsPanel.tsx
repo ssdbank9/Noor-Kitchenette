@@ -20,6 +20,7 @@ export function OrderCostsPanel(p: OrderCostsPanelProps) {
   const [amount, setAmount] = useState('');
   const [error, setError] = useState('');
   const owed = owedTotal(p.orders);
+  const paidSoFar = p.orders.reduce((n, o) => n + (o.repay?.paidOn ? o.repay.amount : 0), 0);
 
   function save() {
     const r = newOrderCost({ id: newId(), place, amount: Number(amount.replace(/[, ]/g, '')), localDate: p.today });
@@ -35,7 +36,7 @@ export function OrderCostsPanel(p: OrderCostsPanelProps) {
   }
   function paid(o: OrderCost) {
     p.onChange(replaceOrder(p.orders, markPaid(o, p.today)));
-    p.onToast(`Marked ${o.place} as paid back.`);
+    p.onToast(`${o.place} paid. Taken off what is due; it stays in the log.`);
   }
 
   return (
@@ -45,6 +46,7 @@ export function OrderCostsPanel(p: OrderCostsPanelProps) {
         {!adding && <button type="button" className="button-tint" onClick={() => setAdding(true)}>Log an order</button>}
       </div>
       {owed > 0 && <p className="ordercost__owed" role="status">To pay back to Aly: <strong>{rs(owed)}</strong></p>}
+      {paidSoFar > 0 && <p className="ordercost__date">Paid back so far: {rs(paidSoFar)}. Paid orders stay in the log below.</p>}
 
       {adding && (
         <div className="eatout__card ordercost__form">
@@ -80,7 +82,7 @@ export function OrderCostsPanel(p: OrderCostsPanelProps) {
             <>
               <p className="ordercost__status">Paying back {rs(o.repay.amount)} ({o.repay.option === 'all' ? 'all' : 'half'})</p>
               <div className="eatout__actions">
-                <button type="button" className="button-primary" onClick={() => paid(o)}>Paid back<span className="eatout__sr"> {o.place}</span></button>
+                <button type="button" className="button-primary" onClick={() => paid(o)}>Paid<span className="eatout__sr"> {o.place}</span></button>
                 <button type="button" className="button-outline" onClick={() => choose(o, o.repay!.option === 'all' ? 'half' : 'all')}>
                   Change to {o.repay.option === 'all' ? 'half' : 'all'}<span className="eatout__sr"> for {o.place}</span>
                 </button>

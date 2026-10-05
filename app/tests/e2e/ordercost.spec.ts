@@ -29,7 +29,11 @@ test('log an order, pay back half, mark paid, and it all survives a reload', asy
   await page.getByRole('button', { name: /Not in the mood to cook/ }).click();
   const again = page.getByRole('article', { name: 'Order Burger Lab' });
   await expect(again).toContainText('Paying back Rs 1,201 (half)');
-  await again.getByRole('button', { name: /Paid back/ }).click();
+  await again.getByRole('button', { name: /^Paid/ }).click();
   await expect(again).toContainText('Paid back Rs 1,201 on 2026-10-05');
   await expect(page.getByText('To pay back to Aly:')).toHaveCount(0);
+  await expect(page.getByText('Paid back so far: Rs 1,201')).toBeVisible();
+  await page.reload();
+  await page.getByRole('button', { name: /Not in the mood to cook/ }).click();
+  await expect(page.getByRole('article', { name: 'Order Burger Lab' })).toContainText('Paid back Rs 1,201'); // the log is kept
 });
