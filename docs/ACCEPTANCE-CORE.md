@@ -61,3 +61,17 @@ On Noor's phone model and browser, from the Netlify address:
 
 Gemini photo pantry and new-dish lookup (P2), eat-out and order by mood (F83, F84),
 weekly planner and basket (P3), kitchen depth (P4), shared household (P5).
+
+## Updates in progress (branch `claude/updates-1`, not yet on the live site)
+
+Built by parallel builders and reviewed before merging. Each needs its own row filled in
+with test evidence and a real-phone check before it is called done.
+
+| Update | What it adds | Live Gemini check |
+|---|---|---|
+| Own recipes (F40-F42, F63, F77, F79) | Add, edit, delete her own recipes with steps; history keeps dish names; week/month/year; "Not cooked in a while" | n/a |
+| Snap pantry (F28-F30, F52, F57, F73) | Photo of groceries, a receipt or the pantry becomes a reviewed purchase or stock check | Pending: needs a real key |
+| Add a new dish (F78, F80) | Type a dish, find it online, choose a recipe, review ingredients, stock check, save | Pending: needs a real key |
+
+Gemini behaviour (the request shape for search, JSON output, photos) is checked against
+mocked responses only. The first real-key check is part of acceptance: use Settings, Test my key.
