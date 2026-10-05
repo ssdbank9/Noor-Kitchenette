@@ -291,3 +291,32 @@ describe('a backup of the real starter data round-trips', () => {
     if (parsed.ok) expect(parsed.data.recipes.find(r => r.id === 'R016')?.meals).toEqual(['breakfast', 'lunch', 'dinner']);
   });
 });
+
+describe('personal recipes round-trip (F40)', () => {
+  const own = {
+    id: 'U-0a1b2c3d',
+    name: 'My test dish',
+    serves: 3,
+    time: '30 min',
+    notes: 'Less salt.',
+    category: 'My recipes',
+    meals: ['lunch', 'chai'] as ('lunch' | 'chai')[],
+    writtenUrl: 'https://example.com/dish',
+    videoUrl: 'https://www.youtube.com/watch?v=abc',
+    aliases: ['mera dish', 'test'],
+    source: { url: 'https://example.com/source', name: 'Example', checkedOn: '2026-10-01' },
+    ingredients: [{ ingredientId: 'Eggs', amount: 2.5, unit: 'pc' }, { ingredientId: 'Masoor_Daal', amount: 250, unit: 'g', optional: true }],
+    steps: ['Beat the eggs.', 'Fry gently.'],
+    version: 3,
+    personal: true,
+  };
+
+  it('keeps steps, aliases, source, meals, links and version through export, parse and restore', async () => {
+    const data = testKitchen();
+    data.recipes.push(own);
+    expect(parseBackup(exportBackup(data))).toEqual({ ok: true, data });
+    const db = await freshDb();
+    expect((await restoreBackup(db, exportBackup(data))).ok).toBe(true);
+    expect((await loadKitchen(db))?.recipes.find(r => r.id === own.id)).toEqual(own);
+  });
+});

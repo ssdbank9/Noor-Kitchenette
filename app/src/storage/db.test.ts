@@ -170,3 +170,17 @@ describe('kitchen database', () => {
     expect(await loadKitchen(db)).toEqual(testKitchen());
   });
 });
+
+describe('deleteRecipe (F40)', () => {
+  it('removes only that recipe, leaves the rest, and a replay changes nothing', async () => {
+    const db = await freshDb();
+    await replaceAll(db, testKitchen());
+    const write = kitchenWriter(db);
+    await write({ type: 'deleteRecipe', recipeId: 'R002' });
+    await write({ type: 'deleteRecipe', recipeId: 'R002' });
+    const loaded = await loadKitchen(db);
+    expect(loaded?.recipes.map(r => r.id)).toEqual(['R001']);
+    expect(loaded?.events).toHaveLength(3);
+    expect(loaded?.schemaVersion).toBe(1);
+  });
+});

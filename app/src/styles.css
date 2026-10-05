@@ -620,3 +620,61 @@ button.button-primary.snapbig { background: var(--glass-rust); }
 .snapsave:disabled { opacity: 0.45; }
 .snapcount { margin: 0; font-weight: 800; color: var(--cyan-text); }
 .snapreview .button-primary { background: var(--glass-rust); }
+
+/* ---------- Own recipes (F40) ---------- */
+.own-add { flex: none; margin-left: auto; min-height: 44px; padding: 0 14px; background: var(--glass-lilac); color: #fff; box-shadow: 0 6px 14px rgba(109, 40, 217, .25); text-shadow: 0 1px 2px rgba(0, 0, 0, .25); }
+.own-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.own-edit { flex: none; min-height: 44px; min-width: 64px; padding: 0 16px; border-color: var(--lilac); color: var(--lilac); background: rgba(255,255,255,.7); }
+.own-method { background: rgba(255,255,255,.82); border: 1px solid var(--border); border-radius: 18px; padding: 12px 16px; box-shadow: 0 4px 14px rgba(109, 40, 217, .07); }
+.own-method__title { margin: 0 0 6px; font-family: var(--font-display); font-size: 20px; font-weight: 700; }
+.own-method__list { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-weight: 600; line-height: 1.4; }
+.own-method__list li::marker { color: var(--rust); font-weight: 800; }
+
+.own-editor { gap: 14px; }
+.own-field { display: flex; flex-direction: column; gap: 4px; }
+.own-field__label { font-size: 14px; font-weight: 800; color: var(--muted); }
+.own-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.own-chips--scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+.own-chips--scroll .choice-chip { flex: none; }
+.own-hint { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.own-btn { min-height: 48px; padding: 0 16px; border-radius: var(--radius-button); font-weight: 800; }
+.own-btn.button-save { border: 0; color: #fff; font-size: 16px; }
+.own-btn--danger { border-color: var(--rust); color: var(--rust-text); }
+.own-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.own-actions .own-btn { flex: 1 1 140px; }
+.own-icon {
+  width: 44px; height: 44px; flex: none; border-radius: 12px; border: 0; background: var(--lilac-tint);
+  color: var(--lilac); font-size: 20px; font-weight: 800;
+}
+.own-icon:disabled { opacity: .35; cursor: not-allowed; }
+.own-confirm, .own-danger { background: linear-gradient(135deg, #ffe1ee 0%, #f3e8ff 100%); }
+.own-error { margin: 0; color: var(--rust-text); font-weight: 800; }
+.own-errors {
+  background: var(--rust-tint); color: var(--rust-text); border-radius: 16px; padding: 12px 16px; font-weight: 700;
+}
+.own-errors ul { margin: 6px 0 0; padding-left: 20px; }
+
+.own-picker { border: 2px solid var(--lilac); }
+.own-results { max-height: 280px; overflow-y: auto; }
+.own-result {
+  width: 100%; min-height: 48px; padding: 6px 12px; border: 0; border-radius: 14px; background: var(--lilac-tint);
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; text-align: left; color: var(--ink);
+}
+
+.own-rows, .own-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.own-row { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.own-row__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.own-row__name { font-weight: 800; font-size: 16px; }
+.own-row__controls { display: flex; align-items: center; gap: 8px; }
+.own-amount { display: flex; align-items: center; gap: 6px; flex: 1 1 auto; min-width: 0; }
+.own-amount .input { text-align: center; min-width: 0; padding: 0 6px; }
+.own-amount button {
+  width: 44px; height: 48px; flex: none; border-radius: 14px; border: 0; background: var(--lilac-tint);
+  color: var(--lilac); font-size: 24px; font-weight: 800;
+}
+.own-unit { width: 92px; flex: none; padding: 0 8px; }
+.own-step { display: flex; flex-direction: column; gap: 6px; }
+.own-step__text { min-height: 72px; padding: 10px 14px; resize: vertical; font-family: inherit; }
+.own-step__buttons { display: flex; gap: 8px; justify-content: flex-end; }
+.own-notes { padding: 10px 14px; font-family: inherit; resize: vertical; }
+.own-stale { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; }
