@@ -3,7 +3,7 @@
 A phone app for Noor's kitchen: what can I cook now, what should we cook this week,
 what do we need to buy, and what is in the pantry.
 
-Status (2026-10-04): planning. No app code yet.
+Status (2026-10-04): Phase 0 started. The app skeleton is in `app/`.
 
 | Start here | |
 |---|---|
@@ -18,3 +18,18 @@ Status (2026-10-04): planning. No app code yet.
 | `audit/` | Codex's evidence: workbook extraction, browser checks, reconciliation |
 | `sources/` | Copies of the v3 HTML app and the two Excel planners |
 | `.jaira/` | Task board (`jaira list`, `jaira next`) |
+
+## Running the app
+
+From `app/` (Node 24):
+
+| Command | What it does |
+|---|---|
+| `npm install` | Install dependencies (first time) |
+| `npm run dev` | Run the app locally while working on it |
+| `npm test` | Logic tests (Vitest) |
+| `npm run test:e2e` | Builds the app and runs browser tests in the installed Google Chrome at 390 x 844, Asia/Karachi |
+| `npm run build` | Type-check and build the installable app into `app/dist` |
+| `npm run icons` | Regenerate app icons from `app/public/logo.svg` |
+
+Netlify builds from `app/` using `netlify.toml` at the repo root (D-04).

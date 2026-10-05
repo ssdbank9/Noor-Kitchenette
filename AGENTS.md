@@ -50,6 +50,12 @@ ask Aly. Record decisions in `docs/DECISIONS.md` only after Aly makes them.
 - `docs/FEATURES.md` is generated: change `tools/build_feature_catalog.cjs` and run
   `node tools/build_feature_catalog.cjs`.
 
+## Tests
+
+From `app/`: `npm test` (logic) and `npm run test:e2e` (builds, then Chrome at 390 x 844,
+Asia/Karachi; uses the installed Google Chrome, no browser download). Run both, plus
+`npm run typecheck`, before every push and report the results.
+
 ## Quality bar
 
 - Domain logic (units, availability, ranking, basket, events) gets unit tests.
