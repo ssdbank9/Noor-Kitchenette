@@ -64,6 +64,10 @@ export interface Recipe {
   recommendedVideoUrl?: string;
   ingredients: RecipeIngredient[];
   steps?: string[];
+  /** Other names and spellings, e.g. 'korma' for Qorma, so a lookup finds this dish first (F80). */
+  aliases?: string[];
+  /** Where a recipe found online came from, and when it was checked (F78, F80). */
+  source?: { url: string; name?: string; checkedOn: string };
   /** Bumped on every edit; cooking events keep the version they used (F63). */
   version: number;
   /** true for recipes Noor added herself. */
@@ -96,6 +100,8 @@ export type MealRating = 'loved' | 'ok' | 'not-again';
 
 export interface MealRecord {
   recipeId: string;
+  /** The dish's name when it was cooked, so renaming or deleting the recipe never rewrites history. */
+  recipeName?: string;
   recipeVersion: number;
   slot: MealSlot;
   servings: number;

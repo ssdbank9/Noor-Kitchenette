@@ -141,14 +141,14 @@ const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'conversions'] as const;
 const RECIPE_FIELDS = [
   'id', 'name', 'serves', 'time', 'notes', 'category', 'writtenUrl', 'videoUrl', 'recommendedWrittenUrl',
-  'recommendedVideoUrl', 'meals', 'ingredients', 'steps', 'version', 'personal',
+  'recommendedVideoUrl', 'meals', 'aliases', 'source', 'ingredients', 'steps', 'version', 'personal',
 ] as const;
 const RECIPE_INGREDIENT_FIELDS = ['ingredientId', 'amount', 'unit', 'optional'] as const;
 const EVENT_FIELDS = [
   'id', 'kind', 'at', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
 ] as const;
 const MOVEMENT_FIELDS = ['ingredientId', 'delta', 'basis', 'setTo'] as const;
-const MEAL_FIELDS = ['recipeId', 'recipeVersion', 'slot', 'servings', 'rating'] as const;
+const MEAL_FIELDS = ['recipeId', 'recipeName', 'recipeVersion', 'slot', 'servings', 'rating'] as const;
 
 function validate(file: Fields): ParseResult {
   const c = new Checker();
@@ -235,6 +235,12 @@ function readRecipe(c: Checker, value: unknown, path: string): Recipe {
     recommendedWrittenUrl: optional(o.recommendedWrittenUrl, v => c.webLink(v, `${path}.recommendedWrittenUrl`)),
     recommendedVideoUrl: optional(o.recommendedVideoUrl, v => c.webLink(v, `${path}.recommendedVideoUrl`)),
     meals: optional(o.meals, v => c.list(v, `${path}.meals`).map((m, i) => c.oneOf(m, `${path}.meals[${i}]`, MEAL_SLOTS))),
+    aliases: optional(o.aliases, v => c.list(v, `${path}.aliases`).map((a, i) => c.text(a, `${path}.aliases[${i}]`))),
+    source: optional(o.source, v => c.record(v, `${path}.source`, ['url', 'name', 'checkedOn'], s => withoutUndefined({
+      url: c.webLink(s.url, `${path}.source.url`),
+      name: optional(s.name, n => c.text(n, `${path}.source.name`)),
+      checkedOn: c.text(s.checkedOn, `${path}.source.checkedOn`, { nonEmpty: true }),
+    }))),
     ingredients: c.list(o.ingredients, `${path}.ingredients`)
       .map((v, i) => readRecipeIngredient(c, v, `${path}.ingredients[${i}]`)),
     steps: optional(o.steps, v => c.list(v, `${path}.steps`).map((s, i) => c.text(s, `${path}.steps[${i}]`))),
@@ -292,6 +298,7 @@ function readMovement(c: Checker, value: unknown, path: string): Movement {
 function readMeal(c: Checker, value: unknown, path: string): MealRecord {
   return c.record(value, path, MEAL_FIELDS, o => withoutUndefined({
     recipeId: c.text(o.recipeId, `${path}.recipeId`, { nonEmpty: true }),
+    recipeName: optional(o.recipeName, v => c.text(v, `${path}.recipeName`)),
     recipeVersion: c.number(o.recipeVersion, `${path}.recipeVersion`, { integer: true, min: 1 }),
     slot: c.oneOf(o.slot, `${path}.slot`, MEAL_SLOTS),
     servings: c.number(o.servings, `${path}.servings`, { above: 0 }),

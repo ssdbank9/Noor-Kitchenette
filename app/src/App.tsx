@@ -18,6 +18,7 @@ import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 import { UpdateBanner } from './ui/UpdateBanner'; // updates
 import { SettingsScreen } from './ui/SettingsScreen'; // settings
+import { GeminiProvider } from './gemini/GeminiContext'; // gemini
 import { demoPantry } from './data/demoPantry'; // settings
 import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
 import { wordsFor } from './domain/words'; // settings
@@ -121,7 +122,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
       ? a.needs.filter(n => n.need !== null && n.need > 0).map(n => ({ ingredientId: n.ingredientId, delta: -n.need!, basis: 'measured' as const }))
       : []);
     const event = makeEvent('cook', movements, instantFromHousehold(choice.localDate, choice.localTime, tz), {
-      meal: { recipeId, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
+      meal: { recipeId, recipeName: recipe.name, recipeVersion: recipe.version, slot: choice.slot, servings: choice.servings, rating: choice.rating },
       source: 'recipe',
     }, tz);
     setEvents(prev => [...prev, event]);
@@ -336,6 +337,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   return (
+    <GeminiProvider apiKey={settings.geminiKey}> {/* gemini */}
     <div className="app">
       {save.status === 'error' && ( // KR4RJP
         <div className="save-banner" role="alert">
@@ -359,5 +361,6 @@ function Kitchen({ store }: { store: KitchenStore }) {
       )}
       {view.name === 'tab' && <BottomNav current={currentTab} onChange={tab => { setToast(null); setView({ name: 'tab', tab }); }} />}
     </div>
+    </GeminiProvider>
   );
 }
