@@ -9,7 +9,7 @@ Status on 2026-10-05, branch `claude/P0-foundations` at `95478b3`:
 logic tests 295/295, browser tests 28/28, typecheck clean, seed check OK.
 Real phone: **not yet done** for any row.
 
-Live site: https://endearing-zabaione-6c6cc1.netlify.app (Netlify, from `main` at `23510aa`).
+Live site: https://nooris-kitchenette.netlify.app (Netlify, from `main` at `23510aa`).
 Checked 2026-10-05 from desktop Chrome at 390 x 844, Karachi time (simulated, not a phone):
 opens with the empty pantry; no Chrome installability errors; sample pantry, cook with
 Haan and save; reload offline and the meal is still in History; no page errors.
