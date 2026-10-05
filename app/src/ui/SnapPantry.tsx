@@ -346,7 +346,7 @@ export function SnapPantry(p: SnapPantryProps) {
 
   return (
     <div className="screen form-screen snapscreen">
-      <header className="settings__header">
+      <header className="form-screen__head">
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={back}>‹</button>
         <h1 className="title title--sm">{adding ? 'Add another photo' : 'Snap pantry'}</h1>
       </header>

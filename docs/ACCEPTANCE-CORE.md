@@ -73,5 +73,14 @@ with test evidence and a real-phone check before it is called done.
 | Snap pantry (F28-F30, F52, F57, F73) | Photo of groceries, a receipt or the pantry becomes a reviewed purchase or stock check | Pending: needs a real key |
 | Add a new dish (F78, F80) | Type a dish, find it online, choose a recipe, review ingredients, stock check, save | Pending: needs a real key |
 
+Status on 2026-10-05, `claude/updates-1` at the latest commit: logic tests 480/480, browser tests
+48/48 (including the new Snap pantry, own-recipe and Add-a-dish flows against mocked Gemini
+responses), typecheck clean. One real bug found and fixed on the way: stock follows the order
+entries were recorded, not the meal time (a meal saved after a stock check is never lost).
+
+Known limits to check with a real key: grounding links may come back as Google redirect
+addresses, so a video link that cannot be matched falls back to a YouTube search link; a found
+page link is accepted when its site matches a returned source.
+
 Gemini behaviour (the request shape for search, JSON output, photos) is checked against
 mocked responses only. The first real-key check is part of acceptance: use Settings, Test my key.
