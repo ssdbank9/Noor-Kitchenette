@@ -29,7 +29,12 @@ export function boundedNumber(value: unknown, min: number, max: number): number 
 /** A link counts only if the search actually found that page (host and path), so an invented URL is dropped. */
 export function urlWasFound(url: string | null, found: { uri: string }[]): boolean {
   if (!url) return false;
-  const strip = (u: string) => u.replace(/^https?:\/\/(www\.)?/, '').replace(/[#?].*$/, '').replace(/\/$/, '').toLowerCase();
+  // Query strings are ignored (tracking tags), except a YouTube video id, which IS the page.
+  const strip = (u: string) => {
+    const bare = u.replace(/^https?:\/\/(www\.|m\.)?/, '').replace(/[#?].*$/, '').replace(/\/$/, '').toLowerCase();
+    const video = /^youtube\.com\/watch/.test(bare) ? /[?&]v=([\w-]{6,})/.exec(u)?.[1] : undefined;
+    return video ? `${bare}?v=${video}` : bare;
+  };
   const target = strip(url);
   return found.some(f => strip(f.uri) === target);
 }

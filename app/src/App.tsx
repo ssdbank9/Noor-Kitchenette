@@ -28,6 +28,8 @@ import { wordsFor } from './domain/words'; // settings
 import { exportBackup, restoreBackup } from './storage/backup'; // settings
 import { SnapPantry, type SnapSaveResult } from './ui/SnapPantry'; // F52
 import { appendEventOnce } from './domain/photoDraft'; // F52
+import { AddDishScreen } from './ui/AddDishScreen'; // F80
+import type { Availability } from './domain/suggest'; // F80
 
 type View =
   | { name: 'tab'; tab: Tab }
@@ -36,6 +38,7 @@ type View =
   | { name: 'snap'; back: Tab } // F52
   | { name: 'recipes' } // F33
   | { name: 'editor'; recipeId: string | null; back: Tab | 'recipes' } // F40
+  | { name: 'adddish'; back: Tab | 'recipes' } // F80
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
@@ -82,6 +85,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
+  const [dishDrafts, setDishDrafts] = useState<Recipe[]>([]); // F80: names of found dishes whose shopping lines are not saved as recipes yet
   const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
   // Messages close themselves after 8 seconds; Undo stays available in History.
   useEffect(() => {
@@ -247,6 +251,31 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setToast({ text: `Bought ${ing ? `${formatAmount(amountBase, ing)} ${ing.name}` : 'item'}. Pantry updated.` });
   }
 
+  // F80: add a new dish by name. Saved only when Noor taps Save; always a NEW personal recipe.
+  function keepIngredients(list: Ingredient[]) {
+    const fresh = list.filter(i => !byId.has(i.id));
+    if (fresh.length === 0) return;
+    setBase(b => ({ ...b, ingredients: [...b.ingredients, ...fresh.filter(i => !b.ingredients.some(x => x.id === i.id))] }));
+    for (const ingredient of fresh) void store.queue.enqueue({ type: 'ingredient', ingredient });
+  }
+  function saveDish(recipe: Recipe, newIngredients: Ingredient[]) {
+    keepIngredients(newIngredients);
+    setBase(b => ({ ...b, recipes: [...b.recipes, recipe] }));
+    void store.queue.enqueue({ type: 'recipe', recipe });
+    setDishDrafts(prev => prev.filter(r => r.id !== recipe.id));
+    setToast({ text: `Saved ${recipe.name} to your recipes.` });
+    open(recipe.id, 'recipes');
+  }
+  function addDishToList(a: Availability, newIngredients: Ingredient[], dishName: string) {
+    keepIngredients(newIngredients);
+    const next = addDishShortfall(shopList, a);
+    if (next === shopList) { setToast({ text: `Nothing new to add for ${dishName}.` }); return; }
+    setDishDrafts(prev => [...prev.filter(r => r.id !== a.recipeId), { id: a.recipeId, name: dishName, serves: a.servings, time: '', notes: '', ingredients: [], version: 1 }]);
+    changeList(next);
+    setToast({ text: 'Added to Shop' });
+  }
+  const shopRecipes = useMemo(() => new Map([...dishDrafts.map(r => [r.id, r] as const), ...recipesById]), [dishDrafts, recipesById]); // F80
+
   let screen: React.ReactNode;
   if (view.name === 'settings') { // settings
     screen = (
@@ -277,12 +306,32 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onClose={() => setView({ name: 'tab', tab: backTab })}
       />
     );
+  } else if (view.name === 'adddish') { // F80
+    const backTo = view.back;
+    screen = (
+      <AddDishScreen
+        recipes={recipes}
+        ingredients={ingredients}
+        stock={stock}
+        today={today}
+        defaultServings={servings}
+        yesWord={YES}
+        noWord={NO}
+        format={formatAmount}
+        onBack={() => setView(backTo === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab: backTo })}
+        onOpenRecipe={id => open(id, backTo)}
+        onOpenSettings={() => { setToast(null); setView({ name: 'settings' }); }}
+        onAddMissing={addDishToList}
+        onSave={saveDish}
+      />
+    );
   } else if (view.name === 'recipes') {
     screen = (
       <RecipesScreen
         items={ranked.map(a => ({ recipe: recipesById.get(a.recipeId)!, availability: a }))}
         servings={servings}
         onOpen={id => open(id, 'recipes')}
+        onAddDish={() => setView({ name: 'adddish', back: 'recipes' })} // F80
         onBack={() => setView({ name: 'tab', tab: 'today' })}
         onAdd={() => setView({ name: 'editor', recipeId: null, back: 'recipes' })} // F40
       />
@@ -367,6 +416,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onAddToList={addToList}
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
+        onAddDish={() => setView({ name: 'adddish', back: 'today' })} // F80
         onSnap={() => { setToast(null); setView({ name: 'snap', back: 'today' }); }} // F52
         pantryEmpty={stock.size === 0} // settings
         onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
@@ -400,7 +450,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
       <ShopScreen
         list={shopList}
         ingredients={ingredients}
-        recipesById={recipesById}
+        recipesById={shopRecipes} // F80
         format={formatAmount}
         onAddLowStock={() => changeList(addLowStock(shopList, ingredients, stock))} // shoplist
         onBought={boughtItem}

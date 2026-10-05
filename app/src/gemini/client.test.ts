@@ -137,6 +137,9 @@ describe('sanitising model output', () => {
     expect(urlWasFound('https://teaforturmeric.com/chicken-karahi', found)).toBe(true);
     expect(urlWasFound('https://teaforturmeric.com/invented-page', found)).toBe(false);
     expect(urlWasFound(null, found)).toBe(false);
+    const yt = [{ uri: 'https://www.youtube.com/watch?v=SZ_mfgZC75E&utm=x' }];
+    expect(urlWasFound('https://youtube.com/watch?v=SZ_mfgZC75E', yt)).toBe(true);
+    expect(urlWasFound('https://youtube.com/watch?v=INVENTED123', yt)).toBe(false);
     expect(youtubeSearchUrl('chicken karahi recipe')).toBe('https://www.youtube.com/results?search_query=chicken%20karahi%20recipe');
   });
 });

@@ -16,7 +16,7 @@ async function pickIngredient(page: Page, search: string, name: RegExp) {
 
 /** From the Recipes screen: add NAME with two ingredients and two steps, and save. */
 async function addDish(page: Page, name = NAME) {
-  await page.getByRole('button', { name: '+ Add recipe' }).click();
+  await page.getByRole('button', { name: '+ Write my own' }).click();
   await page.getByLabel('Name', { exact: true }).fill(name);
   await page.getByRole('button', { name: '30 min' }).click();
   await pickIngredient(page, 'egg', /^Eggs/);
@@ -98,7 +98,7 @@ test('a saved dish is still there after a reload', async ({ page }) => {
 test('the ingredient search keeps focus while typing a whole word', async ({ page }) => {
   await openWithSamplePantry(page);
   await openRecipes(page);
-  await page.getByRole('button', { name: '+ Add recipe' }).click();
+  await page.getByRole('button', { name: '+ Write my own' }).click();
   await page.getByRole('button', { name: '+ Add ingredient' }).click();
   const search = page.getByRole('searchbox', { name: 'Search ingredients' });
   await expect(search).toBeFocused();
@@ -112,7 +112,7 @@ test('the ingredient search keeps focus while typing a whole word', async ({ pag
 test('a new ingredient can be made from the picker and used in the dish', async ({ page }) => {
   await openWithSamplePantry(page);
   await openRecipes(page);
-  await page.getByRole('button', { name: '+ Add recipe' }).click();
+  await page.getByRole('button', { name: '+ Write my own' }).click();
   await page.getByLabel('Name', { exact: true }).fill('Ajwain paratha');
   await page.getByRole('button', { name: '+ Add ingredient' }).click();
   await page.getByRole('searchbox', { name: 'Search ingredients' }).fill('ajwain');
@@ -129,7 +129,7 @@ test('a new ingredient can be made from the picker and used in the dish', async 
 test('a dish with problems says what to fix and nothing is saved', async ({ page }) => {
   await openWithSamplePantry(page);
   await openRecipes(page);
-  await page.getByRole('button', { name: '+ Add recipe' }).click();
+  await page.getByRole('button', { name: '+ Write my own' }).click();
   await page.getByRole('button', { name: 'Save recipe' }).click();
   await expect(page.getByRole('alert').filter({ hasText: 'Give the dish a name.' })).toBeVisible();
   await expect(page.getByRole('alert').filter({ hasText: 'Add at least one ingredient.' })).toBeVisible();
