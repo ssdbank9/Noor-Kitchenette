@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
+import { openWithSamplePantry } from './helpers';
 
 // The service worker precaches the app, so a reload with no network still opens it,
 // with the recipes and the data saved in IndexedDB.
 test('the app opens offline with recipes and saved data', async ({ page, context }) => {
-  await page.goto('/');
-  await page.getByRole('button', { name: /let's cook/ }).waitFor();
+  await openWithSamplePantry(page);
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await page.reload();
   await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);

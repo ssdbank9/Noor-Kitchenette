@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { seed } from '../../src/data/seed';
+import { demoPantry } from '../../src/data/demoPantry';
+import { openWithSamplePantry } from './helpers';
 import { balances } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
 import { fromBase, toBase } from '../../src/domain/units';
@@ -10,11 +12,11 @@ const fmt = (base: number, i: Ingredient) => { const { amount, unit } = fromBase
 const nav = (page: import('@playwright/test').Page, name: string) => page.getByRole('button', { name, exact: true }).click();
 
 test('the shopping list survives a reload; a bought item stays gone and Pantry shows it once', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   const row = page.locator('.rows .row').first();
   const dish = (await row.locator('.row__name').innerText()).trim();
   const recipe = seed.recipes.find(r => r.name === dish)!;
-  const before = balances(seed.events);
+  const before = balances(demoPantry);
   const a = availability(recipe, seed.settings.defaultServings, before, byId, toBase);
   expect(a.missing.length).toBeGreaterThan(0);
 

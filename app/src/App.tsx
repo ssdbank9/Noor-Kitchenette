@@ -17,17 +17,21 @@ import { addDishShortfall, addLowStock, removeItem, type ShoppingItem, type Shop
 import { RecipeScreen } from './ui/RecipeScreen';
 import { TodayScreen } from './ui/TodayScreen';
 import { UpdateBanner } from './ui/UpdateBanner'; // updates
+import { SettingsScreen } from './ui/SettingsScreen'; // settings
+import { demoPantry } from './data/demoPantry'; // settings
+import { removeSampleEvents, sampleEvents } from './domain/samplePantry'; // settings
+import { wordsFor } from './domain/words'; // settings
+import { exportBackup, restoreBackup } from './storage/backup'; // settings
 
 type View =
   | { name: 'tab'; tab: Tab }
   | { name: 'recipe'; recipeId: string; back: Tab | 'recipes' }
+  | { name: 'settings' } // settings
   | { name: 'recipes' } // F33
   | { name: 'cooked'; recipeId: string; servings: number; back: Tab | 'recipes' }
   | { name: 'adjust'; recipeId: string; choice: CookedChoice; back: Tab | 'recipes' }; // F61: Nahi path
 
 const SLOT_LABEL: Record<MealSlot, string> = { breakfast: 'Breakfast', lunch: 'Lunch', chai: 'Chai', dinner: 'Dinner' };
-const YES = 'Haan';
-const NO = 'Nahi';
 
 const to12h = (hhmm: string) => {
   const [h, m] = hhmm.split(':').map(Number);
@@ -61,14 +65,16 @@ export function App() {
 // --- end KR4RJP ---
 
 function Kitchen({ store }: { store: KitchenStore }) {
-  const { ingredients, recipes, settings } = store.data;
+  const [base, setBase] = useState(store.data); // settings: a restore replaces all of it
+  const { ingredients, recipes, settings } = base; // settings
   const save = useSaveState(store.queue); // KR4RJP
+  const { yes: YES, no: NO } = wordsFor(settings.words); // settings
   const tz = settings.timeZone;
   const [events, setEvents] = useState<KitchenEvent[]>(store.data.events);
   const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
-  const [toast, setToast] = useState<{ text: string; undoId?: string } | null>(null);
+  const [toast, setToast] = useState<{ text: string; undoId?: string; undoIds?: string[] } | null>(null); // settings: undoIds
 
   const now = new Date();
   const today = householdDate(now, tz);
@@ -129,6 +135,41 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }
   }
 
+  // settings: saved settings, sample pantry, backup and restore
+  function changeSettings(patch: Partial<typeof settings>) {
+    const next = Object.fromEntries(Object.entries({ ...settings, ...patch }).filter(([, v]) => v !== undefined)) as typeof settings;
+    setBase(b => ({ ...b, settings: next }));
+    void store.queue.enqueue({ type: 'settings', settings: next });
+  }
+  const sampleLoaded = useMemo(() => removeSampleEvents(events, new Date()).length > 0, [events]);
+  function loadSample() {
+    const added = sampleEvents(demoPantry, new Date(), tz);
+    setEvents(prev => [...prev, ...added]);
+    void store.queue.enqueue({ type: 'events', events: added });
+    setToast({ text: 'Sample pantry added.', undoIds: added.map(e => e.id) });
+  }
+  function removeSample(only?: Set<string>) {
+    const reversals = removeSampleEvents(events, new Date(), only);
+    if (reversals.length === 0) return;
+    setEvents(prev => [...prev, ...reversals]);
+    void store.queue.enqueue({ type: 'events', events: reversals });
+    setToast({ text: 'Sample pantry removed.' });
+  }
+  async function restore(text: string) {
+    if (store.queue.getState().pending > 0) return { ok: false as const, errors: ['Some changes are still being saved. Try again in a moment.'] };
+    try {
+      const r = await restoreBackup(store.db, text);
+      if (!r.ok) return r;
+      setBase(r.data);
+      setEvents(r.data.events);
+      setShopList([]);
+      setPick(0);
+      return { ok: true as const };
+    } catch (e) {
+      return { ok: false as const, errors: [`The backup could not be saved: ${(e as Error).message}`] };
+    }
+  }
+
   // F33: recipes and shopping list
   function addToList(recipeId: string) {
     const recipe = recipesById.get(recipeId)!;
@@ -155,7 +196,20 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   let screen: React.ReactNode;
-  if (view.name === 'recipes') {
+  if (view.name === 'settings') { // settings
+    screen = (
+      <SettingsScreen
+        settings={settings}
+        sampleLoaded={sampleLoaded}
+        onChange={changeSettings}
+        onLoadSample={loadSample}
+        onRemoveSample={() => removeSample()}
+        onExport={() => exportBackup({ ...base, events })}
+        onRestore={restore}
+        onBack={() => setView({ name: 'tab', tab: 'today' })}
+      />
+    );
+  } else if (view.name === 'recipes') {
     screen = (
       <RecipesScreen
         items={ranked.map(a => ({ recipe: recipesById.get(a.recipeId)!, availability: a }))}
@@ -227,6 +281,10 @@ function Kitchen({ store }: { store: KitchenStore }) {
         onSeeAll={() => setView({ name: 'recipes' })}
         onEatOut={() => setToast({ text: 'Eat out arrives in a later build.' })}
         onSnap={() => setToast({ text: 'Photo pantry arrives with Gemini (Phase 2).' })}
+        pantryEmpty={stock.size === 0} // settings
+        onSettings={() => { setToast(null); setView({ name: 'settings' }); }} // settings
+        onOpenPantry={() => setView({ name: 'tab', tab: 'pantry' })} // settings
+        onLoadSample={loadSample} // settings
       />
     );
   } else if (view.tab === 'history') {
@@ -279,7 +337,9 @@ function Kitchen({ store }: { store: KitchenStore }) {
       {toast && (
         <div className="toast" role="status">
           <span>{toast.text}</span>
-          {toast.undoId ? (
+          {toast.undoIds ? ( // settings
+            <button type="button" onClick={() => { const ids = new Set(toast.undoIds); removeSample(ids); }}>Undo</button>
+          ) : toast.undoId ? (
             <button type="button" onClick={() => { const id = toast.undoId!; setToast(null); undo(id); }}>Undo</button>
           ) : (
             <button type="button" aria-label="Dismiss" onClick={() => setToast(null)}>OK</button>

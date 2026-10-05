@@ -229,6 +229,48 @@ describe('restoreBackup', () => {
     expect(await loadKitchen(db)).toEqual(incoming);
   });
 
+  it('keeps this phone\'s Gemini key when a backup (which never has one) is restored', async () => {
+    const db = await freshDb();
+    const current = testKitchen();
+    current.settings.geminiKey = 'AIza-phone-key';
+    await replaceAll(db, current);
+
+    const incoming = testKitchen();
+    incoming.settings.householdName = 'Restored kitchen';
+    const file = exportBackup({ ...incoming, settings: { ...incoming.settings, geminiKey: 'AIza-other-key' } });
+    expect(file).not.toContain('AIza');
+
+    const result = await restoreBackup(db, file);
+    expect(result.ok).toBe(true);
+    const loaded = await loadKitchen(db);
+    expect(loaded?.settings).toEqual({ ...incoming.settings, geminiKey: 'AIza-phone-key' });
+  });
+
+  it('round trips set-stock events with their setTo amount, including "not sure" (null)', () => {
+    const data = testKitchen();
+    data.events.push({
+      id: 'e4', kind: 'set-stock', at: '2026-10-02T08:00:00.000Z', localDate: '2026-10-02', localTime: '13:00',
+      timeZone: 'Asia/Karachi',
+      movements: [
+        { ingredientId: 'Eggs', delta: 6, basis: 'estimate', setTo: 6 },
+        { ingredientId: 'Masoor_Daal', delta: 0, basis: 'unknown', setTo: null },
+      ],
+    });
+    expect(parseBackup(exportBackup(data))).toEqual({ ok: true, data });
+    const file = JSON.parse(exportBackup(data));
+    file.events[3].movements[0].setTo = -1;
+    expect(errorsFor(file)[0]).toContain('setTo');
+  });
+
+  it('exports and restores the chosen yes/no words', async () => {
+    const data = testKitchen();
+    data.settings.words = 'yes';
+    expect(parseBackup(exportBackup(data))).toEqual({ ok: true, data });
+    const file = backupObject();
+    file.settings.words = 'maybe';
+    expect(errorsFor(file)[0]).toContain('settings.words');
+  });
+
   it('restores into an empty database', async () => {
     const db = await freshDb();
     const result = await restoreBackup(db, exportBackup(testKitchen()));

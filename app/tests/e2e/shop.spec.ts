@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
+import { demoPantry } from '../../src/data/demoPantry';
 import { seed } from '../../src/data/seed';
+import { openWithSamplePantry } from './helpers';
 import { balances } from '../../src/domain/ledger';
 import { availability } from '../../src/domain/suggest';
 import { fromBase, toBase } from '../../src/domain/units';
@@ -35,11 +37,11 @@ test('Recipes search keeps focus while typing and shows only daal dishes', async
 });
 
 test('+ List puts an almost-there dish\'s missing items in Shop, and buying them raises the Pantry amount', async ({ page }) => {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   const row = page.locator('.rows .row').first();
   const dish = (await row.locator('.row__name').innerText()).trim();
   const recipe = seed.recipes.find(r => r.name === dish)!;
-  const before = balances(seed.events);
+  const before = balances(demoPantry);
   const a = availability(recipe, seed.settings.defaultServings, before, byId, toBase);
   expect(a.missing.length).toBeGreaterThan(0);
 

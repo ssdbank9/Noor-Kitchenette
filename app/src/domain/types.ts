@@ -132,6 +132,10 @@ export interface KitchenData {
     timeZone: string;
     defaultServings: number;
     slotTimes: Record<MealSlot, string>;
+    /** Yes/no words shown on buttons (Settings). Missing means Haan / Nahi. */
+    words?: 'haan' | 'jee' | 'yes';
+    /** Gemini key (D-08): stays on this phone, never exported in a backup. */
+    geminiKey?: string;
   };
 }
 

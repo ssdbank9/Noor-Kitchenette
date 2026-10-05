@@ -58,6 +58,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const SEED_PATH = path.join(root, 'app', 'src', 'data', 'seed.json');
+const DEMO_PATH = path.join(root, 'app', 'src', 'data', 'demoPantry.json');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const readJson = rel => JSON.parse(read(rel));
 
@@ -161,7 +162,7 @@ function v3Embedded() {
   return { DB: JSON.parse(db[1]), CATS: JSON.parse(cats[1]) };
 }
 
-function buildSeed() {
+function buildAll() {
   const db = readJson('audit/html-database.json');
   const reconciliation = readJson('audit/reconciliation.json');
   const research = readJson('docs/research/recipe-research-2026-10-04.json');
@@ -212,7 +213,7 @@ function buildSeed() {
     ingredients.push(ingredient);
     if (start > 0) {
       events.push({
-        id: `seed-${id}`,
+        id: `sample-${id}`,
         kind: 'set-stock',
         at: SEED_INSTANT,
         localDate: SEED_LOCAL_DATE,
@@ -220,7 +221,7 @@ function buildSeed() {
         timeZone: TIME_ZONE,
         movements: [{ ingredientId: id, delta: round(start * factor), basis: 'estimate', setTo: round(start * factor) }],
         source: 'typed',
-        note: 'Starting stock from the v3 app; never confirmed.',
+        note: 'Sample pantry for trying the app',
       });
     }
   }
@@ -254,11 +255,12 @@ function buildSeed() {
   });
   for (const id of Object.keys(categoryOf)) assert.ok(db.R.some(r => r.id === id), `v3 category lists unknown recipe ${id}`);
 
-  return {
+  const demoPantry = events; // the old v3 sample amounts, offered as an optional demo (D-18)
+  const seed = {
     schemaVersion,
     ingredients,
     recipes,
-    events,
+    events: [], // D-18: a fresh install starts with an empty pantry
     settings: {
       householdName: "Noor's Kitchen",
       timeZone: TIME_ZONE,
@@ -266,30 +268,41 @@ function buildSeed() {
       slotTimes: { breakfast: '08:00', lunch: '13:30', chai: '17:00', dinner: '20:30' },
     },
   };
+  return { seed, demoPantry };
 }
 
+const buildSeed = () => buildAll().seed;
+const buildDemoPantry = () => buildAll().demoPantry;
 const serializeSeed = seed => JSON.stringify(seed, null, 2) + '\n';
 
-module.exports = { buildSeed, serializeSeed, SEED_PATH };
+module.exports = { buildSeed, buildDemoPantry, serializeSeed, SEED_PATH, DEMO_PATH };
 
 if (require.main === module) {
-  const text = serializeSeed(buildSeed());
+  const { seed: built, demoPantry } = buildAll();
+  const files = [[SEED_PATH, serializeSeed(built)], [DEMO_PATH, serializeSeed(demoPantry)]];
   if (process.argv.includes('--check')) {
-    const current = fs.existsSync(SEED_PATH) ? fs.readFileSync(SEED_PATH, 'utf8').replace(/\r\n/g, '\n') : '';
-    if (current !== text) {
-      console.error('app/src/data/seed.json is out of date: run node tools/build_seed.cjs');
-      process.exit(1);
+    let stale = false;
+    for (const [file, text] of files) {
+      const current = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') : '';
+      if (current !== text) {
+        console.error(`${path.relative(root, file)} is out of date: run node tools/build_seed.cjs`);
+        stale = true;
+      } else {
+        console.log(`${path.relative(root, file)} is up to date`);
+      }
     }
-    console.log('app/src/data/seed.json is up to date');
+    if (stale) process.exit(1);
   } else {
-    fs.mkdirSync(path.dirname(SEED_PATH), { recursive: true });
-    fs.writeFileSync(SEED_PATH, text);
-    const seed = JSON.parse(text);
-    const rowCount = seed.recipes.reduce((n, r) => n + r.ingredients.length, 0);
+    for (const [file, text] of files) {
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      fs.writeFileSync(file, text);
+    }
+    const rowCount = built.recipes.reduce((n, r) => n + r.ingredients.length, 0);
     const byDim = {};
-    for (const i of seed.ingredients) byDim[i.dimension] = (byDim[i.dimension] || 0) + 1;
-    console.log(`Wrote app/src/data/seed.json: ${seed.recipes.length} recipes, ${seed.ingredients.length} ingredients, ` +
-      `${rowCount} recipe-ingredient rows, ${seed.events.length} starting-stock events`);
+    for (const i of built.ingredients) byDim[i.dimension] = (byDim[i.dimension] || 0) + 1;
+    console.log(`Wrote app/src/data/seed.json: ${built.recipes.length} recipes, ${built.ingredients.length} ingredients, ` +
+      `${rowCount} recipe-ingredient rows, ${built.events.length} starting-stock events`);
+    console.log(`Wrote app/src/data/demoPantry.json: ${demoPantry.length} sample-pantry events`);
     console.log(`Dimensions: ${Object.entries(byDim).map(([d, n]) => `${d} ${n}`).join(', ')}`);
   }
 }

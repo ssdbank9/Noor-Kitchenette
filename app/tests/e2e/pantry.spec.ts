@@ -1,10 +1,11 @@
 import { expect, test, type Page } from '@playwright/test';
+import { openWithSamplePantry } from './helpers';
 
 const row = (page: Page, name: string) =>
   page.locator('.pantry-item').filter({ has: page.locator('span', { hasText: new RegExp(`^${name}$`) }) });
 
 async function openPantry(page: Page) {
-  await page.goto('/');
+  await openWithSamplePantry(page);
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
 }
 
