@@ -87,7 +87,7 @@ export function WasteScreen(p: WasteScreenProps) {
 
       <div className="depth-group" role="region" aria-labelledby="w-corr">
         <h2 id="w-corr" className="depth-group__title">Corrections</h2>
-        <p className="depth__note">Times Noor checked what is left or marked something finished.</p>
+        <p className="depth__note">Times you checked what is left or marked something finished.</p>
         <p className="depth-count"><strong>{r.corrections.checks}</strong> {r.corrections.checks === 1 ? 'check' : 'checks'} · <strong>{r.corrections.changed}</strong> changed the stock</p>
         {r.corrections.entries.length > 0 && (
           <ul className="rows">

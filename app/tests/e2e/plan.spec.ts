@@ -165,6 +165,8 @@ test('cooking from the plan prefills the flow, marks the item cooked, empties th
   await expect(hero).toContainText(KARAHI.name);
   await expect(hero).toContainText('Planned');
   await expect(hero).toContainText(`For ${servings}`);
+  // Eating out stays reachable from the planned card too.
+  await expect(hero.getByRole('button', { name: /Eat out/ })).toBeVisible();
   await hero.getByRole('button', { name: 'Show suggestions instead' }).click();
   await expect(page.getByRole('region', { name: 'Suggested next meal' })).toBeVisible();
 

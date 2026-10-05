@@ -83,6 +83,9 @@ export function TodayScreen(p: TodayProps) {
             )}
             <button type="button" className="button-outline" onClick={() => setShowSuggestions(true)}>Show suggestions instead</button>
           </div>
+          <button type="button" className="hero__eatout" onClick={p.onEatOut}>
+            <ForkKnifeIcon /> Not in the mood to cook? Eat out
+          </button>
         </section>
       ) : p.pantryEmpty ? null : p.suggestion ? (
         <section className="hero" aria-label="Suggested next meal">
