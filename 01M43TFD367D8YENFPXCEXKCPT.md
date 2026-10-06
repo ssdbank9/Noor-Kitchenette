@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:15:40Z
+updated-at: 2026-10-06T18:15:46Z
 updated-by: Aly Jafferani
 ---
 
@@ -34,7 +34,8 @@ updated-by: Aly Jafferani
   proof: docs/FEATURES.md P1 rows; deferrals recorded in docs/DECISIONS.md D-15/D-16
 - [x] Regression test per defect D1-D6, each shown to fail against v3 behaviour
   proof: app/tests/e2e/*.spec.ts and app/src/**/*.test.ts cover D1-D6 (v3 defects)
-- [ ] Each of the 22 existing dishes opens its researched recipe and video, working offline (live internet lookup is P2: F78, F80)
+- [x] Each of the 22 existing dishes opens its researched recipe and video, working offline (live internet lookup is P2: F78, F80)
+  proof: app/src/data/seed.json writtenUrl/videoUrl per recipe; docs/RECIPE_SOURCES.md
 - [ ] Cooking history report: how often each dish is cooked per week and month, last cooked, not cooked for a while (F79)
 
 ## Options
