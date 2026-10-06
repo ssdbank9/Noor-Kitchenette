@@ -14,9 +14,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:13:28Z
+updated-at: 2026-10-06T18:13:34Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
+outcome-what: "Locations, batches, expiry, leftovers and waste"
+outcome-why: P4 delivered (D-21)
+outcome-resolves: DoD 1/1
 ---
 
 # P4: locations, batches, expiry, leftovers, waste
