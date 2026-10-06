@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:19:23Z
+updated-at: 2026-10-06T18:19:29Z
 updated-by: Aly Jafferani
 outcome-what: "Gemini photo pantry, new-dish lookup and internet recipes (P2/P3)"
 outcome-why: Implemented; server-key and live criteria superseded by D-08 and internal acceptance
@@ -35,7 +35,7 @@ assignee: Aly Jafferani
   proof: D-08 (2026-10-05): phone-local key, no server function
 - [-] New-dish flow implemented (ingredients matched, stock check, recipe and video, review before saving); live accuracy owned by internal acceptance
   proof: Implementation + mocked tests done; live Gemini accuracy/timing unverified, owned by internal acceptance
-- [-] Ranked internet recipe/video implemented; live ranking owned by P2MYBJ
+- [-] Ranked internet recipe/video implemented; live ranking owned by internal acceptance
   proof: Implementation + mocked tests done; live ranking unverified, owned by P2MYBJ
 - [x] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
   proof: app/src/domain/dishMatch.test.ts; app/src/gemini/dish.test.ts (spelling-tolerant match, existing dish offered)
