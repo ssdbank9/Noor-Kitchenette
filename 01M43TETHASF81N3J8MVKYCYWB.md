@@ -1,7 +1,7 @@
 ---
 id: 01M43TETHASF81N3J8MVKYCYWB
 title: "P0: app scaffold and test harness"
-status: backlog
+status: done
 ready: true
 creator: Aly Jafferani
 goal: "An empty app that builds, installs as a PWA, and runs unit and phone-sized browser tests from the repo."
@@ -18,11 +18,14 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-04T18:32:19Z
+updated-at: 2026-10-06T18:09:02Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 claimed-by: X1CarbonPC-43200
 claimed-at: 2026-10-04T18:22:25Z
+outcome-what: "App scaffold and test harness built (React+TS+Vite PWA, Vitest, Playwright at phone size)"
+outcome-why: P0 foundation delivered; the core app is live
+outcome-resolves: Scaffold DoD 4/4
 ---
 
 # P0: app scaffold and test harness
