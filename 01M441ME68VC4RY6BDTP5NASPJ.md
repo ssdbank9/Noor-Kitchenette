@@ -9,12 +9,11 @@ context: "A script on Aly's computer refreshes the best-rated restaurants near h
 definition-of-done: Script in tools/ refreshes a saved list per mood (top places by rating near home) using the token from an environment variable
 tags:
   - p3
-blocked-by:
-  - 01M43TEV902MGP88SF35823HWF
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T18:08:18Z
-updated-at: 2026-10-06T18:18:31Z
+updated-at: 2026-10-06T18:52:03Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 outcome-what: Weekly foodpanda mood list refresh script (F84)
