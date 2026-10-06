@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:18:47Z
+updated-at: 2026-10-06T18:18:57Z
 updated-by: Aly Jafferani
 outcome-what: "Cook from stock, cooking history, recipe and video links (P1)"
 outcome-why: P1 delivered; device check moved to internal acceptance (D-15)
@@ -32,7 +32,7 @@ assignee: Aly Jafferani
 
 ## Definition of Done
 
-- [-] Real-phone acceptance owned by P2MYBJ (internal acceptance, D-15)
+- [-] Real-phone acceptance owned by the internal-acceptance ticket (D-15)
   proof: Moved to P2MYBJ's real-phone checklist (D-15); no device test run yet
 - [x] Every P1 row in docs/FEATURES.md is implemented or explicitly deferred with Aly's agreement
   proof: docs/FEATURES.md P1 rows; deferrals recorded in docs/DECISIONS.md D-15/D-16
