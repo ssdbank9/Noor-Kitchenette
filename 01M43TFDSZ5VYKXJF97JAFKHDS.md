@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:16:42Z
+updated-at: 2026-10-06T18:16:48Z
 updated-by: Aly Jafferani
 ---
 
@@ -33,7 +33,8 @@ updated-by: Aly Jafferani
   proof: Implementation + mocked tests done; live Gemini accuracy/timing unverified, owned by P2MYBJ
 - [-] Ranked internet recipe/video implemented; live ranking owned by P2MYBJ
   proof: Implementation + mocked tests done; live ranking unverified, owned by P2MYBJ
-- [ ] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
+- [x] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
+  proof: app/src/domain/dishMatch.test.ts; app/src/gemini/dish.test.ts (spelling-tolerant match, existing dish offered)
 
 ## Options
 
