@@ -19,7 +19,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-06T18:09:14Z
+updated-at: 2026-10-06T18:09:20Z
 updated-by: Aly Jafferani
 ---
 
@@ -29,7 +29,8 @@ updated-by: Aly Jafferani
 
 - [x] Schema version field and a migration hook exist
   proof: app/src/domain/types.ts:316 SCHEMA_VERSION; app/src/storage/db.ts DB_LAYOUT_VERSION + upgrade
-- [ ] Types and module for events, movements and balances, with unit tests
+- [x] Types and module for events, movements and balances, with unit tests
+  proof: app/src/domain/ledger.ts + app/src/domain/ledger.test.ts
 - [ ] Test: reversing a cooking event restores stock AND removes it from history and monthly stats (D3)
 - [ ] Test: purchase then undo leaves no 'in pantry' state at zero stock (D4)
 - [ ] Test: event at 01:30 on 1 Oct Asia/Karachi groups under October (D5)
