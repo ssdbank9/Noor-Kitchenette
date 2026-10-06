@@ -14,15 +14,20 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:19:20Z
+updated-at: 2026-10-06T18:13:04Z
 updated-by: Aly Jafferani
+outcome-what: Plan the week and one shopping basket
+outcome-why: P2 basket delivered
+outcome-resolves: DoD 1/1
+assignee: Aly Jafferani
 ---
 
 # P2: plan the week and one shopping basket
 
 ## Definition of Done
 
-- [ ] Test: basket for a 3-meal plan equals hand-calculated need minus stock, counted once
+- [x] Test: basket for a 3-meal plan equals hand-calculated need minus stock, counted once
+  proof: app/src/domain/basket.test.ts (plan need minus stock, counted once)
 
 ## Options
 

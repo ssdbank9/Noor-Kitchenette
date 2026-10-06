@@ -1,8 +1,8 @@
 ---
 id: 01M43TEV1ABBQ0T3RHJVE4434X
 title: "P0: units, conversions and quantity parser"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: "Quantities are always read with their unit, validated, and converted only where safe."
 context: |-
@@ -18,17 +18,24 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-04T16:03:32Z
+updated-at: 2026-10-06T18:11:40Z
 updated-by: Aly Jafferani
+outcome-what: "Units, conversions and quantity parser"
+outcome-why: P0 units delivered
+outcome-resolves: DoD 3/3
+assignee: Aly Jafferani
 ---
 
 # P0: units, conversions and quantity parser
 
 ## Definition of Done
 
-- [ ] Quantity type has basis measured | estimate | unknown, with tests
-- [ ] Parser test: '500 g' is 500 g, '1.5 kg' is 1500 g, '-2' is rejected with a message
-- [ ] Conversion refuses cups or packets without a rule instead of guessing
+- [x] Quantity type has basis measured | estimate | unknown, with tests
+  proof: app/src/domain/types.ts QuantityBasis (measured|estimate|unknown); app/src/domain/units.test.ts
+- [x] Parser test: '500 g' is 500 g, '1.5 kg' is 1500 g, '-2' is rejected with a message
+  proof: app/src/domain/units.test.ts ('500 g' = 500 g, 1.5 kg = 1500 g, negative rejected)
+- [x] Conversion refuses cups or packets without a rule instead of guessing
+  proof: app/src/domain/units.test.ts (cups/packets refused without a rule)
 
 ## Options
 

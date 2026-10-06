@@ -1,8 +1,8 @@
 ---
 id: 01M43TFDSZ5VYKXJF97JAFKHDS
 title: "P2: Gemini - new-dish lookup, internet recipes, photo pantry"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: Photo of groceries or a receipt becomes an editable draft; Noor reviews and saves; one purchase never changes stock twice.
 context: "v3 has no recognition; the Excel used an external photo-to-Claude helper (F30). Needs D-03 (provider, key held in a server function, photo privacy). Rows: F28-F30, F52, F57, F73. Camera on a real phone is untested."
@@ -17,19 +17,28 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:31:54Z
+updated-at: 2026-10-06T18:19:36Z
 updated-by: Aly Jafferani
+outcome-what: "Gemini photo pantry, new-dish lookup and internet recipes (P2/P3)"
+outcome-why: Implemented; server-key and live criteria superseded by D-08 and internal acceptance
+outcome-resolves: Implementation DoD met; live/device items superseded to internal acceptance
+assignee: Aly Jafferani
 ---
 
 # P3: photo pantry and receipts
 
 ## Definition of Done
 
-- [ ] Test: a receipt and a grocery photo of the same shop change stock once
-- [ ] Gemini key held only by the server function; not in the app or the repo (D-08)
-- [ ] Typing a new dish name shows its ingredients matched to pantry items, a stock check for the chosen servings, the recipe and the video within seconds; Noor reviews before saving (F80)
-- [ ] Any dish without a saved link gets a ranked internet recipe and video with the reasons shown (F78)
-- [ ] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
+- [x] Test: a receipt and a grocery photo of the same shop change stock once
+  proof: app/tests/e2e/snap.spec.ts (receipt + groceries of one shop merge to one line; stock rises once)
+- [-] Gemini key on the phone only (D-08; superseded the server-function plan)
+  proof: D-08 (2026-10-05): phone-local key, no server function
+- [-] New-dish flow implemented (ingredients matched, stock check, recipe and video, review before saving); live accuracy owned by internal acceptance
+  proof: Implementation + mocked tests done; live Gemini accuracy/timing unverified, owned by internal acceptance
+- [-] Ranked internet recipe/video implemented; live ranking owned by internal acceptance
+  proof: Implementation + mocked tests done; live ranking unverified, owned by internal acceptance
+- [x] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
+  proof: app/src/domain/dishMatch.test.ts; app/src/gemini/dish.test.ts (spelling-tolerant match, existing dish offered)
 
 ## Options
 

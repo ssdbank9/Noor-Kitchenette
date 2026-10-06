@@ -1,8 +1,8 @@
 ---
 id: 01M43TFDAQXR2EE2D5TTP2MYBJ
 title: "Internal acceptance before handing over the core (D-15)"
-status: backlog
-ready: false
+status: human
+ready: true
 creator: Aly Jafferani
 goal: "Learn from Noor's real use before building the planner or photo entry."
 context: |-
@@ -18,8 +18,10 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T23:33:00Z
+updated-at: 2026-10-06T18:17:21Z
 updated-by: Aly Jafferani
+assignee: Aly Jafferani
+question: "Run the physical-phone acceptance (docs/ACCEPTANCE-CORE.md), enter the live Gemini key, then accept or send back."
 ---
 
 # Pilot: one week with Noor, then walkthrough
@@ -27,6 +29,7 @@ updated-by: Aly Jafferani
 ## Definition of Done
 
 - [ ] Acceptance checklist for every core feature passes: synthetic data walkthrough, browser tests, real-phone check
+  proof: Browser tests 111/111 pass; synthetic walkthrough done. Real-phone check not yet run.
 - [-] Noor's feedback recorded in docs/DECISIONS.md
 
 ## Options
