@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:17:09Z
+updated-at: 2026-10-06T18:17:15Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 ---
@@ -28,6 +28,7 @@ assignee: Aly Jafferani
 ## Definition of Done
 
 - [ ] Acceptance checklist for every core feature passes: synthetic data walkthrough, browser tests, real-phone check
+  proof: Browser tests 111/111 pass; synthetic walkthrough done. Real-phone check not yet run.
 - [-] Noor's feedback recorded in docs/DECISIONS.md
 
 ## Options
