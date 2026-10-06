@@ -1,7 +1,7 @@
 ---
 id: 01M43TE4X69CBEKPCAZJWAD8AM
 title: "Decide sharing and recipe match % (D-02, D-07; D-08 decided)"
-status: backlog
+status: done
 ready: true
 creator: Aly Jafferani
 goal: "Aly settles the three choices that P2, P3 and P5 depend on."
@@ -13,9 +13,12 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-06T18:27:17Z
+updated-at: 2026-10-06T18:27:24Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
+outcome-what: "Recorded D-02 (single-device, no shared household) and D-07 (match % = share of required amounts, scaled to servings)"
+outcome-why: The two remaining decisions were made by Aly
+outcome-resolves: docs/DECISIONS.md now has no open questions (D-01 to D-23 decided)
 ---
 
 # Decide sharing, photo provider and recipe match % (D-02, D-03, D-07)
