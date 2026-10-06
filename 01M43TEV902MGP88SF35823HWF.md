@@ -13,13 +13,11 @@ context: |-
 definition-of-done: "Every recipe keeps servings, time, notes and links"
 tags:
   - p0
-blocked-by:
-  - 01M43TETSY6WV1M9SPVF54N99P
-  - 01M43TEV1ABBQ0T3RHJVE4434X
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:12:12Z
+updated-at: 2026-10-06T18:40:18Z
 updated-by: Aly Jafferani
 outcome-what: Starter recipes and ingredients imported from the workbooks
 outcome-why: P0 starter data delivered
