@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:12:36Z
+updated-at: 2026-10-06T18:12:43Z
 updated-by: Aly Jafferani
 ---
 
@@ -31,7 +31,8 @@ updated-by: Aly Jafferani
   proof: app/src/storage/saveQueue.test.ts (storage failure shown, change kept for retry, D6)
 - [x] Backup includes schema version, pantry, recipes, plans, events and settings
   proof: app/src/storage/backup.ts FILE_FIELDS (schemaVersion, settings, ingredients, recipes, events, shopPrefs, orderCosts, plan, leftovers, batches, favourites)
-- [ ] Test: malformed backup is rejected and current data is unchanged
+- [x] Test: malformed backup is rejected and current data is unchanged
+  proof: app/src/storage/backup.test.ts (malformed backup rejected, current data unchanged)
 
 ## Options
 
