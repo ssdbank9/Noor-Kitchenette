@@ -1,8 +1,8 @@
 ---
 id: 01M43TFD367D8YENFPXCEXKCPT
 title: "P1: cook from stock, cooking history, a recipe for every dish"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: Noor can replace v3 with the new app for everyday cooking.
 context: |-
@@ -20,8 +20,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:15:52Z
+updated-at: 2026-10-06T18:15:59Z
 updated-by: Aly Jafferani
+outcome-what: "Cook from stock, cooking history, recipe and video links (P1)"
+outcome-why: P1 delivered; device check moved to P2MYBJ
+outcome-resolves: DoD implemented; device item superseded to P2MYBJ
+assignee: Aly Jafferani
 ---
 
 # P1: cook from what we have (v3 parity without D1-D6)
