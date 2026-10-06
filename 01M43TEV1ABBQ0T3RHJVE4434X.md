@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:11:22Z
+updated-at: 2026-10-06T18:11:31Z
 updated-by: Aly Jafferani
 ---
 
@@ -30,7 +30,8 @@ updated-by: Aly Jafferani
   proof: app/src/domain/types.ts QuantityBasis (measured|estimate|unknown); app/src/domain/units.test.ts
 - [x] Parser test: '500 g' is 500 g, '1.5 kg' is 1500 g, '-2' is rejected with a message
   proof: app/src/domain/units.test.ts ('500 g' = 500 g, 1.5 kg = 1500 g, negative rejected)
-- [ ] Conversion refuses cups or packets without a rule instead of guessing
+- [x] Conversion refuses cups or packets without a rule instead of guessing
+  proof: app/src/domain/units.test.ts (cups/packets refused without a rule)
 
 ## Options
 
