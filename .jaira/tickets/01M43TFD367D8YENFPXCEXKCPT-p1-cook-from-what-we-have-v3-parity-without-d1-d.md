@@ -14,13 +14,11 @@ context: |-
 definition-of-done: "Installed and opened on Noor's actual phone (record which phone)"
 tags:
   - p1
-blocked-by:
-  - 01M43TEV902MGP88SF35823HWF
-  - 01M43TEVFCH8S69JHNZFKR4RJP
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:19:04Z
+updated-at: 2026-10-06T18:51:44Z
 updated-by: Aly Jafferani
 outcome-what: "Cook from stock, cooking history, recipe and video links (P1)"
 outcome-why: P1 delivered; device check moved to internal acceptance (D-15)

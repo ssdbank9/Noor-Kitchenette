@@ -5,10 +5,7 @@ after Aly states it, with the date and Aly's words or a link to them.
 
 ## Open
 
-| ID | Question | Proposed answer | Why it matters |
-|---|---|---|---|
-| D-02 | Should Noor and Aly share one live household? | Not in P1 to P4. Design events so sync can be added in P5 | Shared sync needs accounts and a server |
-| D-07 | What does the recipe "match %" mean? | Share of required amounts available, scaled to servings | Ranking must be explainable to Noor |
+Nothing open. D-01 to D-23 are all recorded below.
 
 ## Decided
 
@@ -35,3 +32,5 @@ after Aly states it, with the date and Aly's words or a link to them.
 | D-21 | 2026-10-05 | Updates 2 (branch `claude/updates-2`): the Plan tab and weekly basket (F54, F55, F60), eat out with foodpanda moods and favourites (F83, F84), leftovers, storage places, expiry dates and a waste report (F65-F68, F76). Rules: planning never changes stock; eating out and leftovers never deduct raw ingredients; the basket is derived from the plan and stock, subtracts stock once and never double-counts top-ups; leftover use-by dates are guides, not safety claims; foodpanda budget is a category, not a price, and delivery time and distance are not shown. **Deliberately deferred (shown here, not dropped):** custom and Ramadan meal slots (F71 part) need the four fixed slots made editable across the whole app; menu-level matching for Korean wings and Donuts (F84 gap); shared household access (F64); family recipe photos (F70). | Claude, from Aly's plan and Codex's review, 2026-10-05 |
 | D-22 | 2026-10-05 | Shopping extension (docs/PLAN-SHOPPING.md): a To-buy cart that fills itself (low stock added automatically, plus plan, dishes and manual items); shopping trip mode with one purchase per trip; where to buy for Al-Fatah, pandamart, Carrefour and local I-8 Markaz shops; Buldak noodles as one staple, keep 5 packs; eat-out sorted by distance from I-8 (home area on the phone), with the restaurant list allowed to be published in the public repo | Aly, Claude session 2026-10-05: stores "all the above", automatic low-stock, "Fine to publish", Buldak "one item, keep 5 packs" |
 | D-23 | 2026-10-06 | (1) A **Snacks tab** (between Pantry and Shop): the Snacks & noodles aisle with search-and-add, a "+ List" button and the usual stock actions; starter snacks are Buldak noodles (keep 5), Instant noodles, Chips, Biscuits, Chocolate and Frisky (alias "firstky"; spelling to confirm). (2) **Order costs** on the Eat out screen: Aly pays foodpanda orders; Noor logs the restaurant and rupee cost, picks exactly two ways to pay Aly back (all, or half rounded up), then taps Paid, which removes it from the total due while the log is kept; Not paid yet reverses it. Money is whole rupees, saved on the phone and in backups only; orders are not tied to the restaurant list. | Aly, Claude session 2026-10-06: "keep snacks a separate tab", "she can log in the cost as it is PAID BY ME ... return half the amount to me", "when she pays she can tap paid ... the log is retained" |
+| D-02 | 2026-10-06 | Noor's Kitchen stays a **single-device, local-first** app for now: Noor and Aly do **not** share one live household, and shared sync (P5, F64) is not built. Events are recorded so sync could be added later. | Aly, Claude session 2026-10-06: "D-02 not a shared household, keep it single device for now" |
+| D-07 | 2026-10-06 | The recipe "match %" is the **share of required amounts available, scaled to servings** (the `coverage` value in `app/src/domain/suggest.ts`). | Aly, Claude session 2026-10-06: "Yes accept D-07" |

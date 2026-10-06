@@ -13,12 +13,11 @@ context: |-
 definition-of-done: Test commands added to AGENTS.md
 tags:
   - p0
-blocked-by:
-  - 01M43TE2G1C88AC7MNEJYCTCKZ
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-06T18:09:02Z
+updated-at: 2026-10-06T18:39:54Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 claimed-by: X1CarbonPC-43200

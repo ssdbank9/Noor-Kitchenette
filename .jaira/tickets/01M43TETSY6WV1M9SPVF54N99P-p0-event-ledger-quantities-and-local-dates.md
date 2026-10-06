@@ -14,12 +14,11 @@ context: |-
 definition-of-done: Schema version field and a migration hook exist
 tags:
   - p0
-blocked-by:
-  - 01M43TETHASF81N3J8MVKYCYWB
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-06T18:09:47Z
+updated-at: 2026-10-06T18:40:02Z
 updated-by: Aly Jafferani
 outcome-what: "Event ledger, quantities and household-local dates"
 outcome-why: P0 ledger delivered

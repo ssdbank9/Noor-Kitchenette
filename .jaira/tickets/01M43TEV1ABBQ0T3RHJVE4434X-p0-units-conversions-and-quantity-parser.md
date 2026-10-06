@@ -13,12 +13,11 @@ context: |-
 definition-of-done: "Quantity type has basis measured | estimate | unknown, with tests"
 tags:
   - p0
-blocked-by:
-  - 01M43TETHASF81N3J8MVKYCYWB
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:11:40Z
+updated-at: 2026-10-06T18:40:10Z
 updated-by: Aly Jafferani
 outcome-what: "Units, conversions and quantity parser"
 outcome-why: P0 units delivered
