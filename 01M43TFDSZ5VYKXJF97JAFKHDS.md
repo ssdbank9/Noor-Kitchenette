@@ -9,15 +9,11 @@ context: "v3 has no recognition; the Excel used an external photo-to-Claude help
 definition-of-done: "Test: a receipt and a grocery photo of the same shop change stock once"
 tags:
   - p3
-blocked-by:
-  - 01M43TEV902MGP88SF35823HWF
-  - 01M43TETSY6WV1M9SPVF54N99P
-  - 01M43TEV1ABBQ0T3RHJVE4434X
-  - 01M43TE2G1C88AC7MNEJYCTCKZ
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:19:36Z
+updated-at: 2026-10-06T18:51:50Z
 updated-by: Aly Jafferani
 outcome-what: "Gemini photo pantry, new-dish lookup and internet recipes (P2/P3)"
 outcome-why: Implemented; server-key and live criteria superseded by D-08 and internal acceptance
