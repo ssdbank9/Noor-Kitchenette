@@ -1,6 +1,6 @@
 ---
 id: 01M43TE4X69CBEKPCAZJWAD8AM
-title: "Decide sharing, Gemini key handling and recipe match % (D-02, D-08, D-07)"
+title: "Decide sharing and recipe match % (D-02, D-07; D-08 decided)"
 status: backlog
 ready: true
 creator: Aly Jafferani
@@ -18,7 +18,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-04T17:19:39Z
+updated-at: 2026-10-06T18:17:34Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
