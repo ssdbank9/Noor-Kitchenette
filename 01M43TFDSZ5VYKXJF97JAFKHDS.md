@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:16:23Z
+updated-at: 2026-10-06T18:16:29Z
 updated-by: Aly Jafferani
 ---
 
@@ -30,7 +30,7 @@ updated-by: Aly Jafferani
   proof: D-08 (2026-10-05): phone-local key, no server function
 - [-] New-dish flow implemented (ingredients matched, stock check, recipe and video, review before saving); live accuracy owned by P2MYBJ
   proof: Implementation + mocked tests done; live Gemini accuracy/timing unverified, owned by P2MYBJ
-- [ ] Any dish without a saved link gets a ranked internet recipe and video with the reasons shown (F78)
+- [ ] Ranked internet recipe/video implemented; live ranking owned by P2MYBJ
 - [ ] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
 
 ## Options
