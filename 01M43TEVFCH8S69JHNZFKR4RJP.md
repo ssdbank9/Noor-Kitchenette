@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:12:20Z
+updated-at: 2026-10-06T18:12:26Z
 updated-by: Aly Jafferani
 ---
 
@@ -27,7 +27,8 @@ updated-by: Aly Jafferani
 
 - [x] Current data is kept before a restore replaces it
   proof: app/src/storage/db.ts replaceAllKeepingCopy / PreRestoreBackup
-- [ ] Test: simulated storage failure shows an error and keeps the change for retry (D6)
+- [x] Test: simulated storage failure shows an error and keeps the change for retry (D6)
+  proof: app/src/storage/saveQueue.test.ts (storage failure shown, change kept for retry, D6)
 - [ ] Backup includes schema version, pantry, recipes, plans, events and settings
 - [ ] Test: malformed backup is rejected and current data is unchanged
 
