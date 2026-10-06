@@ -17,11 +17,11 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:16:54Z
+updated-at: 2026-10-06T18:19:11Z
 updated-by: Aly Jafferani
 outcome-what: "Gemini photo pantry, new-dish lookup and internet recipes (P2/P3)"
-outcome-why: Implemented; server-key and live criteria superseded by D-08 and P2MYBJ
-outcome-resolves: Implementation DoD met; live/device items superseded to P2MYBJ
+outcome-why: Implemented; server-key and live criteria superseded by D-08 and internal acceptance
+outcome-resolves: Implementation DoD met; live/device items superseded to internal acceptance
 assignee: Aly Jafferani
 ---
 
