@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T17:27:31Z
+updated-at: 2026-10-06T18:15:22Z
 updated-by: Aly Jafferani
 ---
 
@@ -28,7 +28,7 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] Installed and opened on Noor's actual phone (record which phone)
+- [ ] Real-phone acceptance owned by P2MYBJ (internal acceptance, D-15)
 - [ ] Every P1 row in docs/FEATURES.md is implemented or explicitly deferred with Aly's agreement
 - [ ] Regression test per defect D1-D6, each shown to fail against v3 behaviour
 - [ ] Each of the 22 existing dishes opens its researched recipe and video, working offline (live internet lookup is P2: F78, F80)
