@@ -13,10 +13,10 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:38:07Z
+updated-at: 2026-10-06T18:38:23Z
 updated-by: Aly Jafferani
 outcome-what: Plan the week and one shopping basket
-outcome-why: P2 basket delivered
+outcome-why: P3 planner and weekly basket delivered
 outcome-resolves: DoD 1/1
 assignee: Aly Jafferani
 ---
