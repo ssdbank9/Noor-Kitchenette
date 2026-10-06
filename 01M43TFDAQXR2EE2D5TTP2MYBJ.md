@@ -15,10 +15,11 @@ tags:
 blocked-by:
   - 01M43TFD367D8YENFPXCEXKCPT
   - 01M43TFDSZ5VYKXJF97JAFKHDS
-related: []
+related:
+  - 01M49A7P25FD6WS8Q78VNDB36P
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T19:21:56Z
+updated-at: 2026-10-06T19:22:33Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 question: "Run the physical-phone acceptance (docs/ACCEPTANCE-CORE.md), enter the live Gemini key, then accept or send back."
