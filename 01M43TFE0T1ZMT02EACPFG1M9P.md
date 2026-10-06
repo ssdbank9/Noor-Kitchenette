@@ -9,12 +9,11 @@ context: "Not in v3 or Excel. Rows: F65-F68, F76. Do not infer food safety from 
 definition-of-done: "Report shows waste, cooking use and corrections separately"
 tags:
   - p4
-blocked-by:
-  - 01M43TFDAQXR2EE2D5TTP2MYBJ
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:13:34Z
+updated-at: 2026-10-06T18:39:12Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 outcome-what: "Locations, batches, expiry, leftovers and waste"
