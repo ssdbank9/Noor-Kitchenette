@@ -19,7 +19,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-06T18:09:35Z
+updated-at: 2026-10-06T18:09:40Z
 updated-by: Aly Jafferani
 ---
 
@@ -35,7 +35,8 @@ updated-by: Aly Jafferani
   proof: app/src/domain/history.test.ts (reversal removes the cook from history and monthly stats, D3)
 - [x] Test: purchase then undo leaves no 'in pantry' state at zero stock (D4)
   proof: app/src/domain/ledger.test.ts / pantryActions.test.ts (purchase then undo, no in-pantry at zero, D4)
-- [ ] Test: event at 01:30 on 1 Oct Asia/Karachi groups under October (D5)
+- [x] Test: event at 01:30 on 1 Oct Asia/Karachi groups under October (D5)
+  proof: app/src/lib/localDate.test.ts / history.test.ts (Karachi-midnight grouping, D5)
 
 ## Options
 
