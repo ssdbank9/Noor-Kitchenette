@@ -1,8 +1,8 @@
 ---
 id: 01M43TEVFCH8S69JHNZFKR4RJP
 title: "P0: visible saving, backup and validated restore"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: "No edit is ever silently lost, and a backup can be restored safely."
 context: |-
@@ -17,8 +17,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:12:43Z
+updated-at: 2026-10-06T18:12:51Z
 updated-by: Aly Jafferani
+outcome-what: "Visible saving, backup and validated restore"
+outcome-why: P0 persistence delivered
+outcome-resolves: DoD 4/4
+assignee: Aly Jafferani
 ---
 
 # P0: visible saving, backup and validated restore
