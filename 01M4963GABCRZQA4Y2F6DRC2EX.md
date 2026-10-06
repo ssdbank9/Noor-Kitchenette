@@ -20,7 +20,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T18:02:38Z
-updated-at: 2026-10-06T18:03:16Z
+updated-at: 2026-10-06T18:03:27Z
 updated-by: Aly Jafferani
 ---
 
@@ -28,7 +28,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] typecheck clean; npm test 732/732; npm run test:e2e 111/111; every AR01-AR16, A1, N1-N3 and F1 finding has a regression test that fails on the old code; GLM 5.3 third-pass verdict READY in audit/glm-2026-10-06-followup2.md
+- [x] typecheck clean; npm test 732/732; npm run test:e2e 111/111; every AR01-AR16, A1, N1-N3 and F1 finding has a regression test that fails on the old code; GLM 5.3 third-pass verdict READY in audit/glm-2026-10-06-followup2.md
+  proof: Verified 2026-10-06 on claude/review-fixes: npm run typecheck clean; npm test 732/732 (48 files); npm run test:e2e 111/111. GLM 5.3 third pass audit/glm-2026-10-06-followup2.md verdict READY.
 
 ## Options
 
