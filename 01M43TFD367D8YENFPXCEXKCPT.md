@@ -20,11 +20,11 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:15:59Z
+updated-at: 2026-10-06T18:18:47Z
 updated-by: Aly Jafferani
 outcome-what: "Cook from stock, cooking history, recipe and video links (P1)"
-outcome-why: P1 delivered; device check moved to P2MYBJ
-outcome-resolves: DoD implemented; device item superseded to P2MYBJ
+outcome-why: P1 delivered; device check moved to internal acceptance (D-15)
+outcome-resolves: DoD implemented; device item superseded to internal acceptance (D-15)
 assignee: Aly Jafferani
 ---
 
