@@ -15,10 +15,11 @@ definition-of-done: "prepareImage asks the browser to decode downscaled and fall
 tags:
   - p2
 blocked-by: []
-related: []
+related:
+  - 01M43TFDAQXR2EE2D5TTP2MYBJ
 commits: []
 created-at: 2026-10-06T19:14:50Z
-updated-at: 2026-10-06T19:22:02Z
+updated-at: 2026-10-06T19:22:27Z
 updated-by: Aly Jafferani
 ---
 
