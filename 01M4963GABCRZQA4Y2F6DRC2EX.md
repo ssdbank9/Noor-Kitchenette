@@ -20,7 +20,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T18:02:38Z
-updated-at: 2026-10-06T18:03:27Z
+updated-at: 2026-10-06T18:03:33Z
 updated-by: Aly Jafferani
 ---
 
@@ -41,4 +41,4 @@ updated-by: Aly Jafferani
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-06 18:03 · Aly Jafferani** — Fix pass built on claude/review-fixes on top of the two review commits (936df34, 65b658a). New storage helpers: arrayChange.ts (keyed list changes), settingsPatch.ts (JSON-safe settings remove list + nested merge), shopPrefsPatch.ts (field-level, per-key shop prefs). GLM 5.3 reviewed three times: first pass found N1 (blocking) plus N2/N3; second pass READY with N2 accepted; third pass READY after N2 and F1 were fixed properly. Physical phone, live Gemini key and live store links remain unverified; the work is committed here for Aly's signoff.
