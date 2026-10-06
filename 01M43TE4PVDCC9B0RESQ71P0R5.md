@@ -1,7 +1,7 @@
 ---
 id: 01M43TE4PVDCC9B0RESQ71P0R5
 title: Decide GitHub remote and visibility (D-05)
-status: backlog
+status: done
 ready: true
 creator: Aly Jafferani
 goal: Aly decides whether this repo goes to GitHub and whether it is private.
@@ -17,9 +17,12 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-04T16:56:22Z
+updated-at: 2026-10-06T18:09:08Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
+outcome-what: GitHub remote ssdbank9/Noor-Kitchenette created and kept public by Aly
+outcome-why: Decision D-05 recorded
+outcome-resolves: DoD 2/2
 ---
 
 # Decide GitHub remote and visibility (D-05)
