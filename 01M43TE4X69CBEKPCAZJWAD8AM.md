@@ -5,7 +5,7 @@ status: done
 ready: true
 creator: Aly Jafferani
 goal: "Aly settles the three choices that P2, P3 and P5 depend on."
-context: "D-08 is decided (2026-10-05): the Gemini key is entered once in the app's Settings and stays on the phone; no server function, no key in code, repo or backups. D-03 (Gemini for photo recognition) is decided (2026-10-04). Still open and needing Aly: D-02 (should Noor and Aly share one live household? needs accounts and a server) and D-07 (what the recipe match % means; proposal: share of required amounts available, scaled to servings). Proposals and the decided rows are in docs/DECISIONS.md."
+context: "D-08 is decided (2026-10-05): the Gemini key is entered once in the app's Settings and stays on the phone; no server function. D-03 (Gemini for photo recognition) is decided (2026-10-04). D-02 and D-07 were decided 2026-10-06: D-02 single-device (no shared household); D-07 match % = share of required amounts available, scaled to servings. All recorded in docs/DECISIONS.md, which now has no open questions."
 definition-of-done: "D-02, D-03 and D-07 recorded in docs/DECISIONS.md"
 tags:
   - decision
@@ -13,7 +13,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-06T18:27:24Z
+updated-at: 2026-10-06T18:28:56Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 outcome-what: "Recorded D-02 (single-device, no shared household) and D-07 (match % = share of required amounts, scaled to servings)"
