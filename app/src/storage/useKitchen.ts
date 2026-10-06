@@ -11,6 +11,10 @@ import type { KitchenData, KitchenEvent } from '../domain/types';
 import type { ShoppingList } from '../domain/shopping';
 import { kitchenWriter, loadKitchen, loadShopping, openKitchenDb, type KitchenDb, replaceAll, type KitchenWrite } from './db';
 import { createSaveQueue, describeError, type SaveQueue, type SaveState } from './saveQueue';
+import { applyArrayChange } from './arrayChange';
+import { applySettingsPatch } from './settingsPatch';
+import { applyShopPrefsPatch } from './shopPrefsPatch';
+import { defaultShopPrefs } from '../domain/shopPrefs';
 
 export interface KitchenStore {
   data: KitchenData;
@@ -40,9 +44,17 @@ async function boot(): Promise<KitchenStore> {
     if (op.type === 'recipe') data = withRecipe(data, op.recipe, []);
     else if (op.type === 'deleteRecipe') data = withoutRecipe(data, op.recipeId);
     else if (op.type === 'ingredient') data = { ...data, ingredients: [...data.ingredients.filter(i => i.id !== op.ingredient.id), op.ingredient] };
+    else if (op.type === 'settings') data = { ...data, settings: op.settings };
+    else if (op.type === 'settingsPatch') data = { ...data, settings: applySettingsPatch(data.settings, { patch: op.patch, remove: op.remove }) };
     else if (op.type === 'orderCosts') data = { ...data, orderCosts: op.list };
+    else if (op.type === 'orderCostsChange') data = { ...data, orderCosts: applyArrayChange(data.orderCosts ?? [], op.change, o => o.id) };
     else if (op.type === 'shopPrefs') data = { ...data, shopPrefs: op.prefs };
-    else if (op.type === 'tripDone') data = { ...data, shopPrefs: op.prefs, events: [...data.events.filter(e => e.id !== op.event.id), op.event] };
+    else if (op.type === 'shopPrefsPatch') data = { ...data, shopPrefs: applyShopPrefsPatch(data.shopPrefs ?? defaultShopPrefs(), op.patch) };
+    else if (op.type === 'tripDone') data = {
+      ...data,
+      shopPrefs: op.shopPatch ? applyShopPrefsPatch(data.shopPrefs ?? defaultShopPrefs(), op.shopPatch) : op.prefs,
+      events: [...data.events.filter(e => e.id !== op.event.id), op.event],
+    };
     else if (op.type === 'plan') data = { ...data, plan: [...(data.plan ?? []).filter(m => m.id !== op.meal.id), op.meal] };
     else if (op.type === 'deletePlan') data = { ...data, plan: (data.plan ?? []).filter(m => m.id !== op.id) };
     else if (op.type === 'leftover') data = { ...data, leftovers: [...(data.leftovers ?? []).filter(l => l.id !== op.item.id), op.item] };
@@ -61,8 +73,15 @@ async function boot(): Promise<KitchenStore> {
   const pending = queue.getPending();
   // Unsaved changes from last time: a 'purchase' carries its event AND the list after it,
   // so replaying it later (idempotent: event put by id, list is a snapshot) cannot double-apply.
-  for (const op of pending) if (op.type === 'shopping' || op.type === 'purchase') shopping = op.list;
-  const waiting = pending.flatMap(op => (op.type === 'events' ? op.events : op.type === 'purchase' ? [op.event] : []));
+  for (const op of pending) {
+    if (op.type === 'shopping' || op.type === 'purchase') shopping = op.list;
+    else if (op.type === 'shoppingChange' || op.type === 'purchaseChange') shopping = applyArrayChange(shopping, op.change, item => item.ingredientId);
+    else if (op.type === 'tripDone' && op.change) shopping = applyArrayChange(shopping, op.change, item => item.ingredientId);
+  }
+  const waiting = pending.flatMap(op =>
+    op.type === 'events' ? op.events
+      : op.type === 'purchase' || op.type === 'purchaseChange' || op.type === 'tripDone' ? [op.event]
+        : []);
   if (waiting.length > 0) {
     const known = new Set(data.events.map(e => e.id));
     const events: KitchenEvent[] = [...data.events, ...waiting.filter(e => !known.has(e.id))];

@@ -8,6 +8,7 @@ import { EatOutListPanel } from './EatOutListPanel'; // F83
 import { HomeAreaPanel } from './HomeAreaPanel'; // D22 geo
 import { StoresPanel } from './StoresPanel'; // D22 stores
 import type { ShopPrefs } from '../domain/types'; // D22 stores
+import type { SettingsPatchInput } from '../storage/settingsPatch';
 
 type Settings = KitchenData['settings'];
 
@@ -15,7 +16,7 @@ export interface SettingsProps {
   settings: Settings;
   /** true while any sample-pantry entry is still in effect. */
   sampleLoaded: boolean;
-  onChange: (patch: Partial<Settings>) => void;
+  onChange: (patch: SettingsPatchInput) => void;
   onLoadSample: () => void;
   onRemoveSample: () => void;
   /** The backup file text for the current kitchen. */
@@ -192,7 +193,9 @@ export function SettingsScreen(p: SettingsProps) {
         {SLOTS.map(s => {
           const t = p.settings.slotTimes[s.id];
           const move = (minutes: number) =>
-            p.onChange({ slotTimes: { ...p.settings.slotTimes, [s.id]: shiftClock(t, minutes) } });
+            // Only this slot changes, so a stale copy of the others cannot overwrite a second
+            // tab's edit to a different slot (GLM N3).
+            p.onChange({ slotTimes: { [s.id]: shiftClock(t, minutes) } });
           return (
             <div key={s.id} className="settings__time">
               <span className="settings__time-label">{s.label}</span>

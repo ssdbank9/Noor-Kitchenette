@@ -24,10 +24,12 @@ test('VF01: native IndexedDB transaction abort keeps the setting queued and Retr
   await forceNativeAbort(page);
   await page.getByRole('button', { name: 'More people usually eating' }).click();
   await expect(page.locator('.save-banner')).toContainText('Not saved yet');
-  expect(await page.evaluate(() => (window as any).reviewNativeAborted)).toBe(true);
+  await expect.poll(() => page.evaluate(() => (window as any).reviewNativeAborted)).toBe(true);
   expect((await readMeta(page, 'settings')).defaultServings).toBe(4);
   const mirror = await page.evaluate(() => JSON.parse(localStorage.getItem('noors-kitchen:pending')!));
-  expect(mirror.ops.at(-1).settings.defaultServings).toBe(5);
+  // The app saves a settings change as a small patch now (A1); accept either op shape.
+  const lastOp = mirror.ops.at(-1);
+  expect(lastOp.settings?.defaultServings ?? lastOp.patch?.defaultServings).toBe(5);
   await releaseNativeAbort(page);
   await page.getByRole('button', { name: 'Retry', exact: true }).click();
   await expect(page.locator('.save-banner')).toHaveCount(0);
@@ -73,7 +75,9 @@ test('AR15: failed IndexedDB and exhausted localStorage warn that closing will l
   await forceNativeAbort(page);
   await page.getByRole('button', { name: 'More people usually eating' }).click();
   await expect(page.locator('.save-banner')).toContainText('Not saved yet');
-  expect(await page.evaluate(() => (window as any).reviewNativeAborted)).toBe(true);
+  // The banner can show from the mirror error before the native write aborts; wait for the
+  // abort itself, then confirm nothing was saved.
+  await expect.poll(() => page.evaluate(() => (window as any).reviewNativeAborted)).toBe(true);
   expect((await readMeta(page, 'settings')).defaultServings).toBe(4);
   expect(await page.evaluate(() => localStorage.getItem('noors-kitchen:pending'))).toBeNull();
   // Both durable copies are unavailable: the UI must explain that closing discards it.
@@ -101,4 +105,24 @@ test('VF03: a real renderer crash retains the pending setting and replays it int
   await expect.poll(async () => (await readMeta(reopened, 'settings')).defaultServings).toBe(5);
   await expect.poll(() => reopened.evaluate(() => localStorage.getItem('noors-kitchen:pending'))).toBeNull();
   // AR07 separately tests that the UI must also reflect the recovered setting.
+});
+
+test('VF04: clearing a setting survives the localStorage mirror and a reload (GLM N1)', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Gemini key' }).fill('AIzaFAKE-test-key-000000000000');
+  await page.getByRole('button', { name: 'Save key' }).click();
+  await expect(page.getByText('Key saved on this phone.')).toBeVisible();
+  // Now the IndexedDB write fails, so the ONLY durable copy is the localStorage mirror.
+  await forceNativeAbort(page);
+  await page.getByRole('button', { name: 'Remove key' }).click();
+  await expect(page.locator('.save-banner')).toContainText('Not saved yet');
+  const lastOp = await page.evaluate(() => JSON.parse(localStorage.getItem('noors-kitchen:pending')!).ops.at(-1));
+  expect(lastOp.type).toBe('settingsPatch');
+  expect(lastOp.remove).toContain('geminiKey'); // a JSON-safe removal, not a dropped undefined
+  // Reload: boot must replay the clear and write it, not resurrect the key.
+  await page.reload();
+  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  expect((await readMeta(page, 'settings')).geminiKey).toBeUndefined();
+  await expect(page.getByText('Key saved on this phone.')).toHaveCount(0);
 });

@@ -11,7 +11,7 @@ export interface StoresPanelProps {
   prefs: ShopPrefs;
   /** Settings' yes/no words. */
   words: WordsId | undefined;
-  /** Called with the whole new prefs; the caller saves them ({type:'shopPrefs', prefs} + setBase). */
+  /** Called with the whole new prefs; the caller saves the changed fields (shopPrefsPatch + setBase). */
   onChange: (prefs: ShopPrefs) => void;
 }
 

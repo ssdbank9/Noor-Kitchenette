@@ -30,6 +30,7 @@ import {
 } from '../domain/types';
 import { replaceAllKeepingCopy, type KitchenDb, type KitchenSettings, type PreRestoreBackup } from './db';
 import { describeError } from './saveQueue';
+import { repayAmount } from '../domain/orderCosts';
 
 /** Written into every backup so a file from another app is refused. */
 export const BACKUP_APP = 'noors-kitchen';
@@ -159,7 +160,7 @@ const RECIPE_FIELDS = [
 ] as const;
 const RECIPE_INGREDIENT_FIELDS = ['ingredientId', 'amount', 'unit', 'optional'] as const;
 const EVENT_FIELDS = [
-  'id', 'kind', 'at', 'recordedAt', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
+  'id', 'kind', 'at', 'recordedAt', 'seq', 'localDate', 'localTime', 'timeZone', 'movements', 'meal', 'reverses', 'source', 'note', 'priceRs',
 ] as const;
 const MOVEMENT_FIELDS = ['ingredientId', 'delta', 'basis', 'setTo'] as const;
 const MEAL_FIELDS = ['recipeId', 'recipeName', 'recipeVersion', 'slot', 'servings', 'rating'] as const;
@@ -208,7 +209,10 @@ function validate(file: Fields): ParseResult {
         c.report(`${path}.movements[${j}].ingredientId`, `"${movement.ingredientId}" is not an ingredient in this backup.`);
       }
     });
-    if (event.meal?.recipeId && !recipeIds.has(event.meal.recipeId)) {
+    // A cook event is history: Noor may have deleted the personal recipe since, and the meal
+    // keeps its own name snapshot, so its reference is allowed to be missing (AR01). Without a
+    // name snapshot there is nothing to show in History, so that reference is still refused.
+    if (event.meal?.recipeId && !recipeIds.has(event.meal.recipeId) && !event.meal.recipeName) {
       c.report(`${path}.meal.recipeId`, `"${event.meal.recipeId}" is not a recipe in this backup.`);
     }
     if (event.kind === 'reversal' && event.reverses) {
@@ -322,6 +326,7 @@ function readEvent(c: Checker, value: unknown, path: string): KitchenEvent {
       kind: c.oneOf(o.kind, `${path}.kind`, EVENT_KINDS),
       at: c.instant(o.at, `${path}.at`),
       recordedAt: optional(o.recordedAt, v => c.instant(v, `${path}.recordedAt`)),
+      seq: optional(o.seq, v => c.number(v, `${path}.seq`, { integer: true, min: 0 })),
       localDate: c.calendarDate(o.localDate, `${path}.localDate`),
       localTime: c.clock(o.localTime, `${path}.localTime`),
       timeZone: c.timeZone(o.timeZone, `${path}.timeZone`),
@@ -458,17 +463,29 @@ function readStore(c: Checker, value: unknown, path: string): Store {
 }
 
 function readOrderCost(c: Checker, value: unknown, path: string): OrderCost {
-  return c.record(value, path, ['id', 'place', 'amount', 'localDate', 'repay'] as const, o => withoutUndefined({
-    id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
-    place: c.text(o.place, `${path}.place`, { nonEmpty: true }),
-    amount: c.number(o.amount, `${path}.amount`, { integer: true, min: 1 }),
-    localDate: c.calendarDate(o.localDate, `${path}.localDate`),
-    repay: optional(o.repay, v => c.record(v, `${path}.repay`, ['option', 'amount', 'paidOn'] as const, r => withoutUndefined({
-      option: c.oneOf(r.option, `${path}.repay.option`, ['all', 'half'] as const),
-      amount: c.number(r.amount, `${path}.repay.amount`, { integer: true, min: 0 }),
-      paidOn: optional(r.paidOn, x => c.calendarDate(x, `${path}.repay.paidOn`)),
-    }))),
-  }));
+  return c.record(value, path, ['id', 'place', 'amount', 'localDate', 'repay'] as const, o => {
+    const amount = c.number(o.amount, `${path}.amount`, { integer: true, min: 1 });
+    const repay = optional(o.repay, v => c.record(v, `${path}.repay`, ['option', 'amount', 'paidOn'] as const, r => {
+      const option = c.oneOf(r.option, `${path}.repay.option`, ['all', 'half'] as const);
+      const paid = c.number(r.amount, `${path}.repay.amount`, { integer: true, min: 0 });
+      // The repayment must match the all/half rule for this order, or owedTotal would trust a
+      // contradictory amount after a restore (AR11).
+      const expected = repayAmount(amount, option);
+      if (paid !== expected) c.report(`${path}.repay.amount`, `must be ${expected} for "${option}" of Rs ${amount}, got ${paid}.`);
+      return withoutUndefined({
+        option,
+        amount: paid,
+        paidOn: optional(r.paidOn, x => c.calendarDate(x, `${path}.repay.paidOn`)),
+      });
+    }));
+    return withoutUndefined({
+      id: c.text(o.id, `${path}.id`, { nonEmpty: true }),
+      place: c.text(o.place, `${path}.place`, { nonEmpty: true }),
+      amount,
+      localDate: c.calendarDate(o.localDate, `${path}.localDate`),
+      repay,
+    });
+  });
 }
 
 function readShopPrefs(c: Checker, value: unknown, path: string): ShopPrefs {

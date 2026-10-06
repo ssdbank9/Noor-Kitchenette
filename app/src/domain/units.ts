@@ -246,6 +246,9 @@ function refuse(reason: string): ToBaseResult {
 
 /** Drops float noise from a product (1.1 * 1000 = 1100.0000000000002) without rounding real precision. */
 function converted(value: number): ToBaseResult {
+  // A finite input can still overflow during conversion (1e308 kg -> Infinity). An infinite
+  // amount is not a real quantity and must never reach stock (AR13).
+  if (!Number.isFinite(value)) return refuse('That amount is too large to use.');
   return { ok: true, value: Number(value.toPrecision(12)) };
 }
 

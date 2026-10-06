@@ -34,11 +34,23 @@ const weaker = (a: QuantityBasis, b: QuantityBasis): QuantityBasis =>
 const byTime = (a: KitchenEvent, b: KitchenEvent) =>
   a.at < b.at ? -1 : a.at > b.at ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 
+/** A strictly increasing recording number, unique within a session and larger than any clock. */
+let recordingSeq = 0;
+function nextRecordingSeq(): number {
+  recordingSeq = Math.max(recordingSeq + 1, Date.now());
+  return recordingSeq;
+}
+
 /** The order entries were made in: what stock follows (a check always beats earlier entries). */
 const byRecorded = (a: KitchenEvent, b: KitchenEvent) => {
   const x = a.recordedAt ?? a.at;
   const y = b.recordedAt ?? b.at;
-  return x < y ? -1 : x > y ? 1 : byTime(a, b);
+  if (x !== y) return x < y ? -1 : 1;
+  // Same instant: the recording number decides, so two entries in one millisecond keep their
+  // real order instead of being shuffled by a random id (AR03).
+  const seq = (a.seq ?? 0) - (b.seq ?? 0);
+  if (seq !== 0) return seq < 0 ? -1 : 1;
+  return byTime(a, b);
 };
 
 export function newEventId(): string {
@@ -60,6 +72,7 @@ export function makeEvent(
     localDate: householdDate(instant, timeZone),
     localTime: householdTime(instant, timeZone),
     timeZone,
+    seq: nextRecordingSeq(),
     ...(extra.recordedAt ? { recordedAt: extra.recordedAt } : {}),
     movements,
     ...(extra.meal ? { meal: extra.meal } : {}),

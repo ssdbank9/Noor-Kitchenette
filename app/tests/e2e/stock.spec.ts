@@ -12,6 +12,10 @@ const byId = new Map(seed.ingredients.map(i => [i.id, i]));
 const recipeNamed = (name: string): Recipe => seed.recipes.find(r => r.name === name)!;
 const fmt = formatAmount;
 
+// A fixed clock keeps the next-meal slot stable (at 10:00 Karachi that is lunch, which most
+// dishes suit), so "Show another" always has more than one suggestion to rotate through.
+const NOW = new Date('2026-10-05T10:00:00+05:00');
+
 /** What the Pantry screen should say for a balance. */
 function pantryText(b: Balance | undefined, i: Ingredient): string {
   if (!b) return 'none';
@@ -64,6 +68,7 @@ test('cooking deducts exactly the recipe amounts, and undo puts every one back',
 });
 
 test('opening another recipe shows that recipe\'s own ingredients, and the people count rescales them', async ({ page }) => {
+  await page.clock.setFixedTime(NOW);
   await openWithSamplePantry(page);
   const first = await openSuggested(page);
   const names = (r: Recipe) => r.ingredients.slice(0, 4).map(ri => byId.get(ri.ingredientId)!.name);

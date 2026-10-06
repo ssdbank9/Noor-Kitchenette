@@ -9,7 +9,7 @@ export interface StoreChipProps {
   /** Used in the button labels so a screen reader knows which item. */
   ingredientName: string;
   prefs: ShopPrefs;
-  /** Called with the whole new prefs; the caller saves them ({type:'shopPrefs', prefs} + setBase). */
+  /** Called with the whole new prefs; the caller saves the changed fields (shopPrefsPatch + setBase). */
   onChange: (prefs: ShopPrefs) => void;
 }
 

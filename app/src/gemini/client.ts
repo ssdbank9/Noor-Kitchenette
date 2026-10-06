@@ -52,19 +52,6 @@ export interface ClientOptions {
   now?: () => number;
 }
 
-interface ApiResponse {
-  candidates?: {
-    content?: { parts?: { text?: string }[] };
-    finishReason?: string;
-    groundingMetadata?: {
-      webSearchQueries?: string[];
-      groundingChunks?: { web?: { uri?: string; title?: string } }[];
-    };
-  }[];
-  promptFeedback?: { blockReason?: string };
-  error?: { message?: string; status?: string };
-}
-
 export function createGeminiClient(options: ClientOptions): GeminiClient {
   const model = options.model ?? DEFAULT_MODEL;
   const doFetch = options.fetchImpl ?? ((...args: Parameters<typeof fetch>) => fetch(...args));
@@ -76,24 +63,54 @@ export function createGeminiClient(options: ClientOptions): GeminiClient {
   const now = options.now ?? (() => Date.now());
   const recent: number[] = [];
 
-  async function once(key: string, body: string): Promise<Response> {
+  const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null;
+  const bytesOf = (text: string): number => new TextEncoder().encode(text).byteLength;
+  const badEnvelope = (): GeminiError => new GeminiError('bad-response', 'Gemini gave an answer the app could not read. Try again.', true);
+
+  /**
+   * One physical request. The timeout stays live until the BODY has been read, so a response
+   * whose headers arrive but whose body stalls is still aborted (AR04). A body abort is
+   * reported as a timeout, not an opaque error.
+   */
+  async function once(key: string, body: string): Promise<{ res: Response; data: unknown }> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      return await doFetch(`${ENDPOINT}/${model}:generateContent`, {
+      const res = await doFetch(`${ENDPOINT}/${model}:generateContent`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
         body,
         signal: controller.signal,
       });
+      let data: unknown;
+      try {
+        data = await res.json();
+      } catch (error) {
+        if (controller.signal.aborted || (error as { name?: string }).name === 'AbortError') {
+          throw new GeminiError('timeout', 'Gemini took too long. Try again.', true);
+        }
+        data = undefined; // a non-JSON body is handled by the caller as a bad response
+      }
+      return { res, data };
     } catch (e) {
-      if ((e as { name?: string }).name === 'AbortError') {
+      if (e instanceof GeminiError) throw e;
+      if (controller.signal.aborted || (e as { name?: string }).name === 'AbortError') {
         throw new GeminiError('timeout', 'Gemini took too long. Try again.', true);
       }
       throw new GeminiError('offline', 'No internet connection. You can still add things by hand.', true);
     } finally {
       clearTimeout(timer);
     }
+  }
+
+  /** Uses one slot of the per-minute cap. Every physical attempt, retries included, needs one (AR06). */
+  function reserveSlot(): void {
+    const t = now();
+    while (recent.length && t - recent[0] > 60_000) recent.shift();
+    if (recent.length >= maxPerMinute) {
+      throw new GeminiError('rate-limit', 'Too many requests. Wait a minute and try again.', true);
+    }
+    recent.push(t);
   }
 
   return {
@@ -114,30 +131,24 @@ export function createGeminiClient(options: ClientOptions): GeminiClient {
           ...(request.json ? { responseMimeType: 'application/json', responseSchema: request.json.schema } : {}),
         },
       });
-      if (body.length > maxBytes) {
+      if (bytesOf(body) > maxBytes) {
         throw new GeminiError('too-large', 'That photo is too big. Try a smaller one.', false);
       }
 
-      const t = now();
-      while (recent.length && t - recent[0] > 60_000) recent.shift();
-      if (recent.length >= maxPerMinute) {
-        throw new GeminiError('rate-limit', 'Too many requests. Wait a minute and try again.', true);
-      }
-      recent.push(t);
-
-      let res = await once(key, body);
+      reserveSlot();
+      let { res, data } = await once(key, body);
       for (let attempt = 0; attempt < retries && (res.status === 429 || res.status >= 500); attempt++) {
+        // A retry is a real request and must use a slot too (AR06).
+        reserveSlot();
         const retryAfter = Number(res.headers.get('retry-after'));
         const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter * 1000, 10_000) : 1500 + Math.floor(Math.random() * 500);
         await sleep(wait);
-        res = await once(key, body);
+        ({ res, data } = await once(key, body));
       }
 
-      let data: ApiResponse = {};
-      try { data = (await res.json()) as ApiResponse; } catch { /* handled below */ }
-
+      const error = isObject(data) && isObject(data.error) ? data.error : undefined;
       if (!res.ok) {
-        if (res.status === 401 || res.status === 403 || (res.status === 400 && /api key|API_KEY/i.test(data.error?.message ?? ''))) {
+        if (res.status === 401 || res.status === 403 || (res.status === 400 && /api key|API_KEY/i.test(String(error?.message ?? '')))) {
           throw new GeminiError('bad-key', 'Gemini did not accept the key. Check it in Settings.', false);
         }
         if (res.status === 429) throw new GeminiError('rate-limit', 'Gemini is busy or the free limit is used up. Try again later.', true);
@@ -145,12 +156,23 @@ export function createGeminiClient(options: ClientOptions): GeminiClient {
         throw new GeminiError('bad-response', 'Gemini could not use that request.', false);
       }
 
-      if (data.promptFeedback?.blockReason) {
+      // The model's output is untrusted: validate the envelope before reading any field, so a
+      // malformed one becomes a controlled error instead of a raw TypeError (AR09).
+      if (!isObject(data)) throw badEnvelope();
+      const feedback = isObject(data.promptFeedback) ? data.promptFeedback : undefined;
+      if (typeof feedback?.blockReason === 'string' && feedback.blockReason) {
         throw new GeminiError('blocked', 'Gemini could not look at that. Try a different photo or name.', false);
       }
-      const candidate = data.candidates?.[0];
-      const text = (candidate?.content?.parts ?? []).map(p => p.text ?? '').join('').trim();
-      if (!candidate || (!text && candidate.finishReason && candidate.finishReason !== 'STOP')) {
+      const candidate = Array.isArray(data.candidates) ? data.candidates[0] : undefined;
+      if (candidate !== undefined && !isObject(candidate)) throw badEnvelope();
+      const content = candidate && isObject(candidate.content) ? candidate.content : undefined;
+      const rawParts = content?.parts;
+      if (rawParts !== undefined && !Array.isArray(rawParts)) throw badEnvelope();
+      const text = (Array.isArray(rawParts) ? rawParts : [])
+        .map(part => (isObject(part) && typeof part.text === 'string' ? part.text : ''))
+        .join('').trim();
+      const finishReason = candidate ? candidate.finishReason : undefined;
+      if (candidate === undefined || (!text && typeof finishReason === 'string' && finishReason !== 'STOP')) {
         throw new GeminiError('blocked', 'Gemini did not give an answer. Try again.', true);
       }
 
@@ -160,10 +182,19 @@ export function createGeminiClient(options: ClientOptions): GeminiClient {
           throw new GeminiError('bad-response', 'Gemini gave an answer the app could not read. Try again.', true);
         }
       }
-      const sources = (candidate.groundingMetadata?.groundingChunks ?? [])
-        .map(c => ({ uri: c.web?.uri ?? '', title: c.web?.title ?? '' }))
+      const grounding = candidate && isObject(candidate.groundingMetadata) ? candidate.groundingMetadata : undefined;
+      const rawChunks = grounding?.groundingChunks;
+      if (rawChunks !== undefined && !Array.isArray(rawChunks)) throw badEnvelope();
+      const sources = (Array.isArray(rawChunks) ? rawChunks : [])
+        .map(c => {
+          const web = isObject(c) && isObject(c.web) ? c.web : undefined;
+          return { uri: typeof web?.uri === 'string' ? web.uri : '', title: typeof web?.title === 'string' ? web.title : '' };
+        })
         .filter(s => s.uri);
-      return { text, json, sources, queries: candidate.groundingMetadata?.webSearchQueries ?? [] };
+      const queries = Array.isArray(grounding?.webSearchQueries)
+        ? (grounding.webSearchQueries as unknown[]).filter((q: unknown): q is string => typeof q === 'string')
+        : [];
+      return { text, json, sources, queries };
     },
   };
 }

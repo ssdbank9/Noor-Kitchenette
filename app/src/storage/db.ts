@@ -18,7 +18,11 @@ import {
   type ShopPrefs,
   type OrderCost,
 } from '../domain/types';
-import type { ShoppingList } from '../domain/shopping';
+import type { ShoppingItem, ShoppingList } from '../domain/shopping';
+import { applyArrayChange, type ArrayChange } from './arrayChange';
+import { applySettingsPatch, type SettingsPatchInput } from './settingsPatch';
+import { applyShopPrefsPatch, type ShopPrefsPatch } from './shopPrefsPatch';
+import { defaultShopPrefs } from '../domain/shopPrefs';
 
 export const DB_NAME = 'noors-kitchen';
 /** Version of the IndexedDB layout (object stores). Not the same as the data SCHEMA_VERSION. */
@@ -60,8 +64,9 @@ type StoreName = StoreNames<KitchenDbSchema>;
 export type KitchenDb = IDBPDatabase<KitchenDbSchema>;
 type KitchenTx<Mode extends IDBTransactionMode> = IDBPTransaction<KitchenDbSchema, StoreName[], Mode>;
 
-// The shopping list is not part of KitchenData (backups, restore), so replaceAll leaves it alone.
-const ALL_STORES: StoreName[] = ['ingredients', 'recipes', 'events', 'meta', 'plan', 'leftovers', 'batches', 'favourites'];
+// The shopping list is not part of KitchenData, but a restore replaces the whole kitchen and
+// must clear the cart durably too, not just on screen (AR02), so 'shopping' is included here.
+const ALL_STORES: StoreName[] = ['ingredients', 'recipes', 'events', 'meta', 'shopping', 'plan', 'leftovers', 'batches', 'favourites'];
 
 export function openKitchenDb(name: string = DB_NAME): Promise<KitchenDb> {
   return openDB<KitchenDbSchema>(name, DB_LAYOUT_VERSION, {
@@ -107,6 +112,30 @@ export async function loadShopping(db: KitchenDb): Promise<ShoppingList> {
 export function saveShopping(db: KitchenDb, list: ShoppingList): Promise<void> {
   return writeToSetUpKitchen(db, 'shopping', (tx, queued) => {
     queued.push(tx.objectStore('shopping').put(list, SHOPPING_KEY));
+  });
+}
+
+/**
+ * Applies a shopping-list change to whatever is stored, in one transaction. Reading the
+ * current list here rather than trusting the caller's copy is what stops a second open tab
+ * from erasing the first tab's line (AR14/A1).
+ */
+export function saveShoppingChange(db: KitchenDb, change: ArrayChange<ShoppingItem>): Promise<void> {
+  return readModifyWrite(db, ['shopping'], async tx => {
+    const current = (await tx.objectStore('shopping').get(SHOPPING_KEY)) ?? [];
+    await tx.objectStore('shopping').put(applyArrayChange(current, change, item => item.ingredientId), SHOPPING_KEY);
+  });
+}
+
+/**
+ * A purchase from the Shop list: the purchase event and the applied list change in ONE
+ * transaction, so a reload can never show the purchase without the list change or the reverse.
+ */
+export function savePurchaseChange(db: KitchenDb, event: KitchenEvent, change: ArrayChange<ShoppingItem>): Promise<void> {
+  return readModifyWrite(db, ['events', 'shopping'], async tx => {
+    const current = (await tx.objectStore('shopping').get(SHOPPING_KEY)) ?? [];
+    await tx.objectStore('shopping').put(applyArrayChange(current, change, item => item.ingredientId), SHOPPING_KEY);
+    await tx.objectStore('events').put(event);
   });
 }
 
@@ -167,25 +196,71 @@ export function saveOrderCosts(db: KitchenDb, list: OrderCost[]): Promise<void> 
   return commit(tx, queued => { queued.push(tx.objectStore('meta').put(list, 'orderCosts')); });
 }
 
+/** Applies an order-cost change to the stored list in one transaction (AR14). */
+export function saveOrderCostsChange(db: KitchenDb, change: ArrayChange<OrderCost>): Promise<void> {
+  return readModifyWrite(db, ['meta'], async tx => {
+    const current = ((await tx.objectStore('meta').get('orderCosts')) as OrderCost[] | undefined) ?? [];
+    await tx.objectStore('meta').put(applyArrayChange(current, change, order => order.id), 'orderCosts');
+  });
+}
+
 export function saveShopPrefs(db: KitchenDb, prefs: ShopPrefs): Promise<void> {
   const tx = writeTransaction(db, ['meta']);
   return commit(tx, queued => { queued.push(tx.objectStore('meta').put(prefs, 'shopPrefs')); });
 }
 
 /**
- * Finishing a shopping trip: the trip's ONE purchase event and the cleared trip are saved in
- * one transaction. The event id comes from the trip id, so a retry replaces it, never doubles it.
+ * Applies a field-level change to the stored shop preferences in one transaction (GLM N2). Only
+ * the fields in the patch change, so a second open tab editing a different field cannot erase
+ * this one's edit. Applied to the CURRENT stored value, not to the caller's stale copy.
  */
-export function saveTripDone(db: KitchenDb, event: KitchenEvent, prefs: ShopPrefs): Promise<void> {
-  const tx = writeTransaction(db, ['events', 'meta']);
-  return commit(tx, queued => {
-    queued.push(tx.objectStore('events').put(event), tx.objectStore('meta').put(prefs, 'shopPrefs'));
+export function saveShopPrefsPatch(db: KitchenDb, patch: ShopPrefsPatch): Promise<void> {
+  return readModifyWrite(db, ['meta'], async tx => {
+    const meta = tx.objectStore('meta');
+    const current = ((await meta.get('shopPrefs')) as ShopPrefs | undefined) ?? defaultShopPrefs();
+    await meta.put(applyShopPrefsPatch(current, patch), 'shopPrefs');
+  });
+}
+
+/**
+ * Finishing a shopping trip: the trip's ONE purchase event, the cleared trip and the reduced
+ * manual list are saved in one transaction (AR16). The event id comes from the trip id, so a
+ * retry replaces it, never doubles it.
+ */
+export function saveTripDone(
+  db: KitchenDb,
+  event: KitchenEvent,
+  prefs: ShopPrefs,
+  change: ArrayChange<ShoppingItem> = { upserts: [], remove: [] },
+  shopPatch?: ShopPrefsPatch,
+): Promise<void> {
+  return readModifyWrite(db, ['events', 'meta', 'shopping'], async tx => {
+    const current = (await tx.objectStore('shopping').get(SHOPPING_KEY)) ?? [];
+    await tx.objectStore('shopping').put(applyArrayChange(current, change, item => item.ingredientId), SHOPPING_KEY);
+    await tx.objectStore('events').put(event);
+    // A field patch (N2) merges into whatever is stored; the whole value is the fallback for
+    // an older pending operation that carries no patch.
+    const meta = tx.objectStore('meta');
+    const shopPrefs = shopPatch
+      ? applyShopPrefsPatch(((await meta.get('shopPrefs')) as ShopPrefs | undefined) ?? defaultShopPrefs(), shopPatch)
+      : prefs;
+    await meta.put(shopPrefs, 'shopPrefs');
   });
 }
 
 export function saveSettings(db: KitchenDb, settings: KitchenSettings): Promise<void> {
   return writeToSetUpKitchen(db, 'meta', (tx, queued) => {
     queued.push(tx.objectStore('meta').put(settings, 'settings'));
+  });
+}
+
+/** Merges a settings patch into the stored settings in one transaction (A1). Deletions are
+ * carried in `remove` (JSON-safe); a `patch` value of `undefined` also deletes, for old code. */
+export function saveSettingsPatch(db: KitchenDb, patch: SettingsPatchInput, remove?: string[]): Promise<void> {
+  return readModifyWrite(db, ['meta'], async tx => {
+    const meta = tx.objectStore('meta');
+    const current = ((await meta.get('settings')) as KitchenSettings | undefined) ?? ({} as KitchenSettings);
+    await meta.put(applySettingsPatch(current, { patch, remove }), 'settings');
   });
 }
 
@@ -230,11 +305,16 @@ export type KitchenWrite =
   | { type: 'deleteRecipe'; recipeId: string }
   | { type: 'ingredient'; ingredient: Ingredient }
   | { type: 'settings'; settings: KitchenSettings }
+  | { type: 'settingsPatch'; patch: SettingsPatchInput; remove?: string[] }
   | { type: 'shopping'; list: ShoppingList }
+  | { type: 'shoppingChange'; change: ArrayChange<ShoppingItem> }
   | { type: 'purchase'; event: KitchenEvent; list: ShoppingList }
+  | { type: 'purchaseChange'; event: KitchenEvent; change: ArrayChange<ShoppingItem> }
   | { type: 'shopPrefs'; prefs: ShopPrefs }
+  | { type: 'shopPrefsPatch'; patch: ShopPrefsPatch }
   | { type: 'orderCosts'; list: OrderCost[] }
-  | { type: 'tripDone'; event: KitchenEvent; prefs: ShopPrefs }
+  | { type: 'orderCostsChange'; change: ArrayChange<OrderCost> }
+  | { type: 'tripDone'; event: KitchenEvent; prefs: ShopPrefs; change?: ArrayChange<ShoppingItem>; shopPatch?: ShopPrefsPatch }
   | { type: 'plan'; meal: PlannedMeal }
   | { type: 'deletePlan'; id: string }
   | { type: 'leftover'; item: Leftover }
@@ -253,11 +333,16 @@ export function kitchenWriter(db: KitchenDb): (write: KitchenWrite) => Promise<v
       case 'deleteRecipe': return deleteRecipe(db, write.recipeId);
       case 'ingredient': return saveIngredient(db, write.ingredient);
       case 'settings': return saveSettings(db, write.settings);
+      case 'settingsPatch': return saveSettingsPatch(db, write.patch, write.remove);
       case 'shopping': return saveShopping(db, write.list);
+      case 'shoppingChange': return saveShoppingChange(db, write.change);
       case 'purchase': return savePurchase(db, write.event, write.list);
+      case 'purchaseChange': return savePurchaseChange(db, write.event, write.change);
       case 'shopPrefs': return saveShopPrefs(db, write.prefs);
+      case 'shopPrefsPatch': return saveShopPrefsPatch(db, write.patch);
       case 'orderCosts': return saveOrderCosts(db, write.list);
-      case 'tripDone': return saveTripDone(db, write.event, write.prefs);
+      case 'orderCostsChange': return saveOrderCostsChange(db, write.change);
+      case 'tripDone': return saveTripDone(db, write.event, write.prefs, write.change, write.shopPatch);
       case 'plan': return saveItem(db, 'plan', write.meal);
       case 'deletePlan': return deleteItem(db, 'plan', write.id);
       case 'leftover': return saveItem(db, 'leftovers', write.item);
@@ -311,6 +396,9 @@ async function readKitchen<Mode extends IDBTransactionMode>(tx: KitchenTx<Mode>)
 function byTime(a: KitchenEvent, b: KitchenEvent): number {
   const time = Date.parse(a.at) - Date.parse(b.at);
   if (time) return time;
+  // Same instant: the recording number keeps the order entries were actually made in (AR03).
+  const seq = (a.seq ?? 0) - (b.seq ?? 0);
+  if (seq) return seq;
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
 
@@ -336,6 +424,35 @@ async function writeToSetUpKitchen(
     );
   }
   await commit(tx, queued => queue(tx, queued));
+}
+
+/**
+ * Reads, changes and writes inside one transaction. Refused until the kitchen is set up, so a
+ * record is never written without settings and a schema version. idb keeps this transaction
+ * alive across the awaited requests, so the read and the write commit together.
+ */
+async function readModifyWrite(
+  db: KitchenDb,
+  stores: StoreName[],
+  change: (tx: KitchenTx<'readwrite'>) => Promise<unknown>,
+): Promise<void> {
+  const tx = writeTransaction(db, [...new Set<StoreName>([...stores, 'meta'])]);
+  const version = await tx.objectStore('meta').get('schemaVersion');
+  if (version !== SCHEMA_VERSION) {
+    await tx.done;
+    throw new Error(
+      version === undefined
+        ? 'The kitchen has not been set up yet, so nothing was saved.'
+        : `The saved kitchen uses schema version ${String(version)}; this app writes version ${SCHEMA_VERSION}.`,
+    );
+  }
+  try {
+    await change(tx);
+  } catch (error) {
+    await abandon(tx);
+    throw error;
+  }
+  await tx.done;
 }
 
 /**
@@ -396,6 +513,7 @@ function queueReplacement(tx: KitchenTx<'readwrite'>, data: KitchenData, queued:
   const events = tx.objectStore('events');
   const meta = tx.objectStore('meta');
   queued.push(ingredients.clear(), recipes.clear(), events.clear());
+  queued.push(tx.objectStore('shopping').clear()); // AR02: a restore clears the cart for good
   queued.push(data.shopPrefs ? meta.put(data.shopPrefs, 'shopPrefs') : meta.delete('shopPrefs'));
   queued.push(data.orderCosts?.length ? meta.put(data.orderCosts, 'orderCosts') : meta.delete('orderCosts'));
   for (const store of ['plan', 'leftovers', 'batches', 'favourites'] as const) queued.push(tx.objectStore(store).clear());

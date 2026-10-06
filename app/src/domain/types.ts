@@ -121,6 +121,11 @@ export interface KitchenEvent {
    * stock check made in between. Missing on older entries and means "same as at".
    */
   recordedAt?: string;
+  /**
+   * A strictly increasing recording number, so two entries recorded in the same millisecond
+   * still have an authoritative order (AR03). Missing on older entries and on hand-made ones.
+   */
+  seq?: number;
   /** Household-local calendar date, YYYY-MM-DD (D5). */
   localDate: string;
   /** Household-local time, HH:MM. */

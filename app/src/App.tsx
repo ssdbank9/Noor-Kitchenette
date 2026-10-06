@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRef } from 'react'; // F52
 import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKitchen'; // KR4RJP
+import { diffByKey } from './storage/arrayChange';
+import { applySettingsPatch, type SettingsPatchInput } from './storage/settingsPatch';
+import { diffShopPrefs } from './storage/shopPrefsPatch';
 import { balances, effectiveIds, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
 import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
 import { RecipeEditor } from './ui/RecipeEditor'; // F40
@@ -118,7 +121,24 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const [planCook, setPlanCook] = useState<{ mealId: string; index: number } | null>(null); // F54: the planned dish being cooked
   useEffect(() => { if (view.name === 'tab') setPlanCook(null); }, [view]); // F54
 
-  const now = new Date();
+  // The household clock, refreshed on the next minute and whenever the app comes back to the
+  // foreground, so an app left open past Karachi midnight shows the new day (AR08).
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const tick = () => setNow(new Date());
+    let timer = 0;
+    const schedule = () => {
+      timer = window.setTimeout(() => { tick(); schedule(); }, 60_000 - (Date.now() % 60_000) + 100);
+    };
+    schedule();
+    document.addEventListener('visibilitychange', tick);
+    window.addEventListener('focus', tick);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', tick);
+      window.removeEventListener('focus', tick);
+    };
+  }, []);
   const today = householdDate(now, tz);
   // The next meal that has dishes suiting it (no biryani suggested for breakfast).
   const firstSlot = nextSlot(householdTime(now, tz), settings.slotTimes) as MealSlot;
@@ -239,10 +259,14 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   // settings: saved settings, sample pantry, backup and restore
-  function changeSettings(patch: Partial<typeof settings>) {
-    const next = Object.fromEntries(Object.entries({ ...settings, ...patch }).filter(([, v]) => v !== undefined)) as typeof settings;
-    setBase(b => ({ ...b, settings: next }));
-    void store.queue.enqueue({ type: 'settings', settings: next });
+  function changeSettings(patch: SettingsPatchInput) {
+    // A patch, not the whole object: two open tabs changing different settings must not
+    // clobber each other (A1). A cleared field is named in `remove`, not sent as undefined,
+    // so the localStorage mirror keeps the deletion across a reload (GLM N1).
+    const remove = Object.keys(patch).filter(key => (patch as Record<string, unknown>)[key] === undefined);
+    const set = Object.fromEntries(Object.entries(patch).filter(([, value]) => value !== undefined)) as SettingsPatchInput;
+    setBase(b => ({ ...b, settings: applySettingsPatch(b.settings, { patch: set, remove }) }));
+    void store.queue.enqueue({ type: 'settingsPatch', patch: set, remove });
   }
   const sampleLoaded = useMemo(() => removeSampleEvents(events, new Date()).length > 0, [events]);
   function loadSample() {
@@ -295,10 +319,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
     changeList(addDishShortfall(shopList, availability(recipe, servings, stock, byId, toBase))); // shoplist
     setToast({ text: 'Added to Shop' });
   }
-  // shoplist: every list change is saved as a whole-list snapshot through the save queue.
+  // shoplist: every list change is saved as a change (adds/replaces/removes) through the save
+  // queue, applied to whatever is stored, so a second open tab cannot erase this one's line.
   function changeList(next: ShoppingList) {
     setShopList(next);
-    void store.queue.enqueue({ type: 'shopping', list: next });
+    void store.queue.enqueue({ type: 'shoppingChange', change: diffByKey(shopList, next, item => item.ingredientId) });
   }
   // F54: plan changes. Every change is queued for the database AND applied to the screen's copy.
   function savePlanMeal(meal: PlannedMeal) {
@@ -336,7 +361,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
     const next = fromBasket ? shopList : takeFromList(shopList, { [item.ingredientId]: amountBase }); // F54, D22: a part-bought manual line keeps the rest
     setEvents(prev => [...prev, event]);
     setShopList(next);
-    void store.queue.enqueue({ type: 'purchase', event, list: next });
+    void store.queue.enqueue({ type: 'purchaseChange', event, change: diffByKey(shopList, next, item => item.ingredientId) });
     const cleared = clearDismissals(prefs, [item.ingredientId]); // D22: bought, so an old "not this week" / "remove" no longer applies
     if (cleared !== prefs) savePrefs(cleared); // D22
     const ing = byId.get(item.ingredientId);
@@ -347,8 +372,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
   // every change is queued for the database AND applied to the screen's copy.
   const prefs = shopPrefsOf(base.shopPrefs);
   function savePrefs(next: ShopPrefs) {
+    // A field-level change applied to the stored value, so a second open tab editing a
+    // different field cannot erase this one's edit (GLM N2).
+    const patch = diffShopPrefs(prefs, next);
     setBase(b => ({ ...b, shopPrefs: next }));
-    void store.queue.enqueue({ type: 'shopPrefs', prefs: next });
+    void store.queue.enqueue({ type: 'shopPrefsPatch', patch });
   }
   function saveIngredient(ingredient: Ingredient) {
     setBase(b => ({ ...b, ingredients: b.ingredients.some(i => i.id === ingredient.id) ? b.ingredients.map(i => (i.id === ingredient.id ? ingredient : i)) : [...b.ingredients, ingredient] }));
@@ -368,9 +396,10 @@ function Kitchen({ store }: { store: KitchenStore }) {
     setEvents(prev => appendEventOnce(prev, r.event));
     setBase(b => ({ ...b, shopPrefs: r.prefs }));
     setShopList(r.list);
-    // One purchase with a stable id (trip-<id>), the cleared trip and the shorter manual list, in the same tick.
-    void store.queue.enqueue({ type: 'tripDone', event: r.event, prefs: r.prefs });
-    void store.queue.enqueue({ type: 'shopping', list: r.list });
+    // One purchase with a stable id (trip-<id>), the cleared trip and the reduced manual list
+    // are ONE queued operation in one transaction, so a crash between them saves them together
+    // (AR16). The prefs part is a field patch (N2), so a concurrent edit to another field is kept.
+    void store.queue.enqueue({ type: 'tripDone', event: r.event, prefs: r.prefs, shopPatch: diffShopPrefs(prefs, r.prefs), change: diffByKey(shopList, r.list, item => item.ingredientId) });
     // Undo reverses the purchase (the usual undo). The trip is NOT restored: it is finished. Start a new one to shop again.
     setToast({ text: 'Saved your shopping. Pantry updated.', undoId: r.event.id });
   }
@@ -442,7 +471,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
         noWord={NO}
         homeArea={settings.homeArea} // D22 geo
         orderCosts={base.orderCosts ?? []} // D23
-        onOrderCosts={list => { setBase(b => ({ ...b, orderCosts: list })); void store.queue.enqueue({ type: 'orderCosts', list }); }} // D23
+        onOrderCosts={list => { // D23
+          const change = diffByKey(base.orderCosts ?? [], list, order => order.id);
+          setBase(b => ({ ...b, orderCosts: list }));
+          void store.queue.enqueue({ type: 'orderCostsChange', change });
+        }}
         onOpenSettings={() => setView({ name: 'settings' })} // D22 geo
         onSave={(item: Favourite) => {
           setBase(b => ({ ...b, favourites: [...(b.favourites ?? []).filter(f => f.id !== item.id), item] }));
@@ -692,9 +725,11 @@ function Kitchen({ store }: { store: KitchenStore }) {
   return (
     <GeminiProvider apiKey={settings.geminiKey}> {/* gemini */}
     <div className="app">
-      {save.status === 'error' && ( // KR4RJP
+      {(save.status === 'error' || (save.pending > 0 && save.mirrorError)) && ( // KR4RJP, AR15
         <div className="save-banner" role="alert">
-          <span>Not saved yet</span>
+          <span>{save.mirrorError
+            ? 'Not saved yet — closing or reloading now will lose this change. Free some space, then Retry.'
+            : 'Not saved yet'}</span>
           <button type="button" onClick={() => void store.queue.retry()}>Retry</button>
         </div>
       )}

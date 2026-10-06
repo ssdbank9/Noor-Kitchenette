@@ -30,6 +30,8 @@ export interface IngredientRowForm {
   /** What is in the amount box, exactly as typed. */
   amount: string;
   unit: string;
+  /** An optional ingredient should stay optional when the recipe is edited (AR10). */
+  optional?: boolean;
 }
 
 export interface StepForm {
@@ -92,6 +94,7 @@ export function formFromRecipe(recipe: Recipe): RecipeForm {
       ingredientId: i.ingredientId,
       amount: formatAmountText(i.amount),
       unit: normaliseUnit(i.unit) ?? i.unit,
+      optional: i.optional,
     })),
     newIngredients: [],
     steps: (recipe.steps ?? []).map(text => ({ key: newKey(), text })),
@@ -249,7 +252,7 @@ export function recipeFromForm(
     const unit = normaliseUnit(row.unit);
     const converted = unit ? toBase(amount, unit, ingredient) : null;
     if (!unit || !converted?.ok) { errors.push(`${label}: pick a unit that works for it.`); return; }
-    lines.push({ ingredientId: ingredient.id, amount, unit });
+    lines.push({ ingredientId: ingredient.id, amount, unit, ...(row.optional ? { optional: true } : {}) });
   });
 
   const writtenUrl = form.writtenUrl.trim() ? safeHttpUrl(form.writtenUrl) : null;

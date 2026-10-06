@@ -48,12 +48,12 @@ describe('saved shopping list', () => {
     await expect(saveShopping(await freshDb(), list)).rejects.toThrow('not been set up');
   });
 
-  it('is left alone by replaceAll', async () => {
+  it('is cleared by replaceAll, so a restore clears the cart durably (AR02)', async () => {
     const db = await freshDb();
     await replaceAll(db, testKitchen());
     await saveShopping(db, list);
     await replaceAll(db, testKitchen());
-    expect(await loadShopping(db)).toEqual(list);
+    expect(await loadShopping(db)).toEqual([]);
   });
 
   it('upgrading a version 1 database keeps its data and adds the shopping store', async () => {
