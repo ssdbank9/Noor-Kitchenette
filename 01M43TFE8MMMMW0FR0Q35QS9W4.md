@@ -1,7 +1,7 @@
 ---
 id: 01M43TFE8MMMMW0FR0Q35QS9W4
 title: "P5: shared household, family recipe photos, sync status"
-status: backlog
+status: blocked
 ready: true
 creator: Aly Jafferani
 goal: "Optional shared access for Noor and Aly, family recipe import from photos, clear offline/sync state."
@@ -13,9 +13,10 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T19:03:47Z
+updated-at: 2026-10-06T19:03:54Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
+blocked-reason: Deferred by D-02 (single-device) and D-21; revisit if Aly later wants sharing or family recipe photos
 ---
 
 # P5: shared household, family recipe photos, sync status
