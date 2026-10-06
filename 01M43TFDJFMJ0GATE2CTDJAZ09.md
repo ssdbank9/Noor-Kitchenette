@@ -14,7 +14,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-04T17:19:20Z
+updated-at: 2026-10-06T18:12:58Z
 updated-by: Aly Jafferani
 ---
 
@@ -22,7 +22,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] Test: basket for a 3-meal plan equals hand-calculated need minus stock, counted once
+- [x] Test: basket for a 3-meal plan equals hand-calculated need minus stock, counted once
+  proof: app/src/domain/basket.test.ts (plan need minus stock, counted once)
 
 ## Options
 
