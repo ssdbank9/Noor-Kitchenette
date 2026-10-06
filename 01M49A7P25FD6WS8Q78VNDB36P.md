@@ -18,7 +18,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T19:14:50Z
-updated-at: 2026-10-06T19:15:12Z
+updated-at: 2026-10-06T19:22:02Z
 updated-by: Aly Jafferani
 ---
 
@@ -38,4 +38,4 @@ updated-by: Aly Jafferani
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-06 19:22 · Aly Jafferani** — Fixed on branch claude/review-fixes. decodePhoto asks the browser to decode downscaled (resizeWidth 1280) with a plain-decode fallback; the validated draft (text only) is kept in localStorage and Snap reopens on it, cleared on save or discard. Tests: decodePhoto unit, snapDraftStore unit, e2e snap reload. The exact low-memory failure has not been re-run on the real phone.
