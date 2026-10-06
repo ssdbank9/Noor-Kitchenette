@@ -13,7 +13,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-06T18:17:40Z
+updated-at: 2026-10-06T18:17:46Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
@@ -22,7 +22,7 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] D-02, D-07 and D-08 recorded in docs/DECISIONS.md (D-03 decided 2026-10-04: Gemini)
+- [ ] D-02 and D-07 recorded in docs/DECISIONS.md (D-08 and D-03 already decided)
 
 ## Options
 
