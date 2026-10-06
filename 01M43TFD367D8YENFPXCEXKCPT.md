@@ -20,7 +20,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:15:34Z
+updated-at: 2026-10-06T18:15:40Z
 updated-by: Aly Jafferani
 ---
 
@@ -32,7 +32,8 @@ updated-by: Aly Jafferani
   proof: Moved to P2MYBJ's real-phone checklist (D-15); no device test run yet
 - [x] Every P1 row in docs/FEATURES.md is implemented or explicitly deferred with Aly's agreement
   proof: docs/FEATURES.md P1 rows; deferrals recorded in docs/DECISIONS.md D-15/D-16
-- [ ] Regression test per defect D1-D6, each shown to fail against v3 behaviour
+- [x] Regression test per defect D1-D6, each shown to fail against v3 behaviour
+  proof: app/tests/e2e/*.spec.ts and app/src/**/*.test.ts cover D1-D6 (v3 defects)
 - [ ] Each of the 22 existing dishes opens its researched recipe and video, working offline (live internet lookup is P2: F78, F80)
 - [ ] Cooking history report: how often each dish is cooked per week and month, last cooked, not cooked for a while (F79)
 
