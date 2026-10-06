@@ -18,7 +18,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-06T18:17:21Z
+updated-at: 2026-10-06T19:21:56Z
 updated-by: Aly Jafferani
 assignee: Aly Jafferani
 question: "Run the physical-phone acceptance (docs/ACCEPTANCE-CORE.md), enter the live Gemini key, then accept or send back."
@@ -42,4 +42,4 @@ question: "Run the physical-phone acceptance (docs/ACCEPTANCE-CORE.md), enter th
 <Steps, in order — filled in by the pre-process step, or by you.>
 
 ## Progress
-
+- **2026-10-06 19:21 · Aly Jafferani** — 2026-10-06 real-phone test by Aly: took a photo in Snap pantry. Two defects found, now fixed in NDB36P: (1) 'unable to complete previous options due to low memory' when a large photo was decoded at full resolution; (2) after alt-tabbing to another app and back, the page reloaded and the Snap screen and Gemini reading were gone. P2MYBJ stays open until the phone pass is re-run on the fixed build.
