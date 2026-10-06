@@ -14,7 +14,8 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T19:38:44Z
-updated-at: 2026-10-06T19:38:44Z
+updated-at: 2026-10-06T19:39:12Z
+updated-by: Aly Jafferani
 ---
 
 # Command Code provider for photo reading (deepseek-v4-flash-vision-exp), key on phone
