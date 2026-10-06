@@ -8,12 +8,12 @@ goal: "Plan meals by date and slot; build one basket from the plan minus stock (
 context: "Excel 'Total Needed' sums the whole recipe catalogue, so it is not a shopping list (F34). v3 shops for one dish or minimum-stock top-ups only. Rows: F33-F37, F49, F54, F55, F60, F71, F72 in docs/FEATURES.md. Store suggestions (F37) were not checked to be current."
 definition-of-done: "Test: basket for a 3-meal plan equals hand-calculated need minus stock, counted once"
 tags:
-  - p2
+  - p3
 blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:37:49Z
+updated-at: 2026-10-06T18:38:00Z
 updated-by: Aly Jafferani
 outcome-what: Plan the week and one shopping basket
 outcome-why: P2 basket delivered
