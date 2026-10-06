@@ -1,7 +1,7 @@
 ---
 id: 01M43TFDJFMJ0GATE2CTDJAZ09
 title: "P3: plan the week and one shopping basket"
-status: backlog
+status: done
 ready: true
 creator: Aly Jafferani
 goal: "Plan meals by date and slot; build one basket from the plan minus stock (counted once) plus staple top-ups, by aisle; record actual purchases; keep single-dish shopping; user-initiated list sharing."
@@ -13,11 +13,11 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:38:23Z
+updated-at: 2026-10-06T18:38:30Z
 updated-by: Aly Jafferani
-outcome-what: Plan the week and one shopping basket
-outcome-why: P3 planner and weekly basket delivered
-outcome-resolves: DoD 1/1
+outcome-what: Plan the week and one shopping basket (P3)
+outcome-why: Feature is built and its DoD test passes; the backwards acceptance dependency was removed
+outcome-resolves: DoD 1/1 (app/src/domain/basket.test.ts)
 assignee: Aly Jafferani
 ---
 
