@@ -14,8 +14,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:12:58Z
+updated-at: 2026-10-06T18:13:04Z
 updated-by: Aly Jafferani
+outcome-what: Plan the week and one shopping basket
+outcome-why: P2 basket delivered
+outcome-resolves: DoD 1/1
+assignee: Aly Jafferani
 ---
 
 # P2: plan the week and one shopping basket
