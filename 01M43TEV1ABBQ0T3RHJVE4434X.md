@@ -1,8 +1,8 @@
 ---
 id: 01M43TEV1ABBQ0T3RHJVE4434X
 title: "P0: units, conversions and quantity parser"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: "Quantities are always read with their unit, validated, and converted only where safe."
 context: |-
@@ -18,8 +18,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:55Z
-updated-at: 2026-10-06T18:11:31Z
+updated-at: 2026-10-06T18:11:40Z
 updated-by: Aly Jafferani
+outcome-what: "Units, conversions and quantity parser"
+outcome-why: P0 units delivered
+outcome-resolves: DoD 3/3
+assignee: Aly Jafferani
 ---
 
 # P0: units, conversions and quantity parser
