@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { GeminiClient, GenerateRequest } from './client';
 import { GeminiError } from './errors';
-import { MAX_ITEMS, buildPhotoRequest, readPhoto, scaleToFit, testKey, validatePhotoDraft } from './photo';
+import { MAX_ITEMS, buildPhotoRequest, decodePhoto, readPhoto, scaleToFit, testKey, validatePhotoDraft } from './photo';
 
 const fakeClient = (json: unknown, seen: GenerateRequest[] = []): GeminiClient => ({
   generate: async req => { seen.push(req); return { text: '', json, sources: [], queries: [] }; },
@@ -19,6 +19,31 @@ describe('scaleToFit', () => {
     expect(scaleToFit(NaN, 100)).toEqual({ width: 0, height: 0 });
     expect(scaleToFit(10000, 1)).toEqual({ width: 1280, height: 1 });
     expect(scaleToFit(2000, 1000, 500)).toEqual({ width: 500, height: 250 });
+  });
+});
+
+describe('decodePhoto', () => {
+  it('asks the browser to decode downscaled, so a full-size phone photo is not held in memory', async () => {
+    const options: (ImageBitmapOptions | undefined)[] = [];
+    const fake = (_file: Blob, opts?: ImageBitmapOptions) => {
+      options.push(opts);
+      return Promise.resolve({ width: 1280, height: 960, close() {} } as unknown as ImageBitmap);
+    };
+    await decodePhoto(new Blob(['x']), fake as unknown as typeof createImageBitmap);
+    expect(options).toHaveLength(1);
+    expect(options[0]).toMatchObject({ resizeWidth: 1280, resizeQuality: 'high' });
+  });
+
+  it('falls back to a plain decode when the resize option is refused', async () => {
+    const options: (ImageBitmapOptions | undefined)[] = [];
+    const fake = (_file: Blob, opts?: ImageBitmapOptions) => {
+      options.push(opts);
+      return opts ? Promise.reject(new Error('unsupported')) : Promise.resolve({ width: 10, height: 10, close() {} } as unknown as ImageBitmap);
+    };
+    const bitmap = await decodePhoto(new Blob(['x']), fake as unknown as typeof createImageBitmap);
+    expect(options).toHaveLength(2);
+    expect(options[1]).toBeUndefined();
+    expect(bitmap.width).toBe(10);
   });
 });
 

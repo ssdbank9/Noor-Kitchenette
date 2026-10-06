@@ -217,3 +217,26 @@ test('Settings: Test my key shows "Key works" and the plain error', async ({ pag
   await expect(page.getByText('Gemini did not accept the key. Check it in Settings.')).toBeVisible();
   await expect(page.getByText('Key works')).toHaveCount(0);
 });
+
+test('a reading survives a page reload and comes back for review (phone background/return)', async ({ page }) => {
+  await openWithSamplePantry(page);
+  await saveFakeGeminiKey(page);
+  await mockGemini(page, [json(answer([{ label: 'Tomatoes', count: 6, certainty: 'sure' }]))]);
+  await openPantry(page);
+  await page.getByRole('button', { name: 'Today', exact: true }).click();
+  await startSnap(page, 'New groceries');
+  await pickPhoto(page);
+  await expect(page.getByRole('heading', { name: 'Check what I read' })).toBeVisible();
+
+  // The phone browser discarded and reloaded the page (memory pressure): the reading is kept.
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Check what I read' })).toBeVisible();
+  await expect(page.getByRole('checkbox', { name: 'Include Tomatoes' })).toBeChecked();
+
+  // Saving clears the recovery copy, so a later reload starts clean.
+  await save(page).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Pantry updated' })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Check what I read' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: /Assalam-o-alaikum/ })).toBeVisible();
+});

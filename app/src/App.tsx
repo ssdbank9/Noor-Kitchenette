@@ -4,6 +4,7 @@ import { useKitchenLoad, useSaveState, type KitchenStore } from './storage/useKi
 import { diffByKey } from './storage/arrayChange';
 import { applySettingsPatch, type SettingsPatchInput } from './storage/settingsPatch';
 import { diffShopPrefs } from './storage/shopPrefsPatch';
+import { hasSnapDraft } from './storage/snapDraftStore';
 import { balances, effectiveIds, makeEvent, monthSummary, reverse } from './domain/ledger'; // F40: cookingHistory moved into HistoryScreen
 import { withRecipe, withoutRecipe } from './domain/recipeForm'; // F40
 import { RecipeEditor } from './ui/RecipeEditor'; // F40
@@ -101,7 +102,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   const { yes: YES, no: NO } = wordsFor(settings.words); // settings
   const tz = settings.timeZone;
   const [events, setEvents] = useState<KitchenEvent[]>(store.data.events);
-  const [view, setView] = useState<View>({ name: 'tab', tab: 'today' });
+  const [view, setView] = useState<View>(() => hasSnapDraft() ? { name: 'snap', back: 'today' } : { name: 'tab', tab: 'today' });
   const [pick, setPick] = useState(0);
   const [shopList, setShopList] = useState<ShoppingList>(store.shopping); // shoplist
   const [dishDrafts, setDishDrafts] = useState<Recipe[]>([]); // F80: names of found dishes whose shopping lines are not saved as recipes yet

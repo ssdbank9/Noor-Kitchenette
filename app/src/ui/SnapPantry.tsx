@@ -20,6 +20,7 @@ import { useGemini } from '../gemini/GeminiContext';
 import type { PhotoKind } from '../gemini/drafts';
 import { isGeminiError, plainMessage } from '../gemini/errors';
 import { prepareImage, readPhoto, type PreparedImage } from '../gemini/photo';
+import { clearSnapDraft, loadSnapDraft, saveSnapDraft } from '../storage/snapDraftStore';
 import { CameraIcon } from './Icons';
 import { PhotoReview } from './PhotoReview';
 
@@ -65,9 +66,12 @@ const KIND_CHOICES: { kind: PhotoKind; label: string; hint: string }[] = [
 
 export function SnapPantry(p: SnapPantryProps) {
   const { client, hasKey } = useGemini();
-  const [phase, setPhase] = useState<Phase>({ name: 'choose' });
+  // A reading kept from before a reload (the phone browser discards the page under memory
+  // pressure): restore it so the review is not lost. The photo itself is never kept.
+  const [restored] = useState(() => loadSnapDraft());
+  const [phase, setPhase] = useState<Phase>(restored ? { name: 'review' } : { name: 'choose' });
   const [kind, setKind] = useState<PhotoKind | null>(null);
-  const [draft, setDraft] = useState<Draft | null>(null);
+  const [draft, setDraft] = useState<Draft | null>(restored);
   const [typed, setTyped] = useState('');
   const [picked, setPicked] = useState<Job | null>(null); // waiting for the "Same shopping trip?" answer
   const [parked, setParked] = useState<Job | null>(null); // a different trip's photo, read after this draft is saved or discarded
@@ -79,6 +83,12 @@ export function SnapPantry(p: SnapPantryProps) {
   const lastJob = useRef<{ job: Job; base: Draft | null } | null>(null);
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
+
+  // Keep the reading (text only) so a page reload does not lose it; clear it once it is gone.
+  useEffect(() => {
+    if (draft) saveSnapDraft(draft);
+    else clearSnapDraft();
+  }, [draft]);
 
   // A cancelled file chooser fires "cancel" (not "change"): say so and keep the manual list open.
   useEffect(() => {

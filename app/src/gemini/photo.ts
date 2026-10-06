@@ -22,10 +22,21 @@ export function scaleToFit(width: number, height: number, max: number = MAX_PHOT
 
 const badPhoto = () => new GeminiError('bad-response', 'That photo could not be opened. Try another one, or type a list.', false);
 
+/**
+ * Decodes a picked photo, asking the browser to shrink it during decode. A full-resolution
+ * camera photo (tens of megapixels) can exhaust the phone browser's memory and fail with a
+ * "low memory" error; decoding at 1280 px avoids that. Only the width is requested, so the
+ * shape is kept. A browser that does not support the option is still decoded (unshrunk), and
+ * `scaleToFit` below caps the canvas either way. `create` is injectable for testing.
+ */
+export function decodePhoto(file: Blob, create: typeof createImageBitmap = createImageBitmap): Promise<ImageBitmap> {
+  return create(file, { resizeWidth: MAX_PHOTO_SIDE, resizeQuality: 'high' }).catch(() => create(file));
+}
+
 /** Shrinks a picked photo to at most 1280 px, JPEG quality 0.8, as base64 for Gemini. */
 export async function prepareImage(file: File): Promise<PreparedImage> {
   let bitmap: ImageBitmap;
-  try { bitmap = await createImageBitmap(file); } catch { throw badPhoto(); }
+  try { bitmap = await decodePhoto(file); } catch { throw badPhoto(); }
   try {
     const { width, height } = scaleToFit(bitmap.width, bitmap.height);
     if (!width || !height) throw badPhoto();
