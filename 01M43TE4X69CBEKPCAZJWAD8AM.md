@@ -5,12 +5,7 @@ status: backlog
 ready: true
 creator: Aly Jafferani
 goal: "Aly settles the three choices that P2, P3 and P5 depend on."
-context: |-
-  Not needed to start P0 or P1, but D-07 is needed before the Today screen in P1 is final.
-  D-02: does Noor and Aly's household share live data? Needs accounts and a server.
-  D-03: photo recognition needs a hosted vision model and a server function holding the key; cost and photo privacy.
-  D-07: what the recipe match % means. Excel and v3 do not define it clearly. Proposal: share of required amounts available, scaled to servings.
-  Proposals are in docs/DECISIONS.md.
+context: "D-08 is decided (2026-10-05): the Gemini key is entered once in the app's Settings and stays on the phone; no server function, no key in code, repo or backups. D-03 (Gemini for photo recognition) is decided (2026-10-04). Still open and needing Aly: D-02 (should Noor and Aly share one live household? needs accounts and a server) and D-07 (what the recipe match % means; proposal: share of required amounts available, scaled to servings). Proposals and the decided rows are in docs/DECISIONS.md."
 definition-of-done: "D-02, D-03 and D-07 recorded in docs/DECISIONS.md"
 tags:
   - decision
@@ -18,7 +13,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-06T18:17:34Z
+updated-at: 2026-10-06T18:17:40Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
