@@ -20,7 +20,9 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T18:08:18Z
-updated-at: 2026-10-04T18:08:18Z
+updated-at: 2026-10-06T18:18:14Z
+assignee: Aly Jafferani
+updated-by: Aly Jafferani
 ---
 
 # P3: weekly foodpanda refresh for order-by-mood (F84)
