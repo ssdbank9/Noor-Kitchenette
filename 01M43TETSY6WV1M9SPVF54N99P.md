@@ -1,8 +1,8 @@
 ---
 id: 01M43TETSY6WV1M9SPVF54N99P
 title: "P0: event ledger, quantities and local dates"
-status: backlog
-ready: false
+status: done
+ready: true
 creator: Aly Jafferani
 goal: "The data model every later feature writes through: events, stock movements, quantities with units and basis, household-local dates."
 context: |-
@@ -19,8 +19,12 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:02:54Z
-updated-at: 2026-10-06T18:09:40Z
+updated-at: 2026-10-06T18:09:47Z
 updated-by: Aly Jafferani
+outcome-what: "Event ledger, quantities and household-local dates"
+outcome-why: P0 ledger delivered
+outcome-resolves: DoD 5/5
+assignee: Aly Jafferani
 ---
 
 # P0: event ledger, quantities and local dates
