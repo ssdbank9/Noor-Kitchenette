@@ -9,12 +9,11 @@ context: "Depends on D-02 (sharing) and D-03 (photos). Rows: F64, F70, F75. Hand
 definition-of-done: Scope agreed with Aly and split into tickets
 tags:
   - p5
-blocked-by:
-  - 01M43TFDAQXR2EE2D5TTP2MYBJ
+blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:17:26Z
+updated-at: 2026-10-06T19:03:41Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
