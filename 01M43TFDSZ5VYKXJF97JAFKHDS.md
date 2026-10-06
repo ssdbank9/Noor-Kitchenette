@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:16:36Z
+updated-at: 2026-10-06T18:16:42Z
 updated-by: Aly Jafferani
 ---
 
@@ -25,7 +25,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] Test: a receipt and a grocery photo of the same shop change stock once
+- [x] Test: a receipt and a grocery photo of the same shop change stock once
+  proof: app/tests/e2e/snap.spec.ts (receipt + groceries of one shop merge to one line; stock rises once)
 - [-] Gemini key on the phone only (D-08; superseded the server-function plan)
   proof: D-08 (2026-10-05): phone-local key, no server function
 - [-] New-dish flow implemented (ingredients matched, stock check, recipe and video, review before saving); live accuracy owned by P2MYBJ
