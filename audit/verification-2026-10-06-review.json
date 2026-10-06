@@ -1,0 +1,555 @@
+{
+  "date": "2026-10-06",
+  "sourceCommit": "264de9b2c855a4daaf88c22c32dfe1b9d8c97225",
+  "branch": "codex/adversarial-review",
+  "scope": "Verification follow-up; production code, owner decisions, dependency manifests and deployment unchanged.",
+  "verdict": "Not safe to hand to Noor as the finished version yet: confirmed data loss, unusable backups, stale recovery UI and cart inconsistency remain; physical phone and live Gemini acceptance are still outstanding.",
+  "tests": {
+    "typecheck": "clean",
+    "originalLogic": 697,
+    "originalBrowser": 97,
+    "logic": {
+      "total": 719,
+      "passed": 707,
+      "failed": 12,
+      "files": 45
+    },
+    "browser": {
+      "total": 107,
+      "passed": 101,
+      "failed": 6,
+      "flaky": 0,
+      "skipped": 0
+    },
+    "originalSuitesStillPass": true,
+    "coverage": {
+      "lines": {
+        "total": 2356,
+        "covered": 2241,
+        "skipped": 0,
+        "pct": 95.11
+      },
+      "statements": {
+        "total": 3098,
+        "covered": 2894,
+        "skipped": 0,
+        "pct": 93.41
+      },
+      "functions": {
+        "total": 902,
+        "covered": 824,
+        "skipped": 0,
+        "pct": 91.35
+      },
+      "branches": {
+        "total": 2558,
+        "covered": 2199,
+        "skipped": 0,
+        "pct": 85.96
+      },
+      "branchesTrue": {
+        "total": 0,
+        "covered": 0,
+        "skipped": 0,
+        "pct": 100
+      }
+    },
+    "note": "All failures are added AR regression assertions. Every failing browser case reproduces on its automatic retry. The original suite counts differ from final counts because regression/verification cases were added. Coverage applies to instrumented logic modules only."
+  },
+  "checks": [
+    {
+      "area": "Current deployed assets",
+      "status": "Verified",
+      "evidence": {
+        "name": "deployed assets match local build",
+        "htmlMatch": false,
+        "assets": [
+          {
+            "path": "/assets/index-B4_glNP3.js",
+            "status": 200,
+            "sha256": "e8721ad9870f674dfc845cfc053830748c1b58e01b130c424e6f4b9c0954590e",
+            "localMatch": true
+          },
+          {
+            "path": "/assets/index-Xugd8FRY.css",
+            "status": 200,
+            "sha256": "b0d1b726475b47dc612ce19ab7bd16215aa4d29b62232ae85e263ae2e5160ff8",
+            "localMatch": true
+          }
+        ]
+      },
+      "note": "JavaScript and CSS hashes exactly match the local build. Raw index HTML differs; the live page includes a Netlify badge."
+    },
+    {
+      "area": "Live phone-size UI / install prerequisites",
+      "status": "Verified on desktop Chrome only",
+      "evidence": {
+        "name": "live six-tab phone-size UI and installability",
+        "status": 200,
+        "tabs": [
+          {
+            "name": "Plan",
+            "current": "page",
+            "box": {
+              "x": 67.65625,
+              "y": 710,
+              "width": 63.671875,
+              "height": 56
+            },
+            "overflow": false
+          },
+          {
+            "name": "Pantry",
+            "current": "page",
+            "box": {
+              "x": 131.328125,
+              "y": 710,
+              "width": 63.671875,
+              "height": 56
+            },
+            "overflow": false
+          },
+          {
+            "name": "Snacks",
+            "current": "page",
+            "box": {
+              "x": 195,
+              "y": 710,
+              "width": 63.65625,
+              "height": 56
+            },
+            "overflow": false
+          },
+          {
+            "name": "Shop",
+            "current": "page",
+            "box": {
+              "x": 258.65625,
+              "y": 710,
+              "width": 63.671875,
+              "height": 56
+            },
+            "overflow": false
+          },
+          {
+            "name": "History",
+            "current": "page",
+            "box": {
+              "x": 322.328125,
+              "y": 710,
+              "width": 63.671875,
+              "height": 56
+            },
+            "overflow": false
+          },
+          {
+            "name": "Today",
+            "current": "page",
+            "box": {
+              "x": 4,
+              "y": 710,
+              "width": 63.65625,
+              "height": 56
+            },
+            "overflow": false
+          }
+        ],
+        "installabilityErrors": [
+          {
+            "errorId": "in-incognito",
+            "errorArguments": []
+          }
+        ],
+        "pageErrors": []
+      }
+    },
+    {
+      "area": "Live offline storage",
+      "status": "Verified on desktop Chrome",
+      "evidence": {
+        "name": "live saved settings survive offline reopening",
+        "expected": "5",
+        "actual": "5",
+        "controller": true,
+        "pageErrors": []
+      }
+    },
+    {
+      "area": "Restaurant list distribution",
+      "status": "Verified",
+      "evidence": {
+        "generatedAt": "2026-10-05T13:57:23.454Z",
+        "moods": [
+          "Pasta",
+          "Pizza",
+          "BBQ",
+          "Karahi",
+          "Handi",
+          "Chinese",
+          "Korean wings",
+          "Burgers",
+          "Donuts",
+          "Croissants",
+          "Desserts"
+        ],
+        "entries": 92,
+        "unsafeUrls": 0,
+        "forbiddenFields": 0,
+        "publishedMatchesLocal": true
+      },
+      "note": "11 moods, 92 entries, generated 2026-10-05; published JSON equals app/public/eatout/moods.json. Earlier HANDOVER claims that the list is missing are stale."
+    },
+    {
+      "area": "Foodpanda listing endpoint",
+      "status": "Verified once",
+      "evidence": "refresh_moods.mjs --list-cuisines returned the public I-8 Markaz cuisine list with exit 0; no publication or file regeneration performed."
+    },
+    {
+      "area": "External links",
+      "status": "Partial",
+      "evidence": [
+        {
+          "name": "Al-Fatah rice search",
+          "status": 200,
+          "finalUrl": "https://alfatah.pk/search?q=rice",
+          "title": "Search: 1000 results found for \"rice\" – Al-Fatah",
+          "riceTextPresent": true,
+          "refusal": false,
+          "productLinks": 0,
+          "menuTextPresent": true
+        },
+        {
+          "name": "Carrefour rice search",
+          "error": "page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.carrefour.pk/mafpak/en/search?keyword=rice\nCall log:\n\u001b[2m  - navigating to \"https://www.carrefour.pk/mafpak/en/search?keyword=rice\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        },
+        {
+          "name": "foodpanda restaurant from published list",
+          "status": 403,
+          "finalUrl": "https://www.foodpanda.pk/restaurant/s8ma/golden-dragon-f7",
+          "title": "Access to this page has been denied",
+          "riceTextPresent": false,
+          "refusal": false,
+          "productLinks": 0,
+          "menuTextPresent": false
+        }
+      ],
+      "note": "Al-Fatah browser rice search lands with HTTP 200 and the rice-search title; product availability/search quality is not established. Carrefour script response has its rice-search title. foodpanda homepage and Maps web entry respond with HTTP 200."
+    },
+    {
+      "area": "Native write failure, retry and crash replay",
+      "status": "Verified on desktop Chrome",
+      "evidence": [
+        "VF01: native transaction abort rolls back, mirror retains setting, Retry persists it",
+        "VF03: real renderer crash retains mirror and replays setting to IndexedDB"
+      ],
+      "note": "Recovered UI still has AR07; this does not turn that defect into a pass."
+    },
+    {
+      "area": "Replacement service worker",
+      "status": "Verified on isolated local origin",
+      "evidence": "VF02: changed worker waits; Update refuses to reload while native writes fail; after retry, Update activates/reloads and retains people count 5."
+    },
+    {
+      "area": "Concurrent tabs / missing recovery copy / exact trip crash boundary",
+      "status": "Confirmed defects",
+      "evidence": [
+        "AR14",
+        "AR15",
+        "AR16"
+      ]
+    },
+    {
+      "area": "Gemini model name",
+      "status": "Verified from current official documentation",
+      "evidence": "https://ai.google.dev/gemini-api/docs/models",
+      "model": "gemini-3.8-flash"
+    },
+    {
+      "area": "Shared household/cloud sync",
+      "status": "Deliberately not implemented",
+      "evidence": "D-02 / D-21; not a new defect or authority to build it."
+    }
+  ],
+  "findings": [
+    {
+      "id": "AR01",
+      "priority": "P1",
+      "file": "app/src/storage/backup.ts",
+      "line": 211,
+      "title": "Deleting a cooked personal recipe makes the kitchen's own backup unrestorable",
+      "input": "Create/cook a personal recipe R002, delete it, export, then restore the exported file.",
+      "actual": "parseBackup returns ok:false because the preserved cook event references a recipe removed from the active book. A recipeName snapshot does not satisfy the validator.",
+      "fix": "Keep a historical recipe tombstone/version, or explicitly validate historical references with their snapshots while resolving active plan references on deletion.",
+      "test": "app/src/storage/adversarial-review.test.ts"
+    },
+    {
+      "id": "AR14",
+      "priority": "P1",
+      "file": "app/src/App.tsx",
+      "line": 445,
+      "title": "A second open tab silently deletes the first tab’s saved order cost",
+      "relatedLocations": [
+        "app/src/storage/db.ts:165"
+      ],
+      "input": "Open two tabs before either logs an order. In tab A save Review first order for Rs 2401; in tab B save Review second order for Rs 1200.",
+      "actual": "Both tabs display their new order and persist successfully. IndexedDB orderCosts contains only Review second order. The first saved order is lost. Reproduced in the full suite and its automatic retry.",
+      "fix": "Save order additions/updates by stable ID in a transaction that reads the current saved collection, or reject stale writes using a revision check. Coordinate/reload other open tabs. Audit other whole-snapshot writes for the same risk; their failure is not claimed by this reproduction.",
+      "test": "app/tests/e2e/verification-followup.spec.ts — AR14"
+    },
+    {
+      "id": "AR07",
+      "priority": "P1",
+      "file": "app/src/storage/useKitchen.ts",
+      "line": 39,
+      "title": "Recovered pending settings are saved but never applied to the booted UI",
+      "input": "Persist a pending settings operation with defaultServings:7 while the saved database has 4; reopen the app.",
+      "actual": "IndexedDB becomes 7, but Settings shows 4. A subsequent whole-settings write built from the stale UI can overwrite recovered values.",
+      "fix": "Apply settings operations in the pending-state reducer before creating KitchenStore; cover all KitchenWrite variants and preserve operation order.",
+      "test": "app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR02",
+      "priority": "P2",
+      "file": "app/src/storage/db.ts",
+      "line": 64,
+      "title": "Restore clears the cart only on screen; old manual items return after reload",
+      "relatedLocations": [
+        "app/src/App.tsx:268",
+        "app/src/storage/backup.ts:153"
+      ],
+      "input": "Save a manual six-egg shopping line, restore a backup, open Shop (line gone), reload, open Shop again.",
+      "actual": "The six-egg line reappears. The shopping store is absent from backup data and replacement transactions; App only calls setShopList([]).",
+      "fix": "Include the manual shopping list in backup/pre-restore-copy/replacement state. If restore intentionally clears it, at minimum clear it durably in the replacement transaction.",
+      "test": "app/src/storage/adversarial-review.test.ts; app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR16",
+      "priority": "P2",
+      "file": "app/src/App.tsx",
+      "line": 372,
+      "title": "A crash between trip completion enqueues saves the purchase but not the shorter manual cart",
+      "relatedLocations": [
+        "app/src/App.tsx:373",
+        "app/src/storage/db.ts:179",
+        "app/src/storage/db.ts:237",
+        "app/src/storage/useKitchen.ts:63"
+      ],
+      "input": "Manual list contains 6 eggs; the active trip has 3 picked up. Save purchase. Pause immediately after localStorage mirrors tripDone, before enqueue(shopping), and crash the renderer with Chrome Page.crash. Reopen in the same context.",
+      "actual": "Recovery writes exactly one 3-egg purchase and clears the trip. The manual shopping list still says 6 eggs, rather than the remaining 3. This turns the previous unresolved split-write risk into a reproduced crash-boundary defect. Normal completion and normal replay still pass; no double purchase is claimed.",
+      "fix": "Make tripDone one queued operation carrying event, cleared prefs and the resulting manual list. Mirror and commit all three together in one events/meta/shopping transaction, and apply all three during boot replay. Preserve stable trip IDs and compatibility with old pending operations.",
+      "test": "app/tests/e2e/verification-trip-crash.spec.ts — AR16"
+    },
+    {
+      "id": "AR15",
+      "priority": "P2",
+      "file": "app/src/App.tsx",
+      "line": 695,
+      "title": "The UI hides that a pending change has no durable recovery copy",
+      "relatedLocations": [
+        "app/src/storage/saveQueue.ts:28",
+        "app/src/storage/saveQueue.ts:132"
+      ],
+      "input": "Fill localStorage to its actual Chrome limit (including the final partial KB), abort the native settings transaction before commit, and increase people usually eating from 4 to 5.",
+      "actual": "The setting is 5 only in memory. IndexedDB remains 4, and no pending mirror exists. The alert says only Not saved yet / Retry, despite save.mirrorError indicating the recovery copy failed. Reload loses the change. This uses an actual localStorage QuotaExceededError plus a deliberately aborted native IndexedDB transaction; it does not prove natural IndexedDB quota exhaustion.",
+      "fix": "While pending > 0, show mirrorError and explicitly state that closing/reloading can lose the change. Give an actionable route to free space and retry; also surface mirror read failures when no pending operation could be recovered.",
+      "test": "app/tests/e2e/verification-followup.spec.ts — AR15"
+    },
+    {
+      "id": "AR10",
+      "priority": "P2",
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 252,
+      "title": "Editing a recipe silently turns optional ingredients into required ingredients",
+      "relatedLocations": [
+        "app/src/domain/recipeForm.ts:93"
+      ],
+      "input": "Open a recipe containing an optional ingredient, change only its name, and save.",
+      "actual": "The saved ingredient no longer has optional:true. Availability and the shopping basket now treat it as required.",
+      "fix": "Carry the optional flag through the editor form and reconstruction, including rows that were not otherwise changed.",
+      "test": "app/src/domain/recipeForm.adversarial.test.ts"
+    },
+    {
+      "id": "AR08",
+      "priority": "P2",
+      "file": "app/src/App.tsx",
+      "line": 121,
+      "title": "The open app does not refresh its household day at midnight",
+      "input": "Leave Today open at Karachi 2026-10-05 23:59; advance to 2026-10-06 00:01 without another interaction.",
+      "actual": "The header stays Monday · 5 October. Day/time-derived plan and recommendation state has no clock-triggered refresh.",
+      "fix": "Use a household clock state that updates at relevant boundaries and on visibility/focus resume, with deterministic midnight tests.",
+      "test": "app/tests/e2e/adversarial-review.spec.ts"
+    },
+    {
+      "id": "AR04",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 95,
+      "title": "The Gemini timeout stops when headers arrive, leaving a stalled response body unbounded",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:137"
+      ],
+      "input": "Fetch returns HTTP 200 headers immediately, but its JSON body never completes.",
+      "actual": "The abort timer is cleared before res.json(). A configured 10 ms timeout has not aborted the request after 50 ms.",
+      "fix": "Keep the timeout and abort handling alive through body consumption/parsing; return a timeout GeminiError for a body abort.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR06",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 126,
+      "title": "Automatic retries bypass the advertised physical-request rate limit",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:133"
+      ],
+      "input": "maxPerMinute:1, retries:1; first response is HTTP 503, second is HTTP 200.",
+      "actual": "Two HTTP requests are made inside the one-request window. At the default configuration, 12 calls can issue up to 24 HTTP requests.",
+      "fix": "Reserve/check a rate-limit slot for every physical attempt, including retries, using the current time.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR11",
+      "priority": "P2",
+      "file": "app/src/storage/backup.ts",
+      "line": 468,
+      "title": "Restore accepts a repayment amount that contradicts the all/half rule",
+      "input": "Import an order of Rs 2401 with repay:{option:'half',amount:1}.",
+      "actual": "Validation accepts it; owedTotal trusts the stored amount, so a restored half repayment is Rs 1 rather than Rs 1201.",
+      "fix": "Validate repayment amount against the order cost and option using the same whole-rupee rule; reject contradictory backup values.",
+      "test": "app/src/storage/adversarial-review.test.ts"
+    },
+    {
+      "id": "AR09",
+      "priority": "P2",
+      "file": "app/src/gemini/client.ts",
+      "line": 137,
+      "title": "Malformed response envelopes bypass the structured error boundary",
+      "relatedLocations": [
+        "app/src/gemini/client.ts:148",
+        "app/src/gemini/client.ts:152",
+        "app/src/gemini/client.ts:163"
+      ],
+      "input": "Return valid JSON null, content.parts:'invalid', or groundingChunks:{}.",
+      "actual": "The client throws raw TypeError values instead of GeminiError('bad-response'). The UI's generic catch prevents a demonstrated whole-app crash; structured classification/retry handling is lost.",
+      "fix": "Runtime-validate the response object and each accessed array/entry before reading fields; reject malformed envelopes with a controlled error.",
+      "test": "app/src/gemini/client.adversarial.test.ts (three failing cases)"
+    },
+    {
+      "id": "AR03",
+      "priority": "P3",
+      "file": "app/src/domain/ledger.ts",
+      "line": 41,
+      "title": "Equal timestamp stock checks are ordered by random ID rather than recorded sequence",
+      "relatedLocations": [
+        "app/src/domain/ledger.ts:34"
+      ],
+      "input": "At the same millisecond, record set-stock 5 with id z-first, then set-stock 2 with id a-second.",
+      "actual": "balances([first,second]) returns 5. ID ordering reverses which stock check wins. Production frequency is not established; the existing browser helpers avoid equal timestamps.",
+      "fix": "Persist an explicit recording sequence (including legacy/import migration) so equal-time stock anchors have an authoritative order.",
+      "test": "app/src/domain/ledger.adversarial.test.ts"
+    },
+    {
+      "id": "AR05",
+      "priority": "P3",
+      "file": "app/src/gemini/client.ts",
+      "line": 117,
+      "title": "The request byte limit counts UTF-16 characters",
+      "input": "Set maxRequestBytes:500 and send 'نور'.repeat(100). The text alone is 600 UTF-8 bytes; the serialized request is 391 characters and 691 bytes.",
+      "actual": "The request is sent despite exceeding the byte cap. The corrected regression independently checks the UTF-8 payload size.",
+      "fix": "Measure the serialized body with TextEncoder().encode(body).byteLength before sending.",
+      "test": "app/src/gemini/client.adversarial.test.ts"
+    },
+    {
+      "id": "AR13",
+      "priority": "P3",
+      "file": "app/src/domain/units.ts",
+      "line": 248,
+      "title": "A finite quantity can overflow during conversion and poison saved stock",
+      "relatedLocations": [
+        "app/src/domain/units.ts:75",
+        "app/src/domain/pantryActions.ts:59"
+      ],
+      "input": "toBase(1e308,'kg',rice), or Bought more with the equivalent plain decimal input.",
+      "actual": "Conversion and the pantry event builder both return ok:true, with an Infinity movement. JSON serialization turns Infinity into null, which is not a valid saved movement delta.",
+      "fix": "Reject non-finite converted/rounded results and impose a reasonable pantry input bound before event creation.",
+      "test": "app/src/domain/units.adversarial.test.ts"
+    }
+  ],
+  "notVerified": [
+    "Physical Android/iPhone installation, actual camera permission/capture, keyboard, safe areas, device text scaling, background/resume and offline behaviour. Aly confirmed that he can run the checklist; no device result has been received.",
+    "Live Gemini key validation, real photo/receipt accuracy, grounded dish/video lookup, actual account quota, billing cap and origin restrictions. The secure-key question is still unanswered. The model ID is listed in Google’s official catalogue; this is not a successful live API call.",
+    "Carrefour’s actual browser/phone handoff (script HTTP 200, browser ERR_HTTP2_PROTOCOL_ERROR), reliable foodpanda restaurant handoff (sample restaurant HTTP 403), store-app opening, current prices/stock and actual Maps directions/GPS. No refusals were bypassed.",
+    "Natural IndexedDB disk-space exhaustion. Chrome reported quota=1 and overrideActive=true but committed a real 10 MB incompressible write. Native transaction abort, actual localStorage exhaustion, retry and renderer-crash recovery are verified separately.",
+    "Whole-browser/OS power-loss and phone force-kill recovery. Page.crash kills a real renderer; it does not simulate every OS/device shutdown mechanism.",
+    "An actual new Netlify deployment/update on a physical phone. The current live asset hashes and live desktop offline reload were checked. A real replacement worker was tested on an isolated local origin without publication.",
+    "100% branch/function coverage and combined browser-plus-logic source coverage. The instrumented logic run has 359 zero-count branches, listed in verification-2026-10-06-coverage-gaps.json. UI coverage is not included in that percentage."
+  ],
+  "quotaProbe": {
+    "before": {
+      "usage": 106496,
+      "quota": 1,
+      "overrideActive": true,
+      "usageBreakdown": [
+        {
+          "storageType": "file_systems",
+          "usage": 0
+        },
+        {
+          "storageType": "indexeddb",
+          "usage": 106496
+        },
+        {
+          "storageType": "cache_storage",
+          "usage": 0
+        },
+        {
+          "storageType": "service_workers",
+          "usage": 0
+        }
+      ]
+    },
+    "write": {
+      "outcome": "committed"
+    },
+    "after": {
+      "usage": 10674176,
+      "quota": 1,
+      "overrideActive": true,
+      "usageBreakdown": [
+        {
+          "storageType": "file_systems",
+          "usage": 0
+        },
+        {
+          "storageType": "indexeddb",
+          "usage": 10674176
+        },
+        {
+          "storageType": "cache_storage",
+          "usage": 0
+        },
+        {
+          "storageType": "service_workers",
+          "usage": 0
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "requirement": "Verify every previous unverified item",
+      "status": "Partial",
+      "evidence": "Checks and limitations above distinguish completed browser/network work from physical-device, key/account and exhaustive-coverage gaps."
+    },
+    {
+      "requirement": "Highlight confirmed issues for Claude with location, sequence, fix and failing test",
+      "status": "Proven",
+      "evidence": "15 ranked findings; 12 failing logic assertions and 6 failing browser cases."
+    },
+    {
+      "requirement": "No new features or production fixes, decisions unchanged, review branch only, no merge",
+      "status": "Proven",
+      "evidence": "Only review tests, reproducible audit scripts, coverage inventory and dated handoff evidence added."
+    }
+  ]
+}

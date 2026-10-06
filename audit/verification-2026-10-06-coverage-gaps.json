@@ -1,0 +1,3153 @@
+{
+  "description": "Zero-count branches in the instrumented logic run. Browser coverage is not merged. This is a coverage gap inventory, not a defect list or a claim that every branch was exercised.",
+  "count": 359,
+  "entries": [
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 119,
+      "endLine": 119,
+      "branchId": "22",
+      "arm": 0,
+      "type": "if",
+      "source": "if (line.amountBase === null) return 'Check';"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 120,
+      "endLine": 120,
+      "branchId": "23",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const label = (line.stock ?? 0) > EPS ? 'Still need' : 'Need';"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 120,
+      "endLine": 120,
+      "branchId": "24",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const label = (line.stock ?? 0) > EPS ? 'Still need' : 'Need';"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "branchId": "25",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 129,
+      "endLine": 129,
+      "branchId": "26",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "out.push('For ' + names.slice(0, 3).join(', ') + (names.length > 3 ? ` and ${names.length - 3} more` : ''));"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "branchId": "27",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 131,
+      "endLine": 131,
+      "branchId": "28",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "out.push(`Meals need ${format(line.plannedNeed, ingredient)}, you have ${line.stock === null ? 'not sure' : format(line.stock, ingredient)}`);"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "branchId": "29",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 135,
+      "endLine": 135,
+      "branchId": "30",
+      "arm": 0,
+      "type": "if",
+      "source": "if (line.checkWhy === 'stock-unknown') out.push('You are not sure how much you have');"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 136,
+      "endLine": 136,
+      "branchId": "31",
+      "arm": 0,
+      "type": "if",
+      "source": "if (line.checkWhy === 'stock-check') out.push('Check what is left first');"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 137,
+      "endLine": 137,
+      "branchId": "32",
+      "arm": 0,
+      "type": "if",
+      "source": "if (line.checkWhy === 'unit') out.push('An amount in the recipe cannot be converted');"
+    },
+    {
+      "file": "app/src/domain/basket.ts",
+      "line": 150,
+      "endLine": 150,
+      "branchId": "34",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const name = ing?.name ?? l.ingredientId;"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 15,
+      "endLine": 15,
+      "branchId": "0",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "l === 'counter' ? 'Counter' : (LOCATIONS.find(x => x.id === l)?.label ?? l);"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 15,
+      "endLine": 15,
+      "branchId": "1",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "l === 'counter' ? 'Counter' : (LOCATIONS.find(x => x.id === l)?.label ?? l);"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 30,
+      "endLine": 31,
+      "branchId": "3",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "(a.expiresOn ?? '9999-12-31').localeCompare(b.expiresOn ?? '9999-12-31')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 32,
+      "endLine": 32,
+      "branchId": "3",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "|| a.id.localeCompare(b.id));"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 30,
+      "endLine": 30,
+      "branchId": "5",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "(a.expiresOn ?? '9999-12-31').localeCompare(b.expiresOn ?? '9999-12-31')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "6",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "|| (a.boughtOn ?? '').localeCompare(b.boughtOn ?? '')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "6",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "|| (a.boughtOn ?? '').localeCompare(b.boughtOn ?? '')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "7",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "|| (a.boughtOn ?? '').localeCompare(b.boughtOn ?? '')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "7",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "|| (a.boughtOn ?? '').localeCompare(b.boughtOn ?? '')"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "branchId": "15",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 88,
+      "endLine": 88,
+      "branchId": "18",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "|| a.expiresOn.localeCompare(b.expiresOn) || a.status.batch.id.localeCompare(b.status.batch.id));"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 117,
+      "endLine": 117,
+      "branchId": "26",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!Number.isFinite(i.packageAmount) || i.packageAmount <= 0) return { ok: false, message: 'Package size must be above zero.' };"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 118,
+      "endLine": 118,
+      "branchId": "28",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const p = toBase(i.packageAmount, i.packageUnit ?? '', i.ingredient);"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 119,
+      "endLine": 119,
+      "branchId": "29",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!p.ok) return { ok: false, message: p.reason };"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 126,
+      "endLine": 126,
+      "branchId": "30",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(i.boughtOn ? { boughtOn: i.boughtOn } : {}),"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 130,
+      "endLine": 130,
+      "branchId": "35",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(i.fromEventId ? { fromEventId: i.fromEventId } : {}),"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 131,
+      "endLine": 131,
+      "branchId": "36",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(i.note ? { note: i.note } : {}),"
+    },
+    {
+      "file": "app/src/domain/batches.ts",
+      "line": 141,
+      "endLine": 141,
+      "branchId": "38",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return list.some(x => x.id === item.id) ? list.map(x => (x.id === item.id ? item : x)) : [...list, item];"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 55,
+      "endLine": 55,
+      "branchId": "0",
+      "arm": 0,
+      "type": "if",
+      "source": "if (a === null) return b;"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "branchId": "12",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "branchId": "16",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 110,
+      "endLine": 110,
+      "branchId": "17",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (!d.line.meals.some(x => x.recipeName === m.recipeName && x.localDate === m.localDate && x.slot === m.slot)) {"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 110,
+      "endLine": 110,
+      "branchId": "17",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "if (!d.line.meals.some(x => x.recipeName === m.recipeName && x.localDate === m.localDate && x.slot === m.slot)) {"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 148,
+      "endLine": 148,
+      "branchId": "30",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "return x.aisle.localeCompare(y.aisle) || x.name.localeCompare(y.name) || x.id.localeCompare(y.id);"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 181,
+      "endLine": 181,
+      "branchId": "34",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const aisle = byId.get(l.ingredientId)?.aisle ?? 'Other';"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "38",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return all.sort((a, b) => (a.key === '' ? 1 : b.key === '' ? -1 : (order.get(a.key) ?? 0) - (order.get(b.key) ?? 0)));"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "40",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return all.sort((a, b) => (a.key === '' ? 1 : b.key === '' ? -1 : (order.get(a.key) ?? 0) - (order.get(b.key) ?? 0)));"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "41",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return all.sort((a, b) => (a.key === '' ? 1 : b.key === '' ? -1 : (order.get(a.key) ?? 0) - (order.get(b.key) ?? 0)));"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 209,
+      "endLine": 209,
+      "branchId": "43",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const name = ing?.name ?? l.ingredientId;"
+    },
+    {
+      "file": "app/src/domain/cart.ts",
+      "line": 245,
+      "endLine": 245,
+      "branchId": "49",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return list.map(i => (i.ingredientId === ingredientId ? { ...i, amountBase: larger(i.amountBase, amountBase) } : i));"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 65,
+      "endLine": 65,
+      "branchId": "9",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const canonicalUnit = (unit: string | null | undefined): string => (unit ? normaliseUnit(unit) ?? '' : '');"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 90,
+      "endLine": 90,
+      "branchId": "13",
+      "arm": 0,
+      "type": "if",
+      "source": "if (wanted.length === 0) return [];"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 95,
+      "endLine": 95,
+      "branchId": "14",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const own = words(ing.name).length || 1;"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 99,
+      "endLine": 99,
+      "branchId": "15",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => b.hits - a.hits || b.share - a.share || a.ing.name.localeCompare(b.ing.name))"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 115,
+      "endLine": 115,
+      "branchId": "21",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return { ing, rank: starts ? 0 : contains ? 1 : sounds ? 2 : 3 };"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 115,
+      "endLine": 115,
+      "branchId": "22",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return { ing, rank: starts ? 0 : contains ? 1 : sounds ? 2 : 3 };"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 118,
+      "endLine": 118,
+      "branchId": "23",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => a.rank - b.rank || a.ing.name.localeCompare(b.ing.name))"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 118,
+      "endLine": 118,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => a.rank - b.rank || a.ing.name.localeCompare(b.ing.name))"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "branchId": "49",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 232,
+      "endLine": 232,
+      "branchId": "51",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "merged.set(id, { ingredientId: id, amount: total.amount, unit: total.unit, ...(found.optional && line.optional ? { optional: true } : {}) });"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 232,
+      "endLine": 232,
+      "branchId": "52",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "merged.set(id, { ingredientId: id, amount: total.amount, unit: total.unit, ...(found.optional && line.optional ? { optional: true } : {}) });"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 241,
+      "endLine": 241,
+      "branchId": "54",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "time: meta.time || 'Time not given',"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 242,
+      "endLine": 242,
+      "branchId": "55",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "notes: `Found online${meta.source.name ? ` at ${meta.source.name}` : ''}. Checked ${meta.source.checkedOn}.`,"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 250,
+      "endLine": 250,
+      "branchId": "57",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "source: { url: meta.source.url, ...(meta.source.name ? { name: meta.source.name } : {}), checkedOn: meta.source.checkedOn },"
+    },
+    {
+      "file": "app/src/domain/dishDraft.ts",
+      "line": 274,
+      "endLine": 274,
+      "branchId": "58",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "short: required.filter(n => n.status === 'short').map(n => ({ ingredientId: n.ingredientId, amount: n.short ?? 0 })),"
+    },
+    {
+      "file": "app/src/domain/dishMatch.ts",
+      "line": 153,
+      "endLine": 153,
+      "branchId": "22",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const alias = aliasLists.find(a => q.every(w => a.some(n => same(w, n)) || nameWords.some(n => same(w, n))));"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 53,
+      "endLine": 53,
+      "branchId": "3",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!raw || typeof raw !== 'object') return null;"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 66,
+      "endLine": 66,
+      "branchId": "9",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "cuisines: Array.isArray(r.cuisines) ? r.cuisines.slice(0, 6).map(c => cleanText(c, 30)).filter(Boolean) : [],"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 116,
+      "endLine": 116,
+      "branchId": "26",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const text = (storage ?? localStorage).getItem(STORAGE_KEY);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 119,
+      "endLine": 119,
+      "branchId": "28",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return r.ok ? r.list : null;"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 127,
+      "endLine": 127,
+      "branchId": "29",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "(storage ?? localStorage).setItem(STORAGE_KEY, JSON.stringify(list));"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 127,
+      "endLine": 127,
+      "branchId": "29",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "(storage ?? localStorage).setItem(STORAGE_KEY, JSON.stringify(list));"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 136,
+      "endLine": 136,
+      "branchId": "30",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "(storage ?? localStorage).removeItem(STORAGE_KEY);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 136,
+      "endLine": 136,
+      "branchId": "30",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "(storage ?? localStorage).removeItem(STORAGE_KEY);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 142,
+      "endLine": 142,
+      "branchId": "31",
+      "arm": 0,
+      "type": "default-arg",
+      "source": "export async function fetchShipped(fetcher: Fetcher = (u, i) => fetch(u, i)): Promise<EatOutList | null> {"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 145,
+      "endLine": 145,
+      "branchId": "32",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!res.ok) return null;"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 180,
+      "endLine": 180,
+      "branchId": "38",
+      "arm": 0,
+      "type": "if",
+      "source": "if (p.rating === null) return 'No rating yet';"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 181,
+      "endLine": 181,
+      "branchId": "39",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const reviews = p.reviews === null ? '' : ` (${p.reviews.toLocaleString('en-US')} reviews)`;"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "40",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "41",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "42",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "43",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "43",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "44",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 191,
+      "endLine": 191,
+      "branchId": "44",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const byRating = (a: EatOutPlace, b: EatOutPlace) => (b.rating ?? -1) - (a.rating ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0);"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 237,
+      "endLine": 237,
+      "branchId": "55",
+      "arm": 0,
+      "type": "if",
+      "source": "if (d <= 0) return 'today';"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "branchId": "58",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 248,
+      "endLine": 248,
+      "branchId": "62",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const x = a.lastOrderedOn ?? '', y = b.lastOrderedOn ?? '';"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 249,
+      "endLine": 249,
+      "branchId": "63",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return x === y ? a.dish.localeCompare(b.dish) : x < y ? -1 : 1; // '' (never) sorts first"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 277,
+      "endLine": 277,
+      "branchId": "68",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!place) return { ok: false, error: 'Type the place name.' };"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 286,
+      "endLine": 286,
+      "branchId": "73",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(area ? { area } : {}),"
+    },
+    {
+      "file": "app/src/domain/eatout.ts",
+      "line": 289,
+      "endLine": 289,
+      "branchId": "76",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(previous?.note ? { note: previous.note } : {}),"
+    },
+    {
+      "file": "app/src/domain/ledger.ts",
+      "line": 88,
+      "endLine": 88,
+      "branchId": "23",
+      "arm": 0,
+      "type": "if",
+      "source": "if (depth > events.length) return true; // malformed cycle: fail open, never loop"
+    },
+    {
+      "file": "app/src/domain/ledger.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "40",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return balance.amount > 0 ? 'yes' : 'no';"
+    },
+    {
+      "file": "app/src/domain/ledger.ts",
+      "line": 151,
+      "endLine": 151,
+      "branchId": "41",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!events.some(e => e.id === target.id)) throw new Error('That entry is not in the log.');"
+    },
+    {
+      "file": "app/src/domain/ledger.ts",
+      "line": 253,
+      "endLine": 253,
+      "branchId": "57",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => a.lastDate.localeCompare(b.lastDate) || a.recipeId.localeCompare(b.recipeId))"
+    },
+    {
+      "file": "app/src/domain/leftoverUse.ts",
+      "line": 34,
+      "endLine": 34,
+      "branchId": "4",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => a.useBy.localeCompare(b.useBy) || a.leftover.id.localeCompare(b.leftover.id));"
+    },
+    {
+      "file": "app/src/domain/leftoverUse.ts",
+      "line": 40,
+      "endLine": 40,
+      "branchId": "5",
+      "arm": 0,
+      "type": "if",
+      "source": "if (Number.isNaN(d.getTime())) return date;"
+    },
+    {
+      "file": "app/src/domain/leftoverUse.ts",
+      "branchId": "5",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/leftovers.ts",
+      "line": 48,
+      "endLine": 48,
+      "branchId": "5",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(change.note ? { note: change.note } : {}),"
+    },
+    {
+      "file": "app/src/domain/leftovers.ts",
+      "line": 58,
+      "endLine": 58,
+      "branchId": "8",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const location = change.location ?? l.location;"
+    },
+    {
+      "file": "app/src/domain/leftovers.ts",
+      "line": 61,
+      "endLine": 61,
+      "branchId": "10",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...l, location, ...(location === 'freezer' ? { frozenOn: change.localDate } : {}),"
+    },
+    {
+      "file": "app/src/domain/leftovers.ts",
+      "line": 78,
+      "endLine": 78,
+      "branchId": "12",
+      "arm": 0,
+      "type": "if",
+      "source": "if (days === null) return null;"
+    },
+    {
+      "file": "app/src/domain/leftovers.ts",
+      "line": 79,
+      "endLine": 79,
+      "branchId": "14",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return addDaysTo(l.location === 'freezer' ? (l.frozenOn ?? l.madeOn) : l.madeOn, days);"
+    },
+    {
+      "file": "app/src/domain/orderCosts.ts",
+      "line": 19,
+      "endLine": 19,
+      "branchId": "4",
+      "arm": 0,
+      "type": "if",
+      "source": "if (amount > MAX_ORDER_RS) return { ok: false, message: 'That amount looks too big.' };"
+    },
+    {
+      "file": "app/src/domain/orderCosts.ts",
+      "line": 30,
+      "endLine": 30,
+      "branchId": "6",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return o.repay && !o.repay.paidOn ? { ...o, repay: { ...o.repay, paidOn: today } } : o;"
+    },
+    {
+      "file": "app/src/domain/orderCosts.ts",
+      "line": 34,
+      "endLine": 34,
+      "branchId": "8",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!o.repay?.paidOn) return o;"
+    },
+    {
+      "file": "app/src/domain/orderCosts.ts",
+      "line": 47,
+      "endLine": 47,
+      "branchId": "11",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "export const replaceOrder = (list: OrderCost[], o: OrderCost): OrderCost[] => list.map(x => (x.id === o.id ? o : x));"
+    },
+    {
+      "file": "app/src/domain/orderCosts.ts",
+      "line": 47,
+      "endLine": 47,
+      "branchId": "11",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "export const replaceOrder = (list: OrderCost[], o: OrderCost): OrderCost[] => list.map(x => (x.id === o.id ? o : x));"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 58,
+      "endLine": 58,
+      "branchId": "9",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const base = toBase(amount, input.unit ?? '', ing);"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 69,
+      "endLine": 71,
+      "branchId": "14",
+      "arm": 0,
+      "type": "if",
+      "source": "if (input.priceRs !== undefined && (!Number.isFinite(input.priceRs) || input.priceRs < 0)) {"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 94,
+      "endLine": 94,
+      "branchId": "20",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": ": ingredient.dimension === 'volume' ? [{ amount: 250, unit: 'ml' }, { amount: 500, unit: 'ml' }, { amount: 1, unit: 'L' }]"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "22",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "22",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "23",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "24",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "24",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "25",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "25",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 102,
+      "endLine": 102,
+      "branchId": "25",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "return unit === 'g' || unit === 'ml' ? 50 : unit === 'kg' || unit === 'L' || unit === 'cup' ? 0.5 : 1;"
+    },
+    {
+      "file": "app/src/domain/pantryActions.ts",
+      "line": 110,
+      "endLine": 110,
+      "branchId": "27",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return Number.isFinite(n) ? n : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "branchId": "5",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 86,
+      "endLine": 86,
+      "branchId": "8",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return words.length ? matchIngredient(words.join(' '), ingredients) : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 95,
+      "endLine": 95,
+      "branchId": "11",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "if (amount === null) return { ok: false, reason: mode === 'pantry' ? 'How much is left?' : 'How much did you buy?' };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 96,
+      "endLine": 96,
+      "branchId": "12",
+      "arm": 0,
+      "type": "if",
+      "source": "if (mode === 'purchase' && amount <= 0) return { ok: false, reason: 'Enter an amount above zero.' };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 97,
+      "endLine": 97,
+      "branchId": "14",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!line.unit) return { ok: false, reason: 'Choose a unit.' };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 110,
+      "endLine": 110,
+      "branchId": "18",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return line.unsure ? 'Gemini was not sure' : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 125,
+      "endLine": 125,
+      "branchId": "19",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!c.ok) return null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 126,
+      "endLine": 126,
+      "branchId": "20",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const before = balance ? balance.amount : 0;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 127,
+      "endLine": 127,
+      "branchId": "22",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "if (mode === 'purchase') return { ok: true, before, after: before === null ? null : round3(before + c.value), delta: c.value };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 128,
+      "endLine": 128,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return { ok: true, before, after: c.value, delta: round3(c.value - (before ?? 0)) };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 134,
+      "endLine": 134,
+      "branchId": "26",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const preferred = packageUnit && unitsFor(ing).includes(packageUnit) ? packageUnit : quickAmounts(ing)[0]?.unit ?? '';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 134,
+      "endLine": 134,
+      "branchId": "28",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "const preferred = packageUnit && unitsFor(ing).includes(packageUnit) ? packageUnit : quickAmounts(ing)[0]?.unit ?? '';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 134,
+      "endLine": 134,
+      "branchId": "28",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const preferred = packageUnit && unitsFor(ing).includes(packageUnit) ? packageUnit : quickAmounts(ing)[0]?.unit ?? '';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 140,
+      "endLine": 140,
+      "branchId": "30",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const pieces = (count: number) => (!ing || toBase(1, 'pc', ing).ok ? { amount: String(count), unit: 'pc' } : null);"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 140,
+      "endLine": 140,
+      "branchId": "30",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const pieces = (count: number) => (!ing || toBase(1, 'pc', ing).ok ? { amount: String(count), unit: 'pc' } : null);"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 140,
+      "endLine": 140,
+      "branchId": "31",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "const pieces = (count: number) => (!ing || toBase(1, 'pc', ing).ok ? { amount: String(count), unit: 'pc' } : null);"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 140,
+      "endLine": 140,
+      "branchId": "31",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const pieces = (count: number) => (!ing || toBase(1, 'pc', ing).ok ? { amount: String(count), unit: 'pc' } : null);"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "branchId": "35",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "36",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const p = item.count !== null ? pieces(item.count) : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "36",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const p = item.count !== null ? pieces(item.count) : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 147,
+      "endLine": 147,
+      "branchId": "37",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return { ...(p ?? { amount: '', unit: '' }), packageNote };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 151,
+      "endLine": 151,
+      "branchId": "39",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const p = item.count !== null && !item.packageSize ? pieces(item.count) : null;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 188,
+      "endLine": 188,
+      "branchId": "44",
+      "arm": 0,
+      "type": "if",
+      "source": "if (rows.length > 40) errors.push('That is a lot for one list. Keep it to 40 lines.');"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 194,
+      "endLine": 194,
+      "branchId": "46",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const typedUnit = withUnit({ amount: '', unit: q.amount === null ? '' : q.unit }, ing).unit;"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 200,
+      "endLine": 200,
+      "branchId": "48",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "amount: q.amount === null ? '' : String(q.amount),"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 202,
+      "endLine": 202,
+      "branchId": "49",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "basis: q.basis === 'estimate' ? 'estimate' : 'measured',"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 238,
+      "endLine": 238,
+      "branchId": "52",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "(inc.ingredientId ? l.ingredientId === inc.ingredientId : !l.ingredientId && !l.newIngredient && l.label.toLowerCase() === inc.label.toLowerCase()));"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 238,
+      "endLine": 238,
+      "branchId": "53",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "(inc.ingredientId ? l.ingredientId === inc.ingredientId : !l.ingredientId && !l.newIngredient && l.label.toLowerCase() === inc.label.toLowerCase()));"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 238,
+      "endLine": 238,
+      "branchId": "53",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "(inc.ingredientId ? l.ingredientId === inc.ingredientId : !l.ingredientId && !l.newIngredient && l.label.toLowerCase() === inc.label.toLowerCase()));"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 238,
+      "endLine": 238,
+      "branchId": "53",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "(inc.ingredientId ? l.ingredientId === inc.ingredientId : !l.ingredientId && !l.newIngredient && l.label.toLowerCase() === inc.label.toLowerCase()));"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 255,
+      "endLine": 255,
+      "branchId": "60",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "photoKinds: origin === 'photo' ? [...draft.photoKinds, kind] : draft.photoKinds,"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 258,
+      "endLine": 258,
+      "branchId": "61",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "notes: note ? [...draft.notes, note] : draft.notes,"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 281,
+      "endLine": 281,
+      "branchId": "67",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const unitOk = accepted.includes(normaliseUnit(prev.unit) ?? prev.unit);"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 286,
+      "endLine": 286,
+      "branchId": "69",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "unit: unitOk ? prev.unit : (quickAmounts(ing)[0]?.unit ?? accepted[0] ?? ''),"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 286,
+      "endLine": 286,
+      "branchId": "70",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "unit: unitOk ? prev.unit : (quickAmounts(ing)[0]?.unit ?? accepted[0] ?? ''),"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 286,
+      "endLine": 286,
+      "branchId": "70",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "unit: unitOk ? prev.unit : (quickAmounts(ing)[0]?.unit ?? accepted[0] ?? ''),"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 286,
+      "endLine": 286,
+      "branchId": "70",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "unit: unitOk ? prev.unit : (quickAmounts(ing)[0]?.unit ?? accepted[0] ?? ''),"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 287,
+      "endLine": 287,
+      "branchId": "71",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "amount: unitOk ? prev.amount : '',"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 290,
+      "endLine": 290,
+      "branchId": "72",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return { ...next, on: isReady(next, ing, mode) && !isReady(prev, prevIng, mode) ? true : next.on && checkLine(next, ing, mode).ok };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 290,
+      "endLine": 290,
+      "branchId": "74",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "return { ...next, on: isReady(next, ing, mode) && !isReady(prev, prevIng, mode) ? true : next.on && checkLine(next, ing, mode).ok };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 290,
+      "endLine": 290,
+      "branchId": "74",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return { ...next, on: isReady(next, ing, mode) && !isReady(prev, prevIng, mode) ? true : next.on && checkLine(next, ing, mode).ok };"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 294,
+      "endLine": 294,
+      "branchId": "75",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "amount: patch.amount ?? prev.amount,"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 307,
+      "endLine": 307,
+      "branchId": "80",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return ing ? unitsFor(ing) : [...KNOWN_UNITS];"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 307,
+      "endLine": 307,
+      "branchId": "80",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return ing ? unitsFor(ing) : [...KNOWN_UNITS];"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 314,
+      "endLine": 314,
+      "branchId": "81",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const clean = name.replace(/\\s+/g, ' ').trim().slice(0, 60) || 'New ingredient';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 315,
+      "endLine": 315,
+      "branchId": "82",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const slug = clean.replace(/[^\\p{L}\\p{N}]+/gu, '_').replace(/^_+|_+$/g, '') || 'Item';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 355,
+      "endLine": 355,
+      "branchId": "89",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const source = draft.photoKinds.length === 0 ? 'typed' : draft.photoKinds.includes('receipt') ? 'receipt' : 'photo';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 366,
+      "endLine": 366,
+      "branchId": "95",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const from = source === 'receipt' ? 'receipt' : source === 'photo' ? 'photo' : 'list';"
+    },
+    {
+      "file": "app/src/domain/photoDraft.ts",
+      "line": 369,
+      "endLine": 369,
+      "branchId": "98",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": ": `Updated ${n} ${n === 1 ? 'amount' : 'amounts'} from your ${from}.`;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 30,
+      "endLine": 30,
+      "branchId": "0",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const day = plan.filter(m => m.localDate === date).sort((a, b) => slotRank(a.slot) - slotRank(b.slot) || a.id.localeCompare(b.id));"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 61,
+      "endLine": 61,
+      "branchId": "4",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "export const clampServings = (n: number) => Math.max(1, Math.min(30, Math.round(Number.isFinite(n) ? n : 1)));"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 73,
+      "endLine": 73,
+      "branchId": "7",
+      "arm": 0,
+      "type": "if",
+      "source": "if (index < 0 || index >= meal.items.length) return meal;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 113,
+      "endLine": 113,
+      "branchId": "12",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!item || item.kind !== 'leftover') return meal;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 114,
+      "endLine": 114,
+      "branchId": "14",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return { ...meal, items: meal.items.map((it, i) => (i === index ? { ...item, usedOn: localDate } : it)) };"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 120,
+      "endLine": 120,
+      "branchId": "15",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!item || item.kind !== 'dish') return meal;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 155,
+      "endLine": 155,
+      "branchId": "24",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => (a.localDate < b.localDate ? -1 : a.localDate > b.localDate ? 1 : slotRank(a.slot) - slotRank(b.slot) || a.id.localeCompare(b.id)));"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "branchId": "27",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 177,
+      "endLine": 177,
+      "branchId": "28",
+      "arm": 0,
+      "type": "if",
+      "source": "if (ri.optional) continue;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 179,
+      "endLine": 179,
+      "branchId": "29",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const r = ing ? toBase(ri.amount * scale, ri.unit, ing) : null;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 182,
+      "endLine": 182,
+      "branchId": "32",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "else out.set(ri.ingredientId, prev === null ? null : (prev ?? 0) + r.value);"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 238,
+      "endLine": 238,
+      "branchId": "40",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const have = b ? (b.amount as number) : 0;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "line": 265,
+      "endLine": 265,
+      "branchId": "48",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return dishes.length ? { kind: 'dish', meal, dishes } : null;"
+    },
+    {
+      "file": "app/src/domain/plan.ts",
+      "branchId": "52",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/planTestKit.ts",
+      "line": 18,
+      "endLine": 18,
+      "branchId": "1",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "id, name, serves: 4, time: '1 hr', notes: '', version: 1, ...(meals ? { meals } : {}),"
+    },
+    {
+      "file": "app/src/domain/planTestKit.ts",
+      "line": 40,
+      "endLine": 40,
+      "branchId": "5",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "items: recipeIds.map(rid => ({ kind: 'dish' as const, recipeId: rid, recipeName: recipes.find(x => x.id === rid)?.name ?? rid })),"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 89,
+      "endLine": 89,
+      "branchId": "2",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "meals: recipe.meals ? [...recipe.meals] : [],"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 94,
+      "endLine": 94,
+      "branchId": "3",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "unit: normaliseUnit(i.unit) ?? i.unit,"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 105,
+      "endLine": 105,
+      "branchId": "8",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const clampServes = (n: number) => Math.min(MAX_SERVES, Math.max(1, Math.round(Number.isFinite(n) ? n : 1)));"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 132,
+      "endLine": 132,
+      "branchId": "15",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return ok.length > 0 ? [...ok] : [normaliseUnit(ingredient.displayUnit) ?? ingredient.displayUnit];"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 132,
+      "endLine": 132,
+      "branchId": "16",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "return ok.length > 0 ? [...ok] : [normaliseUnit(ingredient.displayUnit) ?? ingredient.displayUnit];"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 132,
+      "endLine": 132,
+      "branchId": "16",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return ok.length > 0 ? [...ok] : [normaliseUnit(ingredient.displayUnit) ?? ingredient.displayUnit];"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 141,
+      "endLine": 141,
+      "branchId": "21",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return display && options.includes(display) ? display : options[0];"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 155,
+      "endLine": 155,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "export const amountStep = (unit: string): number => STEP_BY_UNIT[unit] ?? 0.5;"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "25",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "25",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "26",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "26",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "27",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "27",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "28",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "28",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "export const defaultAmountText = (unit: string): string => formatAmountText(amountChips(unit)[unit === 'g' || unit === 'ml' ? 1 : unit === 'pc' ? 0 : 1] ?? 1);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 184,
+      "endLine": 184,
+      "branchId": "33",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const dimension = unit ? DIMENSION_OF_UNIT[unit] : undefined;"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 193,
+      "endLine": 193,
+      "branchId": "38",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "for (let n = 2; taken.has(id); n++) id = `${base || 'I'}_${n}`;"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 193,
+      "endLine": 193,
+      "branchId": "38",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "for (let n = 2; taken.has(id); n++) id = `${base || 'I'}_${n}`;"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 250,
+      "endLine": 250,
+      "branchId": "48",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const converted = unit ? toBase(amount, unit, ingredient) : null;"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 261,
+      "endLine": 261,
+      "branchId": "57",
+      "arm": 0,
+      "type": "if",
+      "source": "if (steps.length > MAX_STEPS) errors.push(`Keep it to ${MAX_STEPS} steps or fewer.`);"
+    },
+    {
+      "file": "app/src/domain/recipeForm.ts",
+      "line": 316,
+      "endLine": 316,
+      "branchId": "79",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "? data.recipes.map(r => (r.id === recipe.id ? recipe : r))"
+    },
+    {
+      "file": "app/src/domain/shopPrefs.ts",
+      "line": 33,
+      "endLine": 33,
+      "branchId": "0",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "export const shopPrefsOf = (saved: ShopPrefs | undefined): ShopPrefs => saved ?? defaultShopPrefs();"
+    },
+    {
+      "file": "app/src/domain/shopPrefs.ts",
+      "line": 33,
+      "endLine": 33,
+      "branchId": "0",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "export const shopPrefsOf = (saved: ShopPrefs | undefined): ShopPrefs => saved ?? defaultShopPrefs();"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 29,
+      "endLine": 31,
+      "branchId": "2",
+      "arm": 0,
+      "type": "if",
+      "source": "if (found.amountBase === null) amountBase = add.amountBase;"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 30,
+      "endLine": 31,
+      "branchId": "3",
+      "arm": 0,
+      "type": "if",
+      "source": "else if (add.amountBase === null) amountBase = found.amountBase;"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 32,
+      "endLine": 32,
+      "branchId": "5",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const reason: ShopReason = found.reason === 'dish' || add.reason === 'dish' ? 'dish' : 'low-stock';"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 56,
+      "endLine": 56,
+      "branchId": "13",
+      "arm": 0,
+      "type": "if",
+      "source": "if (ing.minStock === undefined) continue;"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 92,
+      "endLine": 92,
+      "branchId": "19",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const aisle = byId.get(item.ingredientId)?.aisle ?? 'Other';"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 96,
+      "endLine": 96,
+      "branchId": "21",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "[...items].sort((a, b) => (order.get(a.ingredientId) ?? 1e9) - (order.get(b.ingredientId) ?? 1e9));"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 96,
+      "endLine": 96,
+      "branchId": "21",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "[...items].sort((a, b) => (order.get(a.ingredientId) ?? 1e9) - (order.get(b.ingredientId) ?? 1e9));"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 96,
+      "endLine": 96,
+      "branchId": "22",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "[...items].sort((a, b) => (order.get(a.ingredientId) ?? 1e9) - (order.get(b.ingredientId) ?? 1e9));"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 96,
+      "endLine": 96,
+      "branchId": "22",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "[...items].sort((a, b) => (order.get(a.ingredientId) ?? 1e9) - (order.get(b.ingredientId) ?? 1e9));"
+    },
+    {
+      "file": "app/src/domain/shopping.ts",
+      "line": 109,
+      "endLine": 109,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const name = ing?.name ?? item.ingredientId;"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 23,
+      "endLine": 23,
+      "branchId": "0",
+      "arm": 0,
+      "type": "if",
+      "source": "if (typeof value !== 'string') return false;"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "branchId": "10",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "40",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return (x?.aisle ?? 'Other').localeCompare(y?.aisle ?? 'Other') || (x?.name ?? a.ingredientId).localeCompare(y?.name ?? b.ingredientId);"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "41",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return (x?.aisle ?? 'Other').localeCompare(y?.aisle ?? 'Other') || (x?.name ?? a.ingredientId).localeCompare(y?.name ?? b.ingredientId);"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 146,
+      "endLine": 146,
+      "branchId": "42",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return (x?.aisle ?? 'Other').localeCompare(y?.aisle ?? 'Other') || (x?.name ?? a.ingredientId).localeCompare(y?.name ?? b.ingredientId);"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 186,
+      "endLine": 186,
+      "branchId": "50",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "for (const l of sorted) { const a = ings.get(l.ingredientId)?.aisle ?? 'Other'; if (!aisles.includes(a)) aisles.push(a); }"
+    },
+    {
+      "file": "app/src/domain/stores.ts",
+      "line": 188,
+      "endLine": 188,
+      "branchId": "52",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "blocks.push([aisle, ...sorted.filter(l => (ings.get(l.ingredientId)?.aisle ?? 'Other') === aisle).map(l => {"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 47,
+      "endLine": 47,
+      "branchId": "0",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const converted = ingredient ? toBase(ri.amount * scale, ri.unit, ingredient) : null;"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 67,
+      "endLine": 67,
+      "branchId": "12",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (n.status === 'short' && n.need) return Math.min(1, (n.have ?? 0) / n.need);"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 70,
+      "endLine": 70,
+      "branchId": "13",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const coverage = shares.length ? shares.reduce((a, b) => a + b, 0) / shares.length : 1;"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 147,
+      "endLine": 147,
+      "branchId": "24",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "reasons.push(days <= 0 ? 'Made today' : days === 1 ? 'Made yesterday' : `Last made ${days} days ago`);"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 155,
+      "endLine": 155,
+      "branchId": "27",
+      "arm": 0,
+      "type": "if",
+      "source": "if (favourites.has(recipe.id)) { score += 10; reasons.push('A favourite'); }"
+    },
+    {
+      "file": "app/src/domain/suggest.ts",
+      "line": 164,
+      "endLine": 164,
+      "branchId": "29",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return !recipe.meals || recipe.meals.includes(slot);"
+    },
+    {
+      "file": "app/src/domain/trip.ts",
+      "line": 47,
+      "endLine": 47,
+      "branchId": "7",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return one.ok ? one.value : 1;"
+    },
+    {
+      "file": "app/src/domain/trip.ts",
+      "line": 50,
+      "endLine": 50,
+      "branchId": "8",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "export const isPicked = (trip: Trip, ingredientId: string): boolean => (trip.got[ingredientId] ?? 0) > EPS;"
+    },
+    {
+      "file": "app/src/domain/trip.ts",
+      "line": 50,
+      "endLine": 50,
+      "branchId": "8",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "export const isPicked = (trip: Trip, ingredientId: string): boolean => (trip.got[ingredientId] ?? 0) > EPS;"
+    },
+    {
+      "file": "app/src/domain/units.ts",
+      "line": 117,
+      "endLine": 117,
+      "branchId": "21",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (ingredient.dimension === 'count' || Number.isInteger(amount * 4)) return { amount, unit: ingredient.displayUnit.trim() || preferred };"
+    },
+    {
+      "file": "app/src/domain/units.ts",
+      "line": 186,
+      "endLine": 186,
+      "branchId": "28",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const body = (match.groups?.body ?? '').trim();"
+    },
+    {
+      "file": "app/src/domain/units.ts",
+      "line": 189,
+      "endLine": 189,
+      "branchId": "30",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!Number.isFinite(amount)) return { error: `\"${body}\" is not an amount.` };"
+    },
+    {
+      "file": "app/src/domain/units.ts",
+      "line": 197,
+      "endLine": 197,
+      "branchId": "32",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const start = match.index ?? 0;"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 50,
+      "endLine": 51,
+      "branchId": "0",
+      "arm": 4,
+      "type": "switch",
+      "source": "case 'dozen':"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 74,
+      "endLine": 74,
+      "branchId": "3",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const name = ingredient?.name ?? need.ingredientId;"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "branchId": "6",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 90,
+      "endLine": 90,
+      "branchId": "8",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const unit = ri ? normaliseUnit(ri.unit) ?? ri.unit : '';"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 90,
+      "endLine": 90,
+      "branchId": "9",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const unit = ri ? normaliseUnit(ri.unit) ?? ri.unit : '';"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 91,
+      "endLine": 91,
+      "branchId": "10",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const recipeAmount = ri ? round2(ri.amount * scale) : 0;"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 92,
+      "endLine": 92,
+      "branchId": "11",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const one = ingredient && ri ? toBase(1, ri.unit, ingredient) : null;"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 93,
+      "endLine": 98,
+      "branchId": "13",
+      "arm": 0,
+      "type": "if",
+      "source": "if (ingredient && ri && one && one.ok && one.value > 0) {"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 93,
+      "endLine": 93,
+      "branchId": "14",
+      "arm": 4,
+      "type": "binary-expr",
+      "source": "if (ingredient && ri && one && one.ok && one.value > 0) {"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 101,
+      "endLine": 101,
+      "branchId": "15",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "reason: one && !one.ok ? one.reason : `${name} has no rule for ${unit || 'its unit'} yet.`,"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 101,
+      "endLine": 101,
+      "branchId": "17",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "reason: one && !one.ok ? one.reason : `${name} has no rule for ${unit || 'its unit'} yet.`,"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 101,
+      "endLine": 101,
+      "branchId": "17",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "reason: one && !one.ok ? one.reason : `${name} has no rule for ${unit || 'its unit'} yet.`,"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 108,
+      "endLine": 108,
+      "branchId": "18",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const r = line.recipeBase ?? 0;"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 139,
+      "endLine": 139,
+      "branchId": "24",
+      "arm": 0,
+      "type": "if",
+      "source": "if (line.recipeBase !== null && round2(value) === line.recipeAmount) return { ok: true, base: line.recipeBase };"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 141,
+      "endLine": 141,
+      "branchId": "26",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return r.ok ? { ok: true, base: round3(r.value) } : { ok: false, error: r.reason };"
+    },
+    {
+      "file": "app/src/domain/usage.ts",
+      "line": 157,
+      "endLine": 157,
+      "branchId": "29",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".filter(l => l.editable && (used[l.ingredientId] ?? 0) > 0)"
+    },
+    {
+      "file": "app/src/domain/waste.ts",
+      "line": 43,
+      "endLine": 43,
+      "branchId": "5",
+      "arm": 0,
+      "type": "if",
+      "source": "if (m.delta >= 0) continue;"
+    },
+    {
+      "file": "app/src/domain/waste.ts",
+      "line": 62,
+      "endLine": 62,
+      "branchId": "13",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "thrownLeftovers.sort((a, b) => b.localDate.localeCompare(a.localDate) || a.leftoverId.localeCompare(b.leftoverId));"
+    },
+    {
+      "file": "app/src/domain/waste.ts",
+      "line": 62,
+      "endLine": 62,
+      "branchId": "13",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "thrownLeftovers.sort((a, b) => b.localDate.localeCompare(a.localDate) || a.leftoverId.localeCompare(b.leftoverId));"
+    },
+    {
+      "file": "app/src/domain/waste.ts",
+      "line": 70,
+      "endLine": 70,
+      "branchId": "14",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => b.amount - a.amount || a.ingredientId.localeCompare(b.ingredientId)),"
+    },
+    {
+      "file": "app/src/domain/waste.ts",
+      "line": 70,
+      "endLine": 70,
+      "branchId": "14",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": ".sort((a, b) => b.amount - a.amount || a.ingredientId.localeCompare(b.ingredientId)),"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 70,
+      "endLine": 70,
+      "branchId": "1",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const doFetch = options.fetchImpl ?? ((...args: Parameters<typeof fetch>) => fetch(...args));"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 75,
+      "endLine": 75,
+      "branchId": "6",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const sleep = options.sleep ?? ((ms: number) => new Promise<void>(r => setTimeout(r, ms)));"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 108,
+      "endLine": 108,
+      "branchId": "12",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(request.system ? { systemInstruction: { parts: [{ text: request.system }] } } : {}),"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 113,
+      "endLine": 113,
+      "branchId": "15",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "...(request.maxOutputTokens ? { maxOutputTokens: request.maxOutputTokens } : {}),"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 140,
+      "endLine": 140,
+      "branchId": "26",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (res.status === 401 || res.status === 403 || (res.status === 400 && /api key|API_KEY/i.test(data.error?.message ?? ''))) {"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 143,
+      "endLine": 143,
+      "branchId": "27",
+      "arm": 0,
+      "type": "if",
+      "source": "if (res.status === 429) throw new GeminiError('rate-limit', 'Gemini is busy or the free limit is used up. Try again later.', true);"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "branchId": "28",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 152,
+      "endLine": 152,
+      "branchId": "30",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const text = (candidate?.content?.parts ?? []).map(p => p.text ?? '').join('').trim();"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 152,
+      "endLine": 152,
+      "branchId": "31",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const text = (candidate?.content?.parts ?? []).map(p => p.text ?? '').join('').trim();"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 153,
+      "endLine": 155,
+      "branchId": "32",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!candidate || (!text && candidate.finishReason && candidate.finishReason !== 'STOP')) {"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 153,
+      "endLine": 153,
+      "branchId": "33",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "if (!candidate || (!text && candidate.finishReason && candidate.finishReason !== 'STOP')) {"
+    },
+    {
+      "file": "app/src/gemini/client.ts",
+      "line": 153,
+      "endLine": 153,
+      "branchId": "33",
+      "arm": 3,
+      "type": "binary-expr",
+      "source": "if (!candidate || (!text && candidate.finishReason && candidate.finishReason !== 'STOP')) {"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 107,
+      "endLine": 107,
+      "branchId": "4",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!url) return false;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 112,
+      "endLine": 112,
+      "branchId": "5",
+      "arm": 0,
+      "type": "if",
+      "source": "if (host === 'youtu.be') return u.pathname.slice(1) || null;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 112,
+      "endLine": 112,
+      "branchId": "6",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "if (host === 'youtu.be') return u.pathname.slice(1) || null;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 112,
+      "endLine": 112,
+      "branchId": "6",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (host === 'youtu.be') return u.pathname.slice(1) || null;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 113,
+      "endLine": 113,
+      "branchId": "8",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (host.endsWith('youtube.com')) return u.searchParams.get('v') ?? (/^\\/(shorts|embed|live)\\/([^/]+)/.exec(u.pathname)?.[2] ?? null);"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 113,
+      "endLine": 113,
+      "branchId": "8",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "if (host.endsWith('youtube.com')) return u.searchParams.get('v') ?? (/^\\/(shorts|embed|live)\\/([^/]+)/.exec(u.pathname)?.[2] ?? null);"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 133,
+      "endLine": 133,
+      "branchId": "15",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const desc = (a: number | null, b: number | null) => (a === b ? 0 : a === null ? 1 : b === null ? -1 : b - a);"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 165,
+      "endLine": 165,
+      "branchId": "24",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "sourceName: cleanText(o.sourceName, 60) || hostOf(sourceUrl),"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 217,
+      "endLine": 217,
+      "branchId": "34",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!item || typeof item !== 'object') continue;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 234,
+      "endLine": 234,
+      "branchId": "43",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const steps = (Array.isArray(o.steps) ? o.steps : [])"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 292,
+      "endLine": 292,
+      "branchId": "52",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return `★ ${c.rating}${n !== null ? ` (${n.toLocaleString('en-GB')} ${n === 1 ? 'rating' : 'ratings'})` : ''}`;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "line": 292,
+      "endLine": 292,
+      "branchId": "53",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return `★ ${c.rating}${n !== null ? ` (${n.toLocaleString('en-GB')} ${n === 1 ? 'rating' : 'ratings'})` : ''}`;"
+    },
+    {
+      "file": "app/src/gemini/dish.ts",
+      "branchId": "55",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/errors.ts",
+      "line": 24,
+      "endLine": 24,
+      "branchId": "0",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return isGeminiError(e) ? e.message : 'Something went wrong. You can still add things by hand.';"
+    },
+    {
+      "file": "app/src/gemini/errors.ts",
+      "line": 24,
+      "endLine": 24,
+      "branchId": "0",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return isGeminiError(e) ? e.message : 'Something went wrong. You can still add things by hand.';"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "3",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!width || !height) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "branchId": "3",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "4",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "if (!width || !height) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 31,
+      "endLine": 31,
+      "branchId": "4",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (!width || !height) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 36,
+      "endLine": 36,
+      "branchId": "5",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!context) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "branchId": "5",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 41,
+      "endLine": 41,
+      "branchId": "6",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!blob) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "branchId": "6",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 44,
+      "endLine": 44,
+      "branchId": "7",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "reader.onload = () => resolve(String(reader.result).split(',')[1] ?? '');"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 44,
+      "endLine": 44,
+      "branchId": "7",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "reader.onload = () => resolve(String(reader.result).split(',')[1] ?? '');"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 48,
+      "endLine": 48,
+      "branchId": "8",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!data) throw badPhoto();"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "branchId": "8",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/gemini/photo.ts",
+      "line": 161,
+      "endLine": 161,
+      "branchId": "23",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return { ok: false, message: e instanceof GeminiError ? e.message : 'Something went wrong. Try again.' };"
+    },
+    {
+      "file": "app/src/lib/localDate.ts",
+      "line": 16,
+      "endLine": 16,
+      "branchId": "1",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const get = (type: Intl.DateTimeFormatPartTypes) => parts.find(p => p.type === type)?.value ?? '';"
+    },
+    {
+      "file": "app/src/lib/localDate.ts",
+      "line": 40,
+      "endLine": 40,
+      "branchId": "5",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const get = (type: Intl.DateTimeFormatPartTypes) => parts.find(p => p.type === type)?.value ?? '00';"
+    },
+    {
+      "file": "app/src/lib/localDate.ts",
+      "line": 49,
+      "endLine": 49,
+      "branchId": "6",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const n = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find(p => p.type === type)?.value ?? 0);"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 82,
+      "endLine": 82,
+      "branchId": "7",
+      "arm": 0,
+      "type": "if",
+      "source": "if (Array.isArray(value)) return value.map(withoutSecrets) as T;"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "branchId": "14",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 477,
+      "endLine": 477,
+      "branchId": "56",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "preferred: Object.fromEntries(Object.entries((o.preferred ?? {}) as Record<string, unknown>)"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 483,
+      "endLine": 483,
+      "branchId": "57",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "atAmount: d.atAmount === null ? null : optional(d.atAmount, x => c.number(x, `${path}.dismissed[${i}].atAmount`, { min: 0 })),"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 488,
+      "endLine": 488,
+      "branchId": "58",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "got: Object.fromEntries(Object.entries((t.got ?? {}) as Record<string, unknown>)"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 534,
+      "endLine": 534,
+      "branchId": "63",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "if (!known.includes(key)) this.report(path ? `${path}.${key}` : key, 'is not a field this app knows.');"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 547,
+      "endLine": 547,
+      "branchId": "68",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "this.report(path, value === undefined ? 'is missing.' : `must be text, got ${show(value)}.`);"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 550,
+      "endLine": 550,
+      "branchId": "69",
+      "arm": 0,
+      "type": "if",
+      "source": "if (rule.nonEmpty && value.trim() === '') this.report(path, 'must not be empty.');"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 556,
+      "endLine": 556,
+      "branchId": "73",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "this.report(path, value === undefined ? 'is missing.' : `must be a number, got ${show(value)}.`);"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 600,
+      "endLine": 602,
+      "branchId": "92",
+      "arm": 0,
+      "type": "if",
+      "source": "if (typeof value === 'string' && !(iso.test(text) && Number.isFinite(Date.parse(text)))) {"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 624,
+      "endLine": 627,
+      "branchId": "99",
+      "arm": 0,
+      "type": "if",
+      "source": "if (!isFields(value)) {"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 630,
+      "endLine": 630,
+      "branchId": "100",
+      "arm": 0,
+      "type": "if",
+      "source": "if (unit.trim() === '') this.report(path, 'has an empty unit name.');"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 694,
+      "endLine": 694,
+      "branchId": "110",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const text = JSON.stringify(value) ?? String(value);"
+    },
+    {
+      "file": "app/src/storage/backup.ts",
+      "line": 695,
+      "endLine": 695,
+      "branchId": "111",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return text.length > 40 ? `${text.slice(0, 37)}...` : text;"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "branchId": "3",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "branchId": "4",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 252,
+      "endLine": 252,
+      "branchId": "10",
+      "arm": 1,
+      "type": "switch",
+      "source": "case 'recipe': return saveRecipe(db, write.recipe);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 254,
+      "endLine": 254,
+      "branchId": "10",
+      "arm": 3,
+      "type": "switch",
+      "source": "case 'ingredient': return saveIngredient(db, write.ingredient);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 256,
+      "endLine": 256,
+      "branchId": "10",
+      "arm": 5,
+      "type": "switch",
+      "source": "case 'shopping': return saveShopping(db, write.list);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 262,
+      "endLine": 262,
+      "branchId": "10",
+      "arm": 11,
+      "type": "switch",
+      "source": "case 'deletePlan': return deleteItem(db, 'plan', write.id);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 266,
+      "endLine": 266,
+      "branchId": "10",
+      "arm": 15,
+      "type": "switch",
+      "source": "case 'deleteBatch': return deleteItem(db, 'batches', write.id);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 268,
+      "endLine": 268,
+      "branchId": "10",
+      "arm": 17,
+      "type": "switch",
+      "source": "case 'deleteFavourite': return deleteItem(db, 'favourites', write.id);"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 290,
+      "endLine": 294,
+      "branchId": "14",
+      "arm": 0,
+      "type": "if",
+      "source": "if (schemaVersion === undefined || settings === undefined) {"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 292,
+      "endLine": 292,
+      "branchId": "16",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "`The saved kitchen is incomplete (no ${schemaVersion === undefined ? 'schema version' : 'settings'}).`,"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 292,
+      "endLine": 292,
+      "branchId": "16",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "`The saved kitchen is incomplete (no ${schemaVersion === undefined ? 'schema version' : 'settings'}).`,"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 295,
+      "endLine": 297,
+      "branchId": "17",
+      "arm": 0,
+      "type": "if",
+      "source": "if (schemaVersion !== SCHEMA_VERSION) {"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 299,
+      "endLine": 299,
+      "branchId": "18",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "plan.sort((a, b) => (a.localDate + a.slot < b.localDate + b.slot ? -1 : 1));"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 299,
+      "endLine": 299,
+      "branchId": "18",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "plan.sort((a, b) => (a.localDate + a.slot < b.localDate + b.slot ? -1 : 1));"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "branchId": "25",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 314,
+      "endLine": 314,
+      "branchId": "26",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 314,
+      "endLine": 314,
+      "branchId": "26",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 314,
+      "endLine": 314,
+      "branchId": "27",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 314,
+      "endLine": 314,
+      "branchId": "27",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 335,
+      "endLine": 335,
+      "branchId": "30",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": ": `The saved kitchen uses schema version ${String(version)}; this app writes version ${SCHEMA_VERSION}.`,"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 399,
+      "endLine": 399,
+      "branchId": "34",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "queued.push(data.shopPrefs ? meta.put(data.shopPrefs, 'shopPrefs') : meta.delete('shopPrefs'));"
+    },
+    {
+      "file": "app/src/storage/db.ts",
+      "line": 400,
+      "endLine": 400,
+      "branchId": "35",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "queued.push(data.orderCosts?.length ? meta.put(data.orderCosts, 'orderCosts') : meta.delete('orderCosts'));"
+    },
+    {
+      "file": "app/src/storage/refreshStarter.ts",
+      "line": 24,
+      "endLine": 24,
+      "branchId": "2",
+      "arm": 0,
+      "type": "if",
+      "source": "for (const fresh of starter.ingredients) if (!savedIngredients.has(fresh.id)) ingredients.push(fresh);"
+    },
+    {
+      "file": "app/src/storage/refreshStarter.ts",
+      "branchId": "2",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 62,
+      "endLine": 62,
+      "branchId": "1",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const found = options.storage === undefined ? findLocalStorage() : { storage: options.storage };"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 74,
+      "endLine": 74,
+      "branchId": "5",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "? `${pending.length === 1 ? '1 change' : `${pending.length} changes`} from last time ${pending.length === 1 ? 'was' : 'were'} not saved yet.`"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 74,
+      "endLine": 74,
+      "branchId": "6",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "? `${pending.length === 1 ? '1 change' : `${pending.length} changes`} from last time ${pending.length === 1 ? 'was' : 'were'} not saved yet.`"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "branchId": "19",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "branchId": "21",
+      "arm": 1,
+      "type": "if"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 196,
+      "endLine": 196,
+      "branchId": "22",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "if (error instanceof Error || (typeof DOMException !== 'undefined' && error instanceof DOMException)) {"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 196,
+      "endLine": 196,
+      "branchId": "22",
+      "arm": 2,
+      "type": "binary-expr",
+      "source": "if (error instanceof Error || (typeof DOMException !== 'undefined' && error instanceof DOMException)) {"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 197,
+      "endLine": 197,
+      "branchId": "23",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "return error.message || error.name;"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 204,
+      "endLine": 204,
+      "branchId": "24",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return { storage: typeof localStorage === 'undefined' ? null : localStorage };"
+    },
+    {
+      "file": "app/src/storage/saveQueue.ts",
+      "line": 204,
+      "endLine": 204,
+      "branchId": "24",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return { storage: typeof localStorage === 'undefined' ? null : localStorage };"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 61,
+      "endLine": 61,
+      "branchId": "0",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'am' : 'pm'}`;"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 61,
+      "endLine": 61,
+      "branchId": "0",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'am' : 'pm'}`;"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 66,
+      "endLine": 66,
+      "branchId": "1",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 66,
+      "endLine": 66,
+      "branchId": "1",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 66,
+      "endLine": 66,
+      "branchId": "2",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 66,
+      "endLine": 66,
+      "branchId": "2",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "const [date, setDate] = useState(p.initialDate && days.some(d => d.date === p.initialDate) ? p.initialDate : p.today); // F54"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 93,
+      "endLine": 93,
+      "branchId": "3",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "<span className=\"day__weekday\">{d.date === p.today ? 'Today' : d.weekday}</span>"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 93,
+      "endLine": 93,
+      "branchId": "3",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "<span className=\"day__weekday\">{d.date === p.today ? 'Today' : d.weekday}</span>"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 142,
+      "endLine": 142,
+      "branchId": "4",
+      "arm": 0,
+      "type": "binary-expr",
+      "source": "{left > 0 && ("
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 143,
+      "endLine": 147,
+      "branchId": "4",
+      "arm": 1,
+      "type": "binary-expr",
+      "source": "<div className=\"choice-grid choice-grid--2\" role=\"group\" aria-label=\"Where it is kept\">"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 145,
+      "endLine": 145,
+      "branchId": "5",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "<button key={l} type=\"button\" className=\"choice\" aria-pressed={where === l} onClick={() => setWhere(l)}>{l === 'fridge' ? 'Fridge' : 'Freezer'}</button>"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 145,
+      "endLine": 145,
+      "branchId": "5",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "<button key={l} type=\"button\" className=\"choice\" aria-pressed={where === l} onClick={() => setWhere(l)}>{l === 'fridge' ? 'Fridge' : 'Freezer'}</button>"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 164,
+      "endLine": 164,
+      "branchId": "6",
+      "arm": 0,
+      "type": "cond-expr",
+      "source": "onClick={() => p.onSave({ localDate: date, localTime: time, slot, servings, rating, usedRecipeAmounts: used!, ...(left > 0 ? { leftover: { portions: left, location: where } } : {})"
+    },
+    {
+      "file": "app/src/ui/CookedScreen.tsx",
+      "line": 164,
+      "endLine": 164,
+      "branchId": "6",
+      "arm": 1,
+      "type": "cond-expr",
+      "source": "onClick={() => p.onSave({ localDate: date, localTime: time, slot, servings, rating, usedRecipeAmounts: used!, ...(left > 0 ? { leftover: { portions: left, location: where } } : {})"
+    }
+  ]
+}
