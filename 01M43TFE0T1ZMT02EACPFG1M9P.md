@@ -14,7 +14,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:13:22Z
+updated-at: 2026-10-06T18:13:28Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
@@ -23,7 +23,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] Report shows waste, cooking use and corrections separately
+- [x] Report shows waste, cooking use and corrections separately
+  proof: app/src/domain/waste.test.ts (waste, cooking use and corrections separate)
 
 ## Options
 
