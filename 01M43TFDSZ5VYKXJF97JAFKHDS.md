@@ -17,7 +17,7 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:14Z
-updated-at: 2026-10-06T18:16:05Z
+updated-at: 2026-10-06T18:16:10Z
 updated-by: Aly Jafferani
 ---
 
@@ -26,7 +26,8 @@ updated-by: Aly Jafferani
 ## Definition of Done
 
 - [ ] Test: a receipt and a grocery photo of the same shop change stock once
-- [ ] Gemini key on the phone only (D-08; superseded the server-function plan)
+- [-] Gemini key on the phone only (D-08; superseded the server-function plan)
+  proof: D-08 (2026-10-05): phone-local key, no server function
 - [ ] Typing a new dish name shows its ingredients matched to pantry items, a stock check for the chosen servings, the recipe and the video within seconds; Noor reviews before saving (F80)
 - [ ] Any dish without a saved link gets a ranked internet recipe and video with the reasons shown (F78)
 - [ ] Typing 'korma', 'qorma' or the Urdu name finds the same dish; Noor picks from a short list of matches, and an existing dish is offered before a duplicate is created (F80)
