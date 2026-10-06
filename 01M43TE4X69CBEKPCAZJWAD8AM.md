@@ -13,7 +13,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-04T16:02:32Z
-updated-at: 2026-10-06T18:17:46Z
+updated-at: 2026-10-06T18:27:17Z
 assignee: Aly Jafferani
 updated-by: Aly Jafferani
 ---
@@ -22,7 +22,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] D-02 and D-07 recorded in docs/DECISIONS.md (D-08 and D-03 already decided)
+- [x] D-02 and D-07 recorded in docs/DECISIONS.md (D-08 and D-03 already decided)
+  proof: docs/DECISIONS.md D-02 and D-07 rows, date 2026-10-06
 
 ## Options
 
