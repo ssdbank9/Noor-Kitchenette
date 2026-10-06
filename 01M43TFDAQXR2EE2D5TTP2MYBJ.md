@@ -2,7 +2,7 @@
 id: 01M43TFDAQXR2EE2D5TTP2MYBJ
 title: "Internal acceptance before handing over the core (D-15)"
 status: backlog
-ready: false
+ready: true
 creator: Aly Jafferani
 goal: "Learn from Noor's real use before building the planner or photo entry."
 context: |-
@@ -18,8 +18,9 @@ blocked-by:
 related: []
 commits: []
 created-at: 2026-10-04T16:03:13Z
-updated-at: 2026-10-04T23:33:00Z
+updated-at: 2026-10-06T18:17:09Z
 updated-by: Aly Jafferani
+assignee: Aly Jafferani
 ---
 
 # Pilot: one week with Noor, then walkthrough
