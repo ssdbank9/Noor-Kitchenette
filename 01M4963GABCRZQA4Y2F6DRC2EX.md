@@ -20,7 +20,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T18:02:38Z
-updated-at: 2026-10-07T11:52:29Z
+updated-at: 2026-10-07T11:52:35Z
 updated-by: Aly Jafferani
 outcome-resolves: 15 confirmed defects + A1 fixed with regression tests; GLM 5.3 third pass READY; merged to main and deployed
 ---
