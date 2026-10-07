@@ -14,7 +14,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T19:38:44Z
-updated-at: 2026-10-06T19:39:12Z
+updated-at: 2026-10-07T02:19:09Z
 updated-by: Aly Jafferani
 ---
 
@@ -22,7 +22,8 @@ updated-by: Aly Jafferani
 
 ## Definition of Done
 
-- [ ] Command Code client implements the GeminiClient interface over OpenAI chat/completions; Settings offers provider (Gemini | Command Code), the Command Code key and the model; photo reading works with mocked Command Code responses; the key is never exported in a backup; new settings fields round-trip; typecheck, logic and browser suites pass.
+- [x] Command Code client implements the GeminiClient interface over OpenAI chat/completions; Settings offers provider (Gemini | Command Code), the Command Code key and the model; photo reading works with mocked Command Code responses; the key is never exported in a backup; new settings fields round-trip; typecheck, logic and browser suites pass.
+  proof: Command Code client (app/src/commandcode/client.ts) implements GeminiClient over OpenAI chat/completions with the same limits/error taxonomy; Settings provider picker + Command Code key/model (photo provider defaults to whichever key exists); dish lookup stays Gemini; backup keeps provider+model, strips the key. Tests: client unit, backup round-trip, e2e snap via Command Code. typecheck clean; npm test 745/745; npm run test:e2e 113/113.
 
 ## Options
 
