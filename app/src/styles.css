@@ -1023,3 +1023,9 @@ body:has(#nl-badge-frame) { --badge-safe: 68px; }
 .snack-row { display: flex; align-items: stretch; gap: 8px; }
 .snack-row .pantry-item { flex: 1; }
 .snack-row__list { align-self: center; white-space: nowrap; }
+
+/* Snap pantry reading progress: a smooth estimate that never claims to finish early. */
+.snapprogress { display: flex; align-items: center; gap: 10px; }
+.snapprogress__track { flex: 1; height: 10px; border-radius: 999px; background: var(--rust-tint); overflow: hidden; }
+.snapprogress__bar { height: 100%; width: 0; border-radius: 999px; background: var(--cyan); transition: width 120ms linear; }
+.snapprogress__num { min-width: 3.5ch; font-weight: 800; color: var(--cyan-text); font-variant-numeric: tabular-nums; }

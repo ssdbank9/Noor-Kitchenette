@@ -95,9 +95,11 @@ describe('Command Code client', () => {
     expect(calls).toHaveLength(0);
   });
 
-  it('network failure reads as offline; a non-object body is a bad envelope', async () => {
+  it('network failure reads as offline; a non-object or message-less body is a bad envelope', async () => {
     expect(await code(setup([new TypeError('fetch failed')]).client.generate(req))).toBe('offline');
     expect(await code(setup([ok(null)]).client.generate(req))).toBe('bad-response');
     expect(await code(setup([ok([])]).client.generate(req))).toBe('bad-response');
+    // A choice with no message at all must not read as a silent success (GLM F2).
+    expect(await code(setup([ok({ choices: [{ finish_reason: 'stop' }] })]).client.generate(req))).toBe('bad-response');
   });
 });

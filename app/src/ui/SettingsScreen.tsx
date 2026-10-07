@@ -69,7 +69,7 @@ export function SettingsScreen(p: SettingsProps) {
 
   const hasKey = Boolean(p.settings.geminiKey);
   // Which service reads photos: the provider setting wins; else whichever key exists (K1NB38).
-  const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey ? 'commandcode' : 'gemini');
+  const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey?.trim() ? 'commandcode' : 'gemini');
   const hasCcKey = Boolean(p.settings.commandCodeKey);
 
   function saveKey() {

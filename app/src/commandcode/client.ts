@@ -133,6 +133,7 @@ export function createCommandCodeClient(options: CommandCodeOptions): GeminiClie
       // The model's output is untrusted: validate the envelope before reading fields (AR09).
       if (!isObject(data)) throw badEnvelope();
       const choice = Array.isArray(data.choices) ? data.choices[0] : undefined;
+      if (choice !== undefined && !isObject((choice as Record<string, unknown>).message)) throw badEnvelope();
       const message = choice && isObject(choice.message) ? choice.message : undefined;
       const rawContent = message?.content;
       const text = (typeof rawContent === 'string'
