@@ -14,7 +14,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T19:38:44Z
-updated-at: 2026-10-07T11:52:41Z
+updated-at: 2026-10-07T11:52:47Z
 updated-by: Aly Jafferani
 review-summary: "GLM 5.3 review (audit/glm-2026-10-06-commandcode.md): READY. The Command Code provider is correctly isolated, the key never leaves the phone or a backup, add-dish stays on Gemini, and an existing Gemini-only user's default is unchanged. typecheck clean; npm test 745/745; npm run test:e2e 113/113."
 review-gaps: "One commit-hygiene item fixed in this change (progress-bar CSS was uncommitted). Four low hardening notes: message-less envelope resolved as success (fixed), whitespace key inconsistency (fixed), rate bucket resets on provider switch (accepted), truncated JSON is retryable (accepted). Live key and real-phone timing unverified."
