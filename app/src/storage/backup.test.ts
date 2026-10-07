@@ -246,6 +246,32 @@ describe('restoreBackup', () => {
     expect(loaded?.settings).toEqual({ ...incoming.settings, geminiKey: 'AIza-phone-key' });
   });
 
+  it('exports photo provider and Command Code model, never the Command Code key, and keeps the key on restore', async () => {
+    // Export: the secret is stripped; the provider and model round-trip.
+    const out = testKitchen();
+    out.settings.photoProvider = 'commandcode';
+    out.settings.commandCodeModel = 'deepseek/deepseek-v4-flash-vision-exp';
+    out.settings.commandCodeKey = 'cc-phone-key';
+    const file = exportBackup(out);
+    expect(file).not.toContain('cc-phone-key');
+    expect(file).not.toContain('commandCodeKey');
+    const parsed = JSON.parse(file);
+    expect(parsed.settings.photoProvider).toBe('commandcode');
+    expect(parsed.settings.commandCodeModel).toBe('deepseek/deepseek-v4-flash-vision-exp');
+
+    // Restore keeps this phone's Command Code key, just like the Gemini key.
+    const db = await freshDb();
+    const current = testKitchen();
+    current.settings.commandCodeKey = 'cc-phone-key';
+    await replaceAll(db, current);
+    const result = await restoreBackup(db, file);
+    expect(result.ok).toBe(true);
+    const loaded = await loadKitchen(db);
+    expect(loaded?.settings.commandCodeKey).toBe('cc-phone-key');
+    expect(loaded?.settings.photoProvider).toBe('commandcode');
+    expect(loaded?.settings.commandCodeModel).toBe('deepseek/deepseek-v4-flash-vision-exp');
+  });
+
   it('round trips set-stock events with their setTo amount, including "not sure" (null)', () => {
     const data = testKitchen();
     data.events.push({

@@ -308,6 +308,12 @@ export interface KitchenData {
     words?: 'haan' | 'jee' | 'yes';
     /** Gemini key (D-08): stays on this phone, never exported in a backup. */
     geminiKey?: string;
+    /** Photo-reading provider (D-08, K1NB38). Missing means Command Code. */
+    photoProvider?: 'gemini' | 'commandcode';
+    /** Command Code key (K1NB38): stays on this phone, never exported in a backup. */
+    commandCodeKey?: string;
+    /** Command Code vision model for the photo reading. Missing means the deepseek default. */
+    commandCodeModel?: string;
     /** Where the household is, for "nearest first" eat-out. A named area, e.g. I-8 Markaz (D-22). */
     homeArea?: { label: string; lat: number; lng: number };
   };

@@ -64,8 +64,31 @@ const KIND_CHOICES: { kind: PhotoKind; label: string; hint: string }[] = [
   { kind: 'pantry', label: 'Check my pantry or fridge', hint: 'What is left on the shelf' },
 ];
 
+/**
+ * A smooth estimate while a photo is read. A web request gives no true progress bit, so this
+ * eases toward 95% and stops, and the real answer (review or error) replaces it — it never
+ * claims to be done early.
+ */
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const startedAt = Date.now();
+    const id = window.setInterval(() => {
+      const seconds = (Date.now() - startedAt) / 1000;
+      setProgress(Math.min(95, Math.round(100 * (1 - Math.exp(-seconds / 18)))));
+    }, 120);
+    return () => window.clearInterval(id);
+  }, []);
+  return (
+    <div className="snapprogress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label="Reading progress">
+      <div className="snapprogress__track"><div className="snapprogress__bar" style={{ width: `${progress}%` }} /></div>
+      <span className="snapprogress__num">{progress}%</span>
+    </div>
+  );
+}
+
 export function SnapPantry(p: SnapPantryProps) {
-  const { client, hasKey } = useGemini();
+  const { client, hasKey, provider } = useGemini();
   // A reading kept from before a reload (the phone browser discards the page under memory
   // pressure): restore it so the review is not lost. The photo itself is never kept.
   const [restored] = useState(() => loadSnapDraft());
@@ -246,7 +269,7 @@ export function SnapPantry(p: SnapPantryProps) {
         </>
       ) : (
         <div className="panel snapnokey" role="status">
-          <p><strong>Reading photos needs your Gemini key.</strong> Add it in Settings, or type your list here instead.</p>
+          <p><strong>Reading photos needs your {provider === 'commandcode' ? 'Command Code' : 'Gemini'} key.</strong> Add it in Settings, or type your list here instead.</p>
           <button type="button" className="button-tint" onClick={p.onSettings}>Open Settings</button>
         </div>
       )}
@@ -291,6 +314,7 @@ export function SnapPantry(p: SnapPantryProps) {
         <h1 className="title title--sm">Snap pantry</h1>
         <div className="panel snapworking" role="status">
           <p>{phase.text}</p>
+          <ReadingProgress />
           <button type="button" className="button-outline" onClick={() => { token.current++; setPhase(draft ? { name: 'review' } : { name: 'choose' }); }}>Cancel</button>
         </div>
       </div>

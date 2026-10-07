@@ -240,3 +240,37 @@ test('a reading survives a page reload and comes back for review (phone backgrou
   await expect(page.getByRole('heading', { name: 'Check what I read' })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: /Assalam-o-alaikum/ })).toBeVisible();
 });
+
+test('Command Code provider reads a photo and saves once (deepseek vision)', async ({ page }) => {
+  await openWithSamplePantry(page);
+  // Save a Command Code key through Settings: with no Gemini key, the provider is Command Code.
+  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  const photoPanel = page.locator('section').filter({ has: page.getByRole('heading', { name: 'Reading photos' }) });
+  await photoPanel.getByRole('button', { name: 'Command Code', exact: true }).click();
+  await photoPanel.getByRole('textbox', { name: 'Command Code key' }).fill('cc-fake-key-0001');
+  await photoPanel.getByRole('button', { name: 'Save key' }).click();
+  await expect(page.getByText('Command Code key saved on this phone.')).toBeVisible();
+  await page.getByRole('button', { name: 'Back', exact: true }).click();
+
+  const state = { calls: 0, bodies: [] as string[] };
+  await page.route('https://api.commandcode.ai/**', async route => {
+    state.calls++;
+    state.bodies.push(route.request().postData() ?? '');
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ choices: [{ message: { content: JSON.stringify({ items: [{ label: 'Tomatoes', count: 6, certainty: 'sure' }], note: '' }) }, finish_reason: 'stop' }] }) });
+  });
+
+  await openPantry(page);
+  const before = await pieces(page, 'Tomato');
+  await page.getByRole('button', { name: 'Today', exact: true }).click();
+  await startSnap(page, 'New groceries');
+  await pickPhoto(page);
+  await expect(page.getByRole('heading', { name: 'Check what I read' })).toBeVisible();
+  expect(state.calls).toBe(1);
+  expect(state.bodies[0]).toContain('image_url');
+  expect(state.bodies[0]).toContain('deepseek');
+
+  await save(page).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Pantry updated' })).toBeVisible();
+  await openPantry(page);
+  expect(await pieces(page, 'Tomato')).toBe(before + 6);
+});

@@ -136,9 +136,13 @@ export async function restoreBackup(db: KitchenDb, text: string, now: Date = new
   const parsed = parseBackup(text);
   if (!parsed.ok) return parsed;
   // The Gemini key lives only on this phone and is never in a backup (D-08): keep the current one.
+  // Same for the Command Code key (K1NB38).
   const current = await db.get('meta', 'settings');
-  const geminiKey = (current as KitchenSettings | undefined)?.geminiKey;
-  const data = geminiKey ? { ...parsed.data, settings: { ...parsed.data.settings, geminiKey } } : parsed.data;
+  const now_ = current as KitchenSettings | undefined;
+  const kept: Partial<KitchenSettings> = {};
+  if (now_?.geminiKey) kept.geminiKey = now_.geminiKey;
+  if (now_?.commandCodeKey) kept.commandCodeKey = now_.commandCodeKey;
+  const data = Object.keys(kept).length ? { ...parsed.data, settings: { ...parsed.data.settings, ...kept } } : parsed.data;
   const previous = await replaceAllKeepingCopy(db, data, now);
   return { ok: true, data, previous };
 }
@@ -151,7 +155,7 @@ const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
 const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'orderCosts', 'plan', 'leftovers', 'batches', 'favourites'] as const;
-const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea'] as const;
+const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea', 'photoProvider', 'commandCodeModel'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'buyAmount', 'conversions'] as const;
 const RECIPE_FIELDS = [
@@ -244,6 +248,8 @@ function validate(file: Fields): ParseResult {
 function readSettings(c: Checker, value: unknown, path: string): KitchenSettings {
   return c.record(value, path, SETTINGS_FIELDS, o => withoutUndefined({
     words: optional(o.words, v => c.oneOf(v, `${path}.words`, WORD_CHOICES)),
+    photoProvider: optional(o.photoProvider, v => c.oneOf(v, `${path}.photoProvider`, ['gemini', 'commandcode'] as const)),
+    commandCodeModel: optional(o.commandCodeModel, v => c.text(v, `${path}.commandCodeModel`, { nonEmpty: true })),
     homeArea: optional(o.homeArea, v => c.record(v, `${path}.homeArea`, ['label', 'lat', 'lng'] as const, h => ({
       label: c.text(h.label, `${path}.homeArea.label`, { nonEmpty: true }),
       lat: c.number(h.lat, `${path}.homeArea.lat`, { min: -90, max: 90 }),

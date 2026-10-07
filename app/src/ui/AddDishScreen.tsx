@@ -45,7 +45,8 @@ type Stage =
 const KIND_LABEL: Record<MatchKind, string> = { exact: 'Same dish', alias: 'Also called this', near: 'Close spelling' };
 
 export function AddDishScreen(p: AddDishScreenProps) {
-  const { client, hasKey } = useGemini();
+  // The add-a-dish lookup is always Gemini: Command Code has no Google-grounded search (K1NB38).
+  const { dishClient: client, hasGeminiKey: hasKey } = useGemini();
   const [query, setQuery] = useState('');
   const [stage, setStage] = useState<Stage>({ name: 'name' });
   const [found, setFound] = useState<DishCandidate[]>([]); // kept so Back from a recipe does not search again

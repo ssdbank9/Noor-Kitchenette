@@ -57,11 +57,20 @@ export function SettingsScreen(p: SettingsProps) {
   const [restoreNote, setRestoreNote] = useState('');
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const { client } = useGemini(); // F52
+  const { client, dishClient } = useGemini(); // F52 photo client follows the provider; dishClient is always Gemini
   const [testing, setTesting] = useState(false); // F52
   const [testNote, setTestNote] = useState(''); // F52
+  const [ccKeyText, setCcKeyText] = useState(''); // K1NB38
+  const [ccShowKey, setCcShowKey] = useState(false); // K1NB38
+  const [ccKeyNote, setCcKeyNote] = useState(''); // K1NB38
+  const [ccModelText, setCcModelText] = useState(''); // K1NB38
+  const [ccTesting, setCcTesting] = useState(false); // K1NB38
+  const [ccTestNote, setCcTestNote] = useState(''); // K1NB38
 
   const hasKey = Boolean(p.settings.geminiKey);
+  // Which service reads photos: the provider setting wins; else whichever key exists (K1NB38).
+  const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey ? 'commandcode' : 'gemini');
+  const hasCcKey = Boolean(p.settings.commandCodeKey);
 
   function saveKey() {
     const trimmed = keyText.trim();
@@ -75,7 +84,7 @@ export function SettingsScreen(p: SettingsProps) {
   async function runKeyTest() {
     setTesting(true);
     setTestNote('');
-    const r = await testKey(client);
+    const r = await testKey(dishClient); // K1NB38: the Gemini/dish key
     setTesting(false);
     setTestNote(r.ok ? 'Key works' : r.message);
   }
@@ -83,6 +92,33 @@ export function SettingsScreen(p: SettingsProps) {
     p.onChange({ geminiKey: undefined });
     setKeyText('');
     setKeyNote('Key removed.');
+  }
+  // K1NB38: Command Code key and model, kept on this phone; backups never carry the key.
+  function saveCcKey() {
+    const trimmed = ccKeyText.trim();
+    if (!trimmed) { setCcKeyNote('Paste your Command Code key first.'); return; }
+    p.onChange({ commandCodeKey: trimmed });
+    setCcKeyText('');
+    setCcShowKey(false);
+    setCcKeyNote('Command Code key saved on this phone.');
+  }
+  function removeCcKey() {
+    p.onChange({ commandCodeKey: undefined });
+    setCcKeyText('');
+    setCcKeyNote('Command Code key removed.');
+  }
+  function saveCcModel() {
+    const trimmed = ccModelText.trim();
+    p.onChange({ commandCodeModel: trimmed || undefined });
+    setCcModelText('');
+    setCcKeyNote(trimmed ? 'Model saved.' : 'Model reset to the deepseek default.');
+  }
+  async function runCcTest() {
+    setCcTesting(true);
+    setCcTestNote('');
+    const r = await testKey(client); // K1NB38: the active photo provider
+    setCcTesting(false);
+    setCcTestNote(r.ok ? 'Key works' : r.message);
   }
 
   function saveBackup() {
@@ -134,9 +170,65 @@ export function SettingsScreen(p: SettingsProps) {
         <h1 className="title title--sm">Settings</h1>
       </header>
 
+      <section className="panel settings__panel" aria-labelledby="set-photo-provider">
+        <h2 id="set-photo-provider" className="panel__title">Reading photos</h2>
+        <p className="settings__hint">Which service reads your groceries, receipt and pantry photos.</p>
+        <div className="settings__buttons" role="group" aria-label="Photo provider">
+          <button type="button" className={provider === 'commandcode' ? 'button-primary' : 'button-outline'} aria-pressed={provider === 'commandcode'} onClick={() => p.onChange({ photoProvider: 'commandcode' })}>Command Code</button>
+          <button type="button" className={provider === 'gemini' ? 'button-primary' : 'button-outline'} aria-pressed={provider === 'gemini'} onClick={() => p.onChange({ photoProvider: 'gemini' })}>Gemini</button>
+        </div>
+
+        {provider === 'commandcode' ? (
+          <>
+            <div className="settings__keyrow">
+              <input
+                className="input"
+                type={ccShowKey ? 'text' : 'password'}
+                aria-label="Command Code key"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                placeholder={hasCcKey ? 'A key is saved' : 'Paste your Command Code key'}
+                value={ccKeyText}
+                onChange={e => { setCcKeyText(e.target.value); setCcKeyNote(''); }}
+              />
+              <button type="button" className="button-tint" aria-pressed={ccShowKey} onClick={() => setCcShowKey(v => !v)}>
+                {ccShowKey ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            <div className="settings__buttons">
+              <button type="button" className="button-primary" onClick={saveCcKey}>Save key</button>
+              <button type="button" className="button-outline" disabled={!hasCcKey} onClick={removeCcKey}>Remove key</button>
+            </div>
+            <div className="settings__keyrow">
+              <input
+                className="input"
+                type="text"
+                aria-label="Command Code model"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                placeholder={p.settings.commandCodeModel ?? 'deepseek/deepseek-v4-flash-vision-exp'}
+                value={ccModelText}
+                onChange={e => { setCcModelText(e.target.value); setCcKeyNote(''); }}
+              />
+              <button type="button" className="button-outline" onClick={saveCcModel}>Save model</button>
+            </div>
+            <p className="settings__hint">Default model: deepseek/deepseek-v4-flash-vision-exp.</p>
+            {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
+            <div className="settings__buttons">
+              <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>
+            </div>
+            {ccTestNote && <p className="settings__note" role="status">{ccTestNote}</p>}
+          </>
+        ) : (
+          <p className="settings__hint">Photos are read with your Gemini key, below.</p>
+        )}
+      </section>
+
       <section className="panel settings__panel" aria-labelledby="set-key">
         <h2 id="set-key" className="panel__title">Gemini key</h2>
-        <p className="settings__hint">Stays on this phone. Not included in backups.</p>
+        <p className="settings__hint">Used for the add-a-dish internet lookup, and for photos when the provider above is Gemini. Stays on this phone. Not in backups.</p>
         <div className="settings__keyrow">
           <input
             className="input"
