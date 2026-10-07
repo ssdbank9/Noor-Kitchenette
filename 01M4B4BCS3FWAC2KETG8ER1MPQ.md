@@ -14,7 +14,8 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-07T12:10:29Z
-updated-at: 2026-10-07T12:10:29Z
+updated-at: 2026-10-07T12:10:51Z
+updated-by: Aly Jafferani
 ---
 
 # Show active photo provider/model and surface scan notes
