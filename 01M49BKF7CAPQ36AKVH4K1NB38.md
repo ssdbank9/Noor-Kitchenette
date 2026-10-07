@@ -1,7 +1,7 @@
 ---
 id: 01M49BKF7CAPQ36AKVH4K1NB38
 title: "Command Code provider for photo reading (deepseek-v4-flash-vision-exp), key on phone"
-status: backlog
+status: review
 ready: true
 creator: Aly Jafferani
 assignee: Aly Jafferani
@@ -14,7 +14,7 @@ blocked-by: []
 related: []
 commits: []
 created-at: 2026-10-06T19:38:44Z
-updated-at: 2026-10-07T02:19:09Z
+updated-at: 2026-10-07T02:19:14Z
 updated-by: Aly Jafferani
 ---
 
