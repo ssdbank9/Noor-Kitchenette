@@ -22,9 +22,17 @@ const RANGES: { id: HistoryRange; label: string }[] = [
   { id: 'custom', label: 'Pick dates' },
 ];
 
+/** "1 Sep 2026" — a date Noor can read, not a machine date like 2026-09-01. */
+function friendlyDate(iso: string): string {
+  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(iso + 'T00:00:00Z'));
+}
+
 function rangeLabel(range: HistoryRange, today: string, custom?: { startDate: string; endDate: string }): string {
   if (range === 'custom' && custom) {
-    return custom.startDate === custom.endDate ? custom.startDate : `${custom.startDate} – ${custom.endDate}`;
+    return custom.startDate === custom.endDate
+      ? friendlyDate(custom.startDate)
+      : `${friendlyDate(custom.startDate)} to ${friendlyDate(custom.endDate)}`;
   }
   if (range === 'week') return 'the last 7 days';
   if (range === 'year') return today.slice(0, 4);
@@ -57,7 +65,12 @@ export function HistoryScreen(p: HistoryScreenProps) {
         <div className="panel" style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }} aria-label="Pick dates">
           <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: '0.85rem' }}>
             From
-            <input type="date" className="input" value={custom.startDate} max={p.today} onChange={e => setCustom(c => ({ ...c, startDate: e.target.value }))} />
+            <input type="date" className="input" value={custom.startDate} max={p.today}
+              onChange={e => {
+                const startDate = e.target.value;
+                // Picking a start after the end keeps the range in order instead of going backwards.
+                setCustom(c => ({ startDate, endDate: c.endDate < startDate ? startDate : c.endDate }));
+              }} />
           </label>
           <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: '0.85rem' }}>
             To
