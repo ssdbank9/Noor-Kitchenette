@@ -101,7 +101,7 @@ test('VF03: a real renderer crash retains the pending setting and replays it int
   await crashed;
   const reopened = await context.newPage();
   await reopened.goto('/');
-  await expect(reopened.getByRole('heading', { name: 'Assalam-o-alaikum, Noor' })).toBeVisible();
+  await expect(reopened.getByRole('heading', { name: 'Hello Noori' })).toBeVisible();
   await expect.poll(async () => (await readMeta(reopened, 'settings')).defaultServings).toBe(5);
   await expect.poll(() => reopened.evaluate(() => localStorage.getItem('noors-kitchen:pending'))).toBeNull();
   // AR07 separately tests that the UI must also reflect the recovered setting.

@@ -41,7 +41,7 @@ test('AR16: crash between the two trip enqueues retains the purchased cart reduc
   await click;
   const reopened = await context.newPage();
   await reopened.goto('/');
-  await expect(reopened.getByRole('heading', { name:'Assalam-o-alaikum, Noor' })).toBeVisible();
+  await expect(reopened.getByRole('heading', { name:'Hello Noori' })).toBeVisible();
   await expect.poll(() => reopened.evaluate(() => localStorage.getItem('noors-kitchen:pending'))).toBeNull();
   const saved = await reopened.evaluate(async () => {
     const db = await new Promise<IDBDatabase>(resolve => { const r=indexedDB.open('noors-kitchen'); r.onsuccess=()=>resolve(r.result); });

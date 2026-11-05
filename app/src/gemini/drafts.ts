@@ -27,6 +27,8 @@ export interface DetectedItem {
   certainty: Certainty;
   /** From a receipt only; the line total in rupees. Never a quantity estimate. */
   priceRs: number | null;
+  /** Where the item is in the photo: [ymin, xmin, ymax, xmax] in 0–1000. Null when unknown. */
+  box: [number, number, number, number] | null;
 }
 
 export interface PhotoDraft {

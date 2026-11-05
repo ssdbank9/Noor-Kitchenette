@@ -60,6 +60,164 @@ const MEALS_OF = {
   R017: ['breakfast', 'lunch', 'dinner'], // Aloo Qeema: with paratha at breakfast
   R018: ['breakfast', 'lunch', 'dinner'], // Nihari: a weekend breakfast classic
 };
+// Home-style cooking steps for every dish (Part 0: the recipes were missing their method —
+// the dish page must teach the cooking, not just link out). Written for Noor in simple words;
+// draft reviewed with Aly (2026-10-07). The v3 app and workbooks have no steps, so this table
+// is the source of the method.
+const STEPS = {
+  R001: [
+    'Soak the rice in water for 30 minutes, then drain.',
+    'Fry the onions in hot oil till golden. Add the chicken, ginger garlic paste and biryani masala; cook till the chicken is done.',
+    'Add the yogurt and tomatoes; cook till the oil separates.',
+    'Boil the drained rice with whole spices until 7/10 done, then drain.',
+    'Layer the chicken and rice in one pot. Top with fried onions, mint, coriander and kewra water.',
+    'Seal the pot and steam on the lowest heat for 20 minutes. Mix gently before serving.',
+  ],
+  R002: [
+    'Soak the rice for 30 minutes, then drain.',
+    'Boil the chicken with whole spices, onion, ginger garlic paste and salt into a strong stock (yakhni). Take the chicken out and keep the stock.',
+    'Fry the onions in ghee till golden; add the chicken back.',
+    'Add the rice and the hot stock (about double the rice). Cook on high till the water is gone.',
+    'Steam on the lowest heat for 15 minutes. Fluff and serve.',
+  ],
+  R003: [
+    'Soak the beans overnight (or boil 10 minutes and rest 1 hour), then drain.',
+    'Boil the beans with salt till soft.',
+    'Fry the onions in oil till golden. Add ginger garlic paste, tomatoes and the spice powders; cook till soft.',
+    'Add the beans with a little of their water; simmer 15 minutes till the gravy is thick.',
+    'Top with coriander and serve with roti or rice.',
+  ],
+  R004: [
+    'Fry the chicken in hot oil with ginger garlic paste till it changes colour.',
+    'Add the tomatoes, salt, red chilli and turmeric. Cook covered till the tomatoes melt (about 10 minutes).',
+    'Add the green chillies, black pepper and garam masala; dry the water on high heat.',
+    'Stir in ginger strips and coriander. Serve hot with naan.',
+  ],
+  R005: [
+    'Fry the onions golden, then blend them into a paste.',
+    'Fry the chicken with ginger garlic paste and the whole spices.',
+    'Add the onion paste, yogurt, coriander powder and salt; cook on low heat till the oil separates.',
+    'Add hot water and simmer till the chicken is soft and the gravy is rich.',
+    'Sprinkle garam masala and coriander. Serve with roti or rice.',
+  ],
+  R006a: [
+    'Boil the daal with turmeric, salt and a little water till soft.',
+    'Fry the onions in oil or ghee till golden. Add ginger garlic paste, tomatoes and the spices; cook till soft.',
+    'Mix the daal into the masala; mash lightly and simmer 10 minutes.',
+    'Top with coriander, green chillies and a squeeze of lemon. Serve with roti or rice.',
+  ],
+  R006b: [
+    'Boil the daal with turmeric and salt till soft and smooth.',
+    'Fry the onions golden; add the tomatoes and spices; cook till soft.',
+    'Mix into the daal and simmer 10 minutes.',
+    'For the tadka: fry cumin seeds, dried chillies and garlic in hot ghee till brown.',
+    'Pour the tadka over the daal. Top with coriander and serve.',
+  ],
+  R006c: [
+    'Boil the daal with turmeric and salt till soft.',
+    'Fry the onions golden; add ginger garlic paste, tomatoes and the spices; cook till soft.',
+    'Mix into the daal and simmer 10 minutes till creamy.',
+    'Top with coriander and lemon. Serve with roti or rice.',
+  ],
+  R007: [
+    'Fry the onions golden; add the beef with ginger garlic paste and the spices; brown it well.',
+    'Add the tomatoes and yogurt; cook on high heat till the oil separates.',
+    'Add hot water to cover and cook covered till the beef is almost soft (about an hour).',
+    'Add the potato chunks; cook 15 more minutes till soft.',
+    'Simmer to the gravy you like. Top with coriander and green chillies. Serve with roti or rice.',
+  ],
+  R008: [
+    'Boil the beef mince with chana daal, onions, garlic, whole spices and salt till dry (about 45 minutes).',
+    'Cool, then grind to a paste with fresh coriander, mint and green chillies.',
+    'Mix well and shape into flat round kababs.',
+    'Shallow-fry in hot oil till brown on both sides.',
+    'Serve hot with chutney or ketchup.',
+  ],
+  R009: [
+    'Mix the chicken pieces with cornflour, egg, salt and pepper; rest 15 minutes.',
+    'Deep-fry or shallow-fry the chicken till golden and cooked through.',
+    'Fry the garlic in a little oil; add soy sauce, ketchup, chilli garlic sauce and a splash of water.',
+    'Thicken with a little cornflour water; drop the fried chicken in and toss to coat.',
+    'Top with spring onions. Serve hot with fried rice.',
+  ],
+  R010: [
+    'Boil the rice with salt till just done; cool it completely (cold rice fries best).',
+    'Scramble the eggs in hot oil; take them out.',
+    'Fry the chicken with garlic till cooked.',
+    'Add the rice, soy sauce, salt and pepper; toss on high heat.',
+    'Fold in the eggs and spring onions. Serve hot.',
+  ],
+  R011: [
+    'Fry the garlic and onion in hot oil; add the chicken and cook till white.',
+    'Add the pasta, ketchup, chilli garlic sauce, soy sauce and hot water to just cover.',
+    'Cook covered, stirring, till the pasta is soft and the sauce is thick (about 12 minutes).',
+    'Top with spring onions and black pepper. Serve hot.',
+  ],
+  R012: [
+    'Fry the onions golden; blend them with yogurt into a smooth paste.',
+    'Fry the chicken with ginger garlic paste and the spices; add the onion paste and cook till the oil separates.',
+    'Boil the macaroni with salt till soft; drain.',
+    'Fold the macaroni into the chicken gravy; cook 5 minutes together.',
+    'Top with coriander and serve hot.',
+  ],
+  R013: [
+    'Wash and dry the bhindi; slice it. Fry in oil till the stickiness is gone; take out.',
+    'Fry the potato cubes in the same oil till golden.',
+    'Fry the onions; add the tomatoes, salt, red chilli, turmeric and coriander powder; cook till soft.',
+    'Return the bhindi and potatoes; cook covered on low for 10 minutes, stirring gently.',
+    'Sprinkle coriander. Serve with roti.',
+  ],
+  R014: [
+    'Boil the cauliflower florets in salted water for 5 minutes; drain.',
+    'Fry the onions in oil; add ginger garlic paste, the tomatoes and the spices; cook till soft.',
+    'Add the cauliflower; toss to coat and cook covered on low for 10 minutes.',
+    'Sprinkle garam masala and coriander. Serve with roti.',
+  ],
+  R015: [
+    'Scrape and salt the karela; rest 1-2 hours, then wash and dry (this removes the bitterness).',
+    'Fry the karela in oil till golden; take out.',
+    'Fry the onions; add the mince with ginger garlic paste, tomatoes and the spices; cook till dry.',
+    'Add the karela back; cook together on low for 10 minutes.',
+    'Top with coriander. Serve with roti.',
+  ],
+  R016: [
+    'Boil or fry the potato chunks till nearly soft.',
+    'Fry the onions; add the tomatoes, salt, red chilli, turmeric and coriander powder; cook till soft.',
+    'Add the potatoes with a splash of water; cook covered for 10 minutes, stirring now and then.',
+    'Crush one or two potatoes to thicken the masala. Top with coriander. Serve with roti or puri.',
+  ],
+  R017: [
+    'Fry the onions golden; add the mince with ginger garlic paste; brown it on high heat.',
+    'Add the tomatoes, salt, red chilli, turmeric and coriander powder; cook till the oil separates.',
+    'Add the potato cubes and a splash of water; cook covered till the potatoes are soft.',
+    'Dry the water on high heat; sprinkle garam masala and coriander. Serve with roti.',
+  ],
+  R018: [
+    'Fry the onions golden; add the beef shank with ginger garlic paste and salt; brown it.',
+    'Add water and the nihari masala; cook covered on the lowest heat till the beef falls apart (about 3 hours).',
+    'For the tarri: heat oil, sprinkle a little flour, add a ladle of nihari and whisk till thick; pour it back.',
+    'Simmer 15 more minutes till glossy.',
+    'Serve with ginger strips, green chillies, lemon and coriander, with naan.',
+  ],
+  R019: [
+    'Soak the rice and daal together for 30 minutes; drain.',
+    'Fry the onions in hot oil or ghee; add ginger garlic paste, the tomatoes and the spices; cook till soft.',
+    'Add the rice and daal with hot water (double the rice); cook covered till soft.',
+    'Dry on high heat, fluff, and serve with raita or pickle.',
+  ],
+  R020: [
+    'Wash and chop the mustard greens and spinach; boil with salt, green chillies and a little water till very soft (about 1 hour on low).',
+    'Churn the greens with a mathni or blender till mostly smooth (leave some texture).',
+    'Make the tadka: fry the onions golden in ghee; add garlic, the maize flour and a ladle of saag; cook 10 minutes, stirring.',
+    'Pour back into the pot and simmer 20 minutes, stirring so it does not stick.',
+    'Top with butter and serve with makai roti.',
+  ],
+};
+const assertSteps = id => {
+  const s = STEPS[id];
+  assert.ok(Array.isArray(s) && s.length >= 3, `${id}: no cooking steps`);
+  return s;
+};
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -274,6 +432,7 @@ function buildAll() {
       serves: r.serves,
       time: r.time,
       notes: r.notes,
+      steps: assertSteps(r.id),
       category: categoryOf[r.id],
       meals: MEALS_OF[r.id] ?? ['lunch', 'dinner'],
       writtenUrl: r.url,

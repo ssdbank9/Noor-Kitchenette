@@ -63,8 +63,8 @@ async function cannedGemini(page: Page): Promise<Seen> {
 }
 
 const openFromToday = async (page: Page) => {
-  await page.getByRole('button', { name: /Add a new dish/ }).click();
-  await expect(page.getByRole('heading', { name: 'Add a new dish' })).toBeVisible();
+  await page.getByRole('button', { name: /Find a new dish/ }).click();
+  await expect(page.getByRole('heading', { name: 'Find a new dish' })).toBeVisible();
 };
 const search = async (page: Page, name: string) => {
   await page.getByRole('textbox', { name: /What is the dish called/ }).fill(name);
@@ -76,7 +76,7 @@ test('typing korma shows the household Qorma first and makes no online request',
   await page.route(GEMINI, route => { calls++; return route.abort(); });
   await page.goto('/');
   await page.getByRole('button', { name: 'See all' }).click();
-  await page.getByRole('button', { name: '+ Add dish' }).click();
+  await page.getByRole('button', { name: '+ Find a new dish' }).click();
   await search(page, 'korma');
 
   await expect(page.getByRole('heading', { name: 'You already have these' })).toBeVisible();
@@ -107,13 +107,13 @@ test('haleem online: candidates, choose, fix flagged lines, stock check, save, a
   await expect(cards.nth(0)).toContainText('1.2M views');
   await expect(cards.nth(0)).toContainText('▶ Video');
   await expect(cards.nth(0)).toContainText(/checked \d{1,2} \w{3} \d{4}/);
-  await expect(cards.nth(1)).toContainText('rating not checked');
-  await expect(cards.nth(1)).toContainText('views not checked');
+  await expect(cards.nth(1)).toContainText('no rating');
+  await expect(cards.nth(1)).toContainText('no views counted');
   await expect(page.getByText('Invented Haleem')).toHaveCount(0);
   expect(seen).toEqual({ search: 1, json: 1 });
 
   await page.getByRole('button', { name: 'Use Beef Haleem from Food Fusion' }).click();
-  await expect(page.getByRole('heading', { name: 'Check the recipe' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Is this recipe right?' })).toBeVisible();
   expect(seen).toEqual({ search: 2, json: 2 });
 
   // Two lines are flagged and saving is blocked.
@@ -163,7 +163,7 @@ test('haleem online: candidates, choose, fix flagged lines, stock check, save, a
 
   await save.click();
   await expect(page.getByRole('heading', { level: 1, name: 'Beef Haleem' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read recipe' })).toHaveAttribute('href', PAGE);
+  await expect(page.getByRole('link', { name: 'Read the recipe' })).toHaveAttribute('href', PAGE);
 
   // It is a new recipe in Recipes (the starter recipes are untouched) and the shop list names it.
   await page.getByRole('button', { name: 'Back' }).click();
@@ -196,7 +196,7 @@ test('typing haleem again later finds the saved dish first and by the name she t
   await page.getByRole('button', { name: 'Leave out cracked wheat' }).click();
   await page.getByRole('button', { name: 'Save to my recipes' }).click();
   await page.getByRole('button', { name: 'Back' }).click();
-  await page.getByRole('button', { name: '+ Add dish' }).click();
+  await page.getByRole('button', { name: '+ Find a new dish' }).click();
   await search(page, 'haleem');
   await expect(page.getByRole('heading', { name: 'You already have these' })).toBeVisible();
   await expect(page.locator('.adddish .row__name').first()).toHaveText('Beef Haleem');

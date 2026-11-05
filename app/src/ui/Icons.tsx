@@ -35,3 +35,6 @@ export const GearIcon = ({ size = 24 }: IconProps) => (
 export const SnackIcon = ({ size = 24 }: IconProps) => (
   <svg {...base(size)}><path d="M4 8h16l-1.5 12a1 1 0 0 1-1 .9h-11a1 1 0 0 1-1-.9z" /><path d="M7 8c0-2.5 2-4.5 5-4.5s5 2 5 4.5" /></svg>
 );
+export const BookIcon = ({ size = 24 }: IconProps) => (
+  <svg {...base(size)}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+);

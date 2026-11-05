@@ -19,9 +19,13 @@ const RANGES: { id: HistoryRange; label: string }[] = [
   { id: 'week', label: 'Week' },
   { id: 'month', label: 'Month' },
   { id: 'year', label: 'Year' },
+  { id: 'custom', label: 'Pick dates' },
 ];
 
-function rangeLabel(range: HistoryRange, today: string): string {
+function rangeLabel(range: HistoryRange, today: string, custom?: { startDate: string; endDate: string }): string {
+  if (range === 'custom' && custom) {
+    return custom.startDate === custom.endDate ? custom.startDate : `${custom.startDate} – ${custom.endDate}`;
+  }
   if (range === 'week') return 'the last 7 days';
   if (range === 'year') return today.slice(0, 4);
   return new Intl.DateTimeFormat('en-GB', { month: 'long', timeZone: 'UTC' }).format(new Date(today.slice(0, 7) + '-01T00:00:00Z'));
@@ -29,14 +33,15 @@ function rangeLabel(range: HistoryRange, today: string): string {
 
 export function HistoryScreen(p: HistoryScreenProps) {
   const [range, setRange] = useState<HistoryRange>('month'); // F47
-  const { startDate, endDate } = rangeDates(range, p.today);
+  const [custom, setCustom] = useState<{ startDate: string; endDate: string }>({ startDate: p.today, endDate: p.today });
+  const { startDate, endDate } = rangeDates(range, p.today, custom);
   const summary = useMemo(() => periodSummary(p.events, startDate, endDate), [p.events, startDate, endDate]);
   const meals = useMemo(() => cookingHistory(p.events), [p.events]);
   const stale = useMemo(
     () => notCookedInAWhile(p.events, p.today, id => p.recipesById.has(id)),
     [p.events, p.today, p.recipesById],
   );
-  const label = rangeLabel(range, p.today);
+  const label = rangeLabel(range, p.today, custom);
   const top = summary.byRecipe.slice(0, 5);
   const max = top[0]?.count ?? 1;
   return (
@@ -48,6 +53,18 @@ export function HistoryScreen(p: HistoryScreenProps) {
           <button key={r.id} type="button" className="choice-chip" aria-pressed={range === r.id} onClick={() => setRange(r.id)}>{r.label}</button>
         ))}
       </div>
+      {range === 'custom' && (
+        <div className="panel" style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }} aria-label="Pick dates">
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: '0.85rem' }}>
+            From
+            <input type="date" className="input" value={custom.startDate} max={p.today} onChange={e => setCustom(c => ({ ...c, startDate: e.target.value }))} />
+          </label>
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: '0.85rem' }}>
+            To
+            <input type="date" className="input" value={custom.endDate} max={p.today} min={custom.startDate} onChange={e => setCustom(c => ({ ...c, endDate: e.target.value }))} />
+          </label>
+        </div>
+      )}
 
       <section className="stat" aria-label={`Meals in ${label}`}>
         <div className="stat__num">{summary.meals}</div>
@@ -63,7 +80,7 @@ export function HistoryScreen(p: HistoryScreenProps) {
 
       {top.length > 0 && (
         <section className="panel" aria-labelledby="most">
-          <h2 id="most" className="panel__title">Cooked most</h2>
+          <h2 id="most" className="panel__title">We make these a lot</h2>
           <ul className="bars">
             {top.map(r => (
               <li key={r.recipeId} className="bar">
@@ -78,7 +95,7 @@ export function HistoryScreen(p: HistoryScreenProps) {
 
       {stale.length > 0 && ( // F79
         <section className="panel" aria-labelledby="stale">
-          <h2 id="stale" className="panel__title">Not cooked in a while</h2>
+          <h2 id="stale" className="panel__title">We forgot these</h2>
           <ul className="rows">
             {stale.map(s => (
               <li key={s.recipeId} className="own-stale">
@@ -96,7 +113,7 @@ export function HistoryScreen(p: HistoryScreenProps) {
       <section className="section" aria-labelledby="log">
         <h2 id="log" className="section__title">Meals</h2>
         {meals.length === 0 ? (
-          <p className="empty empty--flush">Nothing recorded yet. Tap "I cooked this" on a recipe.</p>
+          <p className="empty empty--flush">Nothing here yet. Cook something and tap "I cooked this".</p>
         ) : (
           <ul className="rows">
             {meals.map(m => (

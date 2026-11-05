@@ -93,7 +93,7 @@ export function DishReview(p: DishReviewProps) {
     <div className="screen form-screen adddish adddish--review">
       <div className="form-screen__head">
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={p.onBack}>‹</button>
-        <h1 className="title title--sm">Check the recipe</h1>
+        <h1 className="title title--sm">Is this recipe right?</h1>
       </div>
 
       <p className="adddish__hint">
@@ -111,7 +111,7 @@ export function DishReview(p: DishReviewProps) {
       </div>
 
       <div className="stepper-row">
-        <span className="stepper-row__label">This recipe makes</span>
+        <span className="stepper-row__label">This recipe feeds</span>
         <div className="stepper">
           <button type="button" aria-label="Recipe makes fewer" onClick={() => setServes(s => Math.max(1, s - 1))}>−</button>
           <output aria-live="polite" aria-label="Recipe makes">{serves}</output>
@@ -135,7 +135,7 @@ export function DishReview(p: DishReviewProps) {
           {built.flagged > 0 && summary.total > 0 ? ` (${built.flagged} ${built.flagged === 1 ? 'line needs' : 'lines need'} you)` : ''}
         </div>
         {missing.length > 0 && <p className="adddish__missing">Missing: {missing.join(', ')}</p>}
-        {summary.unsure.length > 0 && <p className="adddish__missing adddish__missing--check">Check the shelf: {summary.unsure.map(nameOf).join(', ')}</p>}
+        {summary.unsure.length > 0 && <p className="adddish__missing adddish__missing--check">Not sure you have: {summary.unsure.map(nameOf).join(', ')}</p>}
       </section>
 
       <h2 className="section__title">Ingredients</h2>
@@ -156,11 +156,11 @@ export function DishReview(p: DishReviewProps) {
 
       {p.draft.steps.length > 0 && (
         <>
-          <h2 className="section__title">Steps (short version)</h2>
+          <h2 className="section__title">How to make it (short)</h2>
           <ol className="adddish__steps">
             {p.draft.steps.map((s, i) => <li key={i}>{s}</li>)}
           </ol>
-          <p className="adddish__hint">Written briefly in other words. The full method is on the source page.</p>
+          <p className="adddish__hint">The full recipe is on the internet page.</p>
         </>
       )}
 

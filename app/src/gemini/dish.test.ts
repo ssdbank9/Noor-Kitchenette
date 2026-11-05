@@ -106,8 +106,8 @@ describe('validateCandidates', () => {
       candidates: [raw({ rating: null, ratingCount: null, views: null }), raw({ sourceUrl: 'https://example.pk/haleem', rating: 'not shown', ratingCount: 'many', views: -5 })],
     }, sources, 'haleem', TODAY);
     for (const c of out) expect([c.rating, c.ratingCount, c.views]).toEqual([null, null, null]);
-    expect(ratingText(out[0])).toBe('rating not checked');
-    expect(viewsText(out[0])).toBe('views not checked');
+    expect(ratingText(out[0])).toBe('no rating');
+    expect(viewsText(out[0])).toBe('no views counted');
   });
 
   it('bounds numbers: rating 0..5, counts positive and finite', () => {

@@ -14,7 +14,7 @@ test('bottom controls stay tappable when a host badge covers the bottom-right co
     document.body.appendChild(badge);
   });
   await page.getByRole('button', { name: 'Shop', exact: true }).click({ timeout: 5000 });
-  await page.getByRole('button', { name: 'History', exact: true }).click({ timeout: 5000 });
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click({ timeout: 5000 });
   await page.getByRole('button', { name: 'Today', exact: true }).click({ timeout: 5000 });
   await page.getByRole('button', { name: /let's cook/ }).click();
   await page.getByRole('button', { name: 'I cooked this' }).click({ timeout: 5000 });

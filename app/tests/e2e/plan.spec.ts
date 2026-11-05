@@ -124,7 +124,7 @@ test('two meals sharing chicken warn, fill the cart exactly, survive a partial b
 
   // Restoring brings the dinner back.
   await nav(page, 'Plan');
-  await slot(page, 'Dinner').getByRole('button', { name: 'Restore Dinner', exact: true }).click();
+  await slot(page, 'Dinner').getByRole('button', { name: 'Put back Dinner', exact: true }).click();
   await nav(page, 'Shop');
   await expect(page.locator('.shop-item')).toHaveCount(cartOf({ plan, events: afterBuy }).length);
 });
@@ -190,7 +190,7 @@ test('cooking from the plan prefills the flow, marks the item cooked, empties th
   await page.getByRole('button', { name: 'I cooked this' }).click();
   await expect(page.getByRole('button', { name: 'Lunch', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('button', { name: /^Today/ })).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.getByRole('region', { name: 'People who ate' })).toContainText(String(servings));
+  await expect(page.getByRole('region', { name: 'How many people ate' })).toContainText(String(servings));
   await page.getByRole('button', { name: 'Haan', exact: true }).click();
   await page.getByRole('button', { name: 'Save' }).click();
   await expect(page.getByRole('status').filter({ hasText: `Saved ${KARAHI.name}` })).toBeVisible();

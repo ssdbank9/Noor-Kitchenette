@@ -37,7 +37,7 @@ test('add a dish, find it under My recipes, edit it, cook it, delete it: History
   await addDish(page);
 
   // The recipe page shows the steps, numbered, and the amounts.
-  await expect(page.getByRole('heading', { name: 'Steps' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'How to make it' })).toBeVisible();
   await expect(page.locator('.own-method__list li')).toHaveText(['Beat the eggs.', 'Fry gently with the rice.']);
   await expect(page.getByText('250 g')).toBeVisible();
   await expect(page.getByText('30 min').first()).toBeVisible();
@@ -79,7 +79,7 @@ test('add a dish, find it under My recipes, edit it, cook it, delete it: History
 
   // History still has the dish, under its own name.
   await page.getByRole('button', { name: 'Back', exact: true }).click();
-  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click();
   await expect(page.locator('.row__name', { hasText: 'My edited dish' })).toBeVisible();
   await expect(page.locator('.bar__name', { hasText: 'My edited dish' })).toBeVisible();
 });
@@ -137,7 +137,7 @@ test('a dish with problems says what to fix and nothing is saved', async ({ page
 
 test('History: Week, Month and Year chips', async ({ page }) => {
   await openWithSamplePantry(page);
-  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Month', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Week', exact: true }).click();
   await expect(page.getByText('in the last 7 days')).toBeVisible();

@@ -23,7 +23,7 @@ export function DishCandidates(p: DishCandidatesProps) {
   return (
     <section className="adddish__section" aria-label="Recipes found online">
       <h2 className="section__title">Found online for "{p.query}"</h2>
-      <p className="adddish__hint">Names and spellings differ, so you choose. Nothing is saved until you check it.</p>
+      <p className="adddish__hint">I found these on the internet — best ones first. Pick the right one.</p>
       <ul className="adddish__cards">
         {p.candidates.map(c => (
           <li key={c.sourceUrl} className="dish-card">
@@ -32,7 +32,7 @@ export function DishCandidates(p: DishCandidatesProps) {
             <div className="dish-card__facts">
               <span className={c.rating === null ? 'dish-fact dish-fact--unknown' : 'dish-fact'}>{ratingText(c)}</span>
               <span className={c.views === null ? 'dish-fact dish-fact--unknown' : 'dish-fact'}>{viewsText(c)}</span>
-              {c.videoUrl ? <span className="dish-badge dish-badge--video">▶ Video</span> : <span className="dish-badge">No video link</span>}
+              {c.videoUrl ? <span className="dish-badge dish-badge--video">▶ Video</span> : <span className="dish-badge">no video</span>}
             </div>
             {c.summary && <p className="dish-card__summary">{c.summary}</p>}
             <div className="dish-card__checked">checked {shortDate(c.checkedOn)}</div>

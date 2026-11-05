@@ -28,7 +28,7 @@ test('Recipes search keeps focus while typing and shows only daal dishes', async
   await expect(names).toHaveCount(expected.length);
   expect((await names.allInnerTexts()).sort()).toEqual([...expected].sort());
   // Every row says Ready, Need N or Check stock.
-  for (const badge of await page.locator('.recipes .badge').allInnerTexts()) expect(badge).toMatch(/^(Ready|Need \d+|Check stock)$/);
+  for (const badge of await page.locator('.recipes .badge').allInnerTexts()) expect(badge).toMatch(/^(Ready|Need \d+|Missing \d+|Check stock)$/);
 
   // A category chip narrows the list, and tapping a row opens the recipe.
   await page.getByRole('button', { name: 'Daal & Beans', exact: true }).click();

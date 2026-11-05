@@ -81,7 +81,7 @@ export function CookedScreen(p: CookedScreenProps) {
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={p.onBack}>‹</button>
         <div>
           <div className="eyebrow">{p.recipeName}</div>
-          <h1 className="title title--sm">Well done! Quick check</h1>
+          <h1 className="title title--sm">You cooked! One quick check</h1>
         </div>
       </header>
 
@@ -111,8 +111,8 @@ export function CookedScreen(p: CookedScreenProps) {
         </div>
       </section>
 
-      <section className="stepper-row panel--inline" aria-label="People who ate">
-        <span className="stepper-row__label">People who ate</span>
+      <section className="stepper-row panel--inline" aria-label="How many people ate">
+        <span className="stepper-row__label">How many people ate?</span>
         <div className="stepper">
           <button type="button" aria-label="Fewer people" onClick={() => setServings(s => Math.max(1, s - 1))}>−</button>
           <output aria-live="polite">{servings}</output>
@@ -131,8 +131,8 @@ export function CookedScreen(p: CookedScreenProps) {
 
       <section className="panel" aria-labelledby="leftover">{/* F65 */}
         <h2 id="leftover" className="panel__title">Anything left over?</h2>
-        <div className="stepper-row panel--inline" aria-label="Portions left over">
-          <span className="stepper-row__label">Portions left</span>
+        <div className="stepper-row panel--inline" aria-label="Plates left over">
+          <span className="stepper-row__label">Plates left</span>
           <div className="stepper">
             <button type="button" aria-label="Fewer portions left" onClick={() => setLeft(n => Math.max(0, n - 1))}>−</button>
             <output aria-live="polite">{left}</output>
@@ -165,7 +165,7 @@ export function CookedScreen(p: CookedScreenProps) {
         >
           Save
         </button>
-        <p className="action-bar__hint">You can undo this anytime from History</p>
+        <p className="action-bar__hint">You can undo this anytime from Cooked</p>
       </div>
     </div>
   );

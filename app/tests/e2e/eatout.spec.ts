@@ -137,7 +137,7 @@ test('Order uses the saved link and opens a new page', async ({ page, context })
   await expect.poll(() => popup.url()).toContain('/restaurant/abc1/pizza-one');
 });
 
-test('with no link, Copy name and open foodpanda copies the name', async ({ page, context }) => {
+test('with no link, Copy the name and open foodpanda copies the name', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await context.route('https://www.foodpanda.pk/**', route => route.fulfill({ body: '<title>foodpanda</title>', contentType: 'text/html' }));
   await serveList(page, canned());
@@ -145,7 +145,7 @@ test('with no link, Copy name and open foodpanda copies the name', async ({ page
   await page.getByRole('button', { name: 'Pizza', exact: true }).click();
   const [popup] = await Promise.all([
     context.waitForEvent('page'),
-    page.getByRole('article', { name: 'Pizza Two' }).getByRole('button', { name: 'Copy name and open foodpanda' }).click(),
+    page.getByRole('article', { name: 'Pizza Two' }).getByRole('button', { name: 'Copy the name and open foodpanda' }).click(),
   ]);
   await expect.poll(() => popup.url()).toContain('foodpanda.pk');
   await expect(page.locator('.eatout__note')).toContainText('Copied "Pizza Two"');
@@ -158,7 +158,7 @@ test('when copying fails, the name is shown to type instead', async ({ page, con
   await openEatOut(page);
   await page.evaluate(() => { Object.defineProperty(navigator, 'clipboard', { value: { writeText: () => Promise.reject(new Error('denied')) }, configurable: true }); });
   await page.getByRole('button', { name: 'Pizza', exact: true }).click();
-  await page.getByRole('article', { name: 'Pizza Two' }).getByRole('button', { name: 'Copy name and open foodpanda' }).click();
+  await page.getByRole('article', { name: 'Pizza Two' }).getByRole('button', { name: 'Copy the name and open foodpanda' }).click();
   await expect(page.locator('.eatout__note')).toContainText('Could not copy. Type this into foodpanda');
   await expect(page.locator('.eatout__note')).toContainText('Pizza Two');
 });

@@ -3,7 +3,7 @@ import type { DetectedItem } from '../gemini/drafts';
 import { balances, reverse } from './ledger';
 import {
   addSource, appendEventOnce, buildDraftEvent, checkThis, ingredientOf, linesFromPhoto, linesFromTyped,
-  makeNewIngredient, newDraft, previewLine, updateLine, type Draft,
+  makeNewIngredient, newDraft, previewLine, rankIngredients, updateLine, type Draft,
 } from './photoDraft';
 import type { Ingredient, KitchenEvent } from './types';
 
@@ -13,7 +13,7 @@ const ING: Ingredient[] = [
   { id: 'Rice', name: 'Rice', aliases: [], dimension: 'mass', displayUnit: 'kg', aisle: 'Pantry' },
 ];
 const item = (o: Partial<DetectedItem>): DetectedItem => ({
-  label: 'Tomatoes', count: null, packageSize: null, amount: null, certainty: 'sure', priceRs: null, ...o,
+  label: 'Tomatoes', count: null, packageSize: null, amount: null, certainty: 'sure', priceRs: null, box: null, ...o,
 });
 const NOW = new Date('2026-10-05T08:00:00Z');
 const stockOf = (events: KitchenEvent[]) => balances(events);
@@ -36,7 +36,7 @@ describe('matching and defaults', () => {
       item({ label: 'Rice', amount: { amount: 2, unit: 'kg' }, certainty: 'unsure' }),
     ]);
     expect(d.lines.map(l => l.on)).toEqual([false, false]);
-    expect(checkThis(d.lines[0], undefined, 'purchase')).toBe('Pick which of yours this is');
+    expect(checkThis(d.lines[0], undefined, 'purchase')).toBe('Which of your things is this?');
     expect(checkThis(d.lines[1], ING[2], 'purchase')).toMatch(/not sure/i);
   });
   it('purchase quantity is count x package size when both exist, else the amount', () => {
@@ -185,6 +185,52 @@ describe('save', () => {
     let d = draft();
     d = updateLine(d, d.lines[0].key, { type: 'on', on: false }, ING);
     expect(buildDraftEvent(d, ING, stockOf([]), NOW).ok).toBe(false);
+  });
+});
+
+describe('rankIngredients (the "which of your things" chips)', () => {
+  it('ranks exact and alias matches first, then shared words, and offers nothing unrelated', () => {
+    const ings: Ingredient[] = [
+      ...ING,
+      { id: 'Tomato_Paste', name: 'Tomato paste', aliases: [], dimension: 'mass', displayUnit: 'g', aisle: 'Pantry' },
+      { id: 'Sugar', name: 'Sugar', aliases: [], dimension: 'mass', displayUnit: 'kg', aisle: 'Pantry' },
+    ];
+    const ranked = rankIngredients('fresh tomatoes', ings);
+    expect(ranked.map(i => i.id).slice(0, 2)).toEqual(['Tomato', 'Tomato_Paste']);
+    expect(rankIngredients('Dalda 5kg', ings)[0]?.id).toBe('Cooking_Oil'); // via the alias
+    expect(rankIngredients('unicorn', ings)).toEqual([]);
+  });
+});
+
+describe('photo boxes and the removed tray', () => {
+  it('carries the item box and its source onto the line', () => {
+    const d = make('groceries', [item({ label: 'Tomatoes', amount: { amount: 6, unit: 'pc' }, box: [10, 20, 110, 220] })]);
+    expect(d.lines[0].box).toEqual([10, 20, 110, 220]);
+    expect(d.lines[0].boxSource).toBe(1);
+  });
+  it('a merged line keeps a box with the source that produced it', () => {
+    const d1 = make('groceries', [item({ label: 'Tomatoes', count: 6 })]);
+    const d2 = make('receipt', [item({ label: 'Tomatoes', count: 6, priceRs: 300, box: [5, 5, 60, 60] })], d1);
+    expect(d2.lines).toHaveLength(1);
+    expect(d2.lines[0].box).toEqual([5, 5, 60, 60]);
+    expect(d2.lines[0].boxSource).toBe(2);
+  });
+  it('a removed line is never saved, and coming back switches it on when valid', () => {
+    let d = make('groceries', [item({ label: 'Tomatoes', amount: { amount: 6, unit: 'pc' } })]);
+    d = updateLine(d, d.lines[0].key, { type: 'removed', removed: true }, ING);
+    expect(d.lines[0].removed).toBe(true);
+    expect(buildDraftEvent(d, ING, stockOf([]), NOW).ok).toBe(false); // the only line is gone
+    d = updateLine(d, d.lines[0].key, { type: 'removed', removed: false }, ING);
+    expect(d.lines[0].removed).toBe(false);
+    expect(d.lines[0].on).toBe(true);
+    expect(buildDraftEvent(d, ING, stockOf([]), NOW).ok).toBe(true);
+  });
+  it('"sure" clears the unsure flag and switches a valid line on', () => {
+    let d = make('groceries', [item({ label: 'Rice', amount: { amount: 2, unit: 'kg' }, certainty: 'unsure' })]);
+    expect(d.lines[0].on).toBe(false);
+    d = updateLine(d, d.lines[0].key, { type: 'sure' }, ING);
+    expect(d.lines[0].unsure).toBe(false);
+    expect(d.lines[0].on).toBe(true);
   });
 });
 

@@ -46,7 +46,7 @@ function OrderLink({ name, url, onCopy }: { name: string; url: string | null; on
       Order<span className="eatout__sr"> {name}</span>
     </a>
   ) : (
-    <button type="button" className="button-primary eatout__order" onClick={() => onCopy(name)}>Copy name and open foodpanda</button>
+    <button type="button" className="button-primary eatout__order" onClick={() => onCopy(name)}>Copy the name and open foodpanda</button>
   );
 }
 

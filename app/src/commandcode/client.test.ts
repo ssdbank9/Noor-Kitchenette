@@ -37,7 +37,7 @@ const req: GenerateRequest = { parts: [{ text: 'hello' }] };
 const code = async (p: Promise<unknown>) => { try { await p; return 'no error'; } catch (e) { return (e as GeminiError).code ?? String(e); } };
 
 describe('Command Code client', () => {
-  it('posts to chat/completions with a Bearer token (never in the URL), the deepseek default model, and returns text', async () => {
+  it('posts to chat/completions with a Bearer token (never in the URL), the default model, and returns text', async () => {
     const { client, calls } = setup([answer('Hi')]);
     const r = await client.generate(req);
     expect(r.text).toBe('Hi');

@@ -12,14 +12,19 @@ import {
   makeNewIngredient,
   newDraft,
   updateLine,
+  withGuesses,
   type Draft,
   type LinePatch,
 } from '../domain/photoDraft';
 import type { Dimension, Ingredient, KitchenEvent } from '../domain/types';
 import { useGemini } from '../gemini/GeminiContext';
+import { parseQuantityLine } from '../domain/units';
 import type { PhotoKind } from '../gemini/drafts';
 import { isGeminiError, plainMessage } from '../gemini/errors';
-import { prepareImage, readPhoto, type PreparedImage } from '../gemini/photo';
+import type { PreparedImage } from '../gemini/photo';
+import { prepareImage, readPhoto } from '../gemini/photo';
+import { suggestMatches } from '../gemini/suggest';
+import { cropThumb } from '../gemini/thumbs';
 import { clearSnapDraft, loadSnapDraft, saveSnapDraft } from '../storage/snapDraftStore';
 import { CameraIcon } from './Icons';
 import { PhotoReview } from './PhotoReview';
@@ -54,6 +59,7 @@ type Phase =
   | { name: 'typed'; errors: string[] }
   | { name: 'working'; text: string }
   | { name: 'trip' }
+  | { name: 'leave' } // back from the review: keep the list for later or throw it away
   | { name: 'error'; message: string; retry: boolean; settings: boolean }
   | { name: 'review' }
   | { name: 'saved' };
@@ -88,14 +94,17 @@ function ReadingProgress() {
 }
 
 export function SnapPantry(p: SnapPantryProps) {
-  const { client, hasKey, provider } = useGemini();
+  const { client, hasKey, provider, providerName, photoModel } = useGemini();
   // A reading kept from before a reload (the phone browser discards the page under memory
   // pressure): restore it so the review is not lost. The photo itself is never kept.
   const [restored] = useState(() => loadSnapDraft());
   const [phase, setPhase] = useState<Phase>(restored ? { name: 'review' } : { name: 'choose' });
   const [kind, setKind] = useState<PhotoKind | null>(null);
   const [draft, setDraft] = useState<Draft | null>(restored);
-  const [typed, setTyped] = useState('');
+  const [typedInput, setTypedInput] = useState('');
+  const [typedInputError, setTypedInputError] = useState('');
+  const [typedList, setTypedList] = useState<{ id: number; text: string; label: string; amountText: string }[]>([]);
+  const typedId = useRef(0);
   const [picked, setPicked] = useState<Job | null>(null); // waiting for the "Same shopping trip?" answer
   const [parked, setParked] = useState<Job | null>(null); // a different trip's photo, read after this draft is saved or discarded
   const [note, setNote] = useState('');
@@ -146,7 +155,7 @@ export function SnapPantry(p: SnapPantryProps) {
     else p.onClose();
   }
 
-  function apply(base: Draft | null, job: Job, lines: ReturnType<typeof linesFromPhoto>, readNote: string) {
+  function apply(base: Draft | null, job: Job, lines: ReturnType<typeof linesFromPhoto>, readNote: string): Draft {
     const d = base ?? newDraft(job.kind);
     const merged = addSource(d, job.kind, lines, job.source.type, readNote, [...p.ingredients, ...d.lines.flatMap(l => (l.newIngredient ? [l.newIngredient] : []))]);
     lastJob.current = null;
@@ -154,6 +163,23 @@ export function SnapPantry(p: SnapPantryProps) {
     setNote('');
     setSaveError('');
     setPhase({ name: 'review' });
+    return merged;
+  }
+
+  /** One batched guess for lines that matched nothing of Noor's. Silent when it fails. */
+  function guessUnmatched(merged: Draft, known: Ingredient[], mine: number) {
+    const unmatched = merged.lines.filter(l => !l.ingredientId && !l.newIngredient);
+    if (unmatched.length === 0) return;
+    const knownNames = known.map(i => i.name);
+    void suggestMatches(client, unmatched.map(l => l.label), knownNames).then(g => {
+      if (mine !== token.current) return; // cancelled or a newer read finished
+      setDraft(d => {
+        if (!d) return d;
+        const byKey: Record<string, string[]> = {};
+        for (const l of d.lines) if (g[l.label]) byKey[l.key] = g[l.label];
+        return withGuesses(d, byKey);
+      });
+    }).catch(() => { /* the ranked local matches still show */ });
   }
 
   async function run(job: Job, base: Draft | null) {
@@ -175,10 +201,20 @@ export function SnapPantry(p: SnapPantryProps) {
       const result = await readPhoto(client, job.kind, job.source.images, p.today);
       if (mine !== token.current) return; // cancelled
       if (result.items.length === 0) {
-        setPhase({ name: 'error', message: 'I could not find anything to read in that photo. Try a clearer one, or type a list.', retry: false, settings: false });
+        // The model read the photo but found nothing: show its own note, so a bad model or
+        // photo is obvious rather than mysterious (real-phone finding).
+        const why = result.note ? ` ${providerName} said: "${result.note}".` : '';
+        setPhase({ name: 'error', message: `I could not find anything to read in that photo.${why} Try a clearer one, or type a list.`, retry: false, settings: false });
         return;
       }
-      apply(base, job, linesFromPhoto(result.items, job.kind, sourceNo, known), result.note);
+      // Cut each item's picture out of the photo once, right after the read: the crops ride
+      // along on the lines (and in the recovery copy), so the review never depends on the
+      // photo still being in memory (D-20: the full photo is never kept).
+      const [image] = job.source.images;
+      const lines = linesFromPhoto(result.items, job.kind, sourceNo, known);
+      const withThumbs = await Promise.all(lines.map(async l => ({ ...l, thumb: (await cropThumb(image, l.box)) ?? undefined })));
+      const merged = apply(base, job, withThumbs, result.note);
+      guessUnmatched(merged, known, mine);
     } catch (e) {
       if (mine !== token.current) return;
       const code = isGeminiError(e) ? e.code : null;
@@ -230,13 +266,43 @@ export function SnapPantry(p: SnapPantryProps) {
     change(key, { type: 'ingredient', ingredient: ing, isNew: true });
   }
 
+  /**
+   * Typed-list entry (T7JSD8): one item per Enter. Each line is parsed at once so a typo is
+   * caught before it reaches the review; paste several lines and each is tried separately.
+   * `amountText` is the parsed preview shown beside the item.
+   */
+  function addTypedItems(text: string) {
+    const parts = text.split(/\r?\n/).map(t => t.trim()).filter(Boolean);
+    const bad: string[] = [];
+    const good: { id: number; text: string; label: string; amountText: string }[] = [];
+    for (const line of parts) {
+      const parsed = parseQuantityLine(line);
+      if ('error' in parsed) { bad.push(`"${line}" — ${parsed.error}`); continue; }
+      const q = parsed.quantity;
+      good.push({ id: ++typedId.current, text: line, label: parsed.name, amountText: q.amount === null ? '' : `${q.amount} ${q.unit}` });
+    }
+    if (good.length) { setTypedList(prev => [...prev, ...good]); setTypedInput(''); }
+    setTypedInputError(bad.join(' '));
+  }
+  function removeTyped(id: number) { setTypedList(prev => prev.filter(i => i.id !== id)); }
+  function checkTyped() {
+    if (!activeKind || typedList.length === 0) return;
+    route({ kind: activeKind, source: { type: 'typed', text: typedList.map(i => i.text).join('\n') } });
+  }
+
   /** After a save or discard: start the parked photo as its own draft, or leave. */
   function finish(savedText?: string) {
     savingRef.current = false;
     setSaving(false);
     setDraft(null);
+    // Clear the recovery copy now, not via the draft effect: a discard closes this screen in
+    // the same commit, the effect never runs, and the "discarded" list would come back on
+    // the next visit (the real-phone "it won't let me discard" finding).
+    clearSnapDraft();
     setKind(null);
-    setTyped('');
+    setTypedList([]);
+    setTypedInput('');
+    setTypedInputError('');
     if (parked) {
       const job = parked;
       setParked(null);
@@ -286,10 +352,14 @@ export function SnapPantry(p: SnapPantryProps) {
         format={p.format}
         saving={saving}
         error={saveError}
-        notice={parked ? 'Your other photo is waiting. It will start its own list when you save or discard this one.' : undefined}
+        yesWord={p.yesWord}
+        readerName={providerName}
+        notice={parked ? 'Your other photo is waiting. It will start its own list when you save or discard this one.'
+          : restored ? 'This is the list from your earlier photo — save it, or throw it away with Discard.' : undefined}
         onChange={change}
         onCreate={create}
         onSave={save}
+        onBack={() => setPhase({ name: 'leave' })}
         onAddPhoto={() => { setKind(null); setNote(''); setPhase({ name: 'choose' }); }}
         onDiscard={() => finish()}
       />
@@ -314,6 +384,7 @@ export function SnapPantry(p: SnapPantryProps) {
         <h1 className="title title--sm">Snap pantry</h1>
         <div className="panel snapworking" role="status">
           <p>{phase.text}</p>
+          <p className="eyebrow">{providerName} · {photoModel}</p>
           <ReadingProgress />
           <button type="button" className="button-outline" onClick={() => { token.current++; setPhase(draft ? { name: 'review' } : { name: 'choose' }); }}>Cancel</button>
         </div>
@@ -329,6 +400,25 @@ export function SnapPantry(p: SnapPantryProps) {
         <div className="choice-grid choice-grid--2">
           <button type="button" className="answer answer--yes" onClick={() => answerTrip(true)}>{p.yesWord}</button>
           <button type="button" className="answer answer--no" onClick={() => answerTrip(false)}>{p.noWord}</button>
+        </div>
+        <div className="snapactions">
+          <button type="button" className="button-outline" onClick={() => { setPicked(null); setPhase(draft ? { name: 'review' } : { name: 'choose' }); }}>
+            Forget this photo
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (phase.name === 'leave') {
+    return (
+      <div className="screen form-screen snapscreen">
+        <h1 className="title title--sm">Leave this list?</h1>
+        <p className="eyebrow">Nothing is saved yet. You can throw the whole list away, or keep it and finish it later.</p>
+        <div className="snapactions">
+          <button type="button" className="button-primary" onClick={() => finish()}>Throw it away</button>
+          <button type="button" className="button-tint" onClick={p.onClose}>Keep it for later</button>
+          <button type="button" className="button-outline" onClick={() => setPhase({ name: 'review' })}>Stay on the list</button>
         </div>
       </div>
     );
@@ -356,22 +446,43 @@ export function SnapPantry(p: SnapPantryProps) {
     return (
       <div className="screen form-screen snapscreen">
         <h1 className="title title--sm">Type a list</h1>
-        <p className="eyebrow">One item per line, like "Chicken 500 g" or "Tomatoes 6".</p>
-        <textarea
-          className="input snaptext"
-          aria-label="Your list"
-          rows={7}
-          placeholder={'Chicken 500 g\nTomatoes 6\nMilk 2 L'}
-          value={typed}
-          onChange={e => setTyped(e.target.value)}
-        />
+        <p className="eyebrow">Type an item with its amount, press Enter. Examples: Chicken 1 kg, Milk 2 L, Eggs 12 (a dozen), Daal 1 g (grams).</p>
+        <form className="snapform" onSubmit={e => { e.preventDefault(); addTypedItems(typedInput); }}>
+          <div className="settings__keyrow">
+            <input
+              className="input"
+              autoFocus
+              aria-label="Your list"
+              aria-invalid={typedInputError ? true : undefined}
+              placeholder="Chicken 1 kg"
+              autoComplete="off"
+              autoCapitalize="off"
+              value={typedInput}
+              onChange={e => { setTypedInput(e.target.value); setTypedInputError(''); }}
+            />
+            <button type="submit" className="button-primary" disabled={!typedInput.trim()}>Add</button>
+          </div>
+        </form>
+        {typedInputError && <p className="settings__error" role="alert">{typedInputError}</p>}
+        {typedList.length > 0 && (
+          <ul className="typedlist" aria-label="Items you entered">
+            {typedList.map(item => (
+              <li key={item.id} className="typedlist__row">
+                <span className="typedlist__name">{item.label}</span>
+                <span className="typedlist__amount">{item.amountText || 'no amount'}</span>
+                <button type="button" className="typedlist__remove" aria-label={`Remove ${item.label}`} onClick={() => removeTyped(item.id)}>×</button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="snapnote">Amounts: kg, g · L, ml · pc (pieces) · dozen · packet · bunch · tsp, tbsp, cup, pao · or a plain number for pieces. Anything written wrongly shows its error above and can be fixed.</p>
         {phase.errors.length > 0 && (
           <div className="settings__error" role="alert">
             <ul>{phase.errors.slice(0, 6).map(m => <li key={m}>{m}</li>)}</ul>
           </div>
         )}
         <div className="snapactions">
-          <button type="button" className="button-primary" disabled={!typed.trim() || !activeKind} onClick={() => activeKind && route({ kind: activeKind, source: { type: 'typed', text: typed } })}>Check my list</button>
+          <button type="button" className="button-primary" disabled={typedList.length === 0 || !activeKind} onClick={checkTyped}>Check my list</button>
           <button type="button" className="button-outline" onClick={() => setPhase({ name: 'choose' })}>Back</button>
         </div>
       </div>
@@ -384,7 +495,7 @@ export function SnapPantry(p: SnapPantryProps) {
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={back}>‹</button>
         <h1 className="title title--sm">{adding ? 'Add another photo' : 'Snap pantry'}</h1>
       </header>
-      <p className="eyebrow">Gemini only suggests. You check every line before anything is saved.</p>
+      <p className="eyebrow">{providerName} suggests, you check every line. Reading with <strong>{providerName} · {photoModel}</strong> — change it in Settings.</p>
 
       {choices.length > 1 && (
         <section aria-labelledby="snap-what">

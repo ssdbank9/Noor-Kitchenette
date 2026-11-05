@@ -32,9 +32,9 @@ function describe(i: Ingredient, b: Balance | undefined, format: PantryScreenPro
   const low = b?.amount != null && i.minStock != null && b.amount < i.minStock;
   const text =
     !b ? 'none'
-    : b.amount === null ? 'not sure'
-    : b.needsCheck ? 'check stock'
-    : format(b.amount, i) + (b.basis === 'estimate' ? ' · not confirmed' : '');
+    : b.amount === null ? '?'
+    : b.needsCheck ? '?'
+    : format(b.amount, i) + (b.basis === 'estimate' ? ' · a guess' : '');
   return { low, text };
 }
 
@@ -61,7 +61,7 @@ export function PantryScreen(p: PantryScreenProps) {
       <div className="pantry-head">
         <h1 className="title">Pantry</h1>
         {p.onSnap && (
-          <button type="button" className="button-tint pantry-snap" onClick={p.onSnap}><CameraIcon size={20} /> Snap pantry</button>
+          <button type="button" className="button-tint pantry-snap" onClick={p.onSnap}><CameraIcon size={20} /> Add food with a photo</button>
         )}
       </div>
       {depth && ( // F65
@@ -81,7 +81,7 @@ export function PantryScreen(p: PantryScreenProps) {
         <WasteScreen events={depth.events} leftovers={depth.leftovers} ingredients={p.ingredients} today={depth.today} format={p.format} onUndo={depth.onUndoEvent} />
       )}
       {view === 'items' && <>
-      <p className="eyebrow">Amounts marked "not confirmed" came from the old app and have not been checked.</p>
+      <p className="eyebrow">Amounts marked "a guess" came from the old app and have not been checked.</p>
       <div className="pantry-tools">
         <input
           type="search"
@@ -92,7 +92,7 @@ export function PantryScreen(p: PantryScreenProps) {
           value={query}
           onChange={e => setQuery(e.target.value)}
         />
-        <button type="button" className="pantry-lowchip" aria-pressed={lowOnly} onClick={() => setLowOnly(v => !v)}>Low</button>
+        <button type="button" className="pantry-lowchip" aria-pressed={lowOnly} onClick={() => setLowOnly(v => !v)}>Running out</button>
       </div>
       {visible.length === 0 && <p className="placeholder">Nothing matches.</p>}
       {[...groups.entries()].map(([aisle, items]) => (

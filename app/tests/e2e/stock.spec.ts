@@ -19,8 +19,8 @@ const NOW = new Date('2026-10-05T10:00:00+05:00');
 /** What the Pantry screen should say for a balance. */
 function pantryText(b: Balance | undefined, i: Ingredient): string {
   if (!b) return 'none';
-  if (b.amount === null) return 'not sure';
-  if (b.needsCheck) return 'check stock';
+  if (b.amount === null) return '?';
+  if (b.needsCheck) return '?';
   return fmt(b.amount, i);
 }
 
@@ -55,10 +55,10 @@ test('cooking deducts exactly the recipe amounts, and undo puts every one back',
     await expect(await pantryRow(page, ing.name), `${ing.name} after cooking`).toContainText(pantryText(after.get(ing.id), ing));
   }
 
-  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click();
   await expect(page.getByText(recipe.name).first()).toBeVisible();
   await page.getByRole('button', { name: 'Undo' }).first().click();
-  await expect(page.getByText('Nothing recorded yet')).toBeVisible();
+  await expect(page.getByText('Nothing here yet')).toBeVisible();
 
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
   for (const n of needs) {
@@ -86,7 +86,7 @@ test('opening another recipe shows that recipe\'s own ingredients, and the peopl
   await expect(page.locator('.ingredient__amounts').first()).toContainText(forServings(5));
 
   await page.getByRole('button', { name: 'Back' }).click();
-  await page.getByRole('button', { name: 'Show another' }).click();
+  await page.getByRole('button', { name: 'Show me another' }).click();
   const second = await openSuggested(page);
   expect(second.id).not.toBe(first.id);
   await expect(page.locator('.ingredient__name')).toHaveText(names(second));

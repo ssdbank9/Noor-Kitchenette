@@ -15,9 +15,9 @@ export interface RecipesScreenProps {
 }
 
 function status(a: Availability): { text: string; cls: string } {
-  if (a.status === 'ready') return { text: 'Ready', cls: 'badge badge--ready' };
-  if (a.status === 'missing') return { text: `Need ${a.missing.length}`, cls: 'badge badge--need' };
-  return { text: 'Check stock', cls: 'badge badge--check' };
+  if (a.status === 'ready') return { text: 'You can cook this', cls: 'badge badge--ready' };
+  if (a.status === 'missing') return { text: `Missing ${a.missing.length}`, cls: 'badge badge--need' };
+  return { text: 'Not sure', cls: 'badge badge--check' };
 }
 
 export function RecipesScreen(p: RecipesScreenProps) {
@@ -39,7 +39,7 @@ export function RecipesScreen(p: RecipesScreenProps) {
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={p.onBack}>‹</button>
         <h1 className="title title--sm">Recipes</h1>
         <button type="button" className="button-tint own-add" onClick={p.onAdd}>+ Write my own</button> {/* F40 */}
-        <button type="button" className="button-tint recipes__add" onClick={p.onAddDish}>+ Add dish</button> {/* F80 */}
+        <button type="button" className="button-tint recipes__add" onClick={p.onAddDish}>+ Find a new dish</button> {/* F80/A4 */}
       </div>
 
       <input

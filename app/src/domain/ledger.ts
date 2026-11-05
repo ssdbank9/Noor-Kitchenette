@@ -220,7 +220,7 @@ export function monthSummary(events: KitchenEvent[], month: string): MonthSummar
   return { month, ...periodSummary(events, `${month}-01`, `${month}-31`) };
 }
 
-export type HistoryRange = 'week' | 'month' | 'year';
+export type HistoryRange = 'week' | 'month' | 'year' | 'custom';
 
 /** `date` (YYYY-MM-DD) moved by a whole number of days, with no time zone in the way. */
 export function addDays(date: string, days: number): string {
@@ -233,7 +233,9 @@ export function addDays(date: string, days: number): string {
  * calendar period: week = the last 7 days ending today, month = this calendar month,
  * year = this calendar year.
  */
-export function rangeDates(range: HistoryRange, today: string): { startDate: string; endDate: string } {
+export function rangeDates(range: HistoryRange, today: string, custom?: { startDate: string; endDate: string }): { startDate: string; endDate: string } {
+  // A picked range is used exactly as given. Without dates, show today rather than a whole year.
+  if (range === 'custom') return custom ?? { startDate: today, endDate: today };
   if (range === 'week') return { startDate: addDays(today, -6), endDate: today };
   if (range === 'month') return { startDate: `${today.slice(0, 7)}-01`, endDate: `${today.slice(0, 7)}-31` };
   return { startDate: `${today.slice(0, 4)}-01-01`, endDate: `${today.slice(0, 4)}-12-31` };

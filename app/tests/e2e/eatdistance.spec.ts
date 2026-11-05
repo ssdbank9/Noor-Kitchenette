@@ -118,7 +118,7 @@ test('the area survives a reload and a backup round trip, and Clear removes it',
 
   const [download] = await Promise.all([
     page.waitForEvent('download'),
-    page.getByRole('button', { name: 'Save a backup' }).click(),
+    page.getByRole('button', { name: 'Save a copy of everything' }).click(),
   ]);
   const text = readFileSync(await download.path(), 'utf8');
   expect(JSON.parse(text).settings.homeArea).toEqual({ label: 'I-8 Markaz, Islamabad', lat: 33.668, lng: 73.075 });
@@ -131,6 +131,6 @@ test('the area survives a reload and a backup round trip, and Clear removes it',
 
   await page.getByLabel('Backup file').setInputFiles({ name: 'ok.json', mimeType: 'application/json', buffer: Buffer.from(text) });
   await page.getByRole('alertdialog').getByRole('button', { name: 'Haan', exact: true }).click();
-  await expect(page.getByText('Restored.')).toBeVisible();
+  await expect(page.getByText('Done. This phone now has the saved copy.')).toBeVisible();
   await expect(page.getByText('Nearest restaurants are measured from')).toContainText('I-8 Markaz, Islamabad');
 });

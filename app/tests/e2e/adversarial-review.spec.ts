@@ -42,9 +42,9 @@ test('AR07: pending settings recovered after a closed tab are shown before the n
 test('AR08: Today refreshes when the open app crosses midnight in Karachi', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-10-05T23:59:00+05:00') });
   await page.goto('/');
-  await expect(page.locator('.today-header .eyebrow')).toContainText('5 October');
+  await expect(page.locator('.today-header .eyebrow').first()).toContainText('5 Oct');
   await page.clock.fastForward(120_000);
-  await expect(page.locator('.today-header .eyebrow')).toContainText('6 October');
+  await expect(page.locator('.today-header .eyebrow').first()).toContainText('6 Oct');
 });
 
 test('AR02: a manual cart line does not return after restoring and reopening', async ({ page }) => {
@@ -68,7 +68,7 @@ test('AR02: a manual cart line does not return after restoring and reopening', a
   await page.getByRole('button', { name: 'Settings', exact: true }).click();
   await page.getByLabel('Backup file').setInputFiles({ name: 'review.json', mimeType: 'application/json', buffer: Buffer.from(exportBackup(testKitchen())) });
   await page.getByRole('alertdialog', { name: 'Confirm restore' }).getByRole('button', { name: 'Haan', exact: true }).click();
-  await expect(page.getByText('Restored. Your kitchen is now the one in the backup.')).toBeVisible();
+  await expect(page.getByText('Done. This phone now has the saved copy.')).toBeVisible();
   await page.getByRole('button', { name: 'Back', exact: true }).click();
   await page.getByRole('button', { name: 'Shop', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Got it: Eggs', exact: true })).toHaveCount(0);
@@ -82,14 +82,14 @@ test('AR02: a manual cart line does not return after restoring and reopening', a
 test('AV01: all six phone tabs fit and the undo toast stays above the bottom bar', async ({ page }) => {
   await openWithSamplePantry(page);
   const nav = page.getByRole('navigation', { name: 'Main' });
-  await expect(nav.getByRole('button')).toHaveCount(6);
+  await expect(nav.getByRole('button')).toHaveCount(7);
   const bar = await nav.boundingBox();
   const toast = await page.getByRole('status').filter({ hasText: 'Sample pantry added' }).boundingBox();
   expect(bar).not.toBeNull();
   expect(toast).not.toBeNull();
   expect(toast!.y + toast!.height).toBeLessThanOrEqual(bar!.y);
   await page.screenshot({ path: '../audit/adversarial-2026-10-05-phone-toast.png' });
-  for (const name of ['Plan', 'Pantry', 'Snacks', 'Shop', 'History', 'Today']) {
+  for (const name of ['Plan', 'Pantry', 'Snacks', 'Shop', 'Recipes', 'Cooked', 'Today']) {
     const button = nav.getByRole('button', { name, exact: true });
     const box = await button.boundingBox();
     expect(box!.width).toBeGreaterThanOrEqual(44);

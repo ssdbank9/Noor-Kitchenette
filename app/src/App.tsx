@@ -178,7 +178,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
     }));
 
   const open = (recipeId: string, back: Tab | 'recipes') => setView({ name: 'recipe', recipeId, back });
-  const currentTab: Tab = view.name === 'tab' ? view.tab : 'today';
+  const currentTab: Tab = view.name === 'tab' ? view.tab : view.name === 'recipes' ? 'recipes' : 'today';
 
   function saveCooked(recipeId: string, choice: CookedChoice, adjusted?: Movement[]) {
     const recipe = recipesById.get(recipeId)!;
@@ -724,7 +724,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   return (
-    <GeminiProvider apiKey={settings.geminiKey} commandCodeKey={settings.commandCodeKey} photoProvider={settings.photoProvider} commandCodeModel={settings.commandCodeModel}> {/* gemini */}
+    <GeminiProvider apiKey={settings.geminiKey} commandCodeKey={settings.commandCodeKey} claudeKey={settings.claudeKey} photoProvider={settings.photoProvider} commandCodeModel={settings.commandCodeModel} claudeModel={settings.claudeModel}> {/* gemini */}
     <div className="app">
       {(save.status === 'error' || (save.pending > 0 && save.mirrorError)) && ( // KR4RJP, AR15
         <div className="save-banner" role="alert">
@@ -750,7 +750,15 @@ function Kitchen({ store }: { store: KitchenStore }) {
           )}
         </div>
       )}
-      {view.name === 'tab' && <BottomNav current={currentTab} onChange={tab => { setToast(null); setView({ name: 'tab', tab }); }} />}
+      {(view.name === 'tab' || view.name === 'recipes') && (
+        <BottomNav
+          current={currentTab}
+          onChange={tab => {
+            setToast(null);
+            setView(tab === 'recipes' ? { name: 'recipes' } : { name: 'tab', tab });
+          }}
+        />
+      )}
     </div>
     </GeminiProvider>
   );

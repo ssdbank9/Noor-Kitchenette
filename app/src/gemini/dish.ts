@@ -285,17 +285,17 @@ export function videoFor(draft: { videoUrl: string | null; title: string }): { u
     : { url: youtubeSearchUrl(`${draft.title} recipe`), confirmed: false };
 }
 
-/** "★ 4.9 (155 ratings)", "★ 4.9" or "rating not checked" (never a guess). */
+/** "★ 4.9 (155 ratings)", "★ 4.9" or "no rating" (never a guess). */
 export function ratingText(c: Pick<DishCandidate, 'rating' | 'ratingCount'>): string {
-  if (c.rating === null) return 'rating not checked';
+  if (c.rating === null) return 'no rating';
   const n = c.ratingCount;
   return `★ ${c.rating}${n !== null ? ` (${n.toLocaleString('en-GB')} ${n === 1 ? 'rating' : 'ratings'})` : ''}`;
 }
 
-/** "1.2M views", "48,000 views" or "views not checked". */
+/** "1.2M views", "48,000 views" or "no views counted". */
 export function viewsText(c: Pick<DishCandidate, 'views'>): string {
   const v = c.views;
-  if (v === null) return 'views not checked';
+  if (v === null) return 'no views counted';
   if (v >= 1_000_000) return `${Math.round(v / 100_000) / 10}M views`;
   return `${v.toLocaleString('en-GB')} views`;
 }

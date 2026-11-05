@@ -111,11 +111,11 @@ export function AdjustUsageScreen(p: AdjustUsageScreenProps) {
                   className="link-button"
                   onClick={() => setExact(x => ({ ...x, [line.ingredientId]: { text: String(amount) } }))}
                 >
-                  Exact amount
+                  How much exactly?
                 </button>
               )}
               {over && (
-                <p className="usage-row__warn">More than recorded — stock will show &lsquo;check stock&rsquo;</p>
+                <p className="usage-row__warn">That's more than the app thought you had — the food list will show '?'</p>
               )}
             </li>
           );
@@ -131,7 +131,7 @@ export function AdjustUsageScreen(p: AdjustUsageScreenProps) {
         >
           Save
         </button>
-        <p className="action-bar__hint">Stock changes by what you used. You can undo this anytime from History</p>
+        <p className="action-bar__hint">Stock changes by what you used. You can undo this anytime from Cooked</p>
       </div>
     </div>
   );

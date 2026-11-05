@@ -151,7 +151,7 @@ test('a batch expiring tomorrow shows under Use soon and on Today, and survives 
   const before = (await row(page, 'Tomato').locator('.pantry-item__amount').innerText()).trim();
   await row(page, 'Tomato').click();
   await page.getByRole('button', { name: 'Where and when' }).click();
-  await page.getByRole('button', { name: 'Add a batch' }).click();
+  await page.getByRole('button', { name: 'Say where it is' }).click();
   await page.getByLabel('Amount in this batch').fill('2');
   await page.getByRole('button', { name: 'Tomorrow', exact: true }).click();
   await page.getByLabel('Package size').fill('6');

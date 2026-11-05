@@ -22,7 +22,7 @@ test('VF02: a real replacement worker waits for confirmation and refuses to relo
   const origin = `http://127.0.0.1:${address.port}`;
   try {
     await page.goto(origin);
-    await expect(page.getByRole('heading', { name: 'Assalam-o-alaikum, Noor' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Hello Noori' })).toBeVisible();
     await page.evaluate(() => navigator.serviceWorker.ready);
     await page.reload();
     await page.waitForFunction(() => !!navigator.serviceWorker.controller);

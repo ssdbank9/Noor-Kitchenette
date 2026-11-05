@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
-import { SnackIcon, CalendarIcon, CartIcon, ChartIcon, HomeIcon, PantryIcon } from './Icons';
+import { BookIcon, SnackIcon, CalendarIcon, CartIcon, ChartIcon, HomeIcon, PantryIcon } from './Icons';
 
-export type Tab = 'today' | 'plan' | 'pantry' | 'snacks' | 'shop' | 'history';
+export type Tab = 'today' | 'plan' | 'pantry' | 'snacks' | 'shop' | 'recipes' | 'history';
 
 const TABS: { id: Tab; label: string; icon: ReactNode }[] = [
   { id: 'today', label: 'Today', icon: <HomeIcon /> },
@@ -9,7 +9,8 @@ const TABS: { id: Tab; label: string; icon: ReactNode }[] = [
   { id: 'pantry', label: 'Pantry', icon: <PantryIcon /> },
   { id: 'snacks', label: 'Snacks', icon: <SnackIcon /> },
   { id: 'shop', label: 'Shop', icon: <CartIcon /> },
-  { id: 'history', label: 'History', icon: <ChartIcon /> },
+  { id: 'recipes', label: 'Recipes', icon: <BookIcon /> },
+  { id: 'history', label: 'Cooked', icon: <ChartIcon /> },
 ];
 
 export function BottomNav({ current, onChange }: { current: Tab; onChange: (tab: Tab) => void }) {

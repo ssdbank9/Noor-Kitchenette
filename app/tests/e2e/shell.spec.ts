@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('opens at phone width with the greeting and no sideways scroll', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Assalam-o-alaikum, Noor' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Hello Noori' })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   expect(overflow).toBe(false);
 });

@@ -8,7 +8,7 @@ const back = (page: Page) => page.getByRole('button', { name: 'Back', exact: tru
 async function downloadBackup(page: Page): Promise<{ name: string; text: string }> {
   const [download] = await Promise.all([
     page.waitForEvent('download'),
-    page.getByRole('button', { name: 'Save a backup' }).click(),
+    page.getByRole('button', { name: 'Save a copy of everything' }).click(),
   ]);
   return { name: download.suggestedFilename(), text: readFileSync(await download.path(), 'utf8') };
 }
@@ -16,7 +16,7 @@ async function downloadBackup(page: Page): Promise<{ name: string; text: string 
 test('a fresh start shows the empty pantry, not sample stock', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByText('Your pantry is empty.')).toBeVisible();
-  await expect(page.getByText('Snap or add what you have, or try the sample pantry.')).toBeVisible();
+  await expect(page.getByText('Take a photo of your food, or add things one by one.')).toBeVisible();
   await expect(page.getByRole('button', { name: /let's cook/ })).toHaveCount(0);
   await page.getByRole('button', { name: 'Go to Pantry' }).click();
   await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
@@ -25,13 +25,13 @@ test('a fresh start shows the empty pantry, not sample stock', async ({ page }) 
 
 test('loading the sample pantry from the empty state makes Today suggest a dish, and it can be removed', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Load sample pantry' }).click();
+  await page.getByRole('button', { name: 'Try practice food' }).click();
   await expect(page.getByRole('button', { name: /let's cook/ })).toBeVisible();
   await expect(page.getByText('Your pantry is empty.')).toHaveCount(0);
 
   await openSettings(page);
-  await page.getByRole('button', { name: 'Remove sample pantry' }).click();
-  await expect(page.getByRole('button', { name: 'Remove sample pantry' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Remove practice food' }).click();
+  await expect(page.getByRole('button', { name: 'Remove practice food' })).toBeDisabled();
   await back(page);
   await expect(page.getByText('Your pantry is empty.')).toBeVisible();
 });
@@ -39,7 +39,7 @@ test('loading the sample pantry from the empty state makes Today suggest a dish,
 test('Undo on the sample pantry toast takes it back out', async ({ page }) => {
   await page.goto('/');
   await openSettings(page);
-  await page.getByRole('button', { name: 'Load sample pantry' }).click();
+  await page.getByRole('button', { name: 'Load practice food' }).click();
   await page.getByRole('status').filter({ hasText: 'Sample pantry added' }).getByRole('button', { name: 'Undo' }).click();
   await back(page);
   await expect(page.getByText('Your pantry is empty.')).toBeVisible();
@@ -136,10 +136,10 @@ test('restoring a good backup asks first, then replaces the kitchen', async ({ p
   await openSettings(page);
   const { text } = await downloadBackup(page);
 
-  await page.getByRole('button', { name: 'Remove sample pantry' }).click();
+  await page.getByRole('button', { name: 'Remove practice food' }).click();
   await page.getByLabel('Backup file').setInputFiles({ name: 'ok.json', mimeType: 'application/json', buffer: Buffer.from(text) });
   const confirm = page.getByRole('alertdialog');
-  await expect(confirm).toContainText('replaces everything');
+  await expect(confirm).toContainText('removes what is here now');
 
   // Nahi cancels.
   await confirm.getByRole('button', { name: 'Nahi', exact: true }).click();
@@ -150,7 +150,7 @@ test('restoring a good backup asks first, then replaces the kitchen', async ({ p
   await openSettings(page);
   await page.getByLabel('Backup file').setInputFiles({ name: 'ok.json', mimeType: 'application/json', buffer: Buffer.from(text) });
   await page.getByRole('alertdialog').getByRole('button', { name: 'Haan', exact: true }).click();
-  await expect(page.getByText('Restored.')).toBeVisible();
+  await expect(page.getByText('Done. This phone now has the saved copy.')).toBeVisible();
   await back(page);
   await expect(page.getByRole('button', { name: /let's cook/ })).toBeVisible();
 

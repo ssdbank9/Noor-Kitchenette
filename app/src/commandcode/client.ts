@@ -9,9 +9,9 @@
 import { GeminiError } from '../gemini/errors';
 import type { GeminiClient } from '../gemini/client';
 
-export const DEFAULT_COMMAND_CODE_MODEL = 'deepseek/deepseek-v4-flash-vision-exp';
+export const DEFAULT_COMMAND_CODE_MODEL = 'Qwen/Qwen3.8-Omni-Flash';
 const ENDPOINT = 'https://api.commandcode.ai/provider/v1/chat/completions';
-/** DeepSeek JSON mode must also be told in words. */
+/** JSON mode must also be told in words. */
 const JSON_ONLY = 'Respond with a JSON object only. No other words, no code fences.';
 
 export interface CommandCodeOptions {

@@ -305,15 +305,19 @@ export interface KitchenData {
     defaultServings: number;
     slotTimes: Record<MealSlot, string>;
     /** Yes/no words shown on buttons (Settings). Missing means Haan / Nahi. */
-    words?: 'haan' | 'jee' | 'yes';
+    words?: 'haan' | 'yes';
     /** Gemini key (D-08): stays on this phone, never exported in a backup. */
     geminiKey?: string;
     /** Photo-reading provider (D-08, K1NB38). Missing means Command Code. */
-    photoProvider?: 'gemini' | 'commandcode';
+    photoProvider?: 'gemini' | 'commandcode' | 'claude';
     /** Command Code key (K1NB38): stays on this phone, never exported in a backup. */
     commandCodeKey?: string;
-    /** Command Code vision model for the photo reading. Missing means the deepseek default. */
+    /** Command Code vision model for the photo reading. Missing means the Qwen default. */
     commandCodeModel?: string;
+    /** Claude key: stays on this phone, never exported in a backup. */
+    claudeKey?: string;
+    /** Claude model for the photo reading. Missing means the Sonnet default. */
+    claudeModel?: string;
     /** Where the household is, for "nearest first" eat-out. A named area, e.g. I-8 Markaz (D-22). */
     homeArea?: { label: string; lat: number; lng: number };
   };

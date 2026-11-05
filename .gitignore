@@ -12,9 +12,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# this project's lane files are this machine's, not the team's
-/.jaira/lanes/
-
 # eat-out lists refreshed on Aly's computer (foodpanda data, near home)
 /data/eatout/
 

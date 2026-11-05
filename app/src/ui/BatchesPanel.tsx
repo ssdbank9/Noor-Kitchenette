@@ -32,7 +32,7 @@ export function PlaceDatesFields(p: { value: PlaceDatesValue; onChange: (v: Plac
         ))}
       </div>
       <label className="psheet__field">
-        <span>Expiry date (optional)</span>
+        <span>Use by (if you know)</span>
         <input type="date" value={v.expiresOn} onChange={e => set({ expiresOn: e.target.value })} />
       </label>
       {v.location === 'freezer' && (
@@ -109,7 +109,7 @@ export function BatchesPanel(p: BatchesPanelProps) {
   if (editing) {
     return (
       <div className="psheet__entry">
-        <p className="psheet__prompt">{editing === 'new' ? 'Add a batch' : 'Edit batch'}</p>
+        <p className="psheet__prompt">{editing === 'new' ? 'Say where it is' : 'Edit pack'}</p>
         <div className="psheet__stepper">
           <button type="button" aria-label="Less" onClick={() => { setAmount(trim(Math.max(0, (parseAmountText(amount) ?? 0) - stepFor(unit)))); setError(''); }}>−</button>
           <label className="psheet__exact">
@@ -143,7 +143,7 @@ export function BatchesPanel(p: BatchesPanelProps) {
   return (
     <div className="psheet__entry">
       <p className="psheet__prompt">Where and when</p>
-      {statuses.length === 0 && <p className="depth__note">No batches yet. Add one to say where it is kept and when to use it by. The amount in the pantry does not change.</p>}
+      {statuses.length === 0 && <p className="depth__note">Nothing here yet. Say where you keep it and when to finish it.</p>}
       <ul className="rows">
         {[...statuses].reverse().map(({ batch: b, state }) => (
           <li key={b.id} className="depth-card" aria-label={`${ing.name} batch`}>
@@ -175,7 +175,7 @@ export function BatchesPanel(p: BatchesPanelProps) {
         ))}
       </ul>
       <div className="psheet__confirm">
-        <button type="button" className="button-primary" onClick={() => startEdit('new')}>Add a batch</button>
+        <button type="button" className="button-primary" onClick={() => startEdit('new')}>Say where it is</button>
         <button type="button" className="button-outline" onClick={p.onBack}>Back</button>
       </div>
     </div>

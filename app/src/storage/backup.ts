@@ -142,6 +142,7 @@ export async function restoreBackup(db: KitchenDb, text: string, now: Date = new
   const kept: Partial<KitchenSettings> = {};
   if (now_?.geminiKey) kept.geminiKey = now_.geminiKey;
   if (now_?.commandCodeKey) kept.commandCodeKey = now_.commandCodeKey;
+  if (now_?.claudeKey) kept.claudeKey = now_.claudeKey;
   const data = Object.keys(kept).length ? { ...parsed.data, settings: { ...parsed.data.settings, ...kept } } : parsed.data;
   const previous = await replaceAllKeepingCopy(db, data, now);
   return { ok: true, data, previous };
@@ -155,7 +156,7 @@ const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
 const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'orderCosts', 'plan', 'leftovers', 'batches', 'favourites'] as const;
-const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea', 'photoProvider', 'commandCodeModel'] as const;
+const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea', 'photoProvider', 'commandCodeModel', 'claudeModel'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'buyAmount', 'conversions'] as const;
 const RECIPE_FIELDS = [
@@ -247,7 +248,12 @@ function validate(file: Fields): ParseResult {
 
 function readSettings(c: Checker, value: unknown, path: string): KitchenSettings {
   return c.record(value, path, SETTINGS_FIELDS, o => withoutUndefined({
-    words: optional(o.words, v => c.oneOf(v, `${path}.words`, WORD_CHOICES)),
+    words: optional(o.words, v => {
+      // Old backups may say 'jee' (the third pair was removed, Aly 2026-10-07): it restores
+      // as the default Haan/Nahi.
+      const w = c.oneOf(v, `${path}.words`, WORD_CHOICES);
+      return w === 'jee' ? 'haan' : w;
+    }),
     photoProvider: optional(o.photoProvider, v => c.oneOf(v, `${path}.photoProvider`, ['gemini', 'commandcode'] as const)),
     commandCodeModel: optional(o.commandCodeModel, v => c.text(v, `${path}.commandCodeModel`, { nonEmpty: true })),
     homeArea: optional(o.homeArea, v => c.record(v, `${path}.homeArea`, ['label', 'lat', 'lng'] as const, h => ({

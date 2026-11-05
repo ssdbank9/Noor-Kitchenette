@@ -44,7 +44,8 @@ export function TodayScreen(p: TodayProps) {
       <header className="screen__header today-header">
         <div>
           <div className="eyebrow">{p.dateLabel}</div>
-          <h1 className="title">Assalam-o-alaikum, Noor</h1>
+          <h1 className="title">Hello Noori</h1>
+          <div className="eyebrow">with love from Aly</div>
         </div>
         <button type="button" className="icon-button icon-button--outlined" aria-label="Settings" onClick={p.onSettings}><GearIcon /></button>
       </header>
@@ -52,10 +53,10 @@ export function TodayScreen(p: TodayProps) {
       {p.pantryEmpty && ( // settings
         <section className="hero empty-pantry" aria-label="Empty pantry">
           <div className="hero__name">Your pantry is empty.</div>
-          <p className="empty-pantry__text">Snap or add what you have, or try the sample pantry.</p>
+          <p className="empty-pantry__text">Take a photo of your food, or add things one by one.</p>
           <div className="hero__actions">
             <button type="button" className="button-primary" onClick={p.onOpenPantry}>Go to Pantry</button>
-            <button type="button" className="button-outline" onClick={p.onLoadSample}>Load sample pantry</button>
+            <button type="button" className="button-outline" onClick={p.onLoadSample}>Try practice food</button>
           </div>
         </section>
       )}
@@ -114,8 +115,13 @@ export function TodayScreen(p: TodayProps) {
             <button type="button" className="button-primary" onClick={() => p.onCook(p.suggestion!.recipe.id)}>
               {p.yesWord}, let's cook
             </button>
-            <button type="button" className="button-outline" onClick={p.onAnother}>Show another</button>
+            <button type="button" className="button-outline" onClick={p.onAnother}>Show me another</button>
           </div>
+          {p.suggestion.recipe.videoUrl && (
+            <a className="hero__watch" href={p.suggestion.recipe.videoUrl} target="_blank" rel="noreferrer">
+              ▶ Watch how to make {p.suggestion.recipe.name}
+            </a>
+          )}
           <button type="button" className="hero__eatout" onClick={p.onEatOut}>
             <ForkKnifeIcon /> Not in the mood to cook? Eat out
           </button>
@@ -146,7 +152,7 @@ export function TodayScreen(p: TodayProps) {
 
       <section className="section">
         <div className="section__head">
-          <h2 className="section__title">Ready now · {p.ready.length}</h2>
+          <h2 className="section__title">You can cook these now · {p.ready.length}</h2>
           <button type="button" className="section__see-all" onClick={p.onSeeAll}>See all</button>
         </div>
         {p.ready.length === 0 && (
@@ -162,11 +168,11 @@ export function TodayScreen(p: TodayProps) {
               </button>
             </li>
           ))}
-          <li>{/* F80 */}
+          <li>{/* F80/A4 */}
             <button type="button" className="tile tile--add" onClick={p.onAddDish}>
               <span className="tile__art tile__art--add" aria-hidden="true">+</span>
-              <span className="tile__name">Add a new dish</span>
-              <span className="tile__meta">Look it up by name</span>
+              <span className="tile__name">Find a new dish</span>
+              <span className="tile__meta">Type its name — any cuisine — and I will find it</span>
             </button>
           </li>
         </ul>
@@ -174,13 +180,13 @@ export function TodayScreen(p: TodayProps) {
 
       {!p.pantryEmpty && p.almost.length > 0 && (
         <section className="section section--padded">
-          <h2 className="section__title">Almost there</h2>
+          <h2 className="section__title">Almost — one or two things missing</h2>
           <ul className="rows">
             {p.almost.map(({ recipe, missingNames }) => (
               <li key={recipe.id} className="row">
                 <button type="button" className="row__main" onClick={() => p.onOpenRecipe(recipe.id)}>
                   <span className="row__name">{recipe.name}</span>
-                  <span className="row__need">Need: {missingNames.join(', ')}</span>
+                  <span className="row__need">Missing: {missingNames.join(', ')}</span>
                 </button>
                 <button type="button" className="button-tint" onClick={() => p.onAddToList(recipe.id)}
                   aria-label={`Add what ${recipe.name} needs to the shopping list`}>+ List</button>
@@ -191,7 +197,7 @@ export function TodayScreen(p: TodayProps) {
       )}
 
       <button type="button" className="snap" onClick={p.onSnap}>
-        <CameraIcon /> Snap pantry
+        <CameraIcon /> Add food with a photo
       </button>
     </div>
   );

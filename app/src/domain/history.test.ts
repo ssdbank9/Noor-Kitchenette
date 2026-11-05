@@ -20,6 +20,14 @@ describe('addDays and rangeDates', () => {
     expect(rangeDates('month', '2026-10-04')).toEqual({ startDate: '2026-10-01', endDate: '2026-10-31' });
     expect(rangeDates('year', '2026-10-04')).toEqual({ startDate: '2026-01-01', endDate: '2026-12-31' });
   });
+  it('a picked range uses exactly the dates she chose, both ends included', () => {
+    expect(rangeDates('custom', '2026-10-04', { startDate: '2026-09-01', endDate: '2026-09-15' }))
+      .toEqual({ startDate: '2026-09-01', endDate: '2026-09-15' });
+    expect(rangeDates('custom', '2026-10-04', { startDate: '2026-10-04', endDate: '2026-10-04' }))
+      .toEqual({ startDate: '2026-10-04', endDate: '2026-10-04' });
+    // No dates picked yet: one day, never a silent whole year.
+    expect(rangeDates('custom', '2026-10-04')).toEqual({ startDate: '2026-10-04', endDate: '2026-10-04' });
+  });
 });
 
 describe('periodSummary', () => {

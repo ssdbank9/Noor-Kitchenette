@@ -14,8 +14,8 @@ const fmt = formatAmount;
 
 function pantryText(b: Balance | undefined, i: Ingredient): string {
   if (!b) return 'none';
-  if (b.amount === null) return 'not sure';
-  if (b.needsCheck) return 'check stock';
+  if (b.amount === null) return '?';
+  if (b.needsCheck) return '?';
   return fmt(b.amount, i);
 }
 
@@ -61,10 +61,10 @@ test('Nahi: adjust one ingredient to None and another to more, stock follows, un
     await expect(pantryRow(page, ing.name)).toContainText(pantryText(after.get(ing.id), ing));
   }
 
-  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click();
   await expect(page.getByText(name).first()).toBeVisible();
   await page.getByRole('button', { name: 'Undo' }).first().click();
-  await expect(page.getByText('Nothing recorded yet')).toBeVisible();
+  await expect(page.getByText('Nothing here yet')).toBeVisible();
 
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
   for (const ing of [first, second]) {
@@ -79,7 +79,7 @@ test('Exact amount rejects blanks and negatives and blocks Save', async ({ page 
   await page.getByRole('button', { name: 'Nahi', exact: true }).click();
   await page.getByRole('button', { name: 'Save' }).click();
   const row = page.locator('.usage-row').first();
-  await row.getByRole('button', { name: 'Exact amount' }).click();
+  await row.getByRole('button', { name: 'How much exactly?' }).click();
   const input = row.getByLabel('Exact amount');
   await input.fill('-3');
   await expect(row.getByRole('alert')).toContainText('negative');

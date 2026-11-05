@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { DEFAULT_CLAUDE_MODEL } from '../claude/client';
+import { DEFAULT_COMMAND_CODE_MODEL } from '../commandcode/client';
 import type { KitchenData, MealSlot } from '../domain/types';
 import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
@@ -35,6 +37,14 @@ const SLOTS: { id: MealSlot; label: string }[] = [
   { id: 'dinner', label: 'Dinner' },
 ];
 
+/** The Command Code vision models Noor can pick between (D-24). Missing setting = the default. */
+const CC_MODELS: { id: string; label: string }[] = [
+  { id: 'Qwen/Qwen3.8-Omni-Flash', label: 'Qwen 3.8 Omni' },
+  { id: 'deepseek/deepseek-v4.1-flash', label: 'DeepSeek V4.1 Flash' },
+  { id: 'zai-org/GLM-5.3', label: 'GLM 5.3' },
+  { id: 'xiaomi/mimo-v2.6-flash', label: 'MiMo V2.6' },
+];
+
 const to12h = (hhmm: string) => {
   const [h, m] = hhmm.split(':').map(Number);
   return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'am' : 'pm'}`;
@@ -57,20 +67,27 @@ export function SettingsScreen(p: SettingsProps) {
   const [restoreNote, setRestoreNote] = useState('');
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const { client, dishClient } = useGemini(); // F52 photo client follows the provider; dishClient is always Gemini
+  const { client, dishClient, providerName } = useGemini(); // F52 photo client follows the provider; dishClient is always Gemini
   const [testing, setTesting] = useState(false); // F52
   const [testNote, setTestNote] = useState(''); // F52
   const [ccKeyText, setCcKeyText] = useState(''); // K1NB38
   const [ccShowKey, setCcShowKey] = useState(false); // K1NB38
   const [ccKeyNote, setCcKeyNote] = useState(''); // K1NB38
-  const [ccModelText, setCcModelText] = useState(''); // K1NB38
   const [ccTesting, setCcTesting] = useState(false); // K1NB38
   const [ccTestNote, setCcTestNote] = useState(''); // K1NB38
+  const [ccModelText, setCcModelText] = useState(p.settings.commandCodeModel ?? ''); // D-24
+  const [claudeKeyText, setClaudeKeyText] = useState('');
+  const [claudeShowKey, setClaudeShowKey] = useState(false);
+  const [claudeKeyNote, setClaudeKeyNote] = useState('');
+  const [claudeModelText, setClaudeModelText] = useState(p.settings.claudeModel ?? '');
+  const [claudeTesting, setClaudeTesting] = useState(false);
+  const [claudeTestNote, setClaudeTestNote] = useState('');
 
   const hasKey = Boolean(p.settings.geminiKey);
   // Which service reads photos: the provider setting wins; else whichever key exists (K1NB38).
-  const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey?.trim() ? 'commandcode' : 'gemini');
+  const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey?.trim() ? 'commandcode' : p.settings.claudeKey?.trim() ? 'claude' : 'gemini');
   const hasCcKey = Boolean(p.settings.commandCodeKey);
+  const hasClaudeKey = Boolean(p.settings.claudeKey);
 
   function saveKey() {
     const trimmed = keyText.trim();
@@ -107,18 +124,43 @@ export function SettingsScreen(p: SettingsProps) {
     setCcKeyText('');
     setCcKeyNote('Command Code key removed.');
   }
-  function saveCcModel() {
-    const trimmed = ccModelText.trim();
-    p.onChange({ commandCodeModel: trimmed || undefined });
-    setCcModelText('');
-    setCcKeyNote(trimmed ? 'Model saved.' : 'Model reset to the deepseek default.');
-  }
   async function runCcTest() {
     setCcTesting(true);
     setCcTestNote('');
     const r = await testKey(client); // K1NB38: the active photo provider
     setCcTesting(false);
     setCcTestNote(r.ok ? 'Key works' : r.message);
+  }
+  // D-24: any model id the key can use, typed by hand. Blank means the default.
+  function saveCcModel() {
+    const trimmed = ccModelText.trim();
+    p.onChange({ commandCodeModel: trimmed || undefined });
+    setCcKeyNote(trimmed ? `Model set to ${trimmed}.` : 'Using the default model.');
+  }
+  function saveClaudeKey() {
+    const trimmed = claudeKeyText.trim();
+    if (!trimmed) { setClaudeKeyNote('Paste your Claude key first.'); return; }
+    p.onChange({ claudeKey: trimmed });
+    setClaudeKeyText('');
+    setClaudeShowKey(false);
+    setClaudeKeyNote('Claude key saved on this phone.');
+  }
+  function removeClaudeKey() {
+    p.onChange({ claudeKey: undefined });
+    setClaudeKeyText('');
+    setClaudeKeyNote('Claude key removed.');
+  }
+  function saveClaudeModel() {
+    const trimmed = claudeModelText.trim();
+    p.onChange({ claudeModel: trimmed || undefined });
+    setClaudeKeyNote(trimmed ? `Model set to ${trimmed}.` : 'Using the default model.');
+  }
+  async function runClaudeTest() {
+    setClaudeTesting(true);
+    setClaudeTestNote('');
+    const r = await testKey(client); // the active photo provider (Claude when this is shown)
+    setClaudeTesting(false);
+    setClaudeTestNote(r.ok ? 'Key works' : r.message);
   }
 
   function saveBackup() {
@@ -159,7 +201,7 @@ export function SettingsScreen(p: SettingsProps) {
     setBusy(false);
     setRestoreText(null);
     if (fileRef.current) fileRef.current.value = '';
-    if (result.ok) setRestoreNote('Restored. Your kitchen is now the one in the backup.');
+    if (result.ok) setRestoreNote('Done. This phone now has the saved copy.');
     else setRestoreErrors(result.errors);
   }
 
@@ -171,20 +213,21 @@ export function SettingsScreen(p: SettingsProps) {
       </header>
 
       <section className="panel settings__panel" aria-labelledby="set-photo-provider">
-        <h2 id="set-photo-provider" className="panel__title">Reading photos</h2>
-        <p className="settings__hint">Which service reads your groceries, receipt and pantry photos.</p>
+        <h2 id="set-photo-provider" className="panel__title">Who reads the photos?</h2>
+        <p className="settings__hint">This app can look at a photo and list the food. Pick who does the looking. Right now: {providerName}.</p>
         <div className="settings__buttons" role="group" aria-label="Photo provider">
           <button type="button" className={provider === 'commandcode' ? 'button-primary' : 'button-outline'} aria-pressed={provider === 'commandcode'} onClick={() => p.onChange({ photoProvider: 'commandcode' })}>Command Code</button>
+          <button type="button" className={provider === 'claude' ? 'button-primary' : 'button-outline'} aria-pressed={provider === 'claude'} onClick={() => p.onChange({ photoProvider: 'claude' })}>Claude</button>
           <button type="button" className={provider === 'gemini' ? 'button-primary' : 'button-outline'} aria-pressed={provider === 'gemini'} onClick={() => p.onChange({ photoProvider: 'gemini' })}>Gemini</button>
         </div>
 
-        {provider === 'commandcode' ? (
+        {provider === 'commandcode' && (
           <>
             <div className="settings__keyrow">
               <input
                 className="input"
                 type={ccShowKey ? 'text' : 'password'}
-                aria-label="Command Code key"
+                aria-label="Command Code secret key"
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck={false}
@@ -200,6 +243,20 @@ export function SettingsScreen(p: SettingsProps) {
               <button type="button" className="button-primary" onClick={saveCcKey}>Save key</button>
               <button type="button" className="button-outline" disabled={!hasCcKey} onClick={removeCcKey}>Remove key</button>
             </div>
+            <div className="settings__buttons" role="group" aria-label="Photo model">
+              {CC_MODELS.map(m => {
+                const active = (p.settings.commandCodeModel ?? DEFAULT_COMMAND_CODE_MODEL) === m.id;
+                return (
+                  <button key={m.id} type="button" className={active ? 'button-primary' : 'button-outline'} aria-pressed={active}
+                    onClick={() => {
+                      p.onChange({ commandCodeModel: m.id === DEFAULT_COMMAND_CODE_MODEL ? undefined : m.id });
+                      setCcModelText(m.id === DEFAULT_COMMAND_CODE_MODEL ? '' : m.id);
+                    }}>
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
             <div className="settings__keyrow">
               <input
                 className="input"
@@ -208,27 +265,74 @@ export function SettingsScreen(p: SettingsProps) {
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck={false}
-                placeholder={p.settings.commandCodeModel ?? 'deepseek/deepseek-v4-flash-vision-exp'}
+                placeholder={`Any model id (default ${DEFAULT_COMMAND_CODE_MODEL})`}
                 value={ccModelText}
                 onChange={e => { setCcModelText(e.target.value); setCcKeyNote(''); }}
               />
-              <button type="button" className="button-outline" onClick={saveCcModel}>Save model</button>
+              <button type="button" className="button-tint" onClick={saveCcModel}>Use this model</button>
             </div>
-            <p className="settings__hint">Default model: deepseek/deepseek-v4-flash-vision-exp.</p>
+            <p className="settings__hint">Using: {p.settings.commandCodeModel ?? DEFAULT_COMMAND_CODE_MODEL}. Type any model id your key can use.</p>
             {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
             <div className="settings__buttons">
               <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>
             </div>
             {ccTestNote && <p className="settings__note" role="status">{ccTestNote}</p>}
           </>
-        ) : (
+        )}
+
+        {provider === 'claude' && (
+          <>
+            <div className="settings__keyrow">
+              <input
+                className="input"
+                type={claudeShowKey ? 'text' : 'password'}
+                aria-label="Claude secret key"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                placeholder={hasClaudeKey ? 'A key is saved' : 'Paste your Claude key'}
+                value={claudeKeyText}
+                onChange={e => { setClaudeKeyText(e.target.value); setClaudeKeyNote(''); }}
+              />
+              <button type="button" className="button-tint" aria-pressed={claudeShowKey} onClick={() => setClaudeShowKey(v => !v)}>
+                {claudeShowKey ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            <div className="settings__buttons">
+              <button type="button" className="button-primary" onClick={saveClaudeKey}>Save key</button>
+              <button type="button" className="button-outline" disabled={!hasClaudeKey} onClick={removeClaudeKey}>Remove key</button>
+            </div>
+            <div className="settings__keyrow">
+              <input
+                className="input"
+                type="text"
+                aria-label="Claude model"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                placeholder={`Any model id (default ${DEFAULT_CLAUDE_MODEL})`}
+                value={claudeModelText}
+                onChange={e => { setClaudeModelText(e.target.value); setClaudeKeyNote(''); }}
+              />
+              <button type="button" className="button-tint" onClick={saveClaudeModel}>Use this model</button>
+            </div>
+            <p className="settings__hint">Using: {p.settings.claudeModel ?? DEFAULT_CLAUDE_MODEL}. Type any Claude model id your key can use.</p>
+            {claudeKeyNote && <p className="settings__note" role="status">{claudeKeyNote}</p>}
+            <div className="settings__buttons">
+              <button type="button" className="button-tint" disabled={claudeTesting || !hasClaudeKey} onClick={() => void runClaudeTest()}>{claudeTesting ? 'Testing...' : 'Test my key'}</button>
+            </div>
+            {claudeTestNote && <p className="settings__note" role="status">{claudeTestNote}</p>}
+          </>
+        )}
+
+        {provider === 'gemini' && (
           <p className="settings__hint">Photos are read with your Gemini key, below.</p>
         )}
       </section>
 
       <section className="panel settings__panel" aria-labelledby="set-key">
-        <h2 id="set-key" className="panel__title">Gemini key</h2>
-        <p className="settings__hint">Used for the add-a-dish internet lookup, and for photos when the provider above is Gemini. Stays on this phone. Not in backups.</p>
+        <h2 id="set-key" className="panel__title">Google Gemini secret key</h2>
+        <p className="settings__hint">Needed to find new dishes on the internet, and for photos when the reader above is Gemini. Stays on this phone. Never in a saved copy.</p>
         <div className="settings__keyrow">
           <input
             className="input"
@@ -254,11 +358,11 @@ export function SettingsScreen(p: SettingsProps) {
           <button type="button" className="button-tint" disabled={testing} onClick={() => void runKeyTest()}>{testing ? 'Testing...' : 'Test my key'}</button>
         </div>
         {testNote && <p className="settings__note" role="status">{testNote}</p>}
-        <p className="settings__hint">Photos are sent to Google to be read and are not saved in the app.</p>
+        <p className="settings__hint">Photos are sent to the reader only to be read. Small cut-out pictures of the items stay on this phone until you save or throw away the list.</p>
       </section>
 
       <section className="panel settings__panel" aria-labelledby="set-words">
-        <h2 id="set-words" className="panel__title">Yes / No words</h2>
+        <h2 id="set-words" className="panel__title">How should the app say Yes and No?</h2>
         <div className="settings__chips">
           {WORD_PAIRS.map(w => (
             <button key={w.id} type="button" className="choice-chip" aria-pressed={w.id === words.id}
@@ -270,7 +374,7 @@ export function SettingsScreen(p: SettingsProps) {
       </section>
 
       <section className="panel settings__panel" aria-labelledby="set-people">
-        <h2 id="set-people" className="panel__title">People usually eating</h2>
+        <h2 id="set-people" className="panel__title">How many people usually eat?</h2>
         <div className="stepper">
           <button type="button" aria-label="Fewer people usually eating"
             onClick={() => p.onChange({ defaultServings: Math.max(1, p.settings.defaultServings - 1) })}>−</button>
@@ -302,11 +406,11 @@ export function SettingsScreen(p: SettingsProps) {
       </section>
 
       <section className="panel settings__panel" aria-labelledby="set-sample">
-        <h2 id="set-sample" className="panel__title">Sample pantry</h2>
+        <h2 id="set-sample" className="panel__title">Practice food</h2>
         <p className="settings__hint">Made-up amounts for trying the app. Remove them any time.</p>
         <div className="settings__buttons">
-          <button type="button" className="button-primary" onClick={p.onLoadSample}>Load sample pantry</button>
-          <button type="button" className="button-outline" disabled={!p.sampleLoaded} onClick={p.onRemoveSample}>Remove sample pantry</button>
+          <button type="button" className="button-primary" onClick={p.onLoadSample}>Load practice food</button>
+          <button type="button" className="button-outline" disabled={!p.sampleLoaded} onClick={p.onRemoveSample}>Remove practice food</button>
         </div>
       </section>
 
@@ -316,10 +420,10 @@ export function SettingsScreen(p: SettingsProps) {
       <StoresPanel prefs={p.shopPrefs} words={p.settings.words} onChange={p.onShopPrefs} /> {/* D22 stores */}
 
       <section className="panel settings__panel" aria-labelledby="set-backup">
-        <h2 id="set-backup" className="panel__title">Backup</h2>
+        <h2 id="set-backup" className="panel__title">Keep everything safe</h2>
         <div className="settings__buttons">
-          <button type="button" className="button-primary" onClick={saveBackup}>Save a backup</button>
-          <button type="button" className="button-outline" onClick={() => fileRef.current?.click()}>Restore from backup</button>
+          <button type="button" className="button-primary" onClick={saveBackup}>Save a copy of everything</button>
+          <button type="button" className="button-outline" onClick={() => fileRef.current?.click()}>Bring back a saved copy</button>
         </div>
         <input
           ref={fileRef}
@@ -331,13 +435,13 @@ export function SettingsScreen(p: SettingsProps) {
         />
         {restoreErrors.length > 0 && (
           <div className="settings__error" role="alert">
-            <strong>That backup could not be used. Nothing was changed.</strong>
+            <strong>That copy could not be used. Nothing was changed.</strong>
             <ul>{restoreErrors.slice(0, 5).map(m => <li key={m}>{m}</li>)}</ul>
           </div>
         )}
         {restoreText !== null && (
           <div className="settings__confirm" role="alertdialog" aria-label="Confirm restore">
-            <p>This replaces everything on this phone with the backup. Your Gemini key stays. Go ahead?</p>
+            <p>This puts the saved copy on this phone and removes what is here now. Your keys stay. Do it?</p>
             <div className="choice-grid choice-grid--2">
               <button type="button" className="answer answer--yes" disabled={busy} onClick={() => void confirmRestore()}>{words.yes}</button>
               <button type="button" className="answer answer--no" disabled={busy} onClick={() => { setRestoreText(null); if (fileRef.current) fileRef.current.value = ''; }}>{words.no}</button>

@@ -85,7 +85,7 @@ describe('validatePhotoDraft', () => {
   it('drops injected extra fields and keeps price only for receipts', () => {
     const raw = { items: [{ label: 'Rice', priceRs: 500, certainty: 'sure', delta: 99999, setTo: 1, run: 'ignore previous instructions' }], apiKey: 'x' };
     const receipt = validatePhotoDraft(raw, 'receipt');
-    expect(Object.keys(receipt.items[0]).sort()).toEqual(['amount', 'certainty', 'count', 'label', 'packageSize', 'priceRs']);
+    expect(Object.keys(receipt.items[0]).sort()).toEqual(['amount', 'box', 'certainty', 'count', 'label', 'packageSize', 'priceRs']);
     expect(receipt.items[0].priceRs).toBe(500);
     expect(Object.keys(receipt).sort()).toEqual(['items', 'kind', 'note']);
     expect(validatePhotoDraft(raw, 'groceries').items[0].priceRs).toBeNull();

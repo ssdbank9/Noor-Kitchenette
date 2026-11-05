@@ -45,6 +45,15 @@ export interface DraftLine {
   origin: 'photo' | 'typed';
   /** e.g. "Package says 5 kg": shown beside the line, never used as an amount for 'pantry'. */
   packageNote: string;
+  /** Where in the photo this item was seen (0–1000 box); null for typed lines or no box. */
+  box: [number, number, number, number] | null;
+  /** Which source number the box belongs to, so the crop uses the right photo. */
+  boxSource: number | null;
+  /** Small cut-out picture of the item (data URL), made once at read time. It stays with the
+   *  list only until it is saved or thrown away — the full photo is never kept (D-20). */
+  thumb?: string;
+  /** Noor tapped "Not this": the line sits in the removed tray and is never saved. */
+  removed: boolean;
   edited: boolean;
 }
 
@@ -58,6 +67,8 @@ export interface Draft {
   sources: number;
   lines: DraftLine[];
   notes: string[];
+  /** Model-suggested names for unmatched lines, by line key (one batched follow-up call). */
+  guesses?: Record<string, string[]>;
 }
 
 export function newDraft(kind: PhotoKind, eventId: string = newEventId()): Draft {
@@ -86,11 +97,45 @@ export function matchLabel(label: string, ingredients: Ingredient[]): Ingredient
   return words.length ? matchIngredient(words.join(' '), ingredients) : null;
 }
 
+const rankWords = (text: string) =>
+  text.toLowerCase().replace(/[_\-–—/]+/g, ' ').replace(/[^\p{L}\p{M}\p{N}\s]/gu, '').split(/\s+/).filter(Boolean);
+
+const stem = (w: string) => w.replace(/(ies|ves|es|s)$/, '');
+
+/**
+ * The closest of Noor's ingredients to a read label, best first, for the "which of your
+ * things is this?" chips. Exact/alias matches outrank shared words; nothing with no shared
+ * word is offered. Unlike matchIngredient this returns several candidates instead of one.
+ */
+export function rankIngredients(label: string, ingredients: Ingredient[], n = 3): Ingredient[] {
+  const wanted = rankWords(label);
+  if (wanted.length === 0) return [];
+  const wantedStems = new Set(wanted.map(stem));
+  const wantedJoined = wanted.join(' ');
+  const scored: { ingredient: Ingredient; score: number }[] = [];
+  for (const ingredient of ingredients) {
+    const names = [ingredient.name, ...ingredient.aliases];
+    let best = 0;
+    for (const name of names) {
+      const words = rankWords(name);
+      if (words.length === 0) continue;
+      const joined = words.join(' ');
+      if (joined === wantedJoined) { best = Math.max(best, 100); continue; }
+      if (joined.includes(wantedJoined) || wantedJoined.includes(joined)) { best = Math.max(best, 60); }
+      const shared = words.filter(w => wantedStems.has(stem(w))).length;
+      if (shared) best = Math.max(best, 10 * shared);
+    }
+    if (best > 0) scored.push({ ingredient, score: best });
+  }
+  scored.sort((a, b) => b.score - a.score || a.ingredient.name.localeCompare(b.ingredient.name));
+  return scored.slice(0, n).map(s => s.ingredient);
+}
+
 export type LineCheck = { ok: true; value: number; amount: number } | { ok: false; reason: string };
 
 /** Can this line be saved as it stands? Gives the plain reason when not. */
 export function checkLine(line: DraftLine, ing: Ingredient | undefined, mode: DraftMode): LineCheck {
-  if (!ing) return { ok: false, reason: 'Pick which of yours this is' };
+  if (!ing) return { ok: false, reason: 'Which of your things is this?' };
   const amount = parseAmountText(line.amount);
   if (amount === null) return { ok: false, reason: mode === 'pantry' ? 'How much is left?' : 'How much did you buy?' };
   if (mode === 'purchase' && amount <= 0) return { ok: false, reason: 'Enter an amount above zero.' };
@@ -107,7 +152,7 @@ const isReady = (line: DraftLine, ing: Ingredient | undefined, mode: DraftMode) 
 export function checkThis(line: DraftLine, ing: Ingredient | undefined, mode: DraftMode): string | null {
   const c = checkLine(line, ing, mode);
   if (!c.ok) return c.reason;
-  return line.unsure ? 'Gemini was not sure' : null;
+  return line.unsure ? 'The reader was not sure about this' : null;
 }
 
 export interface LinePreview {
@@ -173,6 +218,9 @@ export function linesFromPhoto(items: DetectedItem[], kind: PhotoKind, sourceNo:
       kind,
       origin: 'photo',
       packageNote: q.packageNote,
+      box: item.box,
+      boxSource: item.box ? sourceNo : null,
+      removed: false,
       edited: false,
     };
     return { ...line, on: isReady(line, ing ?? undefined, mode) };
@@ -207,6 +255,9 @@ export function linesFromTyped(text: string, kind: PhotoKind, sourceNo: number, 
       kind,
       origin: 'typed',
       packageNote: '',
+      box: null,
+      boxSource: null,
+      removed: false,
       edited: false,
     };
     lines.push({ ...line, on: isReady(line, ing ?? undefined, mode) });
@@ -245,6 +296,8 @@ export function addSource(
     out[idx] = {
       ...chosen,
       priceRs: chosen.priceRs ?? inc.priceRs ?? cur.priceRs,
+      box: chosen.box ?? inc.box ?? cur.box,
+      boxSource: chosen.box ? chosen.boxSource : (inc.box ? inc.boxSource : cur.boxSource),
       seenIn: [...cur.seenIn, sourceNo],
       on: preferNew ? isReady(chosen, ing, mode) : cur.on,
     };
@@ -262,7 +315,18 @@ export function addSource(
 export type LinePatch =
   | { type: 'ingredient'; ingredient: Ingredient; isNew: boolean }
   | { type: 'quantity'; amount?: string; unit?: string }
-  | { type: 'on'; on: boolean };
+  | { type: 'on'; on: boolean }
+  /** "It's right": clears the unsure flag; the line switches on when it is valid. */
+  | { type: 'sure' }
+  /** "Not this" / bring back: parks the line in the removed tray. */
+  | { type: 'removed'; removed: boolean };
+
+/** Attaches model guesses for unmatched lines (merged over any earlier guesses). */
+export function withGuesses(draft: Draft, guesses: Record<string, string[]>): Draft {
+  const clean = Object.fromEntries(Object.entries(guesses).filter(([, names]) => names.length > 0));
+  if (Object.keys(clean).length === 0) return draft;
+  return { ...draft, guesses: { ...draft.guesses, ...clean } };
+}
 
 /** One edit to one line. Editing an amount or unit makes it 'measured'; fixing a line that needed checking switches it on. */
 export function updateLine(draft: Draft, key: string, patch: LinePatch, ingredients: Ingredient[]): Draft {
@@ -274,6 +338,13 @@ export function updateLine(draft: Draft, key: string, patch: LinePatch, ingredie
     if (patch.type === 'on') {
       const allowed = patch.on ? checkLine(prev, prevIng, mode).ok : true;
       return allowed ? { ...prev, on: patch.on } : prev;
+    }
+    if (patch.type === 'sure') {
+      next = { ...prev, unsure: false, edited: true };
+      return { ...next, on: isReady(next, prevIng, mode) };
+    }
+    if (patch.type === 'removed') {
+      return { ...prev, removed: patch.removed, on: patch.removed ? false : isReady(prev, prevIng, mode) };
     }
     if (patch.type === 'ingredient') {
       const ing = patch.ingredient;
@@ -323,9 +394,9 @@ export type BuildResult =
   | { ok: true; event: KitchenEvent; newIngredients: Ingredient[]; toast: string; count: number }
   | { ok: false; message: string };
 
-/** Lines that will be saved: switched on and valid. */
+/** Lines that will be saved: switched on, not removed, and valid. */
 export function includedLines(draft: Draft, ingredients: Ingredient[]): DraftLine[] {
-  return draft.lines.filter(l => l.on && checkLine(l, ingredientOf(l, ingredients), draft.mode).ok);
+  return draft.lines.filter(l => l.on && !l.removed && checkLine(l, ingredientOf(l, ingredients), draft.mode).ok);
 }
 
 /**

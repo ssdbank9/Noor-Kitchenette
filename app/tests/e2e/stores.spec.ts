@@ -112,7 +112,7 @@ test('stores survive a reload and are in the backup file', async ({ page }) => {
   await openStores(page);
   await expect(panel(page).locator('.stores-list__text strong', { hasText: 'Metro' })).toBeVisible();
 
-  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save a backup' }).click()]);
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save a copy of everything' }).click()]);
   const text = readFileSync(await download.path(), 'utf8');
   const parsed = parseBackup(text);
   expect(parsed.ok).toBe(true);

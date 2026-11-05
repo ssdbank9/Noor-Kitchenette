@@ -227,7 +227,7 @@ export function PlanScreen(p: PlanScreenProps) {
         )}
 
         {meal && cancelled && (
-          <button type="button" className="button-tint plan-wide" aria-label={`Restore ${name}`} onClick={() => { p.onSaveMeal(restoreMeal(meal)); p.onToast(`${name} is back in the plan.`); }}>Restore this meal</button>
+          <button type="button" className="button-tint plan-wide" aria-label={`Put back ${name}`} onClick={() => { p.onSaveMeal(restoreMeal(meal)); p.onToast(`${name} is back in the plan.`); }}>Put this meal back</button>
         )}
         {meal && !cancelled && confirming !== meal.id && (
           <button type="button" className="link-button" aria-label={`Cancel ${name}`} onClick={() => setConfirming(meal.id)}>Cancel this meal</button>

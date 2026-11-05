@@ -20,7 +20,7 @@ test('the app opens offline with recipes and saved data', async ({ page, context
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByRole('button', { name: 'See all' })).toBeVisible();
-  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await page.getByRole('button', { name: 'Cooked', exact: true }).click();
   await expect(page.getByText(name).first()).toBeVisible();
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
   await expect(page.locator('.pantry-item').first()).toBeVisible();

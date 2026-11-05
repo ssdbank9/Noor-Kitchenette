@@ -5,13 +5,13 @@ after Aly states it, with the date and Aly's words or a link to them.
 
 ## Open
 
-Nothing open. D-01 to D-23 are all recorded below.
+Nothing open. D-01 to D-25 are all recorded below.
 
 ## Decided
 
 | ID | Date | Decision | Source |
 |---|---|---|---|
-| D-06 | 2026-10-04 | Track work with Jaira (board in `.jaira/`) and keep the project in a local git repository that Codex and Claude both work from | Aly, Claude session 2026-10-04: "commit to git so both we can work with codex and claude interchangably", "jaira skill use. as well" |
+| D-06 | 2026-10-04 | Keep the project in a local git repository that Codex and Claude both work from. (A ticket-board workflow was also adopted here; dropped by D-25.) | Aly, Claude session 2026-10-04: "commit to git so both we can work with codex and claude interchangably" |
 | D-05 | 2026-10-04 | GitHub remote is `ssdbank9/Noor-Kitchenette`, kept **public**. Household recipes, stock and audit evidence are published there knowingly | Aly, Claude session 2026-10-04: "Keep it public I am okay with it" |
 | D-03 | 2026-10-04 | Photo recognition is a must-have in the first release (moved to P2, before the pilot), and Google Gemini does it | Aly, Claude session 2026-10-04: "Photo recognition is must we can have gemini do it for us" |
 | D-09 | 2026-10-04 | The app shows recipes from current stock, tracks what is cooked and what can be cooked, keeps a database of cooked meals to analyse how often each dish is cooked (F79), and every dish shows a recipe from the internet (F78) | Aly, same session: "every dish should pop up a recipe from the internet" |
@@ -34,4 +34,5 @@ Nothing open. D-01 to D-23 are all recorded below.
 | D-23 | 2026-10-06 | (1) A **Snacks tab** (between Pantry and Shop): the Snacks & noodles aisle with search-and-add, a "+ List" button and the usual stock actions; starter snacks are Buldak noodles (keep 5), Instant noodles, Chips, Biscuits, Chocolate and Frisky (alias "firstky"; spelling to confirm). (2) **Order costs** on the Eat out screen: Aly pays foodpanda orders; Noor logs the restaurant and rupee cost, picks exactly two ways to pay Aly back (all, or half rounded up), then taps Paid, which removes it from the total due while the log is kept; Not paid yet reverses it. Money is whole rupees, saved on the phone and in backups only; orders are not tied to the restaurant list. | Aly, Claude session 2026-10-06: "keep snacks a separate tab", "she can log in the cost as it is PAID BY ME ... return half the amount to me", "when she pays she can tap paid ... the log is retained" |
 | D-02 | 2026-10-06 | Noor's Kitchen stays a **single-device, local-first** app for now: Noor and Aly do **not** share one live household, and shared sync (P5, F64) is not built. Events are recorded so sync could be added later. | Aly, Claude session 2026-10-06: "D-02 not a shared household, keep it single device for now" |
 | D-07 | 2026-10-06 | The recipe "match %" is the **share of required amounts available, scaled to servings** (the `coverage` value in `app/src/domain/suggest.ts`). | Aly, Claude session 2026-10-06: "Yes accept D-07" |
+| D-25 | 2026-10-07 | **Drop the ticket-board workflow** (board directory deleted; supersedes the board half of D-06). Work is agreed with Aly in conversation and committed on branches. Board history stays in git history if ever needed. | Aly, Claude session 2026-10-07: "do it" (removing the board, which he called a pain) |
 | D-24 | 2026-10-06 | Photo reading can also use Aly's **Command Code** gateway (`https://api.commandcode.ai`, OpenAI chat/completions) besides Google Gemini. Settings has a photo-provider picker; it defaults to whichever key exists (Command Code if a Command Code key is saved, else Gemini). The Command Code key stays on the phone only (never in code, the repo or backups — same rule as D-08). Default Command Code model: `deepseek/deepseek-v4-flash-vision-exp`. Gemini stays for the **add-dish internet lookup** (Command Code has no grounded search) and as a photo fallback. | Aly, Claude session 2026-10-06: "Yes i want commandcode as a provider, model could be deepseek v 4 flash vision ... key stoed on phone" |

@@ -112,8 +112,8 @@ not the whole product.
 
 ## 6. How work is tracked
 
-- Phases and their first tasks are tickets on the Jaira board in `.jaira/`
-  (`jaira list`, `jaira next`). Ticket context explains why each exists.
+- Work is agreed with Aly in conversation and committed on branches (D-06 as amended
+  by D-25: no task board; the old board was removed 2026-10-07).
 - Product decisions go in `DECISIONS.md`. Agent process lessons go in
   `pending-global-mistakes.md`.
 - Rules for Codex and Claude: [`../AGENTS.md`](../AGENTS.md).

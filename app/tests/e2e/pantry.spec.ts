@@ -9,7 +9,7 @@ async function openPantry(page: Page) {
   await page.getByRole('button', { name: 'Pantry', exact: true }).click();
 }
 
-/** The number in a row's amount text, e.g. "10 pc · not confirmed" -> 10. */
+/** The number in a row's amount text, e.g. "10 pc · a guess" -> 10. */
 async function pieces(page: Page, name: string): Promise<number> {
   const text = await row(page, name).locator('.pantry-item__amount').innerText();
   return Number(/(\d+(?:\.\d+)?) pc/.exec(text)![1]);
@@ -55,7 +55,7 @@ test("Checked what's left sets 2 pc, confirmed", async ({ page }) => {
   await page.getByLabel('Exact amount').fill('2');
   await page.getByRole('button', { name: 'Confirm', exact: true }).click();
   await expect(row(page, 'Tomato')).toContainText('2 pc');
-  await expect(row(page, 'Tomato')).not.toContainText('not confirmed');
+  await expect(row(page, 'Tomato')).not.toContainText('a guess');
 });
 
 test('Not sure shows not sure, not zero', async ({ page }) => {
@@ -63,7 +63,7 @@ test('Not sure shows not sure, not zero', async ({ page }) => {
   await row(page, 'Tomato').click();
   await page.getByRole('button', { name: "Checked what's left" }).click();
   await page.getByRole('button', { name: 'Not sure', exact: true }).click();
-  await expect(row(page, 'Tomato')).toContainText('not sure');
+  await expect(row(page, 'Tomato')).toContainText('?');
 });
 
 test('Finished shows none left, and the Low chip then lists it', async ({ page }) => {
@@ -72,7 +72,7 @@ test('Finished shows none left, and the Low chip then lists it', async ({ page }
   await page.getByRole('button', { name: 'Finished', exact: true }).click();
   await page.getByRole('button', { name: 'Confirm', exact: true }).click();
   await expect(row(page, 'Tomato')).toContainText('0 pc');
-  await page.getByRole('button', { name: 'Low', exact: true }).click();
+  await page.getByRole('button', { name: 'Running out', exact: true }).click();
   await expect(row(page, 'Tomato')).toContainText('Low');
 });
 

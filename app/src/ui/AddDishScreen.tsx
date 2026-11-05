@@ -44,6 +44,9 @@ type Stage =
 
 const KIND_LABEL: Record<MatchKind, string> = { exact: 'Same dish', alias: 'Also called this', near: 'Close spelling' };
 
+// A4: cuisine shortcuts for the world search — her four, then anything else by name.
+const CUISINES = ['Desi', 'Chinese', 'Italian', 'American'] as const;
+
 export function AddDishScreen(p: AddDishScreenProps) {
   // The add-a-dish lookup is always Gemini: Command Code has no Google-grounded search (K1NB38).
   const { dishClient: client, hasGeminiKey: hasKey } = useGemini();
@@ -127,27 +130,37 @@ export function AddDishScreen(p: AddDishScreenProps) {
     <div className="screen form-screen adddish">
       <div className="form-screen__head">
         <button type="button" className="icon-button icon-button--outlined" aria-label="Back" onClick={back}>‹</button>
-        <h1 className="title title--sm">Add a new dish</h1>
+        <h1 className="title title--sm">Find a new dish</h1>
       </div>
 
       {showForm && (
-        <form className="adddish__form" onSubmit={search}>
-          <label className="adddish__field">
-            <span className="adddish__label">What is the dish called?</span>
-            <input
-              className="input adddish__name"
-              ref={nameBox}
-              autoFocus
-              autoComplete="off"
-              autoCapitalize="words"
-              maxLength={80}
-              placeholder="For example: haleem, korma, karela"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-            />
-          </label>
-          <button type="submit" className="button-primary adddish__search" disabled={!typed}>Search</button>
-        </form>
+        <>
+          <div className="filter-chips" role="group" aria-label="Pick a cuisine">
+            {CUISINES.map(c => (
+              <button key={c} type="button" className="choice-chip" aria-pressed={query === c}
+                onClick={() => { setQuery(c); nameBox.current?.focus(); }}>
+                {c}
+              </button>
+            ))}
+          </div>
+          <form className="adddish__form" onSubmit={search}>
+            <label className="adddish__field">
+              <span className="adddish__label">What is the dish called?</span>
+              <input
+                className="input adddish__name"
+                ref={nameBox}
+                autoFocus
+                autoComplete="off"
+                autoCapitalize="words"
+                maxLength={80}
+                placeholder="For example: haleem, korma, pasta, kung pao"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+              />
+            </label>
+            <button type="submit" className="button-primary adddish__search" disabled={!typed}>Search</button>
+          </form>
+        </>
       )}
 
       {stage.name === 'household' && (

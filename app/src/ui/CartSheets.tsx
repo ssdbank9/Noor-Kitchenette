@@ -211,13 +211,13 @@ export function AlwaysKeepSheet(p: AlwaysKeepSheetProps) {
 
   return (
     <Sheet title={`Always keep ${ingredient.name}`} onClose={p.onClose}>
-      <p className="plan-note">When there is less than this left, it goes on the list by itself.</p>
+      <p className="plan-note">When you have less than this, I put it on the list for you.</p>
       <AmountField ingredient={ingredient} label="Keep at least" value={min} onChange={v => { setMin(v); setError(''); }} />
       <AmountField ingredient={ingredient} label="Usually buy" value={buy} onChange={v => { setBuy(v); setError(''); }} />
       {error && <p className="psheet__error" role="alert">{error}</p>}
       <div className="psheet__confirm">
         <button type="button" className="button-primary" onClick={save}>Save</button>
-        {ingredient.minStock !== undefined && <button type="button" className="button-outline" onClick={stop}>Stop always keeping it</button>}
+        {ingredient.minStock !== undefined && <button type="button" className="button-outline" onClick={stop}>Don't add it by itself anymore</button>}
       </div>
     </Sheet>
   );

@@ -17,7 +17,6 @@ Status (2026-10-05): the core app is live at https://nooris-kitchenette.netlify.
 | `Noor_Kitchen_Coverage_Review.html` | Codex's coverage review (open in a browser) |
 | `audit/` | Codex's evidence: workbook extraction, browser checks, reconciliation |
 | `sources/` | Copies of the v3 HTML app and the two Excel planners |
-| `.jaira/` | Task board (`jaira list`, `jaira next`) |
 
 ## Running the app
 

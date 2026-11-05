@@ -44,7 +44,7 @@ describe('starter collection seed (F9, F38)', () => {
       expect(r.writtenUrl, r.id).toMatch(/^https:\/\//);
       expect(r.videoUrl, r.id).toMatch(/^https:\/\/www\.youtube\.com\//);
       expect(r.version, r.id).toBe(1);
-      expect(r.steps, r.id).toBeUndefined();
+      expect(r.steps?.length, r.id).toBeGreaterThan(2);
       if (r.recommendedWrittenUrl) expect(r.recommendedWrittenUrl, r.id).not.toBe(r.writtenUrl);
       if (r.recommendedVideoUrl) expect(r.recommendedVideoUrl, r.id).not.toBe(r.videoUrl);
     }
