@@ -122,7 +122,7 @@ describe('preferences', () => {
   const prefs = (): ShopPrefs => ({ ...defaultShopPrefs(), preferred: { rice: 'alfatah', milk: 'pandamart', onion: 'local' } });
   it('deleting a store clears it from preferred', () => {
     const next = removeStore(prefs(), 'alfatah');
-    expect(next.stores.map(s => s.id)).toEqual(['pandamart', 'carrefour', 'local']);
+    expect(next.stores.map(s => s.id)).toEqual(DEFAULT_STORES.filter(s => s.id !== 'alfatah').map(s => s.id));
     expect(next.preferred).toEqual({ milk: 'pandamart', onion: 'local' });
   });
   it('setPreferred sets, clears, and ignores unknown stores', () => {
@@ -135,7 +135,7 @@ describe('preferences', () => {
     expect(added.stores.at(-1)?.id).toBe('new');
     const edited = upsertStore(prefs(), { ...alfatah, name: 'Al-Fatah 2' });
     expect(edited.stores[0].name).toBe('Al-Fatah 2');
-    expect(edited.stores).toHaveLength(4);
+    expect(edited.stores).toHaveLength(DEFAULT_STORES.length);
   });
   it('resetStores restores the usual ones and drops choices for stores that are gone', () => {
     const withMine = upsertStore(prefs(), { id: 'mine', name: 'Mine', kind: 'maps-only', mapsQuery: 'q' });

@@ -24,7 +24,7 @@ test('the usual stores are listed with the no-prices note', async ({ page }) => 
   await openWithSamplePantry(page);
   await openStores(page);
   const p = panel(page);
-  for (const n of ['Al-Fatah', 'pandamart (foodpanda)', 'Carrefour', 'Local shops (I-8 Markaz)']) await expect(p.getByText(n, { exact: true })).toBeVisible();
+  for (const n of ['Al-Fatah', 'pandamart (foodpanda)', 'Carrefour', 'Local shops (I-8 Markaz)', 'HBK Hypermarket (I-8 Markaz)']) await expect(p.getByText(n, { exact: true })).toBeVisible();
   await expect(p.getByText("Prices and stock are not shown. Links open the store's website; they may open its app on your phone.")).toBeVisible();
 });
 
@@ -118,6 +118,6 @@ test('stores survive a reload and are in the backup file', async ({ page }) => {
   expect(parsed.ok).toBe(true);
   if (!parsed.ok) return;
   const stores = parsed.data.shopPrefs?.stores ?? [];
-  expect(stores.map(s => s.name)).toEqual(['Al-Fatah', 'pandamart (foodpanda)', 'Carrefour', 'Local shops (I-8 Markaz)', 'Metro']);
+  expect(stores.map(s => s.name)).toEqual(['Al-Fatah', 'pandamart (foodpanda)', 'Carrefour', 'Local shops (I-8 Markaz)', 'HBK Hypermarket (I-8 Markaz)', 'Metro']);
   expect(stores.at(-1)).toMatchObject({ id: 'metro', kind: 'online-search', searchUrl: 'https://metro.pk/search?q={q}' });
 });
