@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   agoText, allMoods, buildFavourite, directionsUrl, isOld, loadEatOutList, parseEatOutList, parseEatOutText, pickNewest,
@@ -139,5 +141,19 @@ describe('directions and favourite form', () => {
     expect(buildFavourite({ ...base, url: 'javascript:alert(1)' }, 'f1').ok).toBe(false);
     const prev = fav('f1', 'd', [], '2026-10-01');
     expect(buildFavourite({ ...base, url: 'https://foodpanda.pk/r/1' }, 'f1', prev)).toMatchObject({ ok: true, favourite: { lastOrderedOn: '2026-10-01', url: 'https://foodpanda.pk/r/1' } });
+  });
+});
+
+describe('the shipped restaurant list', () => {
+  it('carries her favourite places, including ones foodpanda does not return', () => {
+    const text = readFileSync(fileURLToPath(new URL('../../public/eatout/moods.json', import.meta.url)), 'utf8');
+    const r = parseEatOutText(text);
+    if (!r.ok) throw new Error(r.error);
+    const names = (r.list.moods['My favourites'] ?? []).map(p => p.name);
+    for (const n of ['Workaholic', 'Chop Chips', 'Wild Wings', 'OPTP', 'OD']) {
+      expect(names.some(x => x.toLowerCase().includes(n.toLowerCase()))).toBe(true);
+    }
+    const manual = (r.list.moods['My favourites'] ?? []).find(p => p.name === 'OPTP');
+    expect(manual).toMatchObject({ rating: null, url: null });
   });
 });

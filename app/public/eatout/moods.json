@@ -1,8 +1,62 @@
 {
-  "generatedAt": "2026-11-05T05:35:55.269Z",
+  "generatedAt": "2026-11-05T05:42:43.659Z",
   "source": "foodpanda.pk restaurant listing (Aly accepted the terms risk, D-13)",
   "minReviews": 100,
   "moods": {
+    "My favourites": [
+      {
+        "name": "OD - I8 Markaz",
+        "rating": 4.9,
+        "reviews": 908,
+        "budget": 3,
+        "cuisines": [
+          "Shakes",
+          "Beverages",
+          "Healthy Food",
+          "Sandwiches",
+          "Pizza",
+          "Desserts",
+          "Burgers",
+          "Western",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tqpw/od-i8-markaz-tqpw",
+        "lat": 33.669,
+        "lng": 73.0773
+      },
+      {
+        "name": "Workaholic",
+        "rating": null,
+        "reviews": null,
+        "budget": null,
+        "cuisines": [],
+        "url": null
+      },
+      {
+        "name": "Chop Chips",
+        "rating": null,
+        "reviews": null,
+        "budget": null,
+        "cuisines": [],
+        "url": null
+      },
+      {
+        "name": "Wild Wings",
+        "rating": null,
+        "reviews": null,
+        "budget": null,
+        "cuisines": [],
+        "url": null
+      },
+      {
+        "name": "OPTP",
+        "rating": null,
+        "reviews": null,
+        "budget": null,
+        "cuisines": [],
+        "url": null
+      }
+    ],
     "Pasta": [
       {
         "name": "The Coffee Bean & Tea Leaf - I-8 Markaz",
@@ -242,6 +296,20 @@
         "lng": 73.0441
       },
       {
+        "name": "Rendezvous Xpress",
+        "rating": 4.3,
+        "reviews": 406,
+        "budget": 3,
+        "cuisines": [
+          "BBQ",
+          "Pakistani",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/sokl/rendezvous-xpress",
+        "lat": 33.6674,
+        "lng": 73.0746
+      },
+      {
         "name": "Taus - I8",
         "rating": 4.2,
         "reviews": 196,
@@ -364,6 +432,20 @@
         "lng": 73.0732
       },
       {
+        "name": "Rendezvous Xpress",
+        "rating": 4.3,
+        "reviews": 406,
+        "budget": 3,
+        "cuisines": [
+          "BBQ",
+          "Pakistani",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/sokl/rendezvous-xpress",
+        "lat": 33.6674,
+        "lng": 73.0746
+      },
+      {
         "name": "New Tabarak Hotel & Restaurant",
         "rating": 4.3,
         "reviews": 106,
@@ -484,6 +566,20 @@
         "lng": 73.0732
       },
       {
+        "name": "Rendezvous Xpress",
+        "rating": 4.3,
+        "reviews": 406,
+        "budget": 3,
+        "cuisines": [
+          "BBQ",
+          "Pakistani",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/sokl/rendezvous-xpress",
+        "lat": 33.6674,
+        "lng": 73.0746
+      },
+      {
         "name": "New Tabarak Hotel & Restaurant",
         "rating": 4.3,
         "reviews": 106,
@@ -590,6 +686,20 @@
         "url": "https://foodpanda.pk/restaurant/z029/hilton-pizza-and-burgers",
         "lat": 33.6376,
         "lng": 73.064
+      },
+      {
+        "name": "Tayto I-8",
+        "rating": 4.7,
+        "reviews": 2604,
+        "budget": 3,
+        "cuisines": [
+          "Burgers",
+          "Western",
+          "Fast Food"
+        ],
+        "url": "https://foodpanda.pk/restaurant/n0je/tayto-i-8",
+        "lat": 33.6675,
+        "lng": 73.0746
       },
       {
         "name": "Chaaye Khana - I8",

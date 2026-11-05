@@ -9,7 +9,7 @@ import { boundedNumber, cleanText, safeHttpUrl } from '../gemini/sanitize';
 import { distanceKm, validLatLng, type LatLng } from './geo';
 import type { Favourite } from './types';
 
-export const BASE_MOODS = ['Pasta', 'Pizza', 'BBQ', 'Karahi', 'Chinese', 'Korean wings', 'Handi', 'Burgers', 'Donuts', 'Croissants', 'Desserts'] as const;
+export const BASE_MOODS = ['My favourites', 'Pasta', 'Pizza', 'BBQ', 'Karahi', 'Chinese', 'Korean wings', 'Handi', 'Burgers', 'Donuts', 'Croissants', 'Desserts'] as const;
 
 export const FOODPANDA_HOME = 'https://www.foodpanda.pk/';
 export const LIST_URL = '/eatout/moods.json';

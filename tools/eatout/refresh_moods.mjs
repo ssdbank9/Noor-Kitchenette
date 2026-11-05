@@ -103,6 +103,18 @@ for (const m of config.moods) {
 // PRIVACY: see publish.mjs. The published copy keeps each restaurant's public lat/lng (4 decimals)
 // but never the home / search-centre coordinates, distance, delivery time or link query strings.
 
+// Anything she likes that foodpanda does not return for this address stays listed by name, with
+// no invented rating, price or link: the app says "No rating yet" and Order opens foodpanda.
+const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+for (const entry of config.always ?? []) {
+  const list = moods[entry.mood] ?? (moods[entry.mood] = []);
+  for (const name of entry.names ?? []) {
+    const re = new RegExp(`(^|\\W)${escapeRe(name)}(\\W|$)`, 'i');
+    if (list.some(p => re.test(p.name))) continue;
+    list.push({ name, rating: null, reviews: null, budget: null, cuisines: [], url: null });
+  }
+}
+
 const out = {
   generatedAt: new Date().toISOString(),
   source: 'foodpanda.pk restaurant listing (Aly accepted the terms risk, D-13)',
