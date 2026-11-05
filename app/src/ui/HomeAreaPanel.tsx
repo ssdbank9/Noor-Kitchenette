@@ -3,7 +3,7 @@
 // rounded to 3 decimals (about 100 m) and labelled "My location"; the old area is kept whenever
 // the phone says no.
 import { useState } from 'react';
-import { I8_MARKAZ, round3, validLatLng } from '../domain/geo';
+import { I8_3, I8_MARKAZ, round3, validLatLng } from '../domain/geo';
 import type { KitchenData } from '../domain/types';
 
 type HomeArea = NonNullable<KitchenData['settings']['homeArea']>;
@@ -24,6 +24,11 @@ export function HomeAreaPanel({ homeArea, onChange }: HomeAreaPanelProps) {
     setNote(`Saved: ${I8_MARKAZ.label}.`);
   }
 
+  function useHome() {
+    onChange({ homeArea: { label: I8_3.label, lat: I8_3.lat, lng: I8_3.lng } });
+    setNote(`Saved: ${I8_3.label}.`);
+  }
+
   function useMine() {
     setNote('');
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
@@ -42,8 +47,8 @@ export function HomeAreaPanel({ homeArea, onChange }: HomeAreaPanelProps) {
       err => {
         setBusy(false);
         setNote(
-          err.code === 1 ? 'Location was not allowed, so your area was not changed. You can allow it in the phone or browser settings, or pick I-8 Markaz.'
-          : err.code === 3 ? 'The phone took too long to find you. Your area was not changed. Try again outside or pick I-8 Markaz.'
+          err.code === 1 ? 'Location was not allowed, so your area was not changed. You can allow it in the phone or browser settings, or pick I-8/3.'
+          : err.code === 3 ? 'The phone took too long to find you. Your area was not changed. Try again outside or pick I-8/3.'
           : 'The phone could not find your location. Your area was not changed.',
         );
       },
@@ -62,10 +67,13 @@ export function HomeAreaPanel({ homeArea, onChange }: HomeAreaPanelProps) {
       <p className="homearea__now" role="status">
         {homeArea ? <>Nearest restaurants are measured from <strong>{homeArea.label}</strong>.</> : 'No area chosen yet. Pick one to see the nearest restaurants first.'}
       </p>
-      <button type="button" className="button-primary homearea__big" onClick={useI8}>{I8_MARKAZ.label}</button>
+      <button type="button" className="button-primary homearea__big" onClick={useHome}>{I8_3.label}</button>
+      <div className="choice-grid choice-grid--2">
+        <button type="button" className="button-tint" onClick={useI8}>{I8_MARKAZ.label}</button>
+        <button type="button" className="button-tint" disabled={busy} onClick={useMine}>{busy ? 'Finding you...' : 'Use my location'}</button>
+      </div>
       <p className="homearea__why">{WHY}</p>
       <div className="choice-grid choice-grid--2">
-        <button type="button" className="button-tint" disabled={busy} onClick={useMine}>{busy ? 'Finding you...' : 'Use my location'}</button>
         <button type="button" className="button-outline" disabled={!homeArea} onClick={clear}>Clear</button>
       </div>
       {note && <p className="homearea__note" role="status">{note}</p>}

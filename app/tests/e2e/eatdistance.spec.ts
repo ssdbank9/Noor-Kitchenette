@@ -79,6 +79,13 @@ test('the I-8 preset sorts nearest first with distances, the toggle gives best r
   expect(names).toEqual(['Far Pizza', 'Nowhere Pizza', 'Mid Pizza', 'Near Pizza', 'Broken Pizza']);
 });
 
+test('the home preset I-8/3 is the big one-tap choice and is used for distances', async ({ page }) => {
+  await start(page);
+  await openSettings(page);
+  await page.getByRole('button', { name: 'I-8/3, Islamabad' }).click();
+  await expect(page.getByText('Nearest restaurants are measured from')).toContainText('I-8/3, Islamabad');
+});
+
 test('Use my location works with permission and a mocked position, rounded to 3 decimals', async ({ page, context }) => {
   await context.grantPermissions(['geolocation']);
   await context.setGeolocation({ latitude: 33.71234, longitude: 73.04567 });

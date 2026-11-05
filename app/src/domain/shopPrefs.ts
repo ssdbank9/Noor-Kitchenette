@@ -21,7 +21,7 @@ export const DEFAULT_STORES: Store[] = [
   },
   {
     id: 'local', name: 'Local shops (I-8 Markaz)', kind: 'maps-only',
-    mapsQuery: 'grocery store near I-8 Markaz Islamabad',
+    mapsQuery: 'grocery store near I-8/3 Islamabad',
   },
   {
     // The site is a landing page with no online search, so this is directions only.

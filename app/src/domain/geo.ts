@@ -3,6 +3,9 @@ export interface LatLng { lat: number; lng: number }
 
 export const I8_MARKAZ: LatLng & { label: string } = { label: 'I-8 Markaz, Islamabad', lat: 33.668, lng: 73.075 };
 
+/** I-8/3 sub-sector centre (OpenStreetMap way 23010631), where the household lives. */
+export const I8_3: LatLng & { label: string } = { label: 'I-8/3, Islamabad', lat: 33.672, lng: 73.075 };
+
 export const isLat = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v) && v >= -90 && v <= 90;
 export const isLng = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v) && v >= -180 && v <= 180;
 
