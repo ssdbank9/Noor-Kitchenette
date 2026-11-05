@@ -1,63 +1,29 @@
 {
-  "generatedAt": "2026-10-05T13:57:23.454Z",
+  "generatedAt": "2026-11-05T05:35:55.269Z",
   "source": "foodpanda.pk restaurant listing (Aly accepted the terms risk, D-13)",
   "minReviews": 100,
   "moods": {
     "Pasta": [
       {
-        "name": "Golden Dragon - F7",
+        "name": "The Coffee Bean & Tea Leaf - I-8 Markaz",
         "rating": 4.9,
-        "reviews": 2110,
+        "reviews": 2193,
         "budget": 3,
         "cuisines": [
+          "Beverages",
+          "Continental",
           "Pasta",
-          "Chinese"
+          "Fast Food",
+          "Tea & Coffee"
         ],
-        "url": "https://foodpanda.pk/restaurant/s8ma/golden-dragon-f7"
-      },
-      {
-        "name": "The Hotspot",
-        "rating": 4.8,
-        "reviews": 2981,
-        "budget": 3,
-        "cuisines": [
-          "Ice Cream",
-          "Pasta",
-          "Desserts",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s6jg/the-hotspot"
-      },
-      {
-        "name": "Wild Wings - I-8 Markaz",
-        "rating": 4.8,
-        "reviews": 1258,
-        "budget": 3,
-        "cuisines": [
-          "Pasta",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/wzqt/wild-wings-i-8-markaz"
-      },
-      {
-        "name": "Bun N Crust",
-        "rating": 4.8,
-        "reviews": 986,
-        "budget": 3,
-        "cuisines": [
-          "Pasta",
-          "Sandwiches",
-          "Pizza",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/azfp/bun-n-crust-azfp"
+        "url": "https://foodpanda.pk/restaurant/th1h/the-coffee-bean-and-tea-leaf-i-8-markaz",
+        "lat": 33.668,
+        "lng": 73.0758
       },
       {
         "name": "Eggspectation Restaurant Cafe - New Blue Area",
-        "rating": 4.8,
-        "reviews": 794,
+        "rating": 4.9,
+        "reviews": 917,
         "budget": 3,
         "cuisines": [
           "Beverages",
@@ -68,1136 +34,861 @@
           "Burgers",
           "Western"
         ],
-        "url": "https://foodpanda.pk/restaurant/o000/eggspectation-restaurant-cafe-new-blue-area"
+        "url": "https://foodpanda.pk/restaurant/o000/eggspectation-restaurant-cafe-new-blue-area",
+        "lat": 33.6933,
+        "lng": 73.0253
       },
       {
-        "name": "TABLE TALK",
-        "rating": 4.8,
-        "reviews": 187,
-        "budget": 3,
+        "name": "Boom Boom Roll Paratha",
+        "rating": 4.9,
+        "reviews": 337,
+        "budget": 2,
         "cuisines": [
+          "Wraps & Rolls",
           "Pasta",
-          "Pakistani",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/yyvd/table-talk-yyvd"
-      },
-      {
-        "name": "Silver Oaks NetCafe",
-        "rating": 4.8,
-        "reviews": 174,
-        "budget": 3,
-        "cuisines": [
-          "Pasta",
-          "Seafood",
-          "Pizza",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/wwde/silver-oaks-netcafe"
-      },
-      {
-        "name": "Sage Cafe & Grill - (F-7)",
-        "rating": 4.8,
-        "reviews": 128,
-        "budget": 3,
-        "cuisines": [
-          "Beverages",
-          "Continental",
-          "Pasta",
+          "BBQ",
           "Pakistani",
           "Sandwiches",
-          "Seafood",
-          "Chinese",
           "Burgers",
           "Western"
         ],
-        "url": "https://foodpanda.pk/restaurant/r5mb/sage-cafe-and-grill-f-7"
+        "url": "https://foodpanda.pk/restaurant/tarb/boom-boom-roll-paratha-tarb",
+        "lat": 33.6468,
+        "lng": 73.0371
       },
       {
-        "name": "The Cheese Art I-8 Markaz",
-        "rating": 4.6,
-        "reviews": 1395,
-        "budget": 2,
+        "name": "Gloria Jean's Coffees",
+        "rating": 3.5,
+        "reviews": 163,
+        "budget": 3,
         "cuisines": [
           "Beverages",
           "Pasta",
-          "Burgers",
           "Western",
-          "Fast Food"
+          "Fast Food",
+          "Tea & Coffee"
         ],
-        "url": "https://foodpanda.pk/restaurant/pxkt/the-cheese-art-i-8-markaz-pxkt"
-      },
-      {
-        "name": "Wild Wings- Centaurus",
-        "rating": 4.6,
-        "reviews": 1181,
-        "budget": 3,
-        "cuisines": [
-          "Pasta",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/w7io/wild-wings-centaurus-w7io"
+        "url": "https://foodpanda.pk/restaurant/fjv6/gloria-jeans-coffees-fjv6",
+        "lat": 33.6673,
+        "lng": 73.0754
       }
     ],
     "Pizza": [
       {
-        "name": "Domino's Pizza - F-7",
+        "name": "OD - I8 Markaz",
         "rating": 4.9,
-        "reviews": 15134,
+        "reviews": 908,
         "budget": 3,
         "cuisines": [
-          "Pizza",
-          "Western",
-          "Fast Food",
-          "American"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s7hx/dominos-pizza-f-7"
-      },
-      {
-        "name": "Butlers Chocolate Café",
-        "rating": 4.9,
-        "reviews": 2865,
-        "budget": 3,
-        "cuisines": [
+          "Shakes",
           "Beverages",
-          "Pizza",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/v1va/butlers-chocolate-cafe"
-      },
-      {
-        "name": "Zest Pizza & Burger",
-        "rating": 4.9,
-        "reviews": 520,
-        "budget": 2,
-        "cuisines": [
-          "Beverages",
-          "BBQ",
-          "Pizza",
-          "Desserts",
-          "Chinese",
-          "Burgers",
-          "Western"
-        ],
-        "url": "https://foodpanda.pk/restaurant/f24i/zest-pizza-and-burger"
-      },
-      {
-        "name": "Manjoo Arabic Restaurant (I-8)",
-        "rating": 4.9,
-        "reviews": 509,
-        "budget": 3,
-        "cuisines": [
-          "Middle Eastern",
-          "Shawarma",
-          "Pakistani",
-          "Pizza",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/f5ex/manjoo-arabic-restaurant-i-8"
-      },
-      {
-        "name": "Wood Fire Pizza Company",
-        "rating": 4.9,
-        "reviews": 319,
-        "budget": 3,
-        "cuisines": [
-          "Beverages",
-          "Pizza",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/xy92/wood-fire-pizza-company"
-      },
-      {
-        "name": "Papa Johns - Blue Area 2",
-        "rating": 4.8,
-        "reviews": 5622,
-        "budget": 3,
-        "cuisines": [
-          "Pizza",
-          "Desserts",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/yapl/papa-johns-blue-area-2"
-      },
-      {
-        "name": "Fresco Pizza f-10",
-        "rating": 4.8,
-        "reviews": 3182,
-        "budget": 2,
-        "cuisines": [
-          "Pizza",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t7wp/fresco-pizza-f-10"
-      },
-      {
-        "name": "Kruncheese - Islamabad",
-        "rating": 4.8,
-        "reviews": 1150,
-        "budget": 2,
-        "cuisines": [
-          "Beverages",
-          "Pizza",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/b18z/kruncheese-islamabad"
-      },
-      {
-        "name": "14th Street Pizza - I8",
-        "rating": 4.8,
-        "reviews": 1025,
-        "budget": 3,
-        "cuisines": [
-          "Pizza",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/x0ls/14th-street-pizza-i8"
-      },
-      {
-        "name": "Bun N Crust",
-        "rating": 4.8,
-        "reviews": 986,
-        "budget": 3,
-        "cuisines": [
-          "Pasta",
+          "Healthy Food",
           "Sandwiches",
           "Pizza",
+          "Desserts",
+          "Burgers",
+          "Western",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tqpw/od-i8-markaz-tqpw",
+        "lat": 33.669,
+        "lng": 73.0773
+      },
+      {
+        "name": "Hilton Pizza & Burgers",
+        "rating": 4.8,
+        "reviews": 1091,
+        "budget": 3,
+        "cuisines": [
+          "Beverages",
+          "Pakistani",
+          "Pizza",
           "Burgers",
           "Western",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/azfp/bun-n-crust-azfp"
+        "url": "https://foodpanda.pk/restaurant/z029/hilton-pizza-and-burgers",
+        "lat": 33.6376,
+        "lng": 73.064
+      },
+      {
+        "name": "Chaaye Khana - I8",
+        "rating": 4.4,
+        "reviews": 1185,
+        "budget": 3,
+        "cuisines": [
+          "Continental",
+          "Pizza",
+          "Desserts",
+          "Burgers",
+          "Western",
+          "Fast Food"
+        ],
+        "url": "https://foodpanda.pk/restaurant/s13w/chaaye-khana-i8",
+        "lat": 33.6685,
+        "lng": 73.0755
+      },
+      {
+        "name": "Domino's Pizza - Commercial Market RWP",
+        "rating": 4.4,
+        "reviews": 171,
+        "budget": 3,
+        "cuisines": [
+          "Pizza",
+          "Fast Food"
+        ],
+        "url": "https://foodpanda.pk/restaurant/pswz/dominos-pizza-commercial-market-rwp-pswz",
+        "lat": 33.6341,
+        "lng": 73.0706
       }
     ],
     "BBQ": [
       {
-        "name": "New Hot n Spicy - I8",
+        "name": "Desi Khaney",
         "rating": 4.9,
-        "reviews": 6593,
+        "reviews": 2093,
+        "budget": 1,
+        "cuisines": [
+          "BBQ",
+          "Pakistani",
+          "Haleem",
+          "Qeema",
+          "Nihari"
+        ],
+        "url": "https://foodpanda.pk/restaurant/fc1i/desi-khaney-fc1i",
+        "lat": 33.644,
+        "lng": 73.0594
+      },
+      {
+        "name": "Boom Boom Roll Paratha",
+        "rating": 4.9,
+        "reviews": 337,
+        "budget": 2,
+        "cuisines": [
+          "Wraps & Rolls",
+          "Pasta",
+          "BBQ",
+          "Pakistani",
+          "Sandwiches",
+          "Burgers",
+          "Western"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tarb/boom-boom-roll-paratha-tarb",
+        "lat": 33.6468,
+        "lng": 73.0371
+      },
+      {
+        "name": "Haleem Ghar Bar B.Q (I-8)",
+        "rating": 4.8,
+        "reviews": 1888,
+        "budget": 2,
+        "cuisines": [
+          "BBQ",
+          "Pakistani",
+          "Haleem",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/r1ma/haleem-ghar-bar-b-q-i-8",
+        "lat": 33.6615,
+        "lng": 73.0662
+      },
+      {
+        "name": "New Hot N Spicy I-10",
+        "rating": 4.7,
+        "reviews": 7113,
         "budget": 2,
         "cuisines": [
           "Wraps & Rolls",
           "BBQ",
+          "Paratha",
           "Pakistani",
           "Fast Food",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/t6uv/new-hot-n-spicy-i8"
+        "url": "https://foodpanda.pk/restaurant/u8bp/new-hot-n-spicy-i-10",
+        "lat": 33.6467,
+        "lng": 73.0372
       },
       {
-        "name": "Brothers Afghani Nan Center & Melma Dost Chapli Kabab",
-        "rating": 4.9,
-        "reviews": 6482,
-        "budget": 1,
-        "cuisines": [
-          "BBQ",
-          "Pakistani"
-        ],
-        "url": "https://foodpanda.pk/restaurant/ocbm/brothers-afghani-nan-center-and-melma-dost-chapli-kabab"
-      },
-      {
-        "name": "Mumtaz Karahi & Bar B Q",
-        "rating": 4.9,
-        "reviews": 807,
+        "name": "New Haji Restaurant G-9/1",
+        "rating": 4.7,
+        "reviews": 1117,
         "budget": 2,
         "cuisines": [
           "BBQ",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t1pj/mumtaz-karahi-and-bar-b-q"
-      },
-      {
-        "name": "WAKHA RESTAURANT",
-        "rating": 4.9,
-        "reviews": 616,
-        "budget": 3,
-        "cuisines": [
-          "BBQ",
-          "Pakistani",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/diol/wakha-restaurant"
-      },
-      {
-        "name": "Arbicana Shawarma - F-10",
-        "rating": 4.9,
-        "reviews": 542,
-        "budget": 3,
-        "cuisines": [
-          "Middle Eastern",
-          "BBQ",
-          "Shawarma",
+          "Paratha",
           "Pakistani"
         ],
-        "url": "https://foodpanda.pk/restaurant/whxr/arbicana-shawarma-f-10"
+        "url": "https://foodpanda.pk/restaurant/n1ni/new-haji-restaurant-g-9-1",
+        "lat": 33.6847,
+        "lng": 73.0305
       },
       {
-        "name": "Zest Pizza & Burger",
-        "rating": 4.9,
-        "reviews": 520,
+        "name": "Muhammadi Nahari House - I 10",
+        "rating": 4.6,
+        "reviews": 1943,
         "budget": 2,
+        "cuisines": [
+          "Shakes",
+          "Beverages",
+          "BBQ",
+          "Halwa Puri",
+          "Paratha",
+          "Pakistani",
+          "Nihari"
+        ],
+        "url": "https://foodpanda.pk/restaurant/u1mz/muhammadi-nahari-house-i-10",
+        "lat": 33.6502,
+        "lng": 73.0441
+      },
+      {
+        "name": "Taus - I8",
+        "rating": 4.2,
+        "reviews": 196,
+        "budget": 3,
         "cuisines": [
           "Beverages",
           "BBQ",
-          "Pizza",
-          "Desserts",
-          "Chinese",
-          "Burgers",
-          "Western"
-        ],
-        "url": "https://foodpanda.pk/restaurant/f24i/zest-pizza-and-burger"
-      },
-      {
-        "name": "Bundu Khan Islamabad",
-        "rating": 4.9,
-        "reviews": 381,
-        "budget": 3,
-        "cuisines": [
-          "BBQ",
-          "Pakistani"
-        ],
-        "url": "https://foodpanda.pk/restaurant/xnoh/bundu-khan-islamabad"
-      },
-      {
-        "name": "Mirchi 9T7",
-        "rating": 4.8,
-        "reviews": 3424,
-        "budget": 1,
-        "cuisines": [
-          "Wraps & Rolls",
-          "BBQ",
           "Paratha",
           "Pakistani",
-          "Fast Food"
+          "Biryani",
+          "Desserts"
         ],
-        "url": "https://foodpanda.pk/restaurant/n4ca/mirchi-9t7"
-      },
-      {
-        "name": "Yumto - The House Of Arabic Mandi- F-10",
-        "rating": 4.8,
-        "reviews": 2409,
-        "budget": 3,
-        "cuisines": [
-          "Middle Eastern",
-          "BBQ",
-          "Pakistani"
-        ],
-        "url": "https://foodpanda.pk/restaurant/p62r/yumto-the-house-of-arabic-mandi-f-10"
-      },
-      {
-        "name": "Lahori Tikka- F8",
-        "rating": 4.8,
-        "reviews": 2177,
-        "budget": 3,
-        "cuisines": [
-          "BBQ",
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/nscm/lahori-tikka-f8"
+        "url": "https://foodpanda.pk/restaurant/iz0p/taus-i8",
+        "lat": 33.6673,
+        "lng": 73.0747
       }
     ],
     "Karahi": [
       {
-        "name": "Chattha's",
-        "rating": 4.9,
-        "reviews": 17308,
-        "budget": 3,
-        "cuisines": [
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s2ov/chatthas"
-      },
-      {
-        "name": "Mirch N Spicy",
-        "rating": 4.9,
-        "reviews": 7664,
+        "name": "Haleem Ghar Bar B.Q (I-8)",
+        "rating": 4.8,
+        "reviews": 1888,
         "budget": 2,
         "cuisines": [
-          "Wraps & Rolls",
-          "Paratha",
-          "Pakistani",
-          "Fast Food",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t6wt/mirch-n-spicy-t6wt"
-      },
-      {
-        "name": "New Hot n Spicy - I8",
-        "rating": 4.9,
-        "reviews": 6593,
-        "budget": 2,
-        "cuisines": [
-          "Wraps & Rolls",
           "BBQ",
           "Pakistani",
-          "Fast Food",
+          "Haleem",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/t6uv/new-hot-n-spicy-i8"
+        "url": "https://foodpanda.pk/restaurant/r1ma/haleem-ghar-bar-b-q-i-8",
+        "lat": 33.6615,
+        "lng": 73.0662
       },
       {
-        "name": "Khana Gharana",
-        "rating": 4.9,
-        "reviews": 1766,
+        "name": "New Quetta Pakistan Cafe",
+        "rating": 4.8,
+        "reviews": 694,
         "budget": 1,
         "cuisines": [
-          "Beverages",
-          "Halwa Puri",
+          "Paratha",
           "Pakistani",
           "Biryani",
-          "Chinese",
+          "Qeema",
+          "Tea & Coffee",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ksae/new-quetta-pakistan-cafe",
+        "lat": 33.6718,
+        "lng": 73.075
+      },
+      {
+        "name": "New Hot N Spicy I-10",
+        "rating": 4.7,
+        "reviews": 7113,
+        "budget": 2,
+        "cuisines": [
+          "Wraps & Rolls",
+          "BBQ",
+          "Paratha",
+          "Pakistani",
           "Fast Food",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/n7ox/khana-gharana-n7ox"
+        "url": "https://foodpanda.pk/restaurant/u8bp/new-hot-n-spicy-i-10",
+        "lat": 33.6467,
+        "lng": 73.0372
       },
       {
-        "name": "Mumtaz Karahi & Bar B Q",
-        "rating": 4.9,
-        "reviews": 807,
-        "budget": 2,
+        "name": "Rewayat i-8",
+        "rating": 4.7,
+        "reviews": 1205,
+        "budget": 3,
         "cuisines": [
-          "BBQ",
           "Pakistani",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/t1pj/mumtaz-karahi-and-bar-b-q"
+        "url": "https://foodpanda.pk/restaurant/b3oe/rewayat-i-8",
+        "lat": 33.6676,
+        "lng": 73.0744
+      },
+      {
+        "name": "Quetta Commercial Cafe and Bar B Que",
+        "rating": 4.7,
+        "reviews": 407,
+        "budget": 1,
+        "cuisines": [
+          "Pakistani",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ihzu/quetta-commercial-cafe-and-bar-b-que-ihzu",
+        "lat": 33.6418,
+        "lng": 73.0777
       },
       {
         "name": "Darbar Restaurant - G-9",
-        "rating": 4.8,
-        "reviews": 13325,
+        "rating": 4.6,
+        "reviews": 13520,
         "budget": 1,
         "cuisines": [
           "Paratha",
           "Pakistani",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/u8tm/darbar-restaurant-g-9"
+        "url": "https://foodpanda.pk/restaurant/u8tm/darbar-restaurant-g-9",
+        "lat": 33.6882,
+        "lng": 73.034
       },
       {
-        "name": "Rewayat",
-        "rating": 4.8,
-        "reviews": 12221,
-        "budget": 3,
-        "cuisines": [
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s9ky/rewayat"
-      },
-      {
-        "name": "Gohar Kitchen",
-        "rating": 4.8,
-        "reviews": 2309,
-        "budget": 1,
-        "cuisines": [
-          "Beverages",
-          "Pakistani",
-          "Haleem",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/pjdr/gohar-kitchen"
-      },
-      {
-        "name": "Haleem Ghar",
-        "rating": 4.8,
-        "reviews": 2285,
+        "name": "LABAIK RESTAURANT",
+        "rating": 4.4,
+        "reviews": 191,
         "budget": 2,
         "cuisines": [
           "Pakistani",
-          "Haleem",
+          "Karahi & Handi",
+          "Broast"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tplf/labaik-restaurant-tplf",
+        "lat": 33.651,
+        "lng": 73.0732
+      },
+      {
+        "name": "New Tabarak Hotel & Restaurant",
+        "rating": 4.3,
+        "reviews": 106,
+        "budget": 2,
+        "cuisines": [
+          "Beverages",
+          "Pakistani",
           "Karahi & Handi",
           "Nihari"
         ],
-        "url": "https://foodpanda.pk/restaurant/ciyu/haleem-ghar-ciyu"
-      },
-      {
-        "name": "Lahori Tikka- F8",
-        "rating": 4.8,
-        "reviews": 2177,
-        "budget": 3,
-        "cuisines": [
-          "BBQ",
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/nscm/lahori-tikka-f8"
+        "url": "https://foodpanda.pk/restaurant/ban8/new-tabarak-hotel-and-restaurant-ban8",
+        "lat": 33.6544,
+        "lng": 73.0699
       }
     ],
     "Handi": [
       {
-        "name": "Chattha's",
-        "rating": 4.9,
-        "reviews": 17308,
-        "budget": 3,
-        "cuisines": [
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s2ov/chatthas"
-      },
-      {
-        "name": "Mirch N Spicy",
-        "rating": 4.9,
-        "reviews": 7664,
+        "name": "Haleem Ghar Bar B.Q (I-8)",
+        "rating": 4.8,
+        "reviews": 1888,
         "budget": 2,
         "cuisines": [
-          "Wraps & Rolls",
-          "Paratha",
-          "Pakistani",
-          "Fast Food",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t6wt/mirch-n-spicy-t6wt"
-      },
-      {
-        "name": "New Hot n Spicy - I8",
-        "rating": 4.9,
-        "reviews": 6593,
-        "budget": 2,
-        "cuisines": [
-          "Wraps & Rolls",
           "BBQ",
           "Pakistani",
-          "Fast Food",
+          "Haleem",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/t6uv/new-hot-n-spicy-i8"
+        "url": "https://foodpanda.pk/restaurant/r1ma/haleem-ghar-bar-b-q-i-8",
+        "lat": 33.6615,
+        "lng": 73.0662
       },
       {
-        "name": "Khana Gharana",
-        "rating": 4.9,
-        "reviews": 1766,
+        "name": "New Quetta Pakistan Cafe",
+        "rating": 4.8,
+        "reviews": 694,
         "budget": 1,
         "cuisines": [
-          "Beverages",
-          "Halwa Puri",
+          "Paratha",
           "Pakistani",
           "Biryani",
-          "Chinese",
+          "Qeema",
+          "Tea & Coffee",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ksae/new-quetta-pakistan-cafe",
+        "lat": 33.6718,
+        "lng": 73.075
+      },
+      {
+        "name": "New Hot N Spicy I-10",
+        "rating": 4.7,
+        "reviews": 7113,
+        "budget": 2,
+        "cuisines": [
+          "Wraps & Rolls",
+          "BBQ",
+          "Paratha",
+          "Pakistani",
           "Fast Food",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/n7ox/khana-gharana-n7ox"
+        "url": "https://foodpanda.pk/restaurant/u8bp/new-hot-n-spicy-i-10",
+        "lat": 33.6467,
+        "lng": 73.0372
       },
       {
-        "name": "Mumtaz Karahi & Bar B Q",
-        "rating": 4.9,
-        "reviews": 807,
-        "budget": 2,
+        "name": "Rewayat i-8",
+        "rating": 4.7,
+        "reviews": 1205,
+        "budget": 3,
         "cuisines": [
-          "BBQ",
           "Pakistani",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/t1pj/mumtaz-karahi-and-bar-b-q"
+        "url": "https://foodpanda.pk/restaurant/b3oe/rewayat-i-8",
+        "lat": 33.6676,
+        "lng": 73.0744
+      },
+      {
+        "name": "Quetta Commercial Cafe and Bar B Que",
+        "rating": 4.7,
+        "reviews": 407,
+        "budget": 1,
+        "cuisines": [
+          "Pakistani",
+          "Karahi & Handi"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ihzu/quetta-commercial-cafe-and-bar-b-que-ihzu",
+        "lat": 33.6418,
+        "lng": 73.0777
       },
       {
         "name": "Darbar Restaurant - G-9",
-        "rating": 4.8,
-        "reviews": 13325,
+        "rating": 4.6,
+        "reviews": 13520,
         "budget": 1,
         "cuisines": [
           "Paratha",
           "Pakistani",
           "Karahi & Handi"
         ],
-        "url": "https://foodpanda.pk/restaurant/u8tm/darbar-restaurant-g-9"
+        "url": "https://foodpanda.pk/restaurant/u8tm/darbar-restaurant-g-9",
+        "lat": 33.6882,
+        "lng": 73.034
       },
       {
-        "name": "Rewayat",
-        "rating": 4.8,
-        "reviews": 12221,
-        "budget": 3,
-        "cuisines": [
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s9ky/rewayat"
-      },
-      {
-        "name": "Gohar Kitchen",
-        "rating": 4.8,
-        "reviews": 2309,
-        "budget": 1,
-        "cuisines": [
-          "Beverages",
-          "Pakistani",
-          "Haleem",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/pjdr/gohar-kitchen"
-      },
-      {
-        "name": "Haleem Ghar",
-        "rating": 4.8,
-        "reviews": 2285,
+        "name": "LABAIK RESTAURANT",
+        "rating": 4.4,
+        "reviews": 191,
         "budget": 2,
         "cuisines": [
           "Pakistani",
-          "Haleem",
+          "Karahi & Handi",
+          "Broast"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tplf/labaik-restaurant-tplf",
+        "lat": 33.651,
+        "lng": 73.0732
+      },
+      {
+        "name": "New Tabarak Hotel & Restaurant",
+        "rating": 4.3,
+        "reviews": 106,
+        "budget": 2,
+        "cuisines": [
+          "Beverages",
+          "Pakistani",
           "Karahi & Handi",
           "Nihari"
         ],
-        "url": "https://foodpanda.pk/restaurant/ciyu/haleem-ghar-ciyu"
-      },
-      {
-        "name": "Lahori Tikka- F8",
-        "rating": 4.8,
-        "reviews": 2177,
-        "budget": 3,
-        "cuisines": [
-          "BBQ",
-          "Paratha",
-          "Pakistani",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/nscm/lahori-tikka-f8"
+        "url": "https://foodpanda.pk/restaurant/ban8/new-tabarak-hotel-and-restaurant-ban8",
+        "lat": 33.6544,
+        "lng": 73.0699
       }
     ],
-    "Chinese": [
+    "Chinese": [],
+    "Korean wings": [],
+    "Burgers": [
       {
-        "name": "Mr. Dumpling",
-        "rating": 5,
-        "reviews": 604,
-        "budget": 3,
-        "cuisines": [
-          "Healthy Food",
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/tdk2/mr-dumpling-tdk2"
-      },
-      {
-        "name": "Doka Mocca",
+        "name": "Eggspectation Restaurant Cafe - New Blue Area",
         "rating": 4.9,
-        "reviews": 3434,
+        "reviews": 917,
         "budget": 3,
         "cuisines": [
           "Beverages",
-          "Chinese",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t1mi/doka-mocca"
-      },
-      {
-        "name": "Skarchen Food Point",
-        "rating": 4.9,
-        "reviews": 2469,
-        "budget": 2,
-        "cuisines": [
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/au2i/skarchen-food-point"
-      },
-      {
-        "name": "Golden Dragon - F7",
-        "rating": 4.9,
-        "reviews": 2110,
-        "budget": 3,
-        "cuisines": [
+          "Continental",
           "Pasta",
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/s8ma/golden-dragon-f7"
-      },
-      {
-        "name": "Kim Mun Restaurant - Centaurus",
-        "rating": 4.9,
-        "reviews": 1988,
-        "budget": 3,
-        "cuisines": [
-          "Beverages",
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t392/kim-mun-restaurant-centaurus"
-      },
-      {
-        "name": "Khana Gharana",
-        "rating": 4.9,
-        "reviews": 1766,
-        "budget": 1,
-        "cuisines": [
-          "Beverages",
-          "Halwa Puri",
-          "Pakistani",
-          "Biryani",
-          "Chinese",
-          "Fast Food",
-          "Karahi & Handi"
-        ],
-        "url": "https://foodpanda.pk/restaurant/n7ox/khana-gharana-n7ox"
-      },
-      {
-        "name": "WOKAHOLIC",
-        "rating": 4.9,
-        "reviews": 969,
-        "budget": 3,
-        "cuisines": [
-          "Healthy Food",
-          "Pakistani",
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/obim/wokaholic"
-      },
-      {
-        "name": "ASIAN WOK (BEVERLY CENTER)",
-        "rating": 4.9,
-        "reviews": 532,
-        "budget": 3,
-        "cuisines": [
-          "Seafood",
-          "Chinese"
-        ],
-        "url": "https://foodpanda.pk/restaurant/ygj7/asian-wok-beverly-center"
-      },
-      {
-        "name": "Zest Pizza & Burger",
-        "rating": 4.9,
-        "reviews": 520,
-        "budget": 2,
-        "cuisines": [
-          "Beverages",
-          "BBQ",
-          "Pizza",
+          "Sandwiches",
           "Desserts",
-          "Chinese",
           "Burgers",
           "Western"
         ],
-        "url": "https://foodpanda.pk/restaurant/f24i/zest-pizza-and-burger"
+        "url": "https://foodpanda.pk/restaurant/o000/eggspectation-restaurant-cafe-new-blue-area",
+        "lat": 33.6933,
+        "lng": 73.0253
       },
       {
-        "name": "Chinese Imperial Bite",
+        "name": "OD - I8 Markaz",
         "rating": 4.9,
-        "reviews": 262,
+        "reviews": 908,
         "budget": 3,
         "cuisines": [
-          "Pakistani",
-          "Chinese"
+          "Shakes",
+          "Beverages",
+          "Healthy Food",
+          "Sandwiches",
+          "Pizza",
+          "Desserts",
+          "Burgers",
+          "Western",
+          "Tea & Coffee"
         ],
-        "url": "https://foodpanda.pk/restaurant/m2d6/chinese-imperial-bite"
-      }
-    ],
-    "Korean wings": [
+        "url": "https://foodpanda.pk/restaurant/tqpw/od-i8-markaz-tqpw",
+        "lat": 33.669,
+        "lng": 73.0773
+      },
       {
-        "name": "Wild Wings - I-8 Markaz",
-        "rating": 4.8,
-        "reviews": 1258,
-        "budget": 3,
+        "name": "Boom Boom Roll Paratha",
+        "rating": 4.9,
+        "reviews": 337,
+        "budget": 2,
         "cuisines": [
+          "Wraps & Rolls",
           "Pasta",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/wzqt/wild-wings-i-8-markaz"
-      }
-    ],
-    "Burgers": [
-      {
-        "name": "Red Apple - F10",
-        "rating": 4.9,
-        "reviews": 5028,
-        "budget": 2,
-        "cuisines": [
-          "Wraps & Rolls",
-          "Beverages",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/bxda/red-apple-f10"
-      },
-      {
-        "name": "TBC",
-        "rating": 4.9,
-        "reviews": 3831,
-        "budget": 3,
-        "cuisines": [
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/e09w/tbc"
-      },
-      {
-        "name": "Sally's",
-        "rating": 4.9,
-        "reviews": 3625,
-        "budget": 2,
-        "cuisines": [
-          "Wraps & Rolls",
-          "Beverages",
+          "BBQ",
+          "Pakistani",
           "Sandwiches",
           "Burgers",
-          "Western",
-          "Fast Food"
+          "Western"
         ],
-        "url": "https://foodpanda.pk/restaurant/pa1l/sallys"
+        "url": "https://foodpanda.pk/restaurant/tarb/boom-boom-roll-paratha-tarb",
+        "lat": 33.6468,
+        "lng": 73.0371
       },
       {
-        "name": "Doka Mocca",
-        "rating": 4.9,
-        "reviews": 3434,
-        "budget": 3,
-        "cuisines": [
-          "Beverages",
-          "Chinese",
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/t1mi/doka-mocca"
-      },
-      {
-        "name": "Bablooz",
-        "rating": 4.9,
-        "reviews": 2631,
-        "budget": 2,
-        "cuisines": [
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/ftid/bablooz"
-      },
-      {
-        "name": "Daily Deli CO - ISB",
-        "rating": 4.9,
-        "reviews": 2459,
-        "budget": 3,
-        "cuisines": [
-          "Burgers",
-          "Western",
-          "Fast Food"
-        ],
-        "url": "https://foodpanda.pk/restaurant/txpe/daily-deli-co-isb"
-      },
-      {
-        "name": "NOSH  (BURGERS & MORE)",
-        "rating": 4.9,
-        "reviews": 2435,
+        "name": "Burger Lab - Islamabad",
+        "rating": 4.8,
+        "reviews": 3084,
         "budget": 2,
         "cuisines": [
           "Wraps & Rolls",
+          "Beverages",
           "Burgers",
           "Western",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/p2kb/nosh-burgers-and-more"
+        "url": "https://foodpanda.pk/restaurant/a1l1/burger-lab-islamabad",
+        "lat": 33.6785,
+        "lng": 73.0315
       },
       {
-        "name": "Anatummy",
-        "rating": 4.9,
-        "reviews": 2256,
+        "name": "Hilton Pizza & Burgers",
+        "rating": 4.8,
+        "reviews": 1091,
         "budget": 3,
         "cuisines": [
+          "Beverages",
+          "Pakistani",
+          "Pizza",
           "Burgers",
           "Western",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/e4hp/anatummy"
+        "url": "https://foodpanda.pk/restaurant/z029/hilton-pizza-and-burgers",
+        "lat": 33.6376,
+        "lng": 73.064
       },
       {
-        "name": "Binge - F10",
-        "rating": 4.9,
-        "reviews": 2255,
+        "name": "Chaaye Khana - I8",
+        "rating": 4.4,
+        "reviews": 1185,
         "budget": 3,
         "cuisines": [
+          "Continental",
+          "Pizza",
+          "Desserts",
           "Burgers",
           "Western",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/kb9s/binge-f10"
+        "url": "https://foodpanda.pk/restaurant/s13w/chaaye-khana-i8",
+        "lat": 33.6685,
+        "lng": 73.0755
       },
       {
-        "name": "Simply Sufi - F7",
-        "rating": 4.9,
-        "reviews": 2217,
-        "budget": 2,
+        "name": "Bilal Afghani Burger point",
+        "rating": 4.4,
+        "reviews": 931,
+        "budget": 1,
         "cuisines": [
           "Burgers",
           "Western",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/tkzo/simply-sufi-f7"
+        "url": "https://foodpanda.pk/restaurant/gvkg/bilal-afghani-burger-point",
+        "lat": 33.6714,
+        "lng": 73.0751
+      },
+      {
+        "name": "Shandar Fast Food",
+        "rating": 4.2,
+        "reviews": 314,
+        "budget": 1,
+        "cuisines": [
+          "Burgers",
+          "Western",
+          "Fast Food"
+        ],
+        "url": "https://foodpanda.pk/restaurant/k7wy/shandar-fast-food",
+        "lat": 33.6515,
+        "lng": 73.0814
       }
     ],
     "Donuts": [
       {
-        "name": "Dunkin Donuts - F-10",
-        "rating": 4.6,
-        "reviews": 3647,
-        "budget": 2,
-        "cuisines": [
-          "Shakes",
-          "Desserts",
-          "Tea & Coffee"
-        ],
-        "url": "https://foodpanda.pk/restaurant/e7bi/dunkin-donuts-f-10"
-      }
-    ],
-    "Croissants": [
-      {
-        "name": "Layers - F10 Markaz",
+        "name": "Crusteez Donuts- I-8",
         "rating": 5,
-        "reviews": 6228,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/nkm0/layers-f10-markaz"
-      },
-      {
-        "name": "Lush Crush - F10",
-        "rating": 5,
-        "reviews": 968,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/gfka/lush-crush-f10"
-      },
-      {
-        "name": "Shikarpuri Sweets G-9 Markaz",
-        "rating": 4.9,
-        "reviews": 5025,
+        "reviews": 2047,
         "budget": 2,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Samosa",
-          "Savouries"
-        ],
-        "url": "https://foodpanda.pk/restaurant/e3h1/shikarpuri-sweets-g-9-markaz"
-      },
-      {
-        "name": "Costa Coffee - F7",
-        "rating": 4.9,
-        "reviews": 920,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Beverages",
-          "Healthy Food",
-          "Tea & Coffee"
-        ],
-        "url": "https://foodpanda.pk/restaurant/jnxb/costa-coffee-f7"
-      },
-      {
-        "name": "Last Crumb G-9",
-        "rating": 4.9,
-        "reviews": 724,
-        "budget": 2,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Shakes",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/uqjw/last-crumb-g-9"
-      },
-      {
-        "name": "Kitchen Cuisine- F-7",
-        "rating": 4.9,
-        "reviews": 629,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Desserts",
-          "Western"
-        ],
-        "url": "https://foodpanda.pk/restaurant/mytq/kitchen-cuisine-f-7"
-      },
-      {
-        "name": "Waffles by Waheed - (F-10)",
-        "rating": 4.9,
-        "reviews": 488,
-        "budget": 2,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Shakes",
-          "Beverages",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/q933/waffles-by-waheed-f-10-q933"
-      },
-      {
-        "name": "DI Pollo",
-        "rating": 4.9,
-        "reviews": 278,
-        "budget": 2,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Burgers",
-          "Western",
-          "American"
-        ],
-        "url": "https://foodpanda.pk/restaurant/hsll/di-pollo"
-      },
-      {
-        "name": "Seven Chai",
-        "rating": 4.9,
-        "reviews": 104,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Shakes",
-          "Healthy Food",
-          "Pakistani",
-          "Tea & Coffee"
-        ],
-        "url": "https://foodpanda.pk/restaurant/gx5h/seven-chai-gx5h"
-      },
-      {
-        "name": "FRESCO SWEETS (F-10)",
-        "rating": 4.8,
-        "reviews": 3658,
-        "budget": 2,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/v9g2/fresco-sweets-f-10"
-      }
-    ],
-    "Desserts": [
-      {
-        "name": "Layers - F10 Markaz",
-        "rating": 5,
-        "reviews": 6228,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/nkm0/layers-f10-markaz"
-      },
-      {
-        "name": "Crumble- Blue Area",
-        "rating": 5,
-        "reviews": 3736,
-        "budget": 2,
-        "cuisines": [
-          "Beverages",
-          "Healthy Food",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/c0xt/crumble-blue-area"
-      },
-      {
-        "name": "Lush Crush - F10",
-        "rating": 5,
-        "reviews": 968,
-        "budget": 3,
-        "cuisines": [
-          "Cakes & Bakery",
-          "Ice Cream",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/gfka/lush-crush-f10"
-      },
-      {
-        "name": "Quatro Uno",
-        "rating": 5,
-        "reviews": 447,
-        "budget": 3,
         "cuisines": [
           "Desserts",
           "Fast Food"
         ],
-        "url": "https://foodpanda.pk/restaurant/a078/quatro-uno"
-      },
+        "url": "https://foodpanda.pk/restaurant/ujsx/crusteez-donuts-i-8",
+        "lat": 33.6674,
+        "lng": 73.0753
+      }
+    ],
+    "Croissants": [
       {
-        "name": "Sugar Rush - E-7",
+        "name": "Layers - I-8",
         "rating": 5,
-        "reviews": 302,
+        "reviews": 5386,
         "budget": 3,
         "cuisines": [
+          "Cakes & Bakery",
           "Ice Cream",
           "Desserts"
         ],
-        "url": "https://foodpanda.pk/restaurant/b63a/sugar-rush-e-7"
+        "url": "https://foodpanda.pk/restaurant/cafz/layers-i-8",
+        "lat": 33.6672,
+        "lng": 73.0745
       },
       {
-        "name": "Emaan Dhaka Sweets - Blue area",
+        "name": "Emaan Dhaka Sweets I-8",
         "rating": 5,
-        "reviews": 221,
+        "reviews": 803,
         "budget": 3,
         "cuisines": [
-          "Healthy Food",
+          "Cakes & Bakery",
+          "Pakistani",
           "Desserts"
         ],
-        "url": "https://foodpanda.pk/restaurant/vre3/emaan-dhaka-sweets-blue-area"
+        "url": "https://foodpanda.pk/restaurant/u6kd/emaan-dhaka-sweets-i-8",
+        "lat": 33.6668,
+        "lng": 73.074
       },
       {
-        "name": "Sweet Creme - F-10 Markaz",
-        "rating": 4.9,
-        "reviews": 4436,
+        "name": "Shikarpuri Sweets - 6th Road",
+        "rating": 4.8,
+        "reviews": 2511,
         "budget": 2,
         "cuisines": [
-          "Ice Cream",
-          "Shakes",
-          "Beverages",
+          "Cakes & Bakery",
+          "Samosa",
+          "Savouries",
           "Desserts"
         ],
-        "url": "https://foodpanda.pk/restaurant/wgpv/sweet-creme-f-10-markaz"
+        "url": "https://foodpanda.pk/restaurant/zo8e/shikarpuri-sweets-6th-road",
+        "lat": 33.6412,
+        "lng": 73.0787
+      },
+      {
+        "name": "Kitchen Cuisine I-8",
+        "rating": 4.8,
+        "reviews": 965,
+        "budget": 3,
+        "cuisines": [
+          "Cakes & Bakery",
+          "Ice Cream",
+          "Wraps & Rolls",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tfbo/kitchen-cuisine-i-8-tfbo",
+        "lat": 33.6687,
+        "lng": 73.0755
+      },
+      {
+        "name": "Sundays Bakeshop - I-8 Markaz",
+        "rating": 4.7,
+        "reviews": 474,
+        "budget": 2,
+        "cuisines": [
+          "Cakes & Bakery",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/o0fm/sundays-bakeshop-i-8-markaz",
+        "lat": 33.6683,
+        "lng": 73.0742
+      },
+      {
+        "name": "Casserole Desserts",
+        "rating": 4.6,
+        "reviews": 134,
+        "budget": 2,
+        "cuisines": [
+          "Cakes & Bakery",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/a1xd/casserole-desserts",
+        "lat": 33.6373,
+        "lng": 73.0873
+      }
+    ],
+    "Desserts": [
+      {
+        "name": "Layers - I-8",
+        "rating": 5,
+        "reviews": 5386,
+        "budget": 3,
+        "cuisines": [
+          "Cakes & Bakery",
+          "Ice Cream",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/cafz/layers-i-8",
+        "lat": 33.6672,
+        "lng": 73.0745
+      },
+      {
+        "name": "Crumble - I8",
+        "rating": 5,
+        "reviews": 3935,
+        "budget": 2,
+        "cuisines": [
+          "Desserts",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/burn/crumble-i8",
+        "lat": 33.6678,
+        "lng": 73.0761
+      },
+      {
+        "name": "Crusteez Donuts- I-8",
+        "rating": 5,
+        "reviews": 2047,
+        "budget": 2,
+        "cuisines": [
+          "Desserts",
+          "Fast Food"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ujsx/crusteez-donuts-i-8",
+        "lat": 33.6674,
+        "lng": 73.0753
+      },
+      {
+        "name": "Emaan Dhaka Sweets I-8",
+        "rating": 5,
+        "reviews": 803,
+        "budget": 3,
+        "cuisines": [
+          "Cakes & Bakery",
+          "Pakistani",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/u6kd/emaan-dhaka-sweets-i-8",
+        "lat": 33.6668,
+        "lng": 73.074
+      },
+      {
+        "name": "Jamil Sweets - I-8",
+        "rating": 4.9,
+        "reviews": 10319,
+        "budget": 2,
+        "cuisines": [
+          "Samosa",
+          "Savouries",
+          "Desserts"
+        ],
+        "url": "https://foodpanda.pk/restaurant/ufe8/jamil-sweets-i-8",
+        "lat": 33.6686,
+        "lng": 73.0749
       },
       {
         "name": "Sajid Ali Naan Shop",
         "rating": 4.9,
-        "reviews": 3172,
+        "reviews": 3242,
         "budget": 1,
         "cuisines": [
           "Paratha",
           "Pakistani",
           "Desserts"
         ],
-        "url": "https://foodpanda.pk/restaurant/nl9g/sajid-ali-naan-shop"
+        "url": "https://foodpanda.pk/restaurant/nl9g/sajid-ali-naan-shop",
+        "lat": 33.6583,
+        "lng": 73.0595
       },
       {
-        "name": "Jamil Sweets - G-9 Markaz",
+        "name": "Eggspectation Restaurant Cafe - New Blue Area",
         "rating": 4.9,
-        "reviews": 2892,
-        "budget": 2,
-        "cuisines": [
-          "Savouries",
-          "Desserts"
-        ],
-        "url": "https://foodpanda.pk/restaurant/ccmx/jamil-sweets-g-9-markaz"
-      },
-      {
-        "name": "Butlers Chocolate Café",
-        "rating": 4.9,
-        "reviews": 2865,
+        "reviews": 917,
         "budget": 3,
         "cuisines": [
           "Beverages",
-          "Pizza",
-          "Desserts"
+          "Continental",
+          "Pasta",
+          "Sandwiches",
+          "Desserts",
+          "Burgers",
+          "Western"
         ],
-        "url": "https://foodpanda.pk/restaurant/v1va/butlers-chocolate-cafe"
+        "url": "https://foodpanda.pk/restaurant/o000/eggspectation-restaurant-cafe-new-blue-area",
+        "lat": 33.6933,
+        "lng": 73.0253
+      },
+      {
+        "name": "OD - I8 Markaz",
+        "rating": 4.9,
+        "reviews": 908,
+        "budget": 3,
+        "cuisines": [
+          "Shakes",
+          "Beverages",
+          "Healthy Food",
+          "Sandwiches",
+          "Pizza",
+          "Desserts",
+          "Burgers",
+          "Western",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/tqpw/od-i8-markaz-tqpw",
+        "lat": 33.669,
+        "lng": 73.0773
+      },
+      {
+        "name": "WeDrink - (Commercial Market)",
+        "rating": 4.9,
+        "reviews": 711,
+        "budget": 2,
+        "cuisines": [
+          "Ice Cream",
+          "Shakes",
+          "Healthy Food",
+          "Desserts",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/r3fu/wedrink-commercial-market",
+        "lat": 33.6395,
+        "lng": 73.0668
+      },
+      {
+        "name": "Flow Specialty Coffee",
+        "rating": 4.9,
+        "reviews": 574,
+        "budget": 3,
+        "cuisines": [
+          "Sandwiches",
+          "Desserts",
+          "Western",
+          "Tea & Coffee"
+        ],
+        "url": "https://foodpanda.pk/restaurant/maio/flow-specialty-coffee-maio",
+        "lat": 33.6934,
+        "lng": 73.0255
       }
     ]
   }
