@@ -4,6 +4,7 @@ import { DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '.
 import type { KitchenData, MealSlot } from '../domain/types';
 import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
+import { plainMessage } from '../gemini/errors';
 import { useGemini } from '../gemini/GeminiContext'; // F52
 import { testKey } from '../gemini/photo'; // F52
 import { EatOutListPanel } from './EatOutListPanel'; // F83
@@ -77,6 +78,8 @@ export function SettingsScreen(p: SettingsProps) {
   const [ccTestNote, setCcTestNote] = useState(''); // K1NB38
   const [ccModelText, setCcModelText] = useState(p.settings.commandCodeModel ?? ''); // D-24
   const [ccSearchText, setCcSearchText] = useState(p.settings.commandCodeSearchModel ?? '');
+  const [searchTesting, setSearchTesting] = useState(false);
+  const [searchTestNote, setSearchTestNote] = useState('');
   const [claudeKeyText, setClaudeKeyText] = useState('');
   const [claudeShowKey, setClaudeShowKey] = useState(false);
   const [claudeKeyNote, setClaudeKeyNote] = useState('');
@@ -142,6 +145,26 @@ export function SettingsScreen(p: SettingsProps) {
     const trimmed = ccSearchText.trim();
     p.onChange({ commandCodeSearchModel: trimmed || undefined });
     setCcKeyNote(trimmed ? `Search model set to ${trimmed}.` : 'Searching uses the model above.');
+  }
+  /** One tiny real search, so "does searching work?" is answered on the phone, not by guesswork. */
+  async function runSearchTest() {
+    setSearchTesting(true);
+    setSearchTestNote('');
+    try {
+      const r = await dishClient.generate({
+        search: true,
+        system: 'Search the web and report only pages you actually found.',
+        parts: [{ text: 'Find one recipe web page for "aloo gosht" from Pakistan and give its link.' }],
+        maxOutputTokens: 256,
+      });
+      setSearchTestNote(r.sources.length > 0
+        ? `Search works (${r.sources.length} page${r.sources.length === 1 ? '' : 's'} found).`
+        : 'The model answered but found no pages. Choose a search model that can search.');
+    } catch (error) {
+      setSearchTestNote(plainMessage(error));
+    } finally {
+      setSearchTesting(false);
+    }
   }
   function saveClaudeKey() {
     const trimmed = claudeKeyText.trim();
@@ -296,8 +319,10 @@ export function SettingsScreen(p: SettingsProps) {
             {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
             <div className="settings__buttons">
               <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>
+              <button type="button" className="button-tint" disabled={searchTesting || !hasCcKey} onClick={() => void runSearchTest()}>{searchTesting ? 'Searching...' : 'Test search'}</button>
             </div>
             {ccTestNote && <p className="settings__note" role="status">{ccTestNote}</p>}
+            {searchTestNote && <p className="settings__note" role="status">{searchTestNote}</p>}
           </>
         )}
 
