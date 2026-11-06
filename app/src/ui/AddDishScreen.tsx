@@ -222,7 +222,7 @@ const noKey = () => Object.assign(new Error('no key'), { code: 'no-key' });
 function Problem(p: { error: unknown; retry: (() => void) | null; onSettings: () => void; onBack: () => void; onRespell: () => void }) {
   const code = isGeminiError(p.error) ? p.error.code : (p.error as { code?: string })?.code;
   const needsKey = code === 'no-key' || code === 'bad-key';
-  const message = code === 'no-key' ? 'Add your Gemini key in Settings to look dishes up online.' : plainMessage(p.error);
+  const message = code === 'no-key' ? 'Add your Gemini key in Settings to look dishes up online. The key that reads photos cannot search the internet.' : plainMessage(p.error);
   const retryable = isGeminiError(p.error) && p.error.retryable;
   return (
     <div className="adddish__problem" role="alert">
