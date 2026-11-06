@@ -724,7 +724,7 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   return (
-    <GeminiProvider apiKey={settings.geminiKey} commandCodeKey={settings.commandCodeKey} claudeKey={settings.claudeKey} photoProvider={settings.photoProvider} commandCodeModel={settings.commandCodeModel} claudeModel={settings.claudeModel}> {/* gemini */}
+    <GeminiProvider apiKey={settings.geminiKey} commandCodeKey={settings.commandCodeKey} commandCodeSearchModel={settings.commandCodeSearchModel} claudeKey={settings.claudeKey} photoProvider={settings.photoProvider} commandCodeModel={settings.commandCodeModel} claudeModel={settings.claudeModel}> {/* gemini */}
     <div className="app">
       {(save.status === 'error' || (save.pending > 0 && save.mirrorError)) && ( // KR4RJP, AR15
         <div className="save-banner" role="alert">

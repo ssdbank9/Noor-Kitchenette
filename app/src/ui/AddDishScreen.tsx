@@ -48,8 +48,8 @@ const KIND_LABEL: Record<MatchKind, string> = { exact: 'Same dish', alias: 'Also
 const CUISINES = ['Desi', 'Chinese', 'Italian', 'American'] as const;
 
 export function AddDishScreen(p: AddDishScreenProps) {
-  // The add-a-dish lookup is always Gemini: Command Code has no Google-grounded search (K1NB38).
-  const { dishClient: client, hasGeminiKey: hasKey } = useGemini();
+  // Searching uses Command Code when its key is saved, else Gemini (K1NB38).
+  const { dishClient: client, hasSearchKey: hasKey } = useGemini();
   const [query, setQuery] = useState('');
   const [stage, setStage] = useState<Stage>({ name: 'name' });
   const [found, setFound] = useState<DishCandidate[]>([]); // kept so Back from a recipe does not search again
@@ -222,7 +222,7 @@ const noKey = () => Object.assign(new Error('no key'), { code: 'no-key' });
 function Problem(p: { error: unknown; retry: (() => void) | null; onSettings: () => void; onBack: () => void; onRespell: () => void }) {
   const code = isGeminiError(p.error) ? p.error.code : (p.error as { code?: string })?.code;
   const needsKey = code === 'no-key' || code === 'bad-key';
-  const message = code === 'no-key' ? 'Add your Gemini key in Settings to look dishes up online. The key that reads photos cannot search the internet.' : plainMessage(p.error);
+  const message = code === 'no-key' ? 'Add a Command Code or Gemini key in Settings to look dishes up online.' : plainMessage(p.error);
   const retryable = isGeminiError(p.error) && p.error.retryable;
   return (
     <div className="adddish__problem" role="alert">

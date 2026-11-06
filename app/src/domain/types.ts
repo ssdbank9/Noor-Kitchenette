@@ -314,6 +314,8 @@ export interface KitchenData {
     commandCodeKey?: string;
     /** Command Code vision model for the photo reading. Missing means the Qwen default. */
     commandCodeModel?: string;
+    /** Command Code model for web search (needs web_search support). Missing means the model above. */
+    commandCodeSearchModel?: string;
     /** Claude key: stays on this phone, never exported in a backup. */
     claudeKey?: string;
     /** Claude model for the photo reading. Missing means the Sonnet default. */

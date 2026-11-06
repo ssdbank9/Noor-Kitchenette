@@ -12,7 +12,7 @@ const ok = (body: unknown, status = 200, headers: Record<string, string> = {}) =
 const answer = (text: string, extra: object = {}) =>
   ok({ choices: [{ message: { content: text }, finish_reason: 'stop', ...extra }] });
 
-interface Options { key?: string | undefined; maxPerMinute?: number; maxRequestBytes?: number }
+interface Options { key?: string | undefined; maxPerMinute?: number; maxRequestBytes?: number; searchModel?: string }
 
 function setup(responses: (Response | Error)[], options: Options = {}) {
   const calls: { url: string; init: RequestInit }[] = [];
@@ -20,6 +20,7 @@ function setup(responses: (Response | Error)[], options: Options = {}) {
   const waits: number[] = [];
   const client = createCommandCodeClient({
     getKey: () => ('key' in options ? options.key : KEY),
+    searchModel: options.searchModel,
     fetchImpl: (async (url: string, init: RequestInit) => {
       calls.push({ url: String(url), init });
       const next = queue.shift()!;
@@ -71,10 +72,41 @@ describe('Command Code client', () => {
     expect(await code(bad.client.generate({ ...req, json: { schema: {} } }))).toBe('bad-response');
   });
 
-  it('refuses grounded search without a new request (Command Code has none)', async () => {
-    const { client, calls } = setup([]);
-    expect(await code(client.generate({ ...req, search: true }))).toBe('bad-response');
-    expect(calls).toHaveLength(0);
+  it('searches through /responses with the web_search tool and reads its citations as sources', async () => {
+    const { client, calls } = setup([ok({
+      output: [{
+        type: 'message',
+        content: [{
+          type: 'output_text',
+          text: 'Found recipes.',
+          annotations: [
+            { type: 'url_citation', url: 'https://example.pk/haleem', title: 'Example Haleem' },
+            { type: 'url_citation', url: 'https://example.pk/haleem', title: 'Example Haleem again' },
+            { type: 'url_citation', url: 'https://youtu.be/abc123', title: 'A video' },
+          ],
+        }],
+      }],
+    })]);
+    const r = await client.generate({ ...req, search: true, system: 'Be careful.' });
+    expect(r.text).toBe('Found recipes.');
+    expect(r.sources).toEqual([
+      { uri: 'https://example.pk/haleem', title: 'Example Haleem' },
+      { uri: 'https://youtu.be/abc123', title: 'A video' },
+    ]);
+    expect(calls[0].url).toBe('https://api.commandcode.ai/provider/v1/responses');
+    const body = JSON.parse(String(calls[0].init.body));
+    expect(body.tools).toEqual([{ type: 'web_search' }]);
+    expect(body.instructions).toBe('Be careful.');
+    expect(body.input[0].content[0]).toEqual({ type: 'input_text', text: 'hello' });
+  });
+
+  it('uses the search model when given, and reports an upstream refusal plainly', async () => {
+    const refused = setup([ok({ error: { message: 'web_search not supported by this model' } }, 400)], { searchModel: 'openai/gpt-5' });
+    expect(await code(refused.client.generate({ ...req, search: true }))).toBe('bad-response');
+    const body = JSON.parse(String(refused.calls[0].init.body));
+    expect(body.model).toBe('openai/gpt-5');
+    const empty = setup([ok({ output: [] })]);
+    expect(await code(empty.client.generate({ ...req, search: true }))).toBe('bad-response');
   });
 
   it('maps errors like the Gemini client: no key, bad key, rate limit, busy-then-ok', async () => {

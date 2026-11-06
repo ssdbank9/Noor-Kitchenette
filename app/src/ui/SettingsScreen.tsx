@@ -76,6 +76,7 @@ export function SettingsScreen(p: SettingsProps) {
   const [ccTesting, setCcTesting] = useState(false); // K1NB38
   const [ccTestNote, setCcTestNote] = useState(''); // K1NB38
   const [ccModelText, setCcModelText] = useState(p.settings.commandCodeModel ?? ''); // D-24
+  const [ccSearchText, setCcSearchText] = useState(p.settings.commandCodeSearchModel ?? '');
   const [claudeKeyText, setClaudeKeyText] = useState('');
   const [claudeShowKey, setClaudeShowKey] = useState(false);
   const [claudeKeyNote, setClaudeKeyNote] = useState('');
@@ -136,6 +137,11 @@ export function SettingsScreen(p: SettingsProps) {
     const trimmed = ccModelText.trim();
     p.onChange({ commandCodeModel: trimmed || undefined });
     setCcKeyNote(trimmed ? `Model set to ${trimmed}.` : 'Using the default model.');
+  }
+  function saveCcSearchModel() {
+    const trimmed = ccSearchText.trim();
+    p.onChange({ commandCodeSearchModel: trimmed || undefined });
+    setCcKeyNote(trimmed ? `Search model set to ${trimmed}.` : 'Searching uses the model above.');
   }
   function saveClaudeKey() {
     const trimmed = claudeKeyText.trim();
@@ -272,6 +278,21 @@ export function SettingsScreen(p: SettingsProps) {
               <button type="button" className="button-tint" onClick={saveCcModel}>Use this model</button>
             </div>
             <p className="settings__hint">Using: {p.settings.commandCodeModel ?? DEFAULT_COMMAND_CODE_MODEL}. Type any model id your key can use.</p>
+            <div className="settings__keyrow">
+              <input
+                className="input"
+                type="text"
+                aria-label="Command Code search model"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                placeholder="Model for web search (default: the one above)"
+                value={ccSearchText}
+                onChange={e => { setCcSearchText(e.target.value); setCcKeyNote(''); }}
+              />
+              <button type="button" className="button-tint" onClick={saveCcSearchModel}>Use for search</button>
+            </div>
+            <p className="settings__hint">Searching the web uses a model that can search. If it cannot, Google Gemini is used below.</p>
             {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
             <div className="settings__buttons">
               <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>
@@ -332,7 +353,7 @@ export function SettingsScreen(p: SettingsProps) {
 
       <section className="panel settings__panel" aria-labelledby="set-key">
         <h2 id="set-key" className="panel__title">Google Gemini secret key</h2>
-        <p className="settings__hint">Needed to find new dishes on the internet, and for photos when the reader above is Gemini. Stays on this phone. Never in a saved copy.</p>
+        <p className="settings__hint">Used for photos when the reader above is Gemini, and for searching when Command Code cannot. Stays on this phone. Never in a saved copy.</p>
         <div className="settings__keyrow">
           <input
             className="input"

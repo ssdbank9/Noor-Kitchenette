@@ -156,7 +156,7 @@ const MEAL_RATINGS: readonly MealRating[] = ['loved', 'ok', 'not-again'];
 const SOURCES: readonly NonNullable<KitchenEvent['source']>[] = ['typed', 'photo', 'receipt', 'recipe'];
 
 const FILE_FIELDS = ['app', 'schemaVersion', 'exportedAt', 'settings', 'ingredients', 'recipes', 'events', 'shopPrefs', 'orderCosts', 'plan', 'leftovers', 'batches', 'favourites'] as const;
-const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea', 'photoProvider', 'commandCodeModel', 'claudeModel'] as const;
+const SETTINGS_FIELDS = ['householdName', 'timeZone', 'defaultServings', 'slotTimes', 'words', 'homeArea', 'photoProvider', 'commandCodeModel', 'commandCodeSearchModel', 'claudeModel'] as const;
 const WORD_CHOICES = ['haan', 'jee', 'yes'] as const;
 const INGREDIENT_FIELDS = ['id', 'name', 'aliases', 'dimension', 'displayUnit', 'aisle', 'minStock', 'buyAmount', 'conversions'] as const;
 const RECIPE_FIELDS = [

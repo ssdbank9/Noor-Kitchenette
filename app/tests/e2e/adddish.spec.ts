@@ -208,7 +208,7 @@ test('with no key it explains how to add one and nothing is sent', async ({ page
   await page.goto('/');
   await openFromToday(page);
   await search(page, 'haleem');
-  await expect(page.getByRole('alert')).toContainText('Add your Gemini key in Settings');
+  await expect(page.getByRole('alert')).toContainText('Add a Command Code or Gemini key in Settings');
   await expect(page.getByRole('button', { name: 'Open Settings' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Search again with a different spelling' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Try again' })).toHaveCount(0);
