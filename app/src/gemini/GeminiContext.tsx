@@ -5,7 +5,8 @@
 // call, so saving or removing a key takes effect straight away (K1NB38, D-08).
 import { createContext, useContext, useMemo, useRef, type ReactNode } from 'react';
 import { createClaudeClient, DEFAULT_CLAUDE_MODEL } from '../claude/client';
-import { createCommandCodeClient, DEFAULT_COMMAND_CODE_MODEL } from '../commandcode/client';
+import { createCommandCodeClient, DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '../commandcode/client';
+import { GeminiError } from './errors';
 import { createGeminiClient, DEFAULT_MODEL as DEFAULT_GEMINI_MODEL, type GeminiClient } from './client';
 
 type PhotoProvider = 'gemini' | 'commandcode' | 'claude';
@@ -72,15 +73,22 @@ export function GeminiProvider(p: GeminiProviderProps) {
     const commandCode = createCommandCodeClient({
       getKey: () => ccKeyRef.current,
       model: ccModelRef.current?.trim() || DEFAULT_COMMAND_CODE_MODEL,
-      searchModel: ccSearchModelRef.current?.trim() || ccModelRef.current?.trim() || DEFAULT_COMMAND_CODE_MODEL,
+      searchModel: ccSearchModelRef.current?.trim() || DEFAULT_COMMAND_CODE_SEARCH_MODEL,
     });
     return {
       async generate(request) {
         try {
           const first = await commandCode.generate(request);
-          // A model that ignored web_search returns no citations: try Gemini when it has a key.
-          if (request.search && first.sources.length === 0 && geminiKeyRef.current?.trim()) {
-            try { return await gemini.generate(request); } catch { return first; }
+          // A model that ignored web_search returns no citations. Say so plainly instead of
+          // showing Gemini's quota error when the fallback is rate-limited.
+          if (request.search && first.sources.length === 0) {
+            if (geminiKeyRef.current?.trim()) {
+              try {
+                const fromGemini = await gemini.generate(request);
+                if (fromGemini.sources.length > 0) return fromGemini;
+              } catch { /* fall through to the plain explanation */ }
+            }
+            throw new GeminiError('bad-response', 'This model cannot search the web. In Settings, choose a search model that can, for example an OpenAI GPT model.', false);
           }
           return first;
         } catch (error) {

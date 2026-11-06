@@ -13,6 +13,8 @@ import { GeminiError } from '../gemini/errors';
 import type { GeminiClient } from '../gemini/client';
 
 export const DEFAULT_COMMAND_CODE_MODEL = 'Qwen/Qwen3.8-Omni-Flash';
+/** A cheap OpenAI model that honours the built-in web_search tool (DeepSeek ignores it). */
+export const DEFAULT_COMMAND_CODE_SEARCH_MODEL = 'openai/gpt-6-luna';
 const ENDPOINT = 'https://api.commandcode.ai/provider/v1/chat/completions';
 const RESPONSES_ENDPOINT = 'https://api.commandcode.ai/provider/v1/responses';
 /** JSON mode must also be told in words. */

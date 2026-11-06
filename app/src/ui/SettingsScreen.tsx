@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { DEFAULT_CLAUDE_MODEL } from '../claude/client';
-import { DEFAULT_COMMAND_CODE_MODEL } from '../commandcode/client';
+import { DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '../commandcode/client';
 import type { KitchenData, MealSlot } from '../domain/types';
 import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
@@ -286,13 +286,13 @@ export function SettingsScreen(p: SettingsProps) {
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck={false}
-                placeholder="Model for web search (default: the one above)"
+                placeholder={`Model for web search (default ${DEFAULT_COMMAND_CODE_SEARCH_MODEL})`}
                 value={ccSearchText}
                 onChange={e => { setCcSearchText(e.target.value); setCcKeyNote(''); }}
               />
               <button type="button" className="button-tint" onClick={saveCcSearchModel}>Use for search</button>
             </div>
-            <p className="settings__hint">Searching the web uses a model that can search. If it cannot, Google Gemini is used below.</p>
+            <p className="settings__hint">Searching uses {p.settings.commandCodeSearchModel ?? DEFAULT_COMMAND_CODE_SEARCH_MODEL}. Most models ignore the search tool; OpenAI ones honour it. If it cannot, Google Gemini is used below.</p>
             {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
             <div className="settings__buttons">
               <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>
