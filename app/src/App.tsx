@@ -260,14 +260,14 @@ function Kitchen({ store }: { store: KitchenStore }) {
   }
 
   // settings: saved settings, sample pantry, backup and restore
-  function changeSettings(patch: SettingsPatchInput) {
+  function changeSettings(patch: SettingsPatchInput): Promise<unknown> {
     // A patch, not the whole object: two open tabs changing different settings must not
     // clobber each other (A1). A cleared field is named in `remove`, not sent as undefined,
     // so the localStorage mirror keeps the deletion across a reload (GLM N1).
     const remove = Object.keys(patch).filter(key => (patch as Record<string, unknown>)[key] === undefined);
     const set = Object.fromEntries(Object.entries(patch).filter(([, value]) => value !== undefined)) as SettingsPatchInput;
     setBase(b => ({ ...b, settings: applySettingsPatch(b.settings, { patch: set, remove }) }));
-    void store.queue.enqueue({ type: 'settingsPatch', patch: set, remove });
+    return store.queue.enqueue({ type: 'settingsPatch', patch: set, remove });
   }
   const sampleLoaded = useMemo(() => removeSampleEvents(events, new Date()).length > 0, [events]);
   function loadSample() {

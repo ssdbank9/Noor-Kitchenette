@@ -19,7 +19,8 @@ export interface SettingsProps {
   settings: Settings;
   /** true while any sample-pantry entry is still in effect. */
   sampleLoaded: boolean;
-  onChange: (patch: SettingsPatchInput) => void;
+  /** Returns the save result when the caller wants to confirm the change reached the phone. */
+  onChange: (patch: SettingsPatchInput) => void | Promise<unknown>;
   onLoadSample: () => void;
   onRemoveSample: () => void;
   /** The backup file text for the current kitchen. */
@@ -93,10 +94,19 @@ export function SettingsScreen(p: SettingsProps) {
   const hasCcKey = Boolean(p.settings.commandCodeKey);
   const hasClaudeKey = Boolean(p.settings.claudeKey);
 
-  function saveKey() {
+  /** Waits for the write; false when this phone could not save it. */
+  async function confirmed(result: void | Promise<unknown>): Promise<boolean> {
+    const state = await result;
+    return (state as { status?: string } | null | undefined)?.status !== 'error';
+  }
+  async function saveKey() {
     const trimmed = keyText.trim();
     if (!trimmed) { setKeyNote('Paste your key first.'); return; }
-    p.onChange({ geminiKey: trimmed });
+    setKeyNote('Saving...');
+    if (!await confirmed(p.onChange({ geminiKey: trimmed }))) {
+      setKeyNote('This phone could not save the key. Keep this tab open and try again.');
+      return;
+    }
     setKeyText('');
     setShowKey(false);
     setKeyNote('Key saved on this phone.');
@@ -115,10 +125,14 @@ export function SettingsScreen(p: SettingsProps) {
     setKeyNote('Key removed.');
   }
   // K1NB38: Command Code key and model, kept on this phone; backups never carry the key.
-  function saveCcKey() {
+  async function saveCcKey() {
     const trimmed = ccKeyText.trim();
     if (!trimmed) { setCcKeyNote('Paste your Command Code key first.'); return; }
-    p.onChange({ commandCodeKey: trimmed });
+    setCcKeyNote('Saving...');
+    if (!await confirmed(p.onChange({ commandCodeKey: trimmed }))) {
+      setCcKeyNote('This phone could not save the key. Keep this tab open and try again.');
+      return;
+    }
     setCcKeyText('');
     setCcShowKey(false);
     setCcKeyNote('Command Code key saved on this phone.');
@@ -166,10 +180,14 @@ export function SettingsScreen(p: SettingsProps) {
       setSearchTesting(false);
     }
   }
-  function saveClaudeKey() {
+  async function saveClaudeKey() {
     const trimmed = claudeKeyText.trim();
     if (!trimmed) { setClaudeKeyNote('Paste your Claude key first.'); return; }
-    p.onChange({ claudeKey: trimmed });
+    setClaudeKeyNote('Saving...');
+    if (!await confirmed(p.onChange({ claudeKey: trimmed }))) {
+      setClaudeKeyNote('This phone could not save the key. Keep this tab open and try again.');
+      return;
+    }
     setClaudeKeyText('');
     setClaudeShowKey(false);
     setClaudeKeyNote('Claude key saved on this phone.');
@@ -268,8 +286,9 @@ export function SettingsScreen(p: SettingsProps) {
                 {ccShowKey ? 'Hide' : 'Show'}
               </button>
             </div>
+            <p className="settings__hint">{hasCcKey ? 'A Command Code key is saved on this phone.' : 'No Command Code key saved yet.'}</p>
             <div className="settings__buttons">
-              <button type="button" className="button-primary" onClick={saveCcKey}>Save key</button>
+              <button type="button" className="button-primary" onClick={() => void saveCcKey()}>Save key</button>
               <button type="button" className="button-outline" disabled={!hasCcKey} onClick={removeCcKey}>Remove key</button>
             </div>
             <div className="settings__buttons" role="group" aria-label="Photo model">
@@ -344,8 +363,9 @@ export function SettingsScreen(p: SettingsProps) {
                 {claudeShowKey ? 'Hide' : 'Show'}
               </button>
             </div>
+            <p className="settings__hint">{hasClaudeKey ? 'A Claude key is saved on this phone.' : 'No Claude key saved yet.'}</p>
             <div className="settings__buttons">
-              <button type="button" className="button-primary" onClick={saveClaudeKey}>Save key</button>
+              <button type="button" className="button-primary" onClick={() => void saveClaudeKey()}>Save key</button>
               <button type="button" className="button-outline" disabled={!hasClaudeKey} onClick={removeClaudeKey}>Remove key</button>
             </div>
             <div className="settings__keyrow">
@@ -395,8 +415,9 @@ export function SettingsScreen(p: SettingsProps) {
             {showKey ? 'Hide' : 'Show'}
           </button>
         </div>
+        <p className="settings__hint">{hasKey ? 'A Gemini key is saved on this phone.' : 'No Gemini key saved yet.'}</p>
         <div className="settings__buttons">
-          <button type="button" className="button-primary" onClick={saveKey}>Save key</button>
+          <button type="button" className="button-primary" onClick={() => void saveKey()}>Save key</button>
           <button type="button" className="button-outline" disabled={!hasKey} onClick={removeKey}>Remove key</button>
         </div>
         {keyNote && <p className="settings__note" role="status">{keyNote}</p>}

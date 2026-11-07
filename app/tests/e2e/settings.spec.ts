@@ -158,6 +158,21 @@ test('restoring a good backup asks first, then replaces the kitchen', async ({ p
   await expect(page.getByRole('button', { name: /let's cook/ })).toBeVisible();
 });
 
+test('a saved Command Code key is still there after a reload', async ({ page }) => {
+  await page.goto('/');
+  await openSettings(page);
+  const photo = page.getByRole('region', { name: 'Who reads the photos?' });
+  await page.getByRole('button', { name: 'Command Code', exact: true }).click();
+  await photo.getByRole('textbox', { name: 'Command Code secret key' }).fill('cc-fake-key-0001');
+  await photo.getByRole('button', { name: 'Save key' }).click();
+  await expect(page.getByText('Command Code key saved on this phone.')).toBeVisible();
+
+  await page.reload();
+  await openSettings(page);
+  await expect(photo.getByPlaceholder('A key is saved')).toBeVisible();
+  await expect(photo.getByRole('button', { name: 'Test search' })).toBeEnabled();
+});
+
 test('Test search says it works when the search model returns a page', async ({ page }) => {
   await page.goto('/');
   await openSettings(page);
