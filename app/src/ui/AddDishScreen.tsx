@@ -11,6 +11,7 @@ import type { Ingredient, Recipe } from '../domain/types';
 import { extractRecipe, searchDishes } from '../gemini/dish';
 import type { DishCandidate, RecipeDraft } from '../gemini/drafts';
 import { isGeminiError, plainMessage } from '../gemini/errors';
+import { readLastSearch } from '../gemini/lastSearch';
 import { useGemini } from '../gemini/GeminiContext';
 import { DishCandidates } from './DishCandidates';
 import { DishReview } from './DishReview';
@@ -53,6 +54,7 @@ export function AddDishScreen(p: AddDishScreenProps) {
   const [query, setQuery] = useState('');
   const [stage, setStage] = useState<Stage>({ name: 'name' });
   const [found, setFound] = useState<DishCandidate[]>([]); // kept so Back from a recipe does not search again
+  const [foundVia, setFoundVia] = useState(''); // which engine and model answered, e.g. "Command Code · gpt-6-luna"
   const nameBox = useRef<HTMLInputElement>(null);
   const token = useRef(0); // a newer action makes an older answer stale
   useEffect(() => () => { token.current += 1; }, []);
@@ -75,6 +77,7 @@ export function AddDishScreen(p: AddDishScreenProps) {
       const list = await searchDishes(client, typed, p.today);
       if (mine !== token.current) return;
       setFound(list);
+      setFoundVia(readLastSearch()?.via ?? '');
       setStage(list.length ? { name: 'candidates', list } : { name: 'empty' });
     } catch (error) {
       if (mine !== token.current) return;
@@ -197,18 +200,22 @@ export function AddDishScreen(p: AddDishScreenProps) {
       )}
 
       {stage.name === 'candidates' && (
-        <DishCandidates
-          query={typed}
-          candidates={stage.list}
-          yesWord={p.yesWord}
-          onChoose={c => void choose(c)}
-          onSearchAgain={() => setStage({ name: 'name' })}
-        />
+        <>
+          {foundVia && <p className="adddish__meta" role="status">Found online with {foundVia}.</p>}
+          <DishCandidates
+            query={typed}
+            candidates={stage.list}
+            yesWord={p.yesWord}
+            onChoose={c => void choose(c)}
+            onSearchAgain={() => setStage({ name: 'name' })}
+          />
+        </>
       )}
 
       {stage.name === 'empty' && (
         <div className="status status--maybe" role="status">
           Nothing found for "{typed}". Try another spelling, for example "kurma" or "qorma", then Search again.
+          {foundVia && <> (Looked with {foundVia}.)</>}
         </div>
       )}
 

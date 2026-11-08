@@ -154,7 +154,7 @@ export function createClaudeClient(options: ClaudeOptions): GeminiClient {
           throw new GeminiError('bad-response', 'The scanner did not give readable JSON. Try again.', true);
         }
       }
-      return { text, json, sources: [], queries: [] };
+      return { text, json, sources: [], queries: [], via: `Claude · ${model}` };
     },
   };
 }

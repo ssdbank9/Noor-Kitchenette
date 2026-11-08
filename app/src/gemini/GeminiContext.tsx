@@ -5,8 +5,8 @@
 // call, so saving or removing a key takes effect straight away (K1NB38, D-08).
 import { createContext, useContext, useMemo, useRef, type ReactNode } from 'react';
 import { createClaudeClient, DEFAULT_CLAUDE_MODEL } from '../claude/client';
-import { createCommandCodeClient, DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '../commandcode/client';
-import { GeminiError } from './errors';
+import { COMMAND_CODE_SEARCH_BACKUP_MODEL, createCommandCodeClient, DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '../commandcode/client';
+import { chainSearch, type SearchStep } from './searchChain';
 import { createGeminiClient, DEFAULT_MODEL as DEFAULT_GEMINI_MODEL, type GeminiClient } from './client';
 
 type PhotoProvider = 'gemini' | 'commandcode' | 'claude';
@@ -67,39 +67,25 @@ export function GeminiProvider(p: GeminiProviderProps) {
     [provider, p.commandCodeModel, p.claudeModel],
   );
   const hasCcKey = Boolean(p.commandCodeKey?.trim());
+  const hasGeminiKey = Boolean(p.apiKey?.trim());
   const dishClient = useMemo(() => {
     const gemini = createGeminiClient({ getKey: () => geminiKeyRef.current });
     if (!hasCcKey) return gemini;
-    const commandCode = createCommandCodeClient({
-      getKey: () => ccKeyRef.current,
-      model: ccModelRef.current?.trim() || DEFAULT_COMMAND_CODE_MODEL,
-      searchModel: ccSearchModelRef.current?.trim() || DEFAULT_COMMAND_CODE_SEARCH_MODEL,
-    });
-    return {
-      async generate(request) {
-        try {
-          const first = await commandCode.generate(request);
-          // A model that ignored web_search returns no citations. Say so plainly instead of
-          // showing Gemini's quota error when the fallback is rate-limited.
-          if (request.search && first.sources.length === 0) {
-            if (geminiKeyRef.current?.trim()) {
-              try {
-                const fromGemini = await gemini.generate(request);
-                if (fromGemini.sources.length > 0) return fromGemini;
-              } catch { /* fall through to the plain explanation */ }
-            }
-            throw new GeminiError('bad-response', 'This model cannot search the web. In Settings, choose a search model that can, for example an OpenAI GPT model.', false);
-          }
-          return first;
-        } catch (error) {
-          if (geminiKeyRef.current?.trim()) {
-            try { return await gemini.generate(request); } catch { /* keep the first error */ }
-          }
-          throw error;
-        }
-      },
-    };
-  }, [hasCcKey]);
+    const photoModel = ccModelRef.current?.trim() || DEFAULT_COMMAND_CODE_MODEL;
+    const searchModel = ccSearchModelRef.current?.trim() || DEFAULT_COMMAND_CODE_SEARCH_MODEL;
+    // Fool-proof order: her search model, a second OpenAI model, then Gemini (D-27).
+    const steps: SearchStep[] = [
+      { client: createCommandCodeClient({ getKey: () => ccKeyRef.current, model: photoModel, searchModel }), via: `Command Code · ${searchModel}` },
+    ];
+    if (COMMAND_CODE_SEARCH_BACKUP_MODEL !== searchModel) {
+      steps.push({
+        client: createCommandCodeClient({ getKey: () => ccKeyRef.current, model: photoModel, searchModel: COMMAND_CODE_SEARCH_BACKUP_MODEL }),
+        via: `Command Code · ${COMMAND_CODE_SEARCH_BACKUP_MODEL}`,
+      });
+    }
+    if (hasGeminiKey) steps.push({ client: gemini, via: 'Google Gemini' });
+    return chainSearch({ steps });
+  }, [hasCcKey, hasGeminiKey]);
 
   const value = useMemo<GeminiValue>(() => ({
     client,

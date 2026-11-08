@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DEFAULT_CLAUDE_MODEL } from '../claude/client';
 import { DEFAULT_COMMAND_CODE_MODEL, DEFAULT_COMMAND_CODE_SEARCH_MODEL } from '../commandcode/client';
 import type { KitchenData, MealSlot } from '../domain/types';
 import { WORD_PAIRS, wordsFor } from '../domain/words';
 import { parseBackup } from '../storage/backup';
 import { plainMessage } from '../gemini/errors';
+import { lastSearchWhen, readLastSearch } from '../gemini/lastSearch';
 import { useGemini } from '../gemini/GeminiContext'; // F52
 import { testKey } from '../gemini/photo'; // F52
 import { EatOutListPanel } from './EatOutListPanel'; // F83
@@ -81,6 +82,7 @@ export function SettingsScreen(p: SettingsProps) {
   const [ccSearchText, setCcSearchText] = useState(p.settings.commandCodeSearchModel ?? '');
   const [searchTesting, setSearchTesting] = useState(false);
   const [searchTestNote, setSearchTestNote] = useState('');
+  const [catalog, setCatalog] = useState<string[] | null>(null);
   const [claudeKeyText, setClaudeKeyText] = useState('');
   const [claudeShowKey, setClaudeShowKey] = useState(false);
   const [claudeKeyNote, setClaudeKeyNote] = useState('');
@@ -93,6 +95,33 @@ export function SettingsScreen(p: SettingsProps) {
   const provider = p.settings.photoProvider ?? (p.settings.commandCodeKey?.trim() ? 'commandcode' : p.settings.claudeKey?.trim() ? 'claude' : 'gemini');
   const hasCcKey = Boolean(p.settings.commandCodeKey);
   const hasClaudeKey = Boolean(p.settings.claudeKey);
+
+  // The model picker follows the live catalog, so retired models are seen, not discovered
+  // at search time. The key never leaves the request header; failures just leave the fields
+  // as plain text.
+  const ccKey = p.settings.commandCodeKey?.trim();
+  useEffect(() => {
+    let cancelled = false;
+    setCatalog(null);
+    if (!ccKey) return;
+    void (async () => {
+      try {
+        const res = await fetch('https://api.commandcode.ai/provider/v1/models', { headers: { authorization: `Bearer ${ccKey}` } });
+        if (!res.ok) return;
+        const body: unknown = await res.json();
+        const list = Array.isArray((body as { data?: unknown[] })?.data) ? (body as { data: unknown[] }).data : [];
+        const ids = list
+          .map(m => (typeof (m as { id?: unknown })?.id === 'string' ? (m as { id: string }).id : null))
+          .filter((x): x is string => Boolean(x));
+        if (!cancelled && ids.length) setCatalog(ids);
+      } catch { /* plain text fields stay */ }
+    })();
+    return () => { cancelled = true; };
+  }, [ccKey]);
+  const savedSearchModel = p.settings.commandCodeSearchModel ?? DEFAULT_COMMAND_CODE_SEARCH_MODEL;
+  const searchModelMissing = catalog !== null && !catalog.includes(savedSearchModel);
+  const closestModel = catalog?.find(id => id.toLowerCase().startsWith('openai/')) ?? catalog?.[0] ?? '';
+  const lastSearch = readLastSearch();
 
   /** Waits for the write; false when this phone could not save it. */
   async function confirmed(result: void | Promise<unknown>): Promise<boolean> {
@@ -310,6 +339,7 @@ export function SettingsScreen(p: SettingsProps) {
                 className="input"
                 type="text"
                 aria-label="Command Code model"
+                list="cc-models"
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck={false}
@@ -325,6 +355,7 @@ export function SettingsScreen(p: SettingsProps) {
                 className="input"
                 type="text"
                 aria-label="Command Code search model"
+                list="cc-models"
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck={false}
@@ -334,7 +365,25 @@ export function SettingsScreen(p: SettingsProps) {
               />
               <button type="button" className="button-tint" onClick={saveCcSearchModel}>Use for search</button>
             </div>
-            <p className="settings__hint">Searching uses {p.settings.commandCodeSearchModel ?? DEFAULT_COMMAND_CODE_SEARCH_MODEL}. Most models ignore the search tool; OpenAI ones honour it. If it cannot, Google Gemini is used below.</p>
+            <p className="settings__hint">Searching uses {savedSearchModel}. Most models ignore the search tool; OpenAI ones honour it. If it cannot, another OpenAI model, then Google Gemini, get a turn.</p>
+            <datalist id="cc-models">{(catalog ?? []).map(id => <option key={id} value={id} />)}</datalist>
+            {searchModelMissing && (
+              <p className="settings__note" role="status">
+                {savedSearchModel} is not in your model list.
+                {closestModel && (
+                  <button type="button" className="button-tint" onClick={() => { p.onChange({ commandCodeSearchModel: closestModel }); setCcSearchText(closestModel); }}>
+                    Use {closestModel} instead
+                  </button>
+                )}
+              </p>
+            )}
+            {lastSearch && (
+              <p className="settings__hint">
+                Last search: {lastSearchWhen(lastSearch, p.settings.timeZone)} · {lastSearch.ok
+                  ? `${lastSearch.via ?? 'search'} — ${lastSearch.pages ?? 0} ${lastSearch.pages === 1 ? 'page' : 'pages'} found`
+                  : lastSearch.message ?? 'it did not work'}
+              </p>
+            )}
             {ccKeyNote && <p className="settings__note" role="status">{ccKeyNote}</p>}
             <div className="settings__buttons">
               <button type="button" className="button-tint" disabled={ccTesting || !hasCcKey} onClick={() => void runCcTest()}>{ccTesting ? 'Testing...' : 'Test my key'}</button>

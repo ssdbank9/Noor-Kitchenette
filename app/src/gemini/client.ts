@@ -31,6 +31,8 @@ export interface GenerateResult {
   /** Pages the model actually found while searching. Use these to check any URL it mentions. */
   sources: { uri: string; title: string }[];
   queries: string[];
+  /** Which engine and model answered, e.g. "Command Code · openai/gpt-6-luna". Shown to Noor. */
+  via?: string;
 }
 
 export interface GeminiClient {
@@ -194,7 +196,7 @@ export function createGeminiClient(options: ClientOptions): GeminiClient {
       const queries = Array.isArray(grounding?.webSearchQueries)
         ? (grounding.webSearchQueries as unknown[]).filter((q: unknown): q is string => typeof q === 'string')
         : [];
-      return { text, json, sources, queries };
+      return { text, json, sources, queries, via: 'Google Gemini' };
     },
   };
 }

@@ -15,6 +15,8 @@ import type { GeminiClient } from '../gemini/client';
 export const DEFAULT_COMMAND_CODE_MODEL = 'Qwen/Qwen3.8-Omni-Flash';
 /** A cheap OpenAI model that honours the built-in web_search tool (DeepSeek ignores it). */
 export const DEFAULT_COMMAND_CODE_SEARCH_MODEL = 'openai/gpt-6-luna';
+/** Second try in the search chain, if the first model cannot search. */
+export const COMMAND_CODE_SEARCH_BACKUP_MODEL = 'openai/gpt-5.6-luna';
 const ENDPOINT = 'https://api.commandcode.ai/provider/v1/chat/completions';
 const RESPONSES_ENDPOINT = 'https://api.commandcode.ai/provider/v1/responses';
 /** JSON mode must also be told in words. */
@@ -158,7 +160,7 @@ export function createCommandCodeClient(options: CommandCodeOptions): GeminiClie
         }
         const answer = texts.join('').trim();
         if (!answer && sources.length === 0) throw badEnvelope();
-        return { text: answer, sources, queries: [] };
+        return { text: answer, sources, queries: [], via: `Command Code · ${options.searchModel?.trim() || model}` };
       }
 
       const content: Record<string, unknown>[] = [];
@@ -218,7 +220,7 @@ export function createCommandCodeClient(options: CommandCodeOptions): GeminiClie
           throw new GeminiError('bad-response', 'The scanner did not give readable JSON. Try again.', true);
         }
       }
-      return { text, json, sources: [], queries: [] };
+      return { text, json, sources: [], queries: [], via: `Command Code · ${model}` };
     },
   };
 }

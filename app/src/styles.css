@@ -768,6 +768,7 @@ button.button-primary.snapbig { background: var(--glass-rust); }
   background: var(--rust-tint); color: var(--rust-text);
 }
 .adddish__problem-text { margin: 0; font-weight: 800; }
+.adddish__meta { margin: 0 0 10px; color: var(--muted); font-size: 13px; font-weight: 700; }
 .adddish__problem .adddish__hint { color: var(--rust-text); }
 
 .adddish__cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
