@@ -109,6 +109,19 @@ describe('Command Code client', () => {
     expect(await code(empty.client.generate({ ...req, search: true }))).toBe('bad-response');
   });
 
+  it('also reads citations listed at the top level and plain text parts', async () => {
+    const { client } = setup([ok({
+      output: [{ type: 'message', content: [{ type: 'text', text: 'Pages found.' }] }],
+      citations: ['https://a.example/r', { url: 'https://b.example/r', title: 'B Recipe' }],
+    })]);
+    const r = await client.generate({ ...req, search: true });
+    expect(r.text).toBe('Pages found.');
+    expect(r.sources).toEqual([
+      { uri: 'https://a.example/r', title: 'https://a.example/r' },
+      { uri: 'https://b.example/r', title: 'B Recipe' },
+    ]);
+  });
+
   it('maps errors like the Gemini client: no key, bad key, rate limit, busy-then-ok', async () => {
     expect(await code(setup([], { key: '' }).client.generate(req))).toBe('no-key');
     expect(await code(setup([ok({ error: { message: 'nope' } }, 401)]).client.generate(req))).toBe('bad-key');

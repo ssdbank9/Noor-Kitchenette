@@ -132,20 +132,29 @@ export function createCommandCodeClient(options: CommandCodeOptions): GeminiClie
         const output = Array.isArray(data.output) ? data.output : [];
         const texts: string[] = [];
         const sources: { uri: string; title: string }[] = [];
+        const addSource = (uri: unknown, title: unknown) => {
+          if (typeof uri !== 'string' || !/^https?:\/\//i.test(uri)) return;
+          const name = typeof title === 'string' && title.trim() ? title : uri;
+          if (!sources.some(s => s.uri === uri)) sources.push({ uri, title: name });
+        };
         for (const item of output) {
           if (!isObject(item)) continue;
           const parts = Array.isArray(item.content) ? item.content : [];
           for (const part of parts) {
             if (!isObject(part)) continue;
-            if (part.type === 'output_text' && typeof part.text === 'string') texts.push(part.text);
+            if (typeof part.text === 'string' && part.type !== 'refusal') texts.push(part.text);
             const annotations = Array.isArray(part.annotations) ? part.annotations : [];
             for (const a of annotations) {
-              if (!isObject(a) || a.type !== 'url_citation') continue;
-              const uri = typeof a.url === 'string' ? a.url : '';
-              const title = typeof a.title === 'string' ? a.title : uri;
-              if (uri && !sources.some(s => s.uri === uri)) sources.push({ uri, title });
+              if (!isObject(a)) continue;
+              // OpenAI calls these url_citation; other OpenAI-compatible gateways vary.
+              addSource(a.url, a.title ?? a.url);
             }
           }
+        }
+        // Some compatible gateways list the pages at the top level instead.
+        for (const c of Array.isArray(data.citations) ? data.citations : []) {
+          if (typeof c === 'string') addSource(c, c);
+          else if (isObject(c)) addSource(c.url, c.title ?? c.url);
         }
         const answer = texts.join('').trim();
         if (!answer && sources.length === 0) throw badEnvelope();
