@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-05",
+  "purpose": "Full regression, analysis and test of the app after the review-fixes work (plain words, recipe steps, Claude provider, Command Code search, picked date ranges, stores, home area, refreshed foodpanda list).",
+  "code": {
+    "branch": "claude/review-fixes",
+    "main": "127d0df",
+    "typecheck": "tsc --noEmit: clean",
+    "logic": { "files": 54, "tests": 771, "failed": 0 },
+    "browser": { "tests": 125, "failed": 0, "config": "Chrome 390x844, Asia/Karachi, build + vite preview" }
+  },
+  "live": {
+    "url": "https://nooris-kitchenette.netlify.app",
+    "bundle": "index-pFYgRIFC.js",
+    "bundleMarkers": ["provider/v1/responses", "web_search", "openai/gpt-6-luna", "Test search", "No Command Code key saved yet", "Pick dates", "HBK Hypermarket", "I-8/3, Islamabad", "My favourites"],
+    "eatoutList": {
+      "generatedAt": "2026-11-05T05:42:43.659Z",
+      "moods": 12,
+      "places": 65,
+      "emptyMoods": ["Chinese", "Korean wings"],
+      "note": "Empty moods are data availability (one Chinese vendor under the 100-review floor; no Korean/wing match), not a fetch failure. My favourites carries Workaholic, Chop Chips, Wild Wings, OPTP (name-only; foodpanda does not return them for this address) and OD - I8 Markaz (real link)."
+    },
+    "commandCodeEndpoint": {
+      "responses": "POST with a fake key returned HTTP 401 (endpoint reachable)",
+      "cors": "OPTIONS preflight from the app origin: Access-Control-Allow-Origin *, Authorization and Content-Type allowed"
+    },
+    "deployedProbe": "With a fake Command Code key on the deployed site: Save key reported 'Command Code key saved on this phone.' and Test search reported 'Command Code did not accept the key. Check it in Settings.' — the search path uses Command Code when a key is saved and never touches Gemini."
+  },
+  "verified": [
+    "Typecheck clean.",
+    "771/771 logic tests, including the Claude client, Command Code search (Responses + web_search + citations), publishScript privacy guards, rangeDates custom, stores defaults.",
+    "125/125 browser tests: shell, plan, pantry, snacks, shop, recipes, cooked, snap photo review (18), add-dish including Command Code key acceptance and search mock, settings including key-survives-reload and Test-search, eat-out, eat-distance including the I-8/3 preset, stores, history custom range, backup/restore, adversarial and verification suites.",
+    "Deployed bundle contains every change; the live restaurant list is today's.",
+    "Command Code endpoint reachability and CORS verified with a fake key; no real key is stored outside Aly's devices."
+  ],
+  "notVerified": [
+    "No live model call was made from the development machine (keys live only on Aly's devices). Aly reported the app working on his side on 2026-11-05; a live photo read and a live search with his keys were exercised by him, not recorded here.",
+    "Real-phone behaviour (camera, install, storage eviction) not re-tested today.",
+    "Store search links (Al-Fatah answered 200 from this machine; Carrefour timed out and stays flagged Unconfirmed) and foodpanda handoffs on a real phone remain unverified."
+  ],
+  "knownCaveats": [
+    "The Gemini API key's own free-tier quota is separate from any consumer Gemini subscription; the app treats Gemini only as the search fallback now.",
+    "The foodpanda restaurant list is a snapshot; refresh weekly (next by 2026-12-05) or the app flags it old.",
+    "Chinese and Korean wings moods fall back to favourites and Search foodpanda until vendors appear."
+  ]
+}
